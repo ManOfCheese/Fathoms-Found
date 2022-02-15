@@ -6,23 +6,24 @@ using UnityEngine.UI;
 
 public class NPC : MonoBehaviour {
 
+    public int interactionDistance;
     public GameObject player;
     public Image image;
     public NavMeshAgent agent;
     public List<Sprite> emojis;
     public List<ActionSequence> emojiReactions;
-    public List<PickUpObject> objects;
-    public List<ActionSequence> objectReactions;
+    public List<ObjectType> objects;
+    public ActionSequence idleSeq;
+    public ActionSequence alertSeq;
+    public List<ActionSequence> objectPickUpReactions;
+    public List<ActionSequence> objectUseEnvReactions;
+    public List<ActionSequence> objectUseNPCReactions;
 
-    private Dictionary<PickUpObject, ActionSequence> actionsByObject;
     private List<Action> currentActions; 
 
 	private void Awake() {
-        actionsByObject = new Dictionary<PickUpObject, ActionSequence>();
-		for ( int i = 0; i < objects.Count; i++ ) {
-            actionsByObject.Add( objects[ i ], objectReactions[ i ] );
-		}
-	}
+        Idle();
+    }
 
 	private void Update() {
         if ( currentActions != null ) {
@@ -30,6 +31,14 @@ public class NPC : MonoBehaviour {
                 currentActions[ i ].ExecuteAction( this );
             }
         }
+	}
+
+    public void Idle() {
+        currentActions = idleSeq.actions;
+	}
+
+    public void Alert() {
+        currentActions = alertSeq.actions;
 	}
 
 	public void OnLookAtNPC() {
@@ -41,21 +50,38 @@ public class NPC : MonoBehaviour {
         transform.LookAt( transform.forward );
 	}
 
-    public void OnPickUpObject( PickUpObject obj ) {
+    public void OnPickUpObject( ObjectType obj ) {
 		for ( int i = 0; i < objects.Count; i++ ) {
             if ( objects[ i ] == obj ) {
-                currentActions = objectReactions[ i ].actions;
+                currentActions = objectPickUpReactions[ i ].actions;
 			}
 		}
 	}
 
-    public void OnDropUpObject( PickUpObject obj ) {
+    public void OnDropObject( ObjectType obj ) {
         for ( int i = 0; i < objects.Count; i++ ) {
             if ( objects[ i ] == obj ) {
-                if ( currentActions == objectReactions[ i ].actions ) {
-                    currentActions = null;
-                    image.sprite = null;
+                if ( currentActions == objectPickUpReactions[ i ].actions ) {
+                    currentActions = alertSeq.actions;
+                    agent.destination = transform.position;
 				}
+            }
+        }
+    }
+
+    public void OnUseObject( ObjectType obj ) {
+        if ( Vector3.Distance( transform.position, player.transform.position ) <= interactionDistance ) {
+            for ( int i = 0; i < objects.Count; i++ ) {
+                if ( objects[ i ] == obj ) {
+                    currentActions = objectUseNPCReactions[ i ].actions;
+                }
+            }
+        }
+        else {
+            for ( int i = 0; i < objects.Count; i++ ) {
+                if ( objects[ i ] == obj ) {
+                    currentActions = objectUseEnvReactions[ i ].actions;
+                }
             }
         }
     }
