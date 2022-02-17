@@ -9,24 +9,23 @@ public class ItemGrabber : MonoBehaviour {
     public Vector3 dropPosition;
     public LayerMask pickUpMask;
     public LayerMask dropMask;
-    public Animator anim;
     public Transform handPosition;
     public PickUpObject pickUpObject;
     public PickUpObject objectInHand;
     public GameObject cam;
     public GameObject pickUpPrompt;
+    public GameObject interactPrompt;
+    public Vector3 interactableItemposition;
     public GameObject dropPrompt;
-    public GameObject usePrompt;
     public List<NPC> NPCsInRange;
 
     public delegate void EmptyVoidAction();
     public static event EmptyVoidAction LookAtNPC;
     public static event EmptyVoidAction LookAway;
 
-    public delegate void ObjectAction( ObjectType obj );
+    public delegate void ObjectAction( PickUpObject obj );
     public static event ObjectAction PickUpObject;
     public static event ObjectAction DropObject;
-    public static event ObjectAction UseObject;
 
     public delegate void IntAction( Sprite sprite );
     public static event IntAction Communicate;
@@ -57,8 +56,6 @@ public class ItemGrabber : MonoBehaviour {
 
         //Pick up
         if ( objectInHand == null ) {
-            usePrompt.SetActive( false );
-
             if ( !pickUpPrompt.activeSelf && 
                 Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, pickUpRange, pickUpMask ) ) {
                 pickUpPrompt.gameObject.SetActive( true );
@@ -72,14 +69,13 @@ public class ItemGrabber : MonoBehaviour {
 
             if ( pickUpPrompt.activeSelf ) {
                 if ( Input.GetKeyDown( KeyCode.E ) ) {
-                    pickUpObject.transform.parent = handPosition.transform;
+                    pickUpObject.transform.parent = this.transform;
                     pickUpObject.transform.localPosition = handPosition.localPosition;
-                    pickUpObject.transform.rotation = Quaternion.Euler( Vector3.zero );
                     pickUpObject.GetComponent<Rigidbody>().isKinematic = true;
                     objectInHand = pickUpObject;
                     pickUpObject = null;
                     pickUpPrompt.SetActive( false );
-                    PickUpObject?.Invoke( objectInHand.objectType );
+                    PickUpObject?.Invoke( objectInHand );
                 }
             }
         }
@@ -87,7 +83,6 @@ public class ItemGrabber : MonoBehaviour {
             if ( !dropPrompt.activeSelf && 
                 Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, dropRange, dropMask ) ) {
                 dropPrompt.gameObject.SetActive( true );
-                usePrompt.SetActive( false );
                 dropPosition = hit.point;
             }
             else if ( dropPrompt.activeSelf && 
@@ -101,20 +96,21 @@ public class ItemGrabber : MonoBehaviour {
                     objectInHand.transform.parent = null;
                     objectInHand.transform.localPosition = dropPosition + new Vector3( 0, objectInHand.transform.localScale.y, 0 );
                     objectInHand.GetComponent<Rigidbody>().isKinematic = false;
-                    DropObject?.Invoke( objectInHand.objectType );
+                    DropObject?.Invoke( objectInHand );
                     objectInHand = null;
                     dropPrompt.SetActive( false );
                 }
             }
-            else {
-                usePrompt.SetActive( true );
-
-                if ( Input.GetKeyDown( KeyCode.E ) ) {
-                    anim.SetTrigger( "UseObject" );
-                    UseObject?.Invoke( objectInHand.objectType );
+            if (interactPrompt.activeSelf) {
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    objectInHand.transform.parent = null;
+                    objectInHand.transform.localPosition = interactableItemposition;
+                    objectInHand = null;
                 }
             }
+            
         }
+
     }
 
 	private void OnTriggerEnter( Collider other ) {
@@ -122,30 +118,20 @@ public class ItemGrabber : MonoBehaviour {
             NPC npc = other.GetComponent<NPC>();
             LookAtNPC += npc.OnLookAtNPC;
             LookAway += npc.OnLookAway;
-            DropObject += npc.OnDropObject;
+            DropObject += npc.OnDropUpObject;
             PickUpObject += npc.OnPickUpObject;
-            UseObject += npc.OnUseObject;
             NPCsInRange.Add( npc );
-            if ( objectInHand != null ) {
-                PickUpObject?.Invoke( objectInHand.objectType );
-            }
-			else {
-                npc.Alert();
-            }
 		}
 	}
 
 	private void OnTriggerExit( Collider other ) {
         if ( other.GetComponent<NPC>() ) {
             NPC npc = other.GetComponent<NPC>();
-            DropObject?.Invoke( objectInHand.objectType );
             LookAtNPC -= npc.OnLookAtNPC;
             LookAway -= npc.OnLookAway;
-            DropObject -= npc.OnDropObject;
+            DropObject -= npc.OnDropUpObject;
             PickUpObject -= npc.OnPickUpObject;
-            UseObject -= npc.OnUseObject;
             NPCsInRange.Remove( npc );
-            npc.Idle();
         }
     }
 }

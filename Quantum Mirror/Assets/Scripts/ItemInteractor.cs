@@ -10,6 +10,7 @@ public class ItemInteractor : MonoBehaviour
     public InteractObject interactObject;
     public LayerMask interactMask;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,21 +18,20 @@ public class ItemInteractor : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Debug.DrawRay(cam.transform.position, cam.transform.forward * interactRange, Color.red, 0);
 
+        RaycastHit hit;    
 
-        RaycastHit hit;
-        if (!interactPrompt.activeSelf &&
-               Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask))
+        if (!interactPrompt.activeSelf && Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask))
         {
             interactPrompt.gameObject.SetActive(true);
+            Debug.DrawRay( cam.transform.position, cam.transform.forward * interactRange, Color.yellow );
             interactObject = hit.transform.GetComponent<InteractObject>();
         }
-        else if (interactPrompt.activeSelf &&
-            !Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask))
+        else if (interactPrompt.activeSelf && !Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask))
         {
+            Debug.DrawRay( cam.transform.position, cam.transform.forward * interactRange, Color.white );
             interactPrompt.gameObject.SetActive(false);
             interactObject = null;
         }
@@ -40,7 +40,8 @@ public class ItemInteractor : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                interactPrompt.SetActive(false);
+                Debug.DrawRay( cam.transform.position, cam.transform.forward * interactRange, Color.white );
+                interactObject.ActivateObject();
             }
         }
     }
