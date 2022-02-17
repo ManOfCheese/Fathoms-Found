@@ -33,7 +33,7 @@ public class InteractObject : MonoBehaviour
         }
     }
     public void OnCollisionEnter(Collision collision){
-        if (collision.gameObject.name == "ReddoMode"){
+        if (collision.gameObject.name == "gem_05"){
             isInOven = true;
             ovenObj = collision.gameObject;
         }

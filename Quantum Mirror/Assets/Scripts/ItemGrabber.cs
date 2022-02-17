@@ -7,6 +7,7 @@ public class ItemGrabber : MonoBehaviour {
     public int pickUpRange;
     public int dropRange;
     public Vector3 dropPosition;
+    public Vector3 interactableItemPosition;
     public LayerMask pickUpMask;
     public LayerMask dropMask;
     public Animator anim;
@@ -118,7 +119,7 @@ public class ItemGrabber : MonoBehaviour {
             if (interactPrompt.activeSelf) {
                 if (Input.GetKeyDown(KeyCode.E)) {
                     objectInHand.transform.parent = null;
-                    objectInHand.transform.localPosition = interactableItemposition;
+                    objectInHand.transform.localPosition = interactableItemPosition;
                     objectInHand = null;
                 }
             }
