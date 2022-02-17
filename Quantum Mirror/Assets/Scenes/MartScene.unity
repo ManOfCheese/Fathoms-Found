@@ -1312,7 +1312,7 @@ GameObject:
   - component: {fileID: 493602744}
   - component: {fileID: 493602743}
   m_Layer: 6
-  m_Name: ReddoMode
+  m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1963,7 +1963,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1282427402}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2131,8 +2131,8 @@ RectTransform:
   m_Children:
   - {fileID: 1052721923}
   - {fileID: 1906547537}
-  - {fileID: 2126676997}
   - {fileID: 1087636570}
+  - {fileID: 2126676997}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2444,10 +2444,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 839295675, guid: 7a97e03e3e08d3b45b19aa4e8525892a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.013
-      objectReference: {fileID: 0}
     - target: {fileID: 1062391547, guid: 7a97e03e3e08d3b45b19aa4e8525892a, type: 3}
       propertyPath: dropPrompt
       value: 
@@ -2456,22 +2452,6 @@ PrefabInstance:
       propertyPath: pickUpPrompt
       value: 
       objectReference: {fileID: 1052721922}
-    - target: {fileID: 1062391547, guid: 7a97e03e3e08d3b45b19aa4e8525892a, type: 3}
-      propertyPath: interactPrompt
-      value: 
-      objectReference: {fileID: 2126676996}
-    - target: {fileID: 1062391547, guid: 7a97e03e3e08d3b45b19aa4e8525892a, type: 3}
-      propertyPath: interactableItemposition.x
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062391547, guid: 7a97e03e3e08d3b45b19aa4e8525892a, type: 3}
-      propertyPath: interactableItemposition.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1062391547, guid: 7a97e03e3e08d3b45b19aa4e8525892a, type: 3}
-      propertyPath: interactableItemposition.z
-      value: -9
-      objectReference: {fileID: 0}
     - target: {fileID: 1071088802695015448, guid: 7a97e03e3e08d3b45b19aa4e8525892a,
         type: 3}
       propertyPath: m_Name
@@ -2567,7 +2547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactPrompt: {fileID: 2126676996}
   cam: {fileID: 1794247640}
-  interactRange: 10
+  interactRange: 3
   interactObject: {fileID: 0}
   interactMask:
     serializedVersion: 2
@@ -2933,17 +2913,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 45a5175600b504dc593139419a8bd40a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.5
+      value: 5.51
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45a5175600b504dc593139419a8bd40a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.541
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45a5175600b504dc593139419a8bd40a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9
+      value: -9.39
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 45a5175600b504dc593139419a8bd40a,
         type: 3}
@@ -3183,8 +3163,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.4, y: 2.4, z: 2.4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.02, y: 0.019999996, z: 0.020157002}
+  m_Center: {x: 1.1155952e-18, y: 0, z: 0.00007850303}
 --- !u!95 &2099876933
 Animator:
   serializedVersion: 3
@@ -3218,8 +3198,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInteractable: 0
   animator: {fileID: 2099876933}
-  ovenObj: {fileID: 0}
-  isInOven: 0
 --- !u!54 &2099876938
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3234,7 +3212,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &2126676996
 GameObject:
@@ -3266,7 +3244,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1282427402}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
