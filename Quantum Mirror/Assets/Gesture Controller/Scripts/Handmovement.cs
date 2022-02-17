@@ -13,6 +13,10 @@ public class Handmovement : MonoBehaviour
     public GameObject idle;
     public GameObject handmodel;
 
+    public GameObject light0;
+    public GameObject light1;
+    public GameObject light2;
+
     public GameObject[] Digits;
     public GameObject[] ClosedDigits;
 
@@ -25,7 +29,7 @@ public class Handmovement : MonoBehaviour
 
     private int i = 0;
 
-    
+    public int fingermode = 0;
 
     private void Start()
     {
@@ -106,75 +110,127 @@ public class Handmovement : MonoBehaviour
             }
         }
 
+        //switch modes
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            if (fingermode < 2)
+            {
+                fingermode += 1;
+            }
+            else
+            {
+                fingermode = 0;
+            }
+        }
+
         //use scrollwheel to close hand (mode 1)
 
+        if (fingermode == 0)
+        {
+            light0.SetActive(true);
+            light1.SetActive(false);
+            light2.SetActive(false);
 
-        /* if (Input.mouseScrollDelta.y < 0 && i <= 5)
-         { 
-             Debug.Log (i);
-             Digits[i].SetActive(false);
-             ClosedDigits[i].SetActive(true);
-             i += 1;
-         }
-
-         if (Input.mouseScrollDelta.y > 0 && i > 0)
-         {
-             Debug.Log (i);
-             Digits[i].SetActive(true);
-             ClosedDigits[i].SetActive(false);
-             i -= 1;
-         } */
-
-         if (Input.mouseScrollDelta.y < 0 && i <= 5)
-        { 
-            Debug.Log (i);
-            foreach (GameObject digit in Digits)
+            if (Input.mouseScrollDelta.y < 0 && i <= 5)
             {
-                digit.SetActive(true);
-            }
-            foreach (GameObject digit in ClosedDigits)
-            {
-                digit.SetActive(false);
+                Debug.Log(i);
+                Digits[i].SetActive(false);
+                ClosedDigits[i].SetActive(true);
+                i += 1;
             }
 
-            Digits[i].SetActive(false);
-            ClosedDigits[i].SetActive(true);
-            i += 1;
+            if (Input.mouseScrollDelta.y > 0 && i > 0)
+            {
+                Debug.Log(i);
+                Digits[i].SetActive(true);
+                ClosedDigits[i].SetActive(false);
+                i -= 1;
+            }
         }
 
-        if (Input.mouseScrollDelta.y > 0 && i > 0)
+        if (fingermode == 1)
         {
-            Debug.Log(i);
-            foreach (GameObject digit in Digits)
-            {
-                digit.SetActive(true);
-            }
-            foreach (GameObject digit in ClosedDigits)
-            {
-                digit.SetActive(false);
-            }
+            light0.SetActive(false);
+            light1.SetActive(true);
+            light2.SetActive(false);
 
-            Digits[i].SetActive(false);
-            ClosedDigits[i].SetActive(true);
-            i -= 1;
+            if (Input.mouseScrollDelta.y < 0 && i <= 5)
+                {
+                    Debug.Log(i);
+                    foreach (GameObject digit in Digits)
+                    {
+                        digit.SetActive(true);
+                    }
+                    foreach (GameObject digit in ClosedDigits)
+                    {
+                        digit.SetActive(false);
+                    }
+
+                    Digits[i].SetActive(false);
+                    ClosedDigits[i].SetActive(true);
+                    i += 1;
+             }
+
+            if (Input.mouseScrollDelta.y > 0 && i > 0)
+            {
+                Debug.Log(i);
+                foreach (GameObject digit in Digits)
+                {
+                    digit.SetActive(true);
+                }
+                foreach (GameObject digit in ClosedDigits)
+                {
+                    digit.SetActive(false);
+                }
+
+                Digits[i].SetActive(false);
+                ClosedDigits[i].SetActive(true);
+                i -= 1;
+            }
         }
 
-        /*if (Input.mouseScrollDelta.y > 0 && i > 0)
+    if (fingermode == 2)
         {
-            Debug.Log(i);
-            foreach (GameObject digit in Digits)
-            {
-                digit.SetActive(false);
-            }
-            foreach (GameObject digit in ClosedDigits)
-            {
-                digit.SetActive(true);
-            }
+            light0.SetActive(false);
+            light1.SetActive(false);
+            light2.SetActive(true);
 
-            Digits[i].SetActive(true);
-            ClosedDigits[i].SetActive(false);
-            i += 1;
-        }*/
+            if (Input.mouseScrollDelta.y< 0 && i <= 5)
+                {
+                    Debug.Log(i);
+                    foreach (GameObject digit in Digits)
+                    {
+                        digit.SetActive(false);
+                    }
+                    foreach (GameObject digit in ClosedDigits)
+                    {
+                        digit.SetActive(true);
+                    }
 
+                    Digits[i].SetActive(true);
+                    ClosedDigits[i].SetActive(false);
+                    i += 1;
+             }
+
+            if (Input.mouseScrollDelta.y > 0 && i > 0)
+            {
+                Debug.Log(i);
+                foreach (GameObject digit in Digits)
+                {
+                    digit.SetActive(false);
+                }
+                foreach (GameObject digit in ClosedDigits)
+                {
+                    digit.SetActive(true);
+                }
+
+                Digits[i].SetActive(true);
+                ClosedDigits[i].SetActive(false);
+                i -= 1;
+            }
+        }
     }
+
 }
+
