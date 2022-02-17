@@ -212,7 +212,7 @@ PrefabInstance:
     - target: {fileID: 3037997910569758270, guid: a1f90feab28a0ad4eaff8376a3a38f22,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3037997910569792030, guid: a1f90feab28a0ad4eaff8376a3a38f22,
         type: 3}
@@ -572,6 +572,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1769638534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5763015414860687201, guid: d0abb5ba476441e488932147a992187f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5763015413078476504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5763015413078476504
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -579,6 +585,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 39102281, guid: d0abb5ba476441e488932147a992187f, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5763015414024347643, guid: d0abb5ba476441e488932147a992187f,
         type: 3}
       propertyPath: XSensitivity
@@ -591,6 +601,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5763015414024347643, guid: d0abb5ba476441e488932147a992187f,
         type: 3}
+      propertyPath: FPSController
+      value: 
+      objectReference: {fileID: 1769638534}
+    - target: {fileID: 5763015414024347643, guid: d0abb5ba476441e488932147a992187f,
+        type: 3}
       propertyPath: lookX.XSensitivity
       value: 0
       objectReference: {fileID: 0}
@@ -598,6 +613,16 @@ PrefabInstance:
         type: 3}
       propertyPath: lookX.YSensitivity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763015414853620353, guid: d0abb5ba476441e488932147a992187f,
+        type: 3}
+      propertyPath: m_RunSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5763015414853620353, guid: d0abb5ba476441e488932147a992187f,
+        type: 3}
+      propertyPath: m_WalkSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5763015414858655041, guid: d0abb5ba476441e488932147a992187f,
         type: 3}
@@ -662,7 +687,7 @@ PrefabInstance:
     - target: {fileID: 5763015414860687201, guid: d0abb5ba476441e488932147a992187f,
         type: 3}
       propertyPath: m_Name
-      value: FPSController
+      value: PlayerController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0abb5ba476441e488932147a992187f, type: 3}

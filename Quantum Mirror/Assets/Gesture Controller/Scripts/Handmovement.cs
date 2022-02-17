@@ -16,7 +16,7 @@ public class Handmovement : MonoBehaviour
     public GameObject[] Digits;
     public GameObject[] ClosedDigits;
 
-    public GameObject FPScontroller;
+    public GameObject FPSController;
 
     public bool gestureMode;
 
@@ -25,11 +25,13 @@ public class Handmovement : MonoBehaviour
 
     private int i = 0;
 
+    
 
     private void Start()
     {
-        lookX = FPScontroller.GetComponent<FirstPersonController>().m_MouseLook;
+        lookX = FPSController.GetComponent<FirstPersonController>().m_MouseLook;
     }
+    
 
     void Update()
     {
