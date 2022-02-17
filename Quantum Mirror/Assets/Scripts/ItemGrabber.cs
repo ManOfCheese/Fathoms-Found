@@ -16,6 +16,7 @@ public class ItemGrabber : MonoBehaviour {
     public GameObject cam;
     public GameObject pickUpPrompt;
     public GameObject dropPrompt;
+    public GameObject interactPrompt;
     public GameObject usePrompt;
     public List<NPC> NPCsInRange;
 
@@ -112,6 +113,13 @@ public class ItemGrabber : MonoBehaviour {
                 if ( Input.GetKeyDown( KeyCode.E ) ) {
                     anim.SetTrigger( "UseObject" );
                     UseObject?.Invoke( objectInHand.objectType );
+                }
+            }
+            if (interactPrompt.activeSelf) {
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    objectInHand.transform.parent = null;
+                    objectInHand.transform.localPosition = interactableItemposition;
+                    objectInHand = null;
                 }
             }
         }
