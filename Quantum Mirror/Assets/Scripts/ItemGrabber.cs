@@ -14,6 +14,8 @@ public class ItemGrabber : MonoBehaviour {
     public PickUpObject objectInHand;
     public GameObject cam;
     public GameObject pickUpPrompt;
+    public GameObject interactPrompt;
+    public Vector3 interactableItemposition;
     public GameObject dropPrompt;
     public List<NPC> NPCsInRange;
 
@@ -99,7 +101,16 @@ public class ItemGrabber : MonoBehaviour {
                     dropPrompt.SetActive( false );
                 }
             }
+            if (interactPrompt.activeSelf) {
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    objectInHand.transform.parent = null;
+                    objectInHand.transform.localPosition = interactableItemposition;
+                    objectInHand = null;
+                }
+            }
+            
         }
+
     }
 
 	private void OnTriggerEnter( Collider other ) {
