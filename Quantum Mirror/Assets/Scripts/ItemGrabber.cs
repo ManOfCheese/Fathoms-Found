@@ -33,6 +33,10 @@ public class ItemGrabber : MonoBehaviour {
     public delegate void IntAction( Sprite sprite );
     public static event IntAction Communicate;
 
+    public int interactRange;
+    public InteractObject interactObject;
+    public LayerMask interactMask;
+
     private bool looking;
 
     // Start is called before the first frame update
@@ -85,8 +89,18 @@ public class ItemGrabber : MonoBehaviour {
                 }
             }
         }
-		else {
-            if ( !dropPrompt.activeSelf && 
+        else {
+            if ( !interactPrompt.activeSelf && Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) ) {
+                interactPrompt.gameObject.SetActive( true );
+                usePrompt.SetActive( false );
+                interactObject = hit.transform.GetComponent<InteractObject>();
+            }
+            else if ( interactPrompt.activeSelf && !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) ) {
+                interactPrompt.gameObject.SetActive( false );
+                interactObject = null;
+            }
+            
+            if ( !interactPrompt.activeSelf && !dropPrompt.activeSelf && 
                 Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, dropRange, dropMask ) ) {
                 dropPrompt.gameObject.SetActive( true );
                 usePrompt.SetActive( false );
@@ -98,7 +112,17 @@ public class ItemGrabber : MonoBehaviour {
                 dropPosition = Vector3.zero;
             }
 
-            if ( dropPrompt.activeSelf ) {
+            if ( interactPrompt.activeSelf ) {
+                if ( Input.GetKeyDown( KeyCode.E ) ) {
+                    objectInHand.transform.parent = null;
+                    objectInHand.transform.localPosition = interactableItemPosition;
+                    DropObject?.Invoke( objectInHand.objectType );
+                    interactPrompt.gameObject.SetActive( false );
+                    interactObject = null;
+                    objectInHand = null;
+                }
+            }
+            else if ( dropPrompt.activeSelf ) {
                 if ( Input.GetKeyDown( KeyCode.E ) ) {
                     objectInHand.transform.parent = null;
                     objectInHand.transform.localPosition = dropPosition + new Vector3( 0, objectInHand.transform.localScale.y, 0 );
@@ -114,13 +138,6 @@ public class ItemGrabber : MonoBehaviour {
                 if ( Input.GetKeyDown( KeyCode.E ) ) {
                     anim.SetTrigger( "UseObject" );
                     UseObject?.Invoke( objectInHand.objectType );
-                }
-            }
-            if (interactPrompt.activeSelf) {
-                if (Input.GetKeyDown(KeyCode.E)) {
-                    objectInHand.transform.parent = null;
-                    objectInHand.transform.localPosition = interactableItemPosition;
-                    objectInHand = null;
                 }
             }
         }
@@ -147,7 +164,9 @@ public class ItemGrabber : MonoBehaviour {
 	private void OnTriggerExit( Collider other ) {
         if ( other.GetComponent<NPC>() ) {
             NPC npc = other.GetComponent<NPC>();
-            DropObject?.Invoke( objectInHand.objectType );
+            if ( objectInHand != null ) {
+                DropObject?.Invoke( objectInHand.objectType );
+            }
             LookAtNPC -= npc.OnLookAtNPC;
             LookAway -= npc.OnLookAway;
             DropObject -= npc.OnDropObject;

@@ -15,7 +15,7 @@ public class InteractObject : MonoBehaviour
         if (isInOven){
             t += Time.deltaTime / 5.0f; // Divided by 5 to make it 5 seconds.
             Debug.Log(t);
-            ovenObj.GetComponent<Renderer>().material.color = Color.Lerp(Color.red, Color.cyan, t);
+            ovenObj.GetComponent<Renderer>().material.color = Color.Lerp(Color.cyan, Color.red, t);
         }
     }
     public void ActivateObject()
@@ -33,9 +33,9 @@ public class InteractObject : MonoBehaviour
         }
     }
     public void OnCollisionEnter(Collision collision){
-        if (collision.gameObject.name == "gem_05"){
+        //if (collision.gameObject.name == "gem_05"){
             isInOven = true;
             ovenObj = collision.gameObject;
-        }
+        //}
     }
 }

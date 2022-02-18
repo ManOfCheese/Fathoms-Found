@@ -89,5 +89,4 @@ public class NPC : MonoBehaviour {
     public void OnCommunicate( Sprite sprite ) {
 
 	}
-
 }

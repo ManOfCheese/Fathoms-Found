@@ -23,8 +23,7 @@ public class ItemInteractor : MonoBehaviour
 
         RaycastHit hit;    
 
-        if (!interactPrompt.activeSelf && Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask))
-        {
+        if ( !interactPrompt.activeSelf && Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask)) {
             interactPrompt.gameObject.SetActive(true);
             Debug.DrawRay( cam.transform.position, cam.transform.forward * interactRange, Color.yellow );
             interactObject = hit.transform.GetComponent<InteractObject>();
