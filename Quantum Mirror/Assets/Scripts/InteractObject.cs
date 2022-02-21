@@ -11,29 +11,32 @@ public class InteractObject : MonoBehaviour
     public GameObject ovenObj;
     public bool isInOven = false;
 
-    void Update(){
-        if (isInOven){
+    void Update()
+    {
+        if ( isInOven ) {
             t += Time.deltaTime / 5.0f; // Divided by 5 to make it 5 seconds.
-            Debug.Log(t);
-            ovenObj.GetComponent<Renderer>().material.color = Color.Lerp(Color.cyan, Color.red, t);
+            Debug.Log( t );
+            ovenObj.GetComponent<Renderer>().material.color = Color.Lerp( Color.cyan, Color.red, t );
         }
     }
+
     public void ActivateObject()
     {
-        if (!isInteractable)
+        if ( !isInteractable )
         {
             isInteractable = true;
-            animator.SetBool("isActivated", isInteractable);
+            animator.SetBool( "isActivated", isInteractable );
 
         }
         else if (isInteractable)
         {
             isInteractable = false;
-            animator.SetBool("isActivated", isInteractable);
+            animator.SetBool( "isActivated", isInteractable );
         }
     }
-    public void OnCollisionEnter(Collision collision){
-        //if (collision.gameObject.name == "gem_05"){
+
+    public void OnCollisionEnter( Collision collision ) {
+        //if ( collision.gameObject.name == "gem_05" ){
             isInOven = true;
             ovenObj = collision.gameObject;
         //}

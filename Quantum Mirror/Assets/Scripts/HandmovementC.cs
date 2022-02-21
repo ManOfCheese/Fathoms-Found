@@ -34,74 +34,65 @@ public class HandmovementC : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(1))
+        if ( Input.GetMouseButtonDown( 1 ) )
         {
-            if (!gestureMode)
-            {
+            if ( !gestureMode )
                 gestureMode = true;
-            }
             else
-            {
                 gestureMode = false;
-            }
         }
 
 
-        if (gestureMode == true)
+        if ( gestureMode == true )
         {
             //Hand rotates outward from the gesture circle
-            Vector3 relativepos = handmodel.transform.InverseTransformPoint(center.transform.position);
+            Vector3 relativepos = handmodel.transform.InverseTransformPoint( center.transform.position );
             relativepos.y = 0;
 
-            Vector3 targetPostition = handmodel.transform.TransformPoint(relativepos);
+            Vector3 targetPostition = handmodel.transform.TransformPoint( relativepos );
 
-            handmodel.transform.LookAt(targetPostition, handmodel.transform.up);
+            handmodel.transform.LookAt( targetPostition, handmodel.transform.up );
 
-            circle.SetActive(true);
+            circle.SetActive( true );
             lookX.XSensitivity = 0.1f;
             lookX.YSensitivity = 0.2f;
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
-            float distance = Vector3.Distance(center.transform.position, transform.position);
+            float distance = Vector3.Distance( center.transform.position, transform.position );
 
-            if (distance < 1)
+            if ( distance < 1 )
             {
-                float xMove = Input.GetAxis("HorizontalJ") * XSensitivity;
-                float yMove = Input.GetAxis("VerticalJ") * YSensitivity;
-                gameObject.transform.localPosition = new Vector3(xMove, yMove, 0);
+                float xMove = Input.GetAxis( "HorizontalJ" ) * XSensitivity;
+                float yMove = Input.GetAxis( "VerticalJ" ) * YSensitivity;
+                gameObject.transform.localPosition = new Vector3( xMove, yMove, 0 );
             }
             else
             {
-                gameObject.transform.position = Vector3.MoveTowards(transform.position, center.transform.position, 0.005f);
+                gameObject.transform.position = Vector3.MoveTowards( transform.position, center.transform.position, 0.005f );
             }
 
         }
         else
         {
             gameObject.transform.localPosition = idle.transform.localPosition;
-            circle.SetActive(false);
+            circle.SetActive( false );
 
             lookX.XSensitivity = 2f;
             lookX.YSensitivity = 2f;
-
         }
 
         //Punch your hand forward when holding lmb, back when released
         Vector3 punchdestination = new Vector3(0, 0, 0.08f);
 
-        if (Input.GetMouseButton(0))
+        if ( Input.GetMouseButton( 0 ) )
         {
-            if (gameObject.transform.localPosition.z < 0.4f)
-            {
-                gameObject.transform.Translate(punchdestination);
-            }
+            if ( gameObject.transform.localPosition.z < 0.4f )
+                gameObject.transform.Translate( punchdestination );
         }
         else
         {
-            if (gameObject.transform.localPosition.z >= 0f)
-            {
-                gameObject.transform.Translate(-punchdestination);
-            }
+            if ( gameObject.transform.localPosition.z >= 0f )
+                gameObject.transform.Translate( -punchdestination );
         }
 
         //use scrollwheel to close hand (mode 1)
@@ -123,37 +114,37 @@ public class HandmovementC : MonoBehaviour
              i -= 1;
          } */
 
-         if (Input.GetButtonDown("RTrigger") && i <= 5)
+        if (Input.GetButtonDown( "RTrigger" ) && i <= 5)
         { 
-            Debug.Log (i);
-            foreach (GameObject digit in Digits)
+            Debug.Log( i );
+            foreach ( GameObject digit in Digits )
             {
-                digit.SetActive(true);
+                digit.SetActive( true );
             }
-            foreach (GameObject digit in ClosedDigits)
+            foreach ( GameObject digit in ClosedDigits )
             {
-                digit.SetActive(false);
+                digit.SetActive( false );
             }
 
-            Digits[i].SetActive(false);
-            ClosedDigits[i].SetActive(true);
+            Digits[ i ].SetActive( false );
+            ClosedDigits[ i ].SetActive( true );
             i += 1;
         }
 
-        if (Input.GetButtonDown("LTrigger") && i > 0)
+        if ( Input.GetButtonDown( "LTrigger" ) && i > 0 )
         {
-            Debug.Log(i);
-            foreach (GameObject digit in Digits)
+            Debug.Log( i );
+            foreach ( GameObject digit in Digits )
             {
-                digit.SetActive(true);
+                digit.SetActive( true );
             }
-            foreach (GameObject digit in ClosedDigits)
+            foreach ( GameObject digit in ClosedDigits )
             {
-                digit.SetActive(false);
+                digit.SetActive( false );
             }
 
-            Digits[i].SetActive(false);
-            ClosedDigits[i].SetActive(true);
+            Digits[ i ].SetActive( false );
+            ClosedDigits[ i ].SetActive( true );
             i -= 1;
         }
 

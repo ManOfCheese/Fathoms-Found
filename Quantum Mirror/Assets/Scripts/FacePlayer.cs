@@ -7,7 +7,8 @@ public class FacePlayer : MonoBehaviour {
     public GameObject player;
 
     // Update is called once per frame
-    void Update() {
+    void Update() 
+    {
         transform.LookAt( player.transform.position );
     }
 }

@@ -24,47 +24,62 @@ public class NPC : MonoBehaviour {
 
     private List<Action> currentActions; 
 
-	private void Awake() {
+	private void Awake() 
+    {
         Idle();
     }
 
-	private void Update() {
-        if ( currentActions != null ) {
-            for ( int i = 0; i < currentActions.Count; i++ ) {
+	private void Update() 
+    {
+        if ( currentActions != null ) 
+        {
+            for ( int i = 0; i < currentActions.Count; i++ ) 
+            {
                 currentActions[ i ].ExecuteAction( this );
             }
         }
 	}
 
-    public void Idle() {
+    public void Idle() 
+    {
         currentActions = idleSeq.actions;
 	}
 
-    public void Alert() {
+    public void Alert() 
+    {
         currentActions = alertSeq.actions;
 	}
 
-	public void OnLookAtNPC() {
+	public void OnLookAtNPC() 
+    {
         transform.LookAt( player.transform.position );
         transform.rotation = Quaternion.Euler( new Vector3( 0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z ) );
 	}
 
-    public void OnLookAway() {
+    public void OnLookAway() 
+    {
         transform.LookAt( transform.forward );
 	}
 
-    public void OnPickUpObject( ObjectType obj ) {
-		for ( int i = 0; i < objects.Count; i++ ) {
-            if ( objects[ i ] == obj ) {
+    public void OnPickUpObject( ObjectType obj ) 
+    {
+		for ( int i = 0; i < objects.Count; i++ ) 
+        {
+            if ( objects[ i ] == obj ) 
+            {
                 currentActions = objectPickUpReactions[ i ].actions;
 			}
 		}
 	}
 
-    public void OnDropObject( ObjectType obj ) {
-        for ( int i = 0; i < objects.Count; i++ ) {
-            if ( objects[ i ] == obj ) {
-                if ( currentActions == objectPickUpReactions[ i ].actions ) {
+    public void OnDropObject( ObjectType obj ) 
+    {
+        for ( int i = 0; i < objects.Count; i++ ) 
+        {
+            if ( objects[ i ] == obj ) 
+            {
+                if ( currentActions == objectPickUpReactions[ i ].actions ) 
+                {
                     currentActions = alertSeq.actions;
                     agent.destination = transform.position;
 				}
@@ -72,24 +87,27 @@ public class NPC : MonoBehaviour {
         }
     }
 
-    public void OnUseObject( ObjectType obj ) {
-        if ( Vector3.Distance( transform.position, player.transform.position ) <= interactionDistance ) {
-            for ( int i = 0; i < objects.Count; i++ ) {
-                if ( objects[ i ] == obj ) {
+    public void OnUseObject( ObjectType obj ) 
+    {
+        if ( Vector3.Distance( transform.position, player.transform.position ) <= interactionDistance ) 
+        {
+            for ( int i = 0; i < objects.Count; i++ ) 
+            {
+                if ( objects[ i ] == obj )
                     currentActions = objectUseNPCReactions[ i ].actions;
-                }
             }
         }
         else {
-            for ( int i = 0; i < objects.Count; i++ ) {
-                if ( objects[ i ] == obj ) {
+            for ( int i = 0; i < objects.Count; i++ ) 
+            {
+                if ( objects[ i ] == obj )
                     currentActions = objectUseEnvReactions[ i ].actions;
-                }
             }
         }
     }
 
-    public void OnCommunicate( Sprite sprite ) {
+    public void OnCommunicate( Sprite sprite ) 
+    {
 
 	}
 }
