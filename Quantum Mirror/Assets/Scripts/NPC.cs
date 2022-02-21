@@ -15,6 +15,9 @@ public class NPC : MonoBehaviour {
     public List<ObjectType> objects;
     public ActionSequence idleSeq;
     public ActionSequence alertSeq;
+    public Move_Action approachPlayer;
+    public Move_Action runAway;
+
     public List<ActionSequence> objectPickUpReactions;
     public List<ActionSequence> objectUseEnvReactions;
     public List<ActionSequence> objectUseNPCReactions;

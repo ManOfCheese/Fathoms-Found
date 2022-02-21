@@ -37,7 +37,17 @@ public class ItemGrabber : MonoBehaviour {
     public InteractObject interactObject;
     public LayerMask interactMask;
 
+    public Move_Action approachPlayer;
+    public Move_Action runAway;
+    public Transform player;
+
     private bool looking;
+
+    private void Awake()
+    {
+        approachPlayer.target = player;
+        runAway.target = player;
+    }
 
     // Start is called before the first frame update
     void Start() {
