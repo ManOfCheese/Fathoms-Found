@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
-using UnityStandardAssets.Characters.FirstPerson;
 
 public class HandmovementC : MonoBehaviour
 {
@@ -21,14 +19,14 @@ public class HandmovementC : MonoBehaviour
     public bool gestureMode;
 
     private float lerp = 0;
-    public MouseLook lookX;
+    //public MouseLook lookX;
 
     private int i = 0;
 
 
     private void Start()
     {
-        lookX = FPScontroller.GetComponent<FirstPersonController>().m_MouseLook;
+        //lookX = FPScontroller.GetComponent<FirstPersonController>().m_MouseLook;
     }
 
     void Update()
@@ -54,8 +52,8 @@ public class HandmovementC : MonoBehaviour
             handmodel.transform.LookAt( targetPostition, handmodel.transform.up );
 
             circle.SetActive( true );
-            lookX.XSensitivity = 0.1f;
-            lookX.YSensitivity = 0.2f;
+            //lookX.XSensitivity = 0.1f;
+            //lookX.YSensitivity = 0.2f;
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
             float distance = Vector3.Distance( center.transform.position, transform.position );
@@ -77,8 +75,8 @@ public class HandmovementC : MonoBehaviour
             gameObject.transform.localPosition = idle.transform.localPosition;
             circle.SetActive( false );
 
-            lookX.XSensitivity = 2f;
-            lookX.YSensitivity = 2f;
+            //lookX.XSensitivity = 2f;
+            //lookX.YSensitivity = 2f;
         }
 
         //Punch your hand forward when holding lmb, back when released

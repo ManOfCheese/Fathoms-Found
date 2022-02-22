@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
-using UnityStandardAssets.Characters.FirstPerson;
 
 public class Handmovement : MonoBehaviour
 {
@@ -25,7 +23,7 @@ public class Handmovement : MonoBehaviour
     public bool gestureMode;
 
     private float lerp = 0;
-    public MouseLook lookX;
+    //public MouseLook lookX;
 
     private int i = 0;
 
@@ -33,7 +31,7 @@ public class Handmovement : MonoBehaviour
 
     private void Start()
     {
-        lookX = FPSController.GetComponent<FirstPersonController>().m_MouseLook;
+        //lookX = FPSController.GetComponent<FirstPersonController>().m_MouseLook;
     }
     
 
@@ -60,17 +58,17 @@ public class Handmovement : MonoBehaviour
             handmodel.transform.LookAt( targetPostition, handmodel.transform.up );
 
             circle.SetActive( true );
-            lookX.XSensitivity = 0.1f;
-            lookX.YSensitivity = 0.2f;
+            //lookX.XSensitivity = 0.1f;
+            //lookX.YSensitivity = 0.2f;
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
             float distance = Vector3.Distance(center.transform.position, transform.position);
 
             if ( distance < 1 )
             {
-                float xMove = CrossPlatformInputManager.GetAxis( "Mouse X" ) * XSensitivity;
-                float yMove = CrossPlatformInputManager.GetAxis( "Mouse Y" ) * YSensitivity;
-                gameObject.transform.Translate(new Vector3( xMove, yMove, 0 ) );
+                //float xMove = CrossPlatformInputManager.GetAxis( "Mouse X" ) * XSensitivity;
+                //float yMove = CrossPlatformInputManager.GetAxis( "Mouse Y" ) * YSensitivity;
+                //gameObject.transform.Translate(new Vector3( xMove, yMove, 0 ) );
             }
             else
             {
@@ -83,8 +81,8 @@ public class Handmovement : MonoBehaviour
             gameObject.transform.localPosition = idle.transform.localPosition;
             circle.SetActive( false );
 
-            lookX.XSensitivity = 2f;
-            lookX.YSensitivity = 2f;
+            //lookX.XSensitivity = 2f;
+            //lookX.YSensitivity = 2f;
         }
 
         //Punch your hand forward when holding lmb, back when released

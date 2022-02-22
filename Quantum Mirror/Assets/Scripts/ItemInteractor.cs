@@ -7,7 +7,7 @@ public class ItemInteractor : MonoBehaviour
     public GameObject interactPrompt;
     public GameObject cam;
     public int interactRange;
-    public InteractObject interactObject;
+    public InteractableObject interactObject;
     public LayerMask interactMask;
 
     // Update is called once per frame
@@ -18,7 +18,7 @@ public class ItemInteractor : MonoBehaviour
         if ( !interactPrompt.activeSelf && Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) ) {
             interactPrompt.gameObject.SetActive( true );
             Debug.DrawRay( cam.transform.position, cam.transform.forward * interactRange, Color.yellow );
-            interactObject = hit.transform.GetComponent<InteractObject>();
+            interactObject = hit.transform.GetComponent<InteractableObject>();
         }
         else if (interactPrompt.activeSelf && !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) )
         {
@@ -32,7 +32,7 @@ public class ItemInteractor : MonoBehaviour
             if (Input.GetKeyDown( KeyCode.E ) )
             {
                 Debug.DrawRay( cam.transform.position, cam.transform.forward * interactRange, Color.white );
-                interactObject.ActivateObject();
+                //interactObject.Interact();
             }
         }
     }

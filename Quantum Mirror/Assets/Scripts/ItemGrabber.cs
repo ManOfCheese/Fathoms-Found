@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ItemGrabber : MonoBehaviour {
+
+    public int interactRange;
+    public LayerMask interactMask;
 
     public int pickUpRange;
     public int dropRange;
@@ -12,7 +16,7 @@ public class ItemGrabber : MonoBehaviour {
     public LayerMask dropMask;
     public Animator anim;
     public Transform handPosition;
-    public PickUpObject pickUpObject;
+
     public PickUpObject objectInHand;
     public GameObject cam;
     public GameObject pickUpPrompt;
@@ -30,9 +34,8 @@ public class ItemGrabber : MonoBehaviour {
     public static event ObjectAction DropObject;
     public static event ObjectAction UseObject;
 
-    public int interactRange;
-    public InteractObject interactObject;
-    public LayerMask interactMask;
+    public InteractableObject interactableObject;
+    public PickUpObject pickUpObject;
 
     public Move_Action approachPlayer;
     public Move_Action runAway;
@@ -49,119 +52,194 @@ public class ItemGrabber : MonoBehaviour {
     // Update is called once per frame
     void Update() 
     {
-        Debug.DrawRay( cam.transform.position, cam.transform.forward * pickUpRange, Color.yellow, 0 );
-
+        //Check for object to interact with or pick up.
         RaycastHit hit;
-        if ( Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity ) ) 
-        {
-            if ( hit.transform.GetComponent<NPC>() ) 
-            {
-                LookAtNPC?.Invoke();
-                looking = true;
-			}
-		}
-        else if ( looking ) 
-        {
-            looking = false;
-            LookAway?.Invoke();
+        if ( Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) )
+		{
+            if ( objectInHand == null && hit.collider.GetComponent<PickUpObject>() )
+			{
+                pickUpObject = hit.collider.GetComponent<PickUpObject>();
+            }
+            else if ( hit.collider.GetComponent<InteractableObject>() )
+			{
+                interactableObject = hit.collider.GetComponent<InteractableObject>();
+            }
 		}
 
-        //Pick up
-        if ( objectInHand == null ) 
+        //Manage prompts.
+        if ( objectInHand != null )
+		{
+            dropPrompt.gameObject.SetActive( false );
+            interactPrompt.gameObject.SetActive( false );
+            pickUpPrompt.gameObject.SetActive( false );
+            usePrompt.SetActive( true );
+        }
+        if ( interactableObject != null )
         {
+            dropPrompt.gameObject.SetActive( false );
+            interactPrompt.gameObject.SetActive( true );
+            pickUpPrompt.gameObject.SetActive( false );
             usePrompt.SetActive( false );
-
-            if ( !pickUpPrompt.activeSelf && 
-                Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, pickUpRange, pickUpMask ) ) 
-            {
-                pickUpPrompt.gameObject.SetActive( true );
-                pickUpObject = hit.transform.GetComponent<PickUpObject>();
-            }
-            else if ( pickUpPrompt.activeSelf && 
-                !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, pickUpRange, pickUpMask ) ) 
-            {
-                pickUpPrompt.gameObject.SetActive( false );
-                pickUpObject = null;
-            }
-
-            if ( pickUpPrompt.activeSelf ) 
-            {
-                if ( Input.GetKeyDown( KeyCode.E ) ) 
-                {
-                    pickUpObject.transform.parent = handPosition.transform;
-                    pickUpObject.transform.localPosition = handPosition.localPosition;
-                    pickUpObject.transform.rotation = Quaternion.Euler( Vector3.zero );
-                    pickUpObject.GetComponent<Rigidbody>().isKinematic = true;
-                    objectInHand = pickUpObject;
-                    pickUpObject = null;
-                    pickUpPrompt.SetActive( false );
-                    PickUpObject?.Invoke( objectInHand.objectType );
-                }
-            }
         }
-        else 
+        else if ( pickUpObject != null )
         {
-            if ( !interactPrompt.activeSelf && Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) ) 
-            {
-                interactPrompt.gameObject.SetActive( true );
-                usePrompt.SetActive( false );
-                interactObject = hit.transform.GetComponent<InteractObject>();
-            }
-            else if ( interactPrompt.activeSelf && !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) ) 
-            {
-                interactPrompt.gameObject.SetActive( false );
-                interactObject = null;
-            }
-            
-            if ( !interactPrompt.activeSelf && !dropPrompt.activeSelf && 
-                Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, dropRange, dropMask ) ) 
-            {
-                dropPrompt.gameObject.SetActive( true );
-                usePrompt.SetActive( false );
-                dropPosition = hit.point;
-            }
-            else if ( dropPrompt.activeSelf && 
-                !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, dropRange, dropMask ) ) 
-            {
-                dropPrompt.gameObject.SetActive( false );
-                dropPosition = Vector3.zero;
-            }
-
-            if ( interactPrompt.activeSelf ) 
-            {
-                if ( Input.GetKeyDown( KeyCode.E ) ) 
-                {
-                    objectInHand.transform.parent = null;
-                    objectInHand.transform.localPosition = interactableItemPosition;
-                    DropObject?.Invoke( objectInHand.objectType );
-                    interactPrompt.gameObject.SetActive( false );
-                    interactObject = null;
-                    objectInHand = null;
-                }
-            }
-            else if ( dropPrompt.activeSelf ) 
-            {
-                if ( Input.GetKeyDown( KeyCode.E ) ) 
-                {
-                    objectInHand.transform.parent = null;
-                    objectInHand.transform.localPosition = dropPosition + new Vector3( 0, objectInHand.transform.localScale.y, 0 );
-                    objectInHand.GetComponent<Rigidbody>().isKinematic = false;
-                    DropObject?.Invoke( objectInHand.objectType );
-                    objectInHand = null;
-                    dropPrompt.SetActive( false );
-                }
-            }
-            else {
-                usePrompt.SetActive( true );
-
-                if ( Input.GetKeyDown( KeyCode.E ) ) 
-                {
-                    anim.SetTrigger( "UseObject" );
-                    UseObject?.Invoke( objectInHand.objectType );
-                }
-            }
+            dropPrompt.gameObject.SetActive( false );
+            interactPrompt.gameObject.SetActive( false );
+            pickUpPrompt.gameObject.SetActive( true );
+            usePrompt.SetActive( false );
         }
+
+        //Action.
+
+  //      Debug.DrawRay( cam.transform.position, cam.transform.forward * pickUpRange, Color.yellow, 0 );
+
+  //      if ( Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity ) ) 
+  //      {
+  //          if ( hit.transform.GetComponent<NPC>() ) 
+  //          {
+  //              LookAtNPC?.Invoke();
+  //              looking = true;
+		//	}
+		//}
+  //      else if ( looking ) 
+  //      {
+  //          looking = false;
+  //          LookAway?.Invoke();
+		//}
+
+  //      //Pick up
+  //      if ( objectInHand == null ) 
+  //      {
+  //          usePrompt.SetActive( false );
+
+  //          if ( !pickUpPrompt.activeSelf && 
+  //              Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, pickUpRange, pickUpMask ) ) 
+  //          {
+  //              pickUpPrompt.gameObject.SetActive( true );
+  //              pickUpObject = hit.transform.GetComponent<PickUpObject>();
+  //          }
+  //          else if ( pickUpPrompt.activeSelf && 
+  //              !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, pickUpRange, pickUpMask ) ) 
+  //          {
+  //              pickUpPrompt.gameObject.SetActive( false );
+  //              pickUpObject = null;
+  //          }
+
+  //          if ( pickUpPrompt.activeSelf ) 
+  //          {
+  //              if ( Input.GetKeyDown( KeyCode.E ) ) 
+  //              {
+  //                  pickUpObject.transform.parent = handPosition.transform;
+  //                  pickUpObject.transform.localPosition = handPosition.localPosition;
+  //                  pickUpObject.transform.rotation = Quaternion.Euler( Vector3.zero );
+  //                  pickUpObject.GetComponent<Rigidbody>().isKinematic = true;
+  //                  objectInHand = pickUpObject;
+  //                  pickUpObject = null;
+  //                  pickUpPrompt.SetActive( false );
+  //                  PickUpObject?.Invoke( objectInHand.objectType );
+  //              }
+  //          }
+  //      }
+  //      else 
+  //      {
+  //          if ( !interactPrompt.activeSelf && Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) ) 
+  //          {
+  //              interactPrompt.gameObject.SetActive( true );
+  //              usePrompt.SetActive( false );
+  //              interactableObject = hit.transform.GetComponent<InteractableObject>();
+  //          }
+  //          else if ( interactPrompt.activeSelf && !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, interactRange, interactMask ) ) 
+  //          {
+  //              interactPrompt.gameObject.SetActive( false );
+  //              interactableObject = null;
+  //          }
+            
+  //          if ( !interactPrompt.activeSelf && !dropPrompt.activeSelf && 
+  //              Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, dropRange, dropMask ) ) 
+  //          {
+  //              dropPrompt.gameObject.SetActive( true );
+  //              usePrompt.SetActive( false );
+  //              dropPosition = hit.point;
+  //          }
+  //          else if ( dropPrompt.activeSelf && 
+  //              !Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, dropRange, dropMask ) ) 
+  //          {
+  //              dropPrompt.gameObject.SetActive( false );
+  //              dropPosition = Vector3.zero;
+  //          }
+
+  //          if ( interactPrompt.activeSelf ) 
+  //          {
+  //              if ( Input.GetKeyDown( KeyCode.E ) ) 
+  //              {
+  //                  objectInHand.transform.parent = null;
+  //                  objectInHand.transform.localPosition = interactableItemPosition;
+  //                  DropObject?.Invoke( objectInHand.objectType );
+  //                  interactPrompt.gameObject.SetActive( false );
+  //                  interactableObject.Interact( this );
+  //                  interactableObject = null;
+  //                  objectInHand = null;
+  //              }
+  //          }
+  //          else if ( dropPrompt.activeSelf ) 
+  //          {
+  //              if ( Input.GetKeyDown( KeyCode.E ) ) 
+  //              {
+  //                  objectInHand.transform.parent = null;
+  //                  objectInHand.transform.localPosition = dropPosition + new Vector3( 0, objectInHand.transform.localScale.y, 0 );
+  //                  objectInHand.GetComponent<Rigidbody>().isKinematic = false;
+  //                  DropObject?.Invoke( objectInHand.objectType );
+  //                  objectInHand = null;
+  //                  dropPrompt.SetActive( false );
+  //              }
+  //          }
+  //          else {
+  //              usePrompt.SetActive( true );
+
+  //              if ( Input.GetKeyDown( KeyCode.E ) ) 
+  //              {
+  //                  anim.SetTrigger( "UseObject" );
+  //                  UseObject?.Invoke( objectInHand.objectType );
+  //              }
+  //          }
+  //      }
     }
+
+    public void OnInteract()
+	{
+        if ( interactableObject )
+		{
+            DropObject?.Invoke( objectInHand.objectType );
+            interactableObject.Interact( this );
+        }
+        else if ( pickUpObject )
+		{
+            pickUpObject.transform.parent = handPosition.transform;
+            pickUpObject.transform.localPosition = handPosition.localPosition;
+            pickUpObject.transform.rotation = Quaternion.Euler( Vector3.zero );
+            pickUpObject.GetComponent<Rigidbody>().isKinematic = true;
+            objectInHand = pickUpObject;
+            pickUpObject = null;
+            PickUpObject?.Invoke( objectInHand.objectType );
+        }
+        else
+		{
+            anim.SetTrigger( "UseObject" );
+            UseObject?.Invoke( objectInHand.objectType );
+        }
+	}
+
+    public void OnDrop()
+	{
+        if ( objectInHand )
+		{
+            objectInHand.transform.parent = null;
+            objectInHand.transform.localPosition = dropPosition + new Vector3( 0, objectInHand.transform.localScale.y, 0 );
+            objectInHand.GetComponent<Rigidbody>().isKinematic = false;
+            DropObject?.Invoke( objectInHand.objectType );
+            objectInHand = null;
+        }
+	}
 
 	private void OnTriggerEnter( Collider other ) 
     {

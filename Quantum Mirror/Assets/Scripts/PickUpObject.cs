@@ -6,4 +6,5 @@ public class PickUpObject : MonoBehaviour {
 
     public string objectName;
     public ObjectType objectType;
+
 }
