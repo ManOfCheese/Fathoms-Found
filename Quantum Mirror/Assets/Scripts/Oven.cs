@@ -9,6 +9,7 @@ public class Oven : InteractableObject
     public Animator animator;
     float t = 0;
     public PickUpObject objInOven;
+    public Transform ovenPos;
     public bool isInOven = false;
 
     private void Update()
@@ -21,19 +22,34 @@ public class Oven : InteractableObject
         }
     }
 
-	public override void Interact( ItemGrabber player )
+	public override void Interact( Interactor player )
 	{
-        if ( player.objectInHand != null )
-		{
-            objInOven = player.objectInHand;
-            isInOven = true;
+        if ( objInOven ) {
+            objInOven.rb.isKinematic = false;
+            objInOven.rb.useGravity = true;
+            for ( int i = 0; i < objInOven.colliders.Length; i++ ) {
+                objInOven.colliders[ i ].enabled = true;
+            }
+            player.PickUp( objInOven );
+            objInOven = null;
+            isInOven = false;
 		}
+        else if ( player.objectInHand ) {
+            objInOven = player.objectInHand;
+            objInOven.rb.isKinematic = true;
+            objInOven.rb.useGravity = false;
+			for ( int i = 0; i < objInOven.colliders.Length; i++ ) {
+                objInOven.colliders[ i ].enabled = false;
+			}
+            player.OnDrop();
+            objInOven.transform.position = ovenPos.position;
+            isInOven = true;
+        }
 
         if ( !isActivated )
         {
             isActivated = true;
             animator.SetBool( "isActivated", isActivated );
-
         }
         else if ( isActivated )
         {

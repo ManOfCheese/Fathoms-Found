@@ -1,5 +1,151 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1769964173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1769964174}
+  - component: {fileID: 1769964177}
+  - component: {fileID: 1769964176}
+  - component: {fileID: 1769964175}
+  m_Layer: 0
+  m_Name: InHandObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1769964174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769964173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.24283326, y: 0.7854199, z: 0.24283326}
+  m_Children: []
+  m_Father: {fileID: 2142338756}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1769964177
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769964173}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1769964176
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769964173}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3e71dc3164da1344880ddab2eb6b509a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1769964175
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769964173}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2142338755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2142338756}
+  - component: {fileID: 2142338757}
+  m_Layer: 0
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2142338756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142338755}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.628, y: 0.462, z: 0.868}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1769964174}
+  m_Father: {fileID: 182677837144272279}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2142338757
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142338755}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ed5c87354da68e489c362e8b96c8922, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &182677836171706124
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +295,6 @@ GameObject:
   - component: {fileID: 182677836590286789}
   - component: {fileID: 182677836590286790}
   - component: {fileID: 182677836590286784}
-  - component: {fileID: 182677836590286785}
   - component: {fileID: 2057163490480272315}
   - component: {fileID: 182677836590286791}
   m_Layer: 0
@@ -189,11 +334,9 @@ MonoBehaviour:
   systemInitOrder:
   - {fileID: 11400000, guid: 4d2e3da3703b28c4690ced6f20283731, type: 2}
   - {fileID: 11400000, guid: af1063a4d3dd9dc47961dc02a74d9c6f, type: 2}
-  - {fileID: 11400000, guid: 3e2266249f2d49349ba7d99331ec9e08, type: 2}
   - {fileID: 11400000, guid: f5217d24e09e47d4e9b40dab5951e334, type: 2}
   systemUpdateOrder:
   - {fileID: 11400000, guid: af1063a4d3dd9dc47961dc02a74d9c6f, type: 2}
-  - {fileID: 11400000, guid: 3e2266249f2d49349ba7d99331ec9e08, type: 2}
   - {fileID: 11400000, guid: f5217d24e09e47d4e9b40dab5951e334, type: 2}
   currentState: 
   joc: {fileID: 182677836590286789}
@@ -214,7 +357,7 @@ MonoBehaviour:
   system: {fileID: 11400000, guid: 4d2e3da3703b28c4690ced6f20283731, type: 2}
   jom: {fileID: 0}
   inverted: 0
-  sensitivity: 0.419
+  sensitivity: 0.15
   xRotationLimitsUp: -90
   xRotationLimitsDown: 60
   speed: 10
@@ -237,15 +380,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  jumpHeight: 3
-  jumps: 2
+  jumpHeight: 1
+  jumps: 1
   aerialMovement: 0
   aerialTurnSpeed: 0.2
   midAirSprint: 0
   groundDistance: 0.55
   groundMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
   cam: {fileID: 182677836171706126}
   cc: {fileID: 182677836375504987}
   playerInput: {fileID: 0}
@@ -277,7 +420,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jocManager: {fileID: 0}
   moduleName: CrouchModule
-  toggleCrouch: 1
+  toggleCrouch: 0
   crouchCamHeight: 0.5
   crouchPlayerHeight: 0.8
   crouchSpeed: 0
@@ -301,27 +444,8 @@ MonoBehaviour:
   system: {fileID: 11400000, guid: af1063a4d3dd9dc47961dc02a74d9c6f, type: 2}
   adjustSpeedWhenSprinting: 1
   headBobSpeed: 5
-  headBobIntensity: 0.2
+  headBobIntensity: 0.05
   currentHeadBobSpeed: 0
---- !u!114 &182677836590286785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182677836590286795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e05370f54e1b0040947c34c18436925, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jocManager: {fileID: 0}
-  moduleName: ScreenTiltModule
-  system: {fileID: 11400000, guid: 3e2266249f2d49349ba7d99331ec9e08, type: 2}
-  maximumTilt: 2
-  tiltSpeed: 30
-  rawMovementVector: {x: 0, y: 0}
-  tilt: 0
 --- !u!114 &2057163490480272315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,24 +458,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8191b137079d8041a73ab68842ea635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 0
+  interactRange: 3
   interactMask:
     serializedVersion: 2
-    m_Bits: 0
-  pickUpRange: 0
-  dropRange: 0
+    m_Bits: 64
+  pickUpRange: 3
+  dropRange: 3
   dropPosition: {x: 0, y: 0, z: 0}
   interactableItemPosition: {x: 0, y: 0, z: 0}
   pickUpMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   dropMask:
     serializedVersion: 2
-    m_Bits: 0
-  anim: {fileID: 0}
-  handPosition: {fileID: 0}
+    m_Bits: 128
+  anim: {fileID: 2142338757}
+  handPosition: {fileID: 2142338756}
   objectInHand: {fileID: 0}
-  cam: {fileID: 0}
+  cam: {fileID: 182677836171706124}
   pickUpPrompt: {fileID: 0}
   dropPrompt: {fileID: 0}
   interactPrompt: {fileID: 0}
@@ -359,9 +483,9 @@ MonoBehaviour:
   NPCsInRange: []
   interactableObject: {fileID: 0}
   pickUpObject: {fileID: 0}
-  approachPlayer: {fileID: 0}
-  runAway: {fileID: 0}
-  player: {fileID: 0}
+  approachPlayer: {fileID: 11400000, guid: dc7f3c6940d58c1459fb35697d4ca0ea, type: 2}
+  runAway: {fileID: 11400000, guid: f280229ba88f38f45b808340b0297085, type: 2}
+  player: {fileID: 182677836375504984}
 --- !u!114 &182677836590286791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,7 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 04c393f40e28e224091402edc74fb5cf,
+  m_Actions: {fileID: -944628639613478452, guid: b811e0665f490c849a6d961144ce8b4c,
     type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
@@ -391,7 +515,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 182677836590286789}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: JackOfController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -402,72 +526,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 182677836590286785}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c48512a9-d209-4b06-a138-516eed4b9f35
-    m_ActionName: Standard/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+    m_ActionId: c3b61cba-8181-444b-aefb-0f4f442cce4f
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 182677836590286789}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnSprint
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f3f99117-2978-4fb0-a57b-c39b797f5b9d
-    m_ActionName: Standard/Sprint[/Keyboard/leftShift]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 182677836590286789}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnJump
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: d0c78fa8-361d-4378-a340-125848fb5b65
-    m_ActionName: Standard/Jump[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 182677836590286790}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OnCrouch
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 4f609627-076e-4a9d-83f7-756c276a3601
-    m_ActionName: Standard/Crouch[/Keyboard/ctrl]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 182677836590286789}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: JackOfController, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -478,11 +542,131 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 4c314ff4-9c2f-480a-86ef-f01e02744c01
-    m_ActionName: PlayerControls/Look
+    m_ActionId: e7d5f430-80d6-44f9-9a93-b37ea7180def
+    m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2057163490480272315}
+        m_TargetAssemblyTypeName: ItemGrabber, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 729bf6b2-1b39-4816-a353-ad5dab18d0bf
+    m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2057163490480272315}
+        m_TargetAssemblyTypeName: ItemGrabber, Assembly-CSharp
+        m_MethodName: OnDrop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1e0dbe23-1811-435c-add7-63a7049ef205
+    m_ActionName: Player/Drop/Cancel[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b7762dba-0859-44d9-95f2-5ed56a0fdadb
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6725318f-7402-4921-89fe-18ccfeb6b262
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ffa4e7a6-0df0-4a44-bb41-98add4d9b178
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9084d413-f412-4343-a38f-7f0508ebdcc7
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8c7a2737-5641-440a-b8f0-0d160aaa7890
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a20dd621-ad3f-453a-80c6-9b14391af154
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b665add-bd14-4b4e-8eef-925599efdc3e
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 829f2aa7-661a-48d6-a404-fba85288e5c4
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a95794b4-0776-41e1-9351-07d0ed98e5e8
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 73e0e83c-43e8-428b-9045-6ca0390c41be
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 182677836590286790}
+        m_TargetAssemblyTypeName: CrouchModule, Assembly-CSharp
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d84a2b9e-942b-474d-b033-81fcb6eddf2d
+    m_ActionName: Player/Crouch[/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 182677836590286789}
+        m_TargetAssemblyTypeName: JackOfController, Assembly-CSharp
+        m_MethodName: OnSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9827c6c8-0149-4b9c-a1a7-1abea06a4cfc
+    m_ActionName: Player/Sprint[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 182677836590286789}
+        m_TargetAssemblyTypeName: JackOfController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5383ec8c-091a-4c2f-9059-6fce011bd114
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard
-  m_DefaultActionMap: PlayerControls
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &182677836855478530
@@ -594,6 +778,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 182677836855478781}
+  - {fileID: 2142338756}
   m_Father: {fileID: 182677836375504984}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
