@@ -8,6 +8,7 @@ public class PickUpObject : MonoBehaviour {
     public ObjectType objectType;
     public Transform pickUpPoint;
     public Vector3 inHandOrientation;
+    public float temperature;
 
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Collider[] colliders;
