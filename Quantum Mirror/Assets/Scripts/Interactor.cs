@@ -21,10 +21,10 @@ public class Interactor : MonoBehaviour {
     public Move_Action runAway;
 
     [Header( "Read Only" )]
-    public InteractableObject interactableObject;
-    public PickUpObject pickUpObject;
-    public PickUpObject objectInHand;
-    public List<NPC> NPCsInRange;
+    [ReadOnly] public InteractableObject interactableObject;
+    [ReadOnly] public PickUpObject pickUpObject;
+    [ReadOnly] public PickUpObject objectInHand;
+    [ReadOnly] public List<NPC> NPCsInRange;
 
     public delegate void EmptyVoidAction();
     public static event EmptyVoidAction LookAtNPC;

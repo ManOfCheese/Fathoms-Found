@@ -72,11 +72,13 @@ public class JackOfController : MonoBehaviour {
     //Startup
     [ReadOnly] public float playerStartHeight;
     [ReadOnly] public float camStartHeight;
+    [ReadOnly] public float startSensitivity;
 
     //Runtime
     [ReadOnly] public bool sprinting = false;
     [ReadOnly] public bool jump = false;
     [ReadOnly] public bool grounded = true;
+    [ReadOnly] public bool gestureMode = false;
     [ReadOnly] public float currentSpeed;
     [ReadOnly] public float currentCamHeight;
     [ReadOnly] public float xCamRotation = 0.0f;
@@ -90,6 +92,11 @@ public class JackOfController : MonoBehaviour {
     private void Awake() {
         system.joc = this;
     }
+
+    public void ChangeSensitivity( float newSensitivity )
+	{
+        sensitivity = newSensitivity;
+	}
 
     #region Input
 	public void OnLook( InputAction.CallbackContext value ) {

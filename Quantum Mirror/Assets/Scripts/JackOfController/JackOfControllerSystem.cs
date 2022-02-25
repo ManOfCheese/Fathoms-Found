@@ -24,6 +24,7 @@ public class JackOfControllerSystem : ComponentSystem {
         joc.currentSpeed = joc.speed;
         joc.playerStartHeight = joc.jom.cc.height;
         joc.camStartHeight = joc.jom.cam.transform.localPosition.y;
+        joc.startSensitivity = joc.sensitivity;
         joc.currentCamHeight = joc.camStartHeight;
         Cursor.lockState = CursorLockMode.Locked;
     }

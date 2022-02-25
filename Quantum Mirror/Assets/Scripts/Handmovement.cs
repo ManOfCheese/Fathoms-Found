@@ -5,30 +5,30 @@ using UnityEngine.InputSystem;
 
 public class Handmovement : MonoBehaviour
 {
-    public float XSensitivity;
-    public float YSensitivity;
+
+    [Header( "Settings" )]
+    public float gestureModeLookSensitivity;
+    public float handSensitivity;
+    public float scrollSensitivity;
+
+    [Header( "References" )]
     public GameObject center;
     public GameObject circle;
     public GameObject idle;
+    public GameObject hand;
     public GameObject handmodel;
-
     public GameObject[] lights;
-
     public GameObject[] Digits;
     public GameObject[] ClosedDigits;
+    public JackOfController controller;
 
-    public GameObject FPSController;
-
-    public bool gestureMode;
-
-    private float lerp = 0;
-    public Vector2 sensitivity;
-    public Vector2 lookVector;
-    public Vector3 punchdestination = new Vector3( 0, 0, 0.08f );
+    [Header( "Read Only" )]
+    [ReadOnly] public bool gestureMode;
+    [ReadOnly] public int fingermode = 0;
+    [ReadOnly] public Vector2 lookVector;
+    [ReadOnly] public Vector3 punchdestination = new Vector3( 0, 0, 0.08f );
 
     private int i = 0;
-
-    public int fingermode = 0;
 
     void Update()
     {
@@ -43,30 +43,25 @@ public class Handmovement : MonoBehaviour
             handmodel.transform.LookAt( targetPostition, handmodel.transform.up );
 
             circle.SetActive( true );
-            sensitivity.x = 0.1f;
-            sensitivity.x = 0.2f;
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
-            float distance = Vector3.Distance( center.transform.position, transform.position );
+            float distance = Vector3.Distance( center.transform.position, hand.transform.position );
 
             if ( distance < 1 )
             {
-                float xMove = lookVector.x * sensitivity.x;
-                float yMove = lookVector.y * sensitivity.y;
-                gameObject.transform.Translate(new Vector3( xMove, yMove, 0 ) );
+                float xMove = lookVector.y * handSensitivity;
+                float yMove = lookVector.x * handSensitivity;
+                hand.transform.Translate(new Vector3( xMove, yMove, 0 ) );
             }
             else
             {
-                gameObject.transform.position = Vector3.MoveTowards( transform.position, center.transform.position, 0.005f );
+                hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.005f );
             }
         }
         else
         {
             gameObject.transform.localPosition = idle.transform.localPosition;
             circle.SetActive( false );
-
-            sensitivity.x = 2f;
-            sensitivity.x = 2f;
         }
     }
 
@@ -76,31 +71,43 @@ public class Handmovement : MonoBehaviour
         lookVector = new Vector2( mouseLook.y, mouseLook.x );
     }
 
-    public void OnToggleGestureMode()
+    public void OnToggleGestureMode( InputAction.CallbackContext value )
 	{
-        if ( !gestureMode )
-            gestureMode = true;
-        else
-            gestureMode = false;
+        if ( value.performed )
+		{
+            if ( !gestureMode )
+			{
+                gestureMode = true;
+                controller.ChangeSensitivity( gestureModeLookSensitivity );
+            }
+			else
+			{
+                gestureMode = false;
+                controller.ChangeSensitivity( controller.startSensitivity );
+            }
+        }
     }
 
-    public void OnSwitchFingerMode()
+    public void OnSwitchFingerMode( InputAction.CallbackContext value )
     {
-        if ( fingermode < 2 )
-            fingermode += 1;
-        else
-            fingermode = 0;
-
-		for ( int i = 0; i < lights.Length; i++ )
+        if ( value.performed )
 		{
-            if ( i == fingermode )
-                lights[ i ].SetActive( true );
+            if ( fingermode < 2 )
+                fingermode += 1;
             else
-                lights[ i ].SetActive( false );
-		}
+                fingermode = 0;
+
+            for ( int i = 0; i < lights.Length; i++ )
+            {
+                if ( i == fingermode )
+                    lights[ i ].SetActive( true );
+                else
+                    lights[ i ].SetActive( false );
+            }
+        }
 	}
 
-    public void OnUse( InputAction.CallbackContext value )
+    public void OnUseHand( InputAction.CallbackContext value )
     {
         if ( value.performed )
         {
@@ -114,14 +121,14 @@ public class Handmovement : MonoBehaviour
         }
     }
 
-    public void OnScroll( InputAction.CallbackContext value )
+    public void OnArticaluteFingers( InputAction.CallbackContext value )
 	{
         float mouseDelta = value.ReadValue<float>();
 
         switch ( fingermode )
         {
             case 0:
-                if ( mouseDelta < 0 && i <= 5 )
+                if ( mouseDelta < scrollSensitivity && i <= 5 )
                 {
                     Debug.Log( i );
                     Digits[ i ].SetActive( false );
@@ -129,7 +136,7 @@ public class Handmovement : MonoBehaviour
                     i += 1;
                 }
 
-                if ( mouseDelta > 0 && i > 0 )
+                if ( mouseDelta > scrollSensitivity && i > 0 )
                 {
                     Debug.Log( i );
                     Digits[ i ].SetActive( true );
@@ -139,7 +146,7 @@ public class Handmovement : MonoBehaviour
                 break;
 
             case 1:
-                if ( mouseDelta < 0 && i <= 5 )
+                if ( mouseDelta < scrollSensitivity && i <= 5 )
                 {
                     Debug.Log( i );
                     foreach ( GameObject digit in Digits )
@@ -156,7 +163,7 @@ public class Handmovement : MonoBehaviour
                     i += 1;
                 }
 
-                if ( mouseDelta > 0 && i > 0 )
+                if ( mouseDelta > scrollSensitivity && i > 0 )
                 {
                     Debug.Log( i );
                     foreach ( GameObject digit in Digits )
@@ -175,7 +182,7 @@ public class Handmovement : MonoBehaviour
                 break;
 
             case 2:
-                if ( mouseDelta < 0 && i <= 5 )
+                if ( mouseDelta < scrollSensitivity && i <= 5 )
                 {
                     Debug.Log( i );
                     foreach ( GameObject digit in Digits )
@@ -192,7 +199,7 @@ public class Handmovement : MonoBehaviour
                     i += 1;
                 }
 
-                if ( mouseDelta > 0 && i > 0 )
+                if ( mouseDelta > scrollSensitivity && i > 0 )
                 {
                     Debug.Log( i );
                     foreach ( GameObject digit in Digits )
