@@ -19,6 +19,7 @@ public class Oven : InteractableObject
             t += Time.deltaTime / 5.0f; // Divided by 5 to make it 5 seconds.
             Debug.Log( t );
             objInOven.GetComponent<Renderer>().material.color = Color.Lerp( Color.cyan, Color.red, t );
+            objInOven.temperature = t;
         }
     }
 
