@@ -10,8 +10,6 @@ public class NPC : MonoBehaviour {
     public GameObject player;
     public Image image;
     public NavMeshAgent agent;
-    public List<Sprite> emojis;
-    public List<ActionSequence> emojiReactions;
     public List<ObjectType> objects;
     public ActionSequence idleSeq;
     public ActionSequence alertSeq;

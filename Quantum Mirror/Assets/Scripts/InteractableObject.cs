@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class InteractableObject : MonoBehaviour
 {
-    public virtual void Interact( ItemGrabber player )
+    public virtual void Interact( Interactor player )
     {
 
     }
