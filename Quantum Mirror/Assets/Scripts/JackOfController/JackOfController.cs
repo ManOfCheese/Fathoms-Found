@@ -20,7 +20,7 @@ public class JackOfController : MonoBehaviour {
     [Tooltip( "When true camera controls will be inverted meaning moving left will move the camera to the right." )]
     public bool inverted;
     [Tooltip( "Determines how much the camera moves relative to the input." )]
-    [Range( 0.0f, 1.0f )]
+    [Range( 0.0f, 10.0f )]
     public float sensitivity;
     [Tooltip( "How many degrees the camera can rotate upwards before locking in place." )]
     public float xRotationLimitsUp = -90f;
@@ -123,8 +123,8 @@ public class JackOfController : MonoBehaviour {
 
 	#region Movement
     public void CameraLook() {
-        xCamRotation -= sensitivity * lookVector.x;
-        yCamRotation += sensitivity * lookVector.y;
+        xCamRotation -= sensitivity * lookVector.normalized.x;
+        yCamRotation += sensitivity * lookVector.normalized.y;
 
         xCamRotation %= 360;
         yCamRotation %= 360;
@@ -167,7 +167,7 @@ public class JackOfController : MonoBehaviour {
 	}
 
     public void Gravity() {
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y = gravity;
     }
 
     public void StickToGround() {
