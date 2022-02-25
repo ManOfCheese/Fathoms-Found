@@ -6,4 +6,15 @@ public class PickUpObject : MonoBehaviour {
 
     public string objectName;
     public ObjectType objectType;
+    public Transform pickUpPoint;
+    public Vector3 inHandOrientation;
+
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Collider[] colliders;
+
+	private void Awake() {
+        rb = GetComponent<Rigidbody>();
+        colliders = GetComponents<Collider>();
+	}
+
 }
