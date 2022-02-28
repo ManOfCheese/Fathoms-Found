@@ -79,6 +79,7 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public bool jump = false;
     [ReadOnly] public bool grounded = true;
     [ReadOnly] public bool gestureMode = false;
+    [ReadOnly] public bool legsBroken = false;
     [ReadOnly] public float currentSpeed;
     [ReadOnly] public float currentCamHeight;
     [ReadOnly] public float xCamRotation = 0.0f;
@@ -89,7 +90,8 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public Vector3 velocity;
     [ReadOnly] public Vector3 velocityOnJump;
 
-    private void Awake() {
+    private void Awake() 
+    {
         system.joc = this;
     }
 
@@ -122,29 +124,32 @@ public class JackOfController : MonoBehaviour {
 	#endregion
 
 	#region Movement
-    public void CameraLook() {
+    public void CameraLook() 
+    {
         xCamRotation -= sensitivity * lookVector.normalized.x;
         yCamRotation += sensitivity * lookVector.normalized.y;
 
         xCamRotation %= 360;
         yCamRotation %= 360;
         xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
-        cam.transform.eulerAngles = new Vector3( xCamRotation, yCamRotation, cam.transform.eulerAngles.z );
+        cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
         cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation, 
             cc.transform.eulerAngles.z );
     }
 
     public void Walk() {
-        if ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) {
+        if ( ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) && !legsBroken ) 
+        {
             Vector3 relativeMovementVector = rawMovementVector.x * cc.transform.right + rawMovementVector.y * cc.transform.forward;
-            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y, 
+            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y,
                 relativeMovementVector.z * currentSpeed );
             cc.Move( finalMovementVector * Time.deltaTime );
         }
     }
 
     public void Jump() {
-        if ( jump && ( grounded || jumpCount < jumps ) ) {
+        if ( jump && ( grounded || jumpCount < jumps ) && !legsBroken ) 
+        {
             velocity.y = Mathf.Sqrt( jumpHeight * -2 * gravity );
             jump = false;
             if ( aerialMovement != AerialMovementSettings.FullMovement ) velocityOnJump = cc.velocity;
@@ -154,23 +159,24 @@ public class JackOfController : MonoBehaviour {
     }
 
     public void LookMove() {
-        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement ) {
+        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement ) 
+        {
             Vector3 camVector = new Vector3( cam.transform.forward.x, 0f, cam.transform.forward.z );
 
-            if ( aerialMovement == AerialMovementSettings.FullCameraMovement ) {
+            if ( aerialMovement == AerialMovementSettings.FullCameraMovement ) 
                 velocityOnJump = camVector * currentSpeed;
-            }
-            if ( aerialMovement == AerialMovementSettings.LimitedCameraMovement ) {
+            if ( aerialMovement == AerialMovementSettings.LimitedCameraMovement ) 
                 velocityOnJump = ( ( ( camVector * aerialTurnSpeed ) + velocityOnJump ) / 2f ).normalized * currentSpeed;
-            }
         }
 	}
 
-    public void Gravity() {
+    public void Gravity() 
+    {
         velocity.y = gravity;
     }
 
-    public void StickToGround() {
+    public void StickToGround() 
+    {
         velocity.y = stickToGroundForce;
     }
 	#endregion
@@ -208,7 +214,8 @@ public class JackOfController : MonoBehaviour {
     }
 	#endregion
 
-	public void OnDrawGizmos() {
+	public void OnDrawGizmos() 
+    {
         float radius = playerStartHeight / 4;
 
         Gizmos.color = Color.yellow;

@@ -3285,6 +3285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 182677836590286794}
+  - component: {fileID: 8229230524450537734}
   - component: {fileID: 182677836590286788}
   - component: {fileID: 182677836590286789}
   - component: {fileID: 182677836590286790}
@@ -3313,6 +3314,23 @@ Transform:
   m_Father: {fileID: 182677836375504984}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8229230524450537734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182677836590286795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c273d4c4de1388459acd0f84384b5f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joc: {fileID: 182677836590286789}
+  health: 100
+  takeFallingDamage: 1
+  fallDamagePerUnit: 1
+  legBreakThreshold: 30
 --- !u!114 &182677836590286788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3394,6 +3412,7 @@ MonoBehaviour:
   jump: 0
   grounded: 1
   gestureMode: 0
+  legsBroken: 0
   currentSpeed: 0
   currentCamHeight: 0
   xCamRotation: 0
