@@ -3291,6 +3291,7 @@ GameObject:
   - component: {fileID: 182677836590286790}
   - component: {fileID: 182677836590286784}
   - component: {fileID: 2057163490480272315}
+  - component: {fileID: 273181306221140709}
   - component: {fileID: 182677836590286791}
   - component: {fileID: 258927403}
   m_Layer: 0
@@ -3326,10 +3327,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c273d4c4de1388459acd0f84384b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joc: {fileID: 182677836590286789}
   health: 100
   takeFallingDamage: 1
   fallDamagePerUnit: 1
+  fallDistanceThreshold: 0
   legBreakThreshold: 30
 --- !u!114 &182677836590286788
 MonoBehaviour:
@@ -3491,6 +3492,20 @@ MonoBehaviour:
   pickUpObject: {fileID: 0}
   objectInHand: {fileID: 0}
   NPCsInRange: []
+--- !u!114 &273181306221140709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182677836590286795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acb76ccaf526344b9c9befe6d9406f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oxygenLevels: 0
+  oxygenSources: []
 --- !u!114 &182677836590286791
 MonoBehaviour:
   m_ObjectHideFlags: 0
