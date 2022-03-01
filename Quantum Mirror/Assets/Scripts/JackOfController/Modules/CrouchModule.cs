@@ -6,8 +6,12 @@ using StateMachine;
 
 public class CrouchModule : Module {
 
+    public BoolValue legsBroken;
+
     [Tooltip( "Toggle crouch or hold to crouch" )]
     public bool toggleCrouch = false;
+    [Tooltip( "Is the player allowed to exit crouch mode when their legs are broken" )]
+    public bool allowStandUpWithBrokenLegs = false;
     [Tooltip( "The height of the camera when crouching" )]
     public float crouchCamHeight = 0.5f;
     [Tooltip( "The height of the player (for collisions) while crouching" )]
@@ -41,7 +45,8 @@ public class CrouchModule : Module {
                         crouchCanceled = true;
                     }
                     else if ( newCrouching && currentState != jocManager.statesByName[ "GroundedState" ] ) {
-                        jocManager.stateMachine.ChangeState( jocManager.statesByName[ "GroundedState" ] );
+                        if ( !allowStandUpWithBrokenLegs && !legsBroken.Value )
+                            jocManager.stateMachine.ChangeState( jocManager.statesByName[ "GroundedState" ] );
                     }
                 }
             }
@@ -54,7 +59,8 @@ public class CrouchModule : Module {
                         crouchCanceled = true;
                     }
                     else if ( currentState != jocManager.statesByName[ "GroundedState" ] ) {
-                        jocManager.stateMachine.ChangeState( jocManager.statesByName[ "GroundedState" ] );
+                        if ( !allowStandUpWithBrokenLegs && !legsBroken.Value )
+                            jocManager.stateMachine.ChangeState( jocManager.statesByName[ "GroundedState" ] );
                     }
                 }
             }

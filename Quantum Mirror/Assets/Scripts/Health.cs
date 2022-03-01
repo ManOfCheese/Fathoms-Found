@@ -12,7 +12,8 @@ public class Health : MonoBehaviour
 {
 
 	[Header( "Health" )]
-	public int health;
+	public FloatValue health;
+	public BoolValue legsBroken;
 
 	[Header( "Falling Damage" )]
 	public bool takeFallingDamage;
@@ -59,9 +60,9 @@ public class Health : MonoBehaviour
 
 	public void TakeDamage( int damage, DamageType damageType )
 	{
-		health -= damage;
+		health.Value -= damage;
 		if ( damageType == DamageType.Falling && damage > legBreakThreshold )
-			joc.legsBroken = true;
+			legsBroken.Value = true;
 	}
 
 }

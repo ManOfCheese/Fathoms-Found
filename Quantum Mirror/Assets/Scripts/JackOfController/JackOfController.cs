@@ -13,6 +13,7 @@ public enum AerialMovementSettings {
 public class JackOfController : MonoBehaviour {
 
     public JackOfControllerSystem system;
+    public BoolValue legsBroken;
 
     [HideInInspector] public JackOfManager jom;
 
@@ -79,7 +80,6 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public bool jump = false;
     [ReadOnly] public bool grounded = true;
     [ReadOnly] public bool gestureMode = false;
-    [ReadOnly] public bool legsBroken = false;
     [ReadOnly] public float currentSpeed;
     [ReadOnly] public float currentCamHeight;
     [ReadOnly] public float xCamRotation = 0.0f;
@@ -107,7 +107,8 @@ public class JackOfController : MonoBehaviour {
     }
 
     public void OnMove( InputAction.CallbackContext value ) {
-        rawMovementVector = value.ReadValue<Vector2>();
+        if ( !legsBroken.Value )
+            rawMovementVector = value.ReadValue<Vector2>();
     }
 
     public void OnSprint( InputAction.CallbackContext value ) {
@@ -138,7 +139,7 @@ public class JackOfController : MonoBehaviour {
     }
 
     public void Walk() {
-        if ( ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) && !legsBroken ) 
+        if ( ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) ) 
         {
             Vector3 relativeMovementVector = rawMovementVector.x * cc.transform.right + rawMovementVector.y * cc.transform.forward;
             Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y,
@@ -148,7 +149,7 @@ public class JackOfController : MonoBehaviour {
     }
 
     public void Jump() {
-        if ( jump && ( grounded || jumpCount < jumps ) && !legsBroken ) 
+        if ( jump && ( grounded || jumpCount < jumps ) && !legsBroken.Value ) 
         {
             velocity.y = Mathf.Sqrt( jumpHeight * -2 * gravity );
             jump = false;
