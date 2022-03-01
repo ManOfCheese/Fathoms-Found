@@ -49,8 +49,8 @@ public class Handmovement : MonoBehaviour
 
             if ( distance < 1 )
             {
-                float xMove = lookVector.y * handSensitivity;
-                float yMove = lookVector.x * handSensitivity;
+                float xMove = lookVector.normalized.y * handSensitivity;
+                float yMove = lookVector.normalized.x * handSensitivity;
                 hand.transform.Translate(new Vector3( xMove, yMove, 0 ) );
             }
             else
