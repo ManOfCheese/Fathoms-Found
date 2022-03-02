@@ -41,15 +41,21 @@ public class Handmovement : MonoBehaviour
 
             Vector3 targetPostition = handmodel.transform.TransformPoint( relativepos );
 
-            handmodel.transform.LookAt( targetPostition, handmodel.transform.up );
+            float distance = Vector3.Distance(center.transform.position, hand.transform.position);
+
+            //if in outside ring, lerp to face hand outward
+            if (distance > 0.25)
+                handmodel.transform.LookAt(targetPostition, handmodel.transform.up);
+            else
+                handmodel.transform.localRotation = Quaternion.Euler(90,0,0);
 
             reticle.SetActive( false );
             circle.SetActive( true );
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
-            float distance = Vector3.Distance( center.transform.position, hand.transform.position );
+            
 
-            if ( distance < 1 )
+            if ( distance < 0.8 )
             {
                 float xMove = lookVector.normalized.y * handSensitivity;
                 float yMove = lookVector.normalized.x * handSensitivity;
@@ -57,12 +63,12 @@ public class Handmovement : MonoBehaviour
             }
             else
             {
-                hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.005f );
+                hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.5f*handSensitivity );
             }
         }
         else
         {
-            gameObject.transform.localPosition = idle.transform.localPosition;
+            hand.transform.localPosition = idle.transform.localPosition;
             reticle.SetActive( true );
             circle.SetActive( false );
             
@@ -132,7 +138,7 @@ public class Handmovement : MonoBehaviour
         switch ( fingermode )
         {
             case 0:
-                if ( mouseDelta < scrollSensitivity && i <= 5 )
+                if ( mouseDelta < scrollSensitivity && i <= 3 )
                 {
                     Debug.Log( i );
                     Digits[ i ].SetActive( false );
@@ -150,7 +156,7 @@ public class Handmovement : MonoBehaviour
                 break;
 
             case 1:
-                if ( mouseDelta < scrollSensitivity && i <= 5 )
+                if ( mouseDelta < scrollSensitivity && i <= 3 )
                 {
                     Debug.Log( i );
                     foreach ( GameObject digit in Digits )
@@ -186,7 +192,7 @@ public class Handmovement : MonoBehaviour
                 break;
 
             case 2:
-                if ( mouseDelta < scrollSensitivity && i <= 5 )
+                if ( mouseDelta < scrollSensitivity && i <= 3 )
                 {
                     Debug.Log( i );
                     foreach ( GameObject digit in Digits )
@@ -203,7 +209,7 @@ public class Handmovement : MonoBehaviour
                     i += 1;
                 }
 
-                if ( mouseDelta > scrollSensitivity && i > 0 )
+                if ( mouseDelta > scrollSensitivity && i > 3 )
                 {
                     Debug.Log( i );
                     foreach ( GameObject digit in Digits )
@@ -222,7 +228,7 @@ public class Handmovement : MonoBehaviour
                 break;
 
             default:
-                if ( mouseDelta < 0 && i <= 5 )
+                if ( mouseDelta < 0 && i <= 3 )
                 {
                     Debug.Log( i );
                     Digits[ i ].SetActive( false );
