@@ -17,6 +17,7 @@ public class Handmovement : MonoBehaviour
     public GameObject idle;
     public GameObject hand;
     public GameObject handmodel;
+    public GameObject reticle;
     public GameObject[] lights;
     public GameObject[] Digits;
     public GameObject[] ClosedDigits;
@@ -42,6 +43,7 @@ public class Handmovement : MonoBehaviour
 
             handmodel.transform.LookAt( targetPostition, handmodel.transform.up );
 
+            reticle.SetActive( false );
             circle.SetActive( true );
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
@@ -61,7 +63,9 @@ public class Handmovement : MonoBehaviour
         else
         {
             gameObject.transform.localPosition = idle.transform.localPosition;
+            reticle.SetActive( true );
             circle.SetActive( false );
+            
         }
     }
 
