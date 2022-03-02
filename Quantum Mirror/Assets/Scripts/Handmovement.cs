@@ -63,7 +63,7 @@ public class Handmovement : MonoBehaviour
             }
             else
             {
-                hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.5f*handSensitivity );
+                hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.05f );
             }
         }
         else
