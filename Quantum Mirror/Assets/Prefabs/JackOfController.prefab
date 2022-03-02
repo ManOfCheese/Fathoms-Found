@@ -2557,6 +2557,7 @@ GameObject:
   - component: {fileID: 182677836171706121}
   - component: {fileID: 182677836171706126}
   - component: {fileID: 182677836171706127}
+  - component: {fileID: 557483583}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -2604,7 +2605,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10000
+  far clip plane: 100000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2631,6 +2632,102 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182677836171706124}
   m_Enabled: 1
+--- !u!82 &557483583
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182677836171706124}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c142a927f4066fe41b441b160f601486, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.686
+  m_Pitch: 1.29
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &182677836375504985
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,7 +2793,6 @@ GameObject:
   - component: {fileID: 182677836590286788}
   - component: {fileID: 182677836590286789}
   - component: {fileID: 182677836590286790}
-  - component: {fileID: 182677836590286784}
   - component: {fileID: 2057163490480272315}
   - component: {fileID: 182677836590286791}
   - component: {fileID: 258927403}
@@ -2832,25 +2928,6 @@ MonoBehaviour:
   relativeCrouchSpeed: 0.5
   crouching: 0
   crouchCanceled: 0
---- !u!114 &182677836590286784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182677836590286795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a479005ac2f46b4f8401f62e6834829, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jocManager: {fileID: 0}
-  moduleName: HeadBobModule
-  system: {fileID: 11400000, guid: af1063a4d3dd9dc47961dc02a74d9c6f, type: 2}
-  adjustSpeedWhenSprinting: 1
-  headBobSpeed: 5
-  headBobIntensity: 0.05
-  currentHeadBobSpeed: 0
 --- !u!114 &2057163490480272315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3211,7 +3288,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 06ec5dabdf8a5914f92c9cf4bee98b1b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
