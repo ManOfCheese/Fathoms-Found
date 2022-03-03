@@ -64,6 +64,7 @@ public class Handmovement : MonoBehaviour
             {
                 hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.05f );
             }
+
         }
         else
         {
@@ -76,11 +77,17 @@ public class Handmovement : MonoBehaviour
 
     public void OnLook( InputAction.CallbackContext value )
 	{
+            if (value.performed)
+            {
+                var handpos = Gamepad.current.rightStick.ReadValue();
+                hand.transform.localPosition = new Vector3(handpos.x * 0.6f, handpos.y * 0.6f, 0);
+            }
         Vector2 mouseLook = value.ReadValue<Vector2>();
-        lookVector = new Vector2( mouseLook.y, mouseLook.x );
+        lookVector = new Vector2(mouseLook.y, mouseLook.x);       
     }
 
-    public void OnToggleGestureMode( InputAction.CallbackContext value )
+
+    public void OnToggleGestureMode( InputAction.CallbackContext value)
 	{
         if ( value.performed )
 		{
@@ -97,7 +104,7 @@ public class Handmovement : MonoBehaviour
         }
     }
 
-    public void OnSwitchFingerMode( InputAction.CallbackContext value )
+    /*public void OnSwitchFingerMode( InputAction.CallbackContext value )
     {
         if ( value.performed )
 		{
@@ -114,7 +121,7 @@ public class Handmovement : MonoBehaviour
                     lights[ i ].SetActive( false );
             }
         }
-	}
+	}*/
 
     public void OnUseHand( InputAction.CallbackContext value )
     {
@@ -130,7 +137,53 @@ public class Handmovement : MonoBehaviour
         }
     }
 
+    public void OnFinger1(InputAction.CallbackContext value)
+    {
+        if ( value.performed )
+        {
+            Digits[1].SetActive(false);
+            ClosedDigits[1].SetActive(true);
+        }
 
+        if ( value.canceled )
+        {
+            Digits[1].SetActive(true);
+            ClosedDigits[1].SetActive(false);
+        }
+        
+    }
+
+    public void OnFinger2(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            Digits[2].SetActive(false);
+            ClosedDigits[2].SetActive(true);
+        }
+
+        if (value.canceled)
+        {
+            Digits[2].SetActive(true);
+            ClosedDigits[2].SetActive(false);
+        }
+
+    }
+
+    public void OnFinger3(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            Digits[3].SetActive(false);
+            ClosedDigits[3].SetActive(true);
+        }
+
+        if (value.canceled)
+        {
+            Digits[3].SetActive(true);
+            ClosedDigits[3].SetActive(false);
+        }
+
+    }
 
 
     /*public void OnArticaluteFingers( InputAction.CallbackContext value )
