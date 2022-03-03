@@ -129,7 +129,7 @@ public class JackOfController : MonoBehaviour {
         xCamRotation %= 360;
         yCamRotation %= 360;
         xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
-        cam.transform.eulerAngles = new Vector3( xCamRotation, yCamRotation, cam.transform.eulerAngles.z );
+        cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
         cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation, 
             cc.transform.eulerAngles.z );
     }
