@@ -54,11 +54,10 @@ public class Handmovement : MonoBehaviour
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
             
-
             if ( distance < 0.8 )
             {
-                float xMove = lookVector.normalized.y * handSensitivity;
-                float yMove = lookVector.normalized.x * handSensitivity;
+                float xMove = lookVector.normalized.y * handSensitivity * Time.deltaTime;
+                float yMove = lookVector.normalized.x * handSensitivity * Time.deltaTime;
                 hand.transform.Translate(new Vector3( xMove, yMove, 0 ) );
             }
             else
@@ -131,7 +130,10 @@ public class Handmovement : MonoBehaviour
         }
     }
 
-    public void OnArticaluteFingers( InputAction.CallbackContext value )
+
+
+
+    /*public void OnArticaluteFingers( InputAction.CallbackContext value )
 	{
         float mouseDelta = value.ReadValue<float>();
 
@@ -245,7 +247,7 @@ public class Handmovement : MonoBehaviour
                 }
                 break;
         }
-    }
+    }*/
 
 }
 
