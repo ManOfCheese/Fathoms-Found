@@ -13,6 +13,7 @@ public enum AerialMovementSettings {
 public class JackOfController : MonoBehaviour {
 
     public JackOfControllerSystem system;
+    public BoolValue legsBroken;
 
     [HideInInspector] public JackOfManager jom;
 
@@ -105,7 +106,8 @@ public class JackOfController : MonoBehaviour {
     }
 
     public void OnMove( InputAction.CallbackContext value ) {
-        rawMovementVector = value.ReadValue<Vector2>();
+        if ( !legsBroken.Value )
+            rawMovementVector = value.ReadValue<Vector2>();
     }
 
     public void OnSprint( InputAction.CallbackContext value ) {
