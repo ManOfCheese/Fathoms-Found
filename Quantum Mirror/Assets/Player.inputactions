@@ -24,6 +24,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "LookController",
+                    "type": "Value",
+                    "id": "4a2bee86-1f41-456a-b158-3373b18d2f4d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "729bf6b2-1b39-4816-a353-ad5dab18d0bf",
@@ -267,28 +276,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3e5f5442-8668-4b27-a940-df99bad7e831",
-                    "path": "<Joystick>/{Hatswitch}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b4d77ba7-123c-4a48-a3f2-16011a78aea2",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -388,17 +375,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0d5d27c7-bd4c-47c8-b922-2ec5a222dfcf",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "SwitchFingerMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1ed5272e-ab0f-43af-9b76-d2865ace9a97",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -411,7 +387,7 @@
                 {
                     "name": "",
                     "id": "afbc974f-78a8-4edb-87d0-518e4b00eb21",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -432,11 +408,11 @@
                 },
                 {
                     "name": "",
-                    "id": "af1c81a9-87ac-4c77-b08a-fb671dea8ab0",
+                    "id": "ac39f781-d9c9-4313-a7ea-e193bae89757",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "",
                     "action": "ToggleGestureMode",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -565,11 +541,33 @@
                 {
                     "name": "",
                     "id": "0fa0e904-64a4-427b-a99f-cc63f1b72d89",
-                    "path": "",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Finger3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LookController",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e5f5442-8668-4b27-a940-df99bad7e831",
+                    "path": "<Joystick>/{Hatswitch}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "LookController",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
