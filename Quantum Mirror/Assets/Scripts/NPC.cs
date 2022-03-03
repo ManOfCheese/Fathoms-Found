@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class NPC : MonoBehaviour {
 
     public int interactionDistance;
+    public float changeDestinationTime;
+    public float wanderRange;
+    public Transform wanderTarget;
+    public AlienGestureController gestureController;
     public GameObject player;
     public Image image;
     public NavMeshAgent agent;
@@ -15,16 +20,20 @@ public class NPC : MonoBehaviour {
     public ActionSequence alertSeq;
     public Move_Action approachPlayer;
     public Move_Action runAway;
+    public MoveTowards_Action moveTowards;
 
     public List<ActionSequence> objectPickUpReactions;
     public List<ActionSequence> objectUseEnvReactions;
     public List<ActionSequence> objectUseNPCReactions;
 
-    private List<Action> currentActions; 
+    private List<Action> currentActions;
+    private float idleDestinationTimestamp;
 
 	private void Awake() 
     {
         Idle();
+        idleDestinationTimestamp = Time.time;
+        moveTowards.target = wanderTarget;
     }
 
 	private void Update() 
@@ -36,12 +45,18 @@ public class NPC : MonoBehaviour {
                 currentActions[ i ].ExecuteAction( this );
             }
         }
+        if ( Time.time - idleDestinationTimestamp > changeDestinationTime && currentActions == idleSeq.actions )
+		{
+            wanderTarget.transform.position = transform.position + new Vector3( Random.Range( 0, wanderRange ), 0f, Random.Range( 0, wanderRange ) );
+            idleDestinationTimestamp = Time.time;
+		}
 	}
 
     public void Idle() 
     {
         currentActions = idleSeq.actions;
-	}
+        wanderTarget.transform.position = transform.position + new Vector3( Random.Range( 0, wanderRange ), 0f, Random.Range( 0, wanderRange ) );
+    }
 
     public void Alert() 
     {
@@ -50,13 +65,13 @@ public class NPC : MonoBehaviour {
 
 	public void OnLookAtNPC() 
     {
-        transform.LookAt( player.transform.position );
+        //transform.LookAt( player.transform.position );
         transform.rotation = Quaternion.Euler( new Vector3( 0f, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z ) );
 	}
 
     public void OnLookAway() 
     {
-        transform.LookAt( transform.forward );
+        //transform.LookAt( transform.forward );
 	}
 
     public void OnPickUpObject( ObjectType obj ) 
@@ -104,8 +119,15 @@ public class NPC : MonoBehaviour {
         }
     }
 
-    public void OnCommunicate( Sprite sprite ) 
+    public void OnCommunicate( InputAction.CallbackContext value ) 
     {
+        if ( value.performed && Vector3.Distance( player.transform.position, transform.position ) < interactionDistance )
+            gestureController.OnGesture( player.transform );
+        wanderTarget.transform.position = transform.position;
+	}
 
+	private void OnDrawGizmos()
+	{
+        Debug.DrawLine( agent.destination, agent.destination + new Vector3( 0f, 10f, 0f ), Color.red );
 	}
 }
