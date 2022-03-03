@@ -9,7 +9,7 @@ public class OxygenDetector : MonoBehaviour
 	[Header( "References" )]
 	public Text oxygenText;
 
-	private float oxygenLevels;
+	public float oxygenLevels;
 
     [HideInInspector] public List<OxygenSource> oxygenSources;
 
