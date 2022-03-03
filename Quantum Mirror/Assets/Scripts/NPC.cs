@@ -47,7 +47,7 @@ public class NPC : MonoBehaviour {
         }
         if ( Time.time - idleDestinationTimestamp > changeDestinationTime && currentActions == idleSeq.actions )
 		{
-            wanderTarget.transform.position = transform.position + new Vector3( Random.Range( 0, wanderRange ), 0f, Random.Range( 0, wanderRange ) );
+            wanderTarget.transform.position = transform.position + GetRandomPosOnNavMesh();
             idleDestinationTimestamp = Time.time;
 		}
 	}
@@ -55,7 +55,7 @@ public class NPC : MonoBehaviour {
     public void Idle() 
     {
         currentActions = idleSeq.actions;
-        wanderTarget.transform.position = transform.position + new Vector3( Random.Range( 0, wanderRange ), 0f, Random.Range( 0, wanderRange ) );
+        wanderTarget.transform.position = GetRandomPosOnNavMesh();
     }
 
     public void Alert() 
@@ -130,4 +130,13 @@ public class NPC : MonoBehaviour {
 	{
         Debug.DrawLine( agent.destination, agent.destination + new Vector3( 0f, 10f, 0f ), Color.red );
 	}
+
+    public Vector3 GetRandomPosOnNavMesh()
+	{
+        Vector3 randomTarget = Random.insideUnitSphere * wanderRange;
+        NavMeshHit hit;
+        NavMesh.SamplePosition( randomTarget, out hit, wanderRange, 1 );
+        Vector3 finalPosition = hit.position;
+        return finalPosition;
+    }
 }
