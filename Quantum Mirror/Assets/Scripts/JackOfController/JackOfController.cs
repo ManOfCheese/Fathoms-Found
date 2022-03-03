@@ -13,7 +13,6 @@ public enum AerialMovementSettings {
 public class JackOfController : MonoBehaviour {
 
     public JackOfControllerSystem system;
-    public BoolValue legsBroken;
 
     [HideInInspector] public JackOfManager jom;
 
@@ -21,7 +20,7 @@ public class JackOfController : MonoBehaviour {
     [Tooltip( "When true camera controls will be inverted meaning moving left will move the camera to the right." )]
     public bool inverted;
     [Tooltip( "Determines how much the camera moves relative to the input." )]
-    [Range( 0.0f, 10.0f )]
+    [Range( 0.0f, 1.0f )]
     public float sensitivity;
     [Tooltip( "How many degrees the camera can rotate upwards before locking in place." )]
     public float xRotationLimitsUp = -90f;
@@ -90,8 +89,7 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public Vector3 velocity;
     [ReadOnly] public Vector3 velocityOnJump;
 
-    private void Awake() 
-    {
+    private void Awake() {
         system.joc = this;
     }
 
@@ -107,8 +105,7 @@ public class JackOfController : MonoBehaviour {
     }
 
     public void OnMove( InputAction.CallbackContext value ) {
-        if ( !legsBroken.Value )
-            rawMovementVector = value.ReadValue<Vector2>();
+        rawMovementVector = value.ReadValue<Vector2>();
     }
 
     public void OnSprint( InputAction.CallbackContext value ) {
@@ -125,32 +122,29 @@ public class JackOfController : MonoBehaviour {
 	#endregion
 
 	#region Movement
-    public void CameraLook() 
-    {
-        xCamRotation -= sensitivity * lookVector.normalized.x;
-        yCamRotation += sensitivity * lookVector.normalized.y;
+    public void CameraLook() {
+        xCamRotation -= sensitivity * lookVector.x;
+        yCamRotation += sensitivity * lookVector.y;
 
         xCamRotation %= 360;
         yCamRotation %= 360;
         xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
-        cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
+        cam.transform.eulerAngles = new Vector3( xCamRotation, yCamRotation, cam.transform.eulerAngles.z );
         cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation, 
             cc.transform.eulerAngles.z );
     }
 
     public void Walk() {
-        if ( ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) ) 
-        {
+        if ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) {
             Vector3 relativeMovementVector = rawMovementVector.x * cc.transform.right + rawMovementVector.y * cc.transform.forward;
-            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y,
+            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y, 
                 relativeMovementVector.z * currentSpeed );
             cc.Move( finalMovementVector * Time.deltaTime );
         }
     }
 
     public void Jump() {
-        if ( jump && ( grounded || jumpCount < jumps ) && !legsBroken.Value ) 
-        {
+        if ( jump && ( grounded || jumpCount < jumps ) ) {
             velocity.y = Mathf.Sqrt( jumpHeight * -2 * gravity );
             jump = false;
             if ( aerialMovement != AerialMovementSettings.FullMovement ) velocityOnJump = cc.velocity;
@@ -160,24 +154,23 @@ public class JackOfController : MonoBehaviour {
     }
 
     public void LookMove() {
-        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement ) 
-        {
+        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement ) {
             Vector3 camVector = new Vector3( cam.transform.forward.x, 0f, cam.transform.forward.z );
 
-            if ( aerialMovement == AerialMovementSettings.FullCameraMovement ) 
+            if ( aerialMovement == AerialMovementSettings.FullCameraMovement ) {
                 velocityOnJump = camVector * currentSpeed;
-            if ( aerialMovement == AerialMovementSettings.LimitedCameraMovement ) 
+            }
+            if ( aerialMovement == AerialMovementSettings.LimitedCameraMovement ) {
                 velocityOnJump = ( ( ( camVector * aerialTurnSpeed ) + velocityOnJump ) / 2f ).normalized * currentSpeed;
+            }
         }
 	}
 
-    public void Gravity() 
-    {
-        velocity.y = gravity;
+    public void Gravity() {
+        velocity.y += gravity * Time.deltaTime;
     }
 
-    public void StickToGround() 
-    {
+    public void StickToGround() {
         velocity.y = stickToGroundForce;
     }
 	#endregion
@@ -215,8 +208,7 @@ public class JackOfController : MonoBehaviour {
     }
 	#endregion
 
-	public void OnDrawGizmos() 
-    {
+	public void OnDrawGizmos() {
         float radius = playerStartHeight / 4;
 
         Gizmos.color = Color.yellow;
