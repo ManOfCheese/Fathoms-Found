@@ -74,16 +74,23 @@ public class Handmovement : MonoBehaviour
             
         }
     }
-
     public void OnLook( InputAction.CallbackContext value )
 	{
+        if (Gamepad.current.rightStick.IsActuated(0F))
+        {
             if (value.performed)
             {
                 var handpos = Gamepad.current.rightStick.ReadValue();
                 hand.transform.localPosition = new Vector3(handpos.x * 0.6f, handpos.y * 0.6f, 0);
             }
-        Vector2 mouseLook = value.ReadValue<Vector2>();
-        lookVector = new Vector2(mouseLook.y, mouseLook.x);       
+        }   
+        
+        else
+        {
+            Vector2 mouseLook = value.ReadValue<Vector2>();
+            lookVector = new Vector2(mouseLook.y, mouseLook.x);
+        }
+       
     }
 
 
