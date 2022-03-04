@@ -19,6 +19,7 @@ public class UI_Text_Changer : MonoBehaviour
     {
         oxygenDetector = theDetector.GetComponent<OxygenDetector>();
         missionOneText = missionObjectiveOne.GetComponent<Text>();
+        missionTwoText = missionObjectiveTwo.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -40,5 +41,6 @@ public class UI_Text_Changer : MonoBehaviour
     public void OnAlienInteract()
 	{
         missionTwoText.color = Color.green;
+        Debug.Log("Green");
     }
 }

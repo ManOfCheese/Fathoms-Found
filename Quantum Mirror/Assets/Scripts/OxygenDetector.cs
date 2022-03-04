@@ -23,7 +23,7 @@ public class OxygenDetector : MonoBehaviour
 			oxygenLevels += oxygenLevel;
 		}
 
-		oxygenText.text = oxygenLevels.ToString();
+		oxygenText.text = Mathf.Round( oxygenLevels ).ToString();
 	}
 
 }

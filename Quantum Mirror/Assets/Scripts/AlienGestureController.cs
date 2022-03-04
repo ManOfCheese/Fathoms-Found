@@ -58,7 +58,6 @@ public class AlienGestureController : MonoBehaviour
 						gesture = false;
 						alienHands[ handIndex ].enabled = true;
 						gestureCircles[ handIndex ].SetActive( false );
-						textChanger.OnAlienInteract();
 					}
 					else
 					{
@@ -100,6 +99,7 @@ public class AlienGestureController : MonoBehaviour
 		gestureIndex = 0;
 		startGesture = false;
 		waiting = false;
+		textChanger.OnAlienInteract();
 	}
 
 }
