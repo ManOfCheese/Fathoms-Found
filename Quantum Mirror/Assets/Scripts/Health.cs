@@ -39,7 +39,7 @@ public class Health : MonoBehaviour
 			grounded = joc.grounded;
 			Debug.Log( grounded );
 
-			if ( grounded )
+			if ( grounded && takeFallingDamage )
 			{
 				float distanceFallen = y - joc.transform.position.y;
 				if ( distanceFallen > fallDistanceThreshold )
