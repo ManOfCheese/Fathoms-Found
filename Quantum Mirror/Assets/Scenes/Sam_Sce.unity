@@ -740,6 +740,10 @@ PrefabInstance:
       propertyPath: oxygenText
       value: 
       objectReference: {fileID: 907056448}
+    - target: {fileID: 885228635, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 885228637, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
       propertyPath: reticle
       value: 
@@ -2140,6 +2144,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 882893818, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
+      propertyPath: torusCenter
+      value: 
+      objectReference: {fileID: 1631296235}
+    - target: {fileID: 882893818, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
+      propertyPath: wanderTarget
+      value: 
+      objectReference: {fileID: 807227526}
     - target: {fileID: 1058843122, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
       propertyPath: player
       value: 
@@ -3371,6 +3383,36 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5369271377720214977}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1631296234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631296235}
+  m_Layer: 0
+  m_Name: TorusCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1631296235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631296234}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.8, y: 0, z: 12.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1647813038
 GameObject:
   m_ObjectHideFlags: 0
@@ -4275,6 +4317,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 509629058, guid: c5553df80bb988d4c899797954c9b6e5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5369271376899695983, guid: c5553df80bb988d4c899797954c9b6e5,
         type: 3}
       propertyPath: m_Name

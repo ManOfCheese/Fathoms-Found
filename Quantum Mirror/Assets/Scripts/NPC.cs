@@ -7,33 +7,34 @@ using UnityEngine.InputSystem;
 
 public class NPC : MonoBehaviour {
 
+    [Header( "Settings" )]
     public int interactionDistance;
-    public float changeDestinationTime;
-    public float wanderRange;
+
+    [Header( "References" )]
     public Transform wanderTarget;
+    public Wander wander;
+    public NavMeshAgent agent;
     public AlienGestureController gestureController;
     public GameObject player;
     public Image image;
-    public NavMeshAgent agent;
-    public List<ObjectType> objects;
+
+    [Header( "Actions" )]
     public ActionSequence idleSeq;
     public ActionSequence alertSeq;
     public Move_Action approachPlayer;
     public Move_Action runAway;
-    public MoveTowards_Action moveTowards;
 
+    [Header( "Object Interaction" )]
+    public List<ObjectType> objects;
     public List<ActionSequence> objectPickUpReactions;
     public List<ActionSequence> objectUseEnvReactions;
     public List<ActionSequence> objectUseNPCReactions;
 
     private List<Action> currentActions;
-    private float idleDestinationTimestamp;
 
 	private void Awake() 
     {
         Idle();
-        idleDestinationTimestamp = Time.time;
-        moveTowards.target = wanderTarget;
     }
 
 	private void Update() 
@@ -45,23 +46,19 @@ public class NPC : MonoBehaviour {
                 currentActions[ i ].ExecuteAction( this );
             }
         }
-        if ( Time.time - idleDestinationTimestamp > changeDestinationTime && currentActions == idleSeq.actions )
-		{
-            wanderTarget.transform.position = transform.position + GetRandomPosOnNavMesh();
-            idleDestinationTimestamp = Time.time;
-		}
 	}
 
     public void Idle() 
     {
         currentActions = idleSeq.actions;
-        wanderTarget.transform.position = GetRandomPosOnNavMesh();
+        wander.OnIdle();
     }
 
     public void Alert() 
     {
         currentActions = alertSeq.actions;
-	}
+        wander.idling = false;
+    }
 
 	public void OnLookAtNPC() 
     {
@@ -81,7 +78,8 @@ public class NPC : MonoBehaviour {
             if ( objects[ i ] == obj ) 
             {
                 currentActions = objectPickUpReactions[ i ].actions;
-			}
+                wander.idling = false;
+            }
 		}
 	}
 
@@ -95,7 +93,8 @@ public class NPC : MonoBehaviour {
                 {
                     currentActions = alertSeq.actions;
                     agent.destination = transform.position;
-				}
+                    wander.idling = false;
+                }
             }
         }
     }
@@ -107,14 +106,20 @@ public class NPC : MonoBehaviour {
             for ( int i = 0; i < objects.Count; i++ ) 
             {
                 if ( objects[ i ] == obj )
+				{
                     currentActions = objectUseNPCReactions[ i ].actions;
+                    wander.idling = false;
+                }
             }
         }
         else {
             for ( int i = 0; i < objects.Count; i++ ) 
             {
                 if ( objects[ i ] == obj )
+				{
                     currentActions = objectUseEnvReactions[ i ].actions;
+                    wander.idling = false;
+                }
             }
         }
     }
@@ -130,13 +135,4 @@ public class NPC : MonoBehaviour {
 	{
         Debug.DrawLine( agent.destination, agent.destination + new Vector3( 0f, 10f, 0f ), Color.red );
 	}
-
-    public Vector3 GetRandomPosOnNavMesh()
-	{
-        Vector3 randomTarget = Random.insideUnitSphere * wanderRange;
-        NavMeshHit hit;
-        NavMesh.SamplePosition( randomTarget, out hit, wanderRange, 1 );
-        Vector3 finalPosition = hit.position;
-        return finalPosition;
-    }
 }
