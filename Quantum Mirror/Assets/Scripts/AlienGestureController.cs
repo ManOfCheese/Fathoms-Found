@@ -5,6 +5,7 @@ using UnityEngine;
 public class AlienGestureController : MonoBehaviour
 {
 
+	public UI_Text_Changer textChanger;
     public AlienIKHandler[] alienHands;
 	public GameObject[] gestureCircles;
 	public float gestureCircleDiameter;
@@ -57,6 +58,7 @@ public class AlienGestureController : MonoBehaviour
 						gesture = false;
 						alienHands[ handIndex ].enabled = true;
 						gestureCircles[ handIndex ].SetActive( false );
+						textChanger.OnAlienInteract();
 					}
 					else
 					{

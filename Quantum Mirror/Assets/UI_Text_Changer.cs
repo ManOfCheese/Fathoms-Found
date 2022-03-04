@@ -36,4 +36,9 @@ public class UI_Text_Changer : MonoBehaviour
         }
         */
     }
+
+    public void OnAlienInteract()
+	{
+        missionTwoText.color = Color.green;
+    }
 }
