@@ -4502,9 +4502,10 @@ GameObject:
   - component: {fileID: 2328613941833931731}
   - component: {fileID: 1757936540}
   - component: {fileID: 1757936539}
-  - component: {fileID: 1757936537}
   - component: {fileID: 1757936538}
+  - component: {fileID: 1757936537}
   - component: {fileID: 1089580770}
+  - component: {fileID: 882893818}
   m_Layer: 0
   m_Name: AlienModel_PREF
   m_TagString: Untagged
@@ -4570,47 +4571,6 @@ CapsuleCollider:
   m_Height: 4.51
   m_Direction: 1
   m_Center: {x: 0, y: -0.41, z: 0}
---- !u!114 &1757936537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3106136456687042921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5b83f76252c5ab4297f20ee800e4d07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionDistance: 10
-  changeDestinationTime: 10
-  wanderRange: 20
-  wanderTarget: {fileID: 0}
-  gestureController: {fileID: 1089580770}
-  player: {fileID: 0}
-  image: {fileID: 603137401}
-  agent: {fileID: 1757936538}
-  objects:
-  - {fileID: 11400000, guid: b2a509c4dcd59aa459853e53fb4b62cf, type: 2}
-  - {fileID: 11400000, guid: 32f8975576e65aa41bf7bdf6f1eac2d9, type: 2}
-  - {fileID: 11400000, guid: f80efa1abdb7c5e45b8d429d846a1ba7, type: 2}
-  idleSeq: {fileID: 11400000, guid: 31fc0b0dcdb5958448c4d1b85885692b, type: 2}
-  alertSeq: {fileID: 11400000, guid: 5412ce7b107ee5d47bad54bf6de8cc2e, type: 2}
-  approachPlayer: {fileID: 11400000, guid: dc7f3c6940d58c1459fb35697d4ca0ea, type: 2}
-  runAway: {fileID: 11400000, guid: f280229ba88f38f45b808340b0297085, type: 2}
-  moveTowards: {fileID: 11400000, guid: 95f8129ee003b074c83c5b960c2b40eb, type: 2}
-  objectPickUpReactions:
-  - {fileID: 11400000, guid: 7b5737f8440baf34bb43f97f44c0f9d4, type: 2}
-  - {fileID: 11400000, guid: 2a9c1ac8a864970479079d8821a40d81, type: 2}
-  - {fileID: 11400000, guid: 9dfc4d273d167f945a235a13acaba518, type: 2}
-  objectUseEnvReactions:
-  - {fileID: 11400000, guid: dee73516b86df154e95a229caae98212, type: 2}
-  - {fileID: 11400000, guid: 40a887c85268c7646b85ad43701c3319, type: 2}
-  - {fileID: 11400000, guid: de9d9eb698b2ef74c960be87e336885e, type: 2}
-  objectUseNPCReactions:
-  - {fileID: 11400000, guid: 99062ba92a414ea488c49ee887c3cb40, type: 2}
-  - {fileID: 11400000, guid: 9dfc4d273d167f945a235a13acaba518, type: 2}
-  - {fileID: 11400000, guid: e202085583d9f8a4ea57584160b2b411, type: 2}
 --- !u!195 &1757936538
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4633,6 +4593,45 @@ NavMeshAgent:
   m_BaseOffset: 2.31
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1757936537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106136456687042921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b83f76252c5ab4297f20ee800e4d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionDistance: 10
+  wanderTarget: {fileID: 0}
+  wander: {fileID: 882893818}
+  agent: {fileID: 1757936538}
+  gestureController: {fileID: 1089580770}
+  player: {fileID: 0}
+  image: {fileID: 603137401}
+  idleSeq: {fileID: 11400000, guid: 31fc0b0dcdb5958448c4d1b85885692b, type: 2}
+  alertSeq: {fileID: 11400000, guid: 5412ce7b107ee5d47bad54bf6de8cc2e, type: 2}
+  approachPlayer: {fileID: 11400000, guid: dc7f3c6940d58c1459fb35697d4ca0ea, type: 2}
+  runAway: {fileID: 11400000, guid: f280229ba88f38f45b808340b0297085, type: 2}
+  objects:
+  - {fileID: 11400000, guid: b2a509c4dcd59aa459853e53fb4b62cf, type: 2}
+  - {fileID: 11400000, guid: 32f8975576e65aa41bf7bdf6f1eac2d9, type: 2}
+  - {fileID: 11400000, guid: f80efa1abdb7c5e45b8d429d846a1ba7, type: 2}
+  objectPickUpReactions:
+  - {fileID: 11400000, guid: 7b5737f8440baf34bb43f97f44c0f9d4, type: 2}
+  - {fileID: 11400000, guid: 2a9c1ac8a864970479079d8821a40d81, type: 2}
+  - {fileID: 11400000, guid: 9dfc4d273d167f945a235a13acaba518, type: 2}
+  objectUseEnvReactions:
+  - {fileID: 11400000, guid: dee73516b86df154e95a229caae98212, type: 2}
+  - {fileID: 11400000, guid: 40a887c85268c7646b85ad43701c3319, type: 2}
+  - {fileID: 11400000, guid: de9d9eb698b2ef74c960be87e336885e, type: 2}
+  objectUseNPCReactions:
+  - {fileID: 11400000, guid: 99062ba92a414ea488c49ee887c3cb40, type: 2}
+  - {fileID: 11400000, guid: 9dfc4d273d167f945a235a13acaba518, type: 2}
+  - {fileID: 11400000, guid: e202085583d9f8a4ea57584160b2b411, type: 2}
 --- !u!114 &1089580770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4670,6 +4669,29 @@ MonoBehaviour:
   - {x: 1, y: 1}
   gestureSpeed: 10
   holdPositionDuration: 0.5
+--- !u!114 &882893818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106136456687042921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ad4e0e4c33d9e41af55cb5779c42f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torusCenter: {fileID: 0}
+  wanderTarget: {fileID: 0}
+  moveTowards: {fileID: 11400000, guid: 95f8129ee003b074c83c5b960c2b40eb, type: 2}
+  npc: {fileID: 1757936537}
+  agent: {fileID: 1757936538}
+  wanderMode: 0
+  changeDestinationTime: 5
+  innerTorusRadius: 10
+  outerTorusRadius: 15
+  wanderRange: 5
+  idling: 0
 --- !u!1 &3172455065801014424
 GameObject:
   m_ObjectHideFlags: 0
