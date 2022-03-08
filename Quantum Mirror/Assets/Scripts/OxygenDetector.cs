@@ -8,8 +8,11 @@ public class OxygenDetector : MonoBehaviour
 
 	[Header( "References" )]
 	public Text oxygenText;
+	public string prefix;
+	public string suffix;
 
-	public float oxygenLevels;
+	[Header( "Runtime" )]
+	[ReadOnly] public float oxygenLevels;
 
     [HideInInspector] public List<OxygenSource> oxygenSources;
 
@@ -23,7 +26,7 @@ public class OxygenDetector : MonoBehaviour
 			oxygenLevels += oxygenLevel;
 		}
 
-		oxygenText.text = Mathf.Round( oxygenLevels ).ToString();
+		oxygenText.text = prefix + Mathf.Round( oxygenLevels ).ToString() + suffix;
 	}
 
 }

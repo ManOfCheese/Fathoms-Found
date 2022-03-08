@@ -5,12 +5,17 @@ using UnityEngine;
 public class Oven : InteractableObject
 {
     
-    public bool isActivated;
+
+    [Header( "References" )]
     public Animator animator;
-    float t = 0;
-    public PickUpObject objInOven;
     public Transform ovenPos;
-    public bool isInOven = false;
+
+    [Header( "Runtime" )]
+    [HideInInspector] public bool isActivated;
+    [HideInInspector] public bool isInOven = false;
+    [HideInInspector] public PickUpObject objInOven;
+
+    private float t = 0;
 
     private void Update()
 	{

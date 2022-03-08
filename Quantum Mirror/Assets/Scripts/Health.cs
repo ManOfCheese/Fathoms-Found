@@ -37,7 +37,6 @@ public class Health : MonoBehaviour
 	{
 		if ( grounded != joc.grounded ) {
 			grounded = joc.grounded;
-			Debug.Log( grounded );
 
 			if ( grounded && takeFallingDamage )
 			{

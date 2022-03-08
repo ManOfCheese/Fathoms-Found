@@ -156,8 +156,8 @@ public class Interactor : MonoBehaviour {
             NPCsInRange.Add( npc );
             if ( objectInHand != null ) 
                 PickUpObject?.Invoke( objectInHand.objectType );
-			else 
-                npc.Alert();
+			//else 
+            //   npc.Alert();
 		}
 	}
 
@@ -174,7 +174,7 @@ public class Interactor : MonoBehaviour {
             PickUpObject -= npc.OnPickUpObject;
             UseObject -= npc.OnUseObject;
             NPCsInRange.Remove( npc );
-            npc.Idle();
+            //npc.Idle();
         }
     }
 }

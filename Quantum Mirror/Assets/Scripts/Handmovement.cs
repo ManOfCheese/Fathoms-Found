@@ -12,6 +12,9 @@ public class Handmovement : MonoBehaviour
     public float scrollSensitivity;
 
     [Header( "References" )]
+    public BoolArrayValue fingers;
+    public Vector2Value handPos;
+    public BoolValue isInGestureMode;
     public GameObject center;
     public GameObject circle;
     public GameObject idle;
@@ -71,26 +74,31 @@ public class Handmovement : MonoBehaviour
             hand.transform.localPosition = idle.transform.localPosition;
             reticle.SetActive( true );
             circle.SetActive( false );
-            
         }
     }
     public void OnLook( InputAction.CallbackContext value )
 	{
-        if (Gamepad.current.rightStick.IsActuated(0F))
+        if ( Gamepad.current != null ) 
         {
-            if (value.performed)
+            if ( Gamepad.current.rightStick.IsActuated( 0f ) )
             {
-                var handpos = Gamepad.current.rightStick.ReadValue();
-                hand.transform.localPosition = new Vector3(handpos.x * 0.6f, handpos.y * 0.6f, 0);
+                if ( value.performed )
+                {
+                    var handpos = Gamepad.current.rightStick.ReadValue();
+                    hand.transform.localPosition = new Vector3( handpos.x * 0.6f, handpos.y * 0.6f, 0f );
+                }
             }
-        }   
-        
+            else
+            {
+                Vector2 mouseLook = value.ReadValue<Vector2>();
+                lookVector = new Vector2( mouseLook.y, mouseLook.x );
+            }
+        }
         else
         {
             Vector2 mouseLook = value.ReadValue<Vector2>();
-            lookVector = new Vector2(mouseLook.y, mouseLook.x);
+            lookVector = new Vector2( mouseLook.y, mouseLook.x );
         }
-       
     }
 
 
@@ -101,11 +109,13 @@ public class Handmovement : MonoBehaviour
             if ( !gestureMode )
 			{
                 gestureMode = true;
+                isInGestureMode.Value = gestureMode;
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
             }
 			else
 			{
                 gestureMode = false;
+                isInGestureMode.Value = gestureMode;
                 controller.ChangeSensitivity( controller.startSensitivity );
             }
         }
@@ -150,12 +160,14 @@ public class Handmovement : MonoBehaviour
         {
             Digits[1].SetActive(false);
             ClosedDigits[1].SetActive(true);
+            fingers.Value[ 0 ] = false;
         }
 
         if ( value.canceled )
         {
             Digits[1].SetActive(true);
             ClosedDigits[1].SetActive(false);
+            fingers.Value[ 0 ] = true;
         }
         
     }
@@ -166,12 +178,14 @@ public class Handmovement : MonoBehaviour
         {
             Digits[2].SetActive(false);
             ClosedDigits[2].SetActive(true);
+            fingers.Value[ 1 ] = false;
         }
 
         if (value.canceled)
         {
             Digits[2].SetActive(true);
             ClosedDigits[2].SetActive(false);
+            fingers.Value[ 1 ] = true;
         }
 
     }
@@ -182,12 +196,14 @@ public class Handmovement : MonoBehaviour
         {
             Digits[3].SetActive(false);
             ClosedDigits[3].SetActive(true);
+            fingers.Value[ 2 ] = false;
         }
 
         if (value.canceled)
         {
             Digits[3].SetActive(true);
             ClosedDigits[3].SetActive(false);
+            fingers.Value[ 2 ] = true;
         }
 
     }

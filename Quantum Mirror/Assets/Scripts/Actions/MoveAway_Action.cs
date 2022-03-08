@@ -6,7 +6,7 @@ using UnityEngine;
 public class MoveAway_Action : Move_Action {
 
 	public override void ExecuteAction( NPC npc ) {
-		npc.agent.destination = npc.transform.position - target.position;
+		//npc.agent.destination = npc.transform.position - target.position;
 	}
 
 }
