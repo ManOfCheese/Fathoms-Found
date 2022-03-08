@@ -123,12 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 8b2fe5d1e19bf184f9985f0f535e08bb, type: 2}
---- !u!1 &71611437 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5369271377791234540, guid: c5553df80bb988d4c899797954c9b6e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 5369271377720214977}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &106680273
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +741,7 @@ PrefabInstance:
     - target: {fileID: 885228637, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
       propertyPath: reticle
       value: 
-      objectReference: {fileID: 71611437}
+      objectReference: {fileID: 0}
     - target: {fileID: 182677836375504984, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
       propertyPath: m_RootOrder
@@ -976,7 +970,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1166,7 +1160,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2012,7 +2006,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3478,7 +3472,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3919,7 +3913,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4115,7 +4109,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4524,6 +4518,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 612208499265857726, guid: aaf2433d73d986543b68cfec5c617584,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
     - target: {fileID: 870174163622148921, guid: aaf2433d73d986543b68cfec5c617584,
         type: 3}
       propertyPath: m_Layer
@@ -4569,6 +4568,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2989076085730877081, guid: aaf2433d73d986543b68cfec5c617584,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
     - target: {fileID: 3156617088194851942, guid: aaf2433d73d986543b68cfec5c617584,
         type: 3}
       propertyPath: animator
@@ -4589,6 +4593,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3967459508349181807, guid: aaf2433d73d986543b68cfec5c617584,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
     - target: {fileID: 4376902997915477743, guid: aaf2433d73d986543b68cfec5c617584,
         type: 3}
       propertyPath: m_Layer
@@ -4634,6 +4643,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6133290701394286537, guid: aaf2433d73d986543b68cfec5c617584,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
     - target: {fileID: 6140083229470129070, guid: aaf2433d73d986543b68cfec5c617584,
         type: 3}
       propertyPath: m_RootOrder
@@ -4714,6 +4728,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7144054674271667287, guid: aaf2433d73d986543b68cfec5c617584,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
     - target: {fileID: 7191192813821242394, guid: aaf2433d73d986543b68cfec5c617584,
         type: 3}
       propertyPath: m_Layer
@@ -4724,11 +4743,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7575371974997157412, guid: aaf2433d73d986543b68cfec5c617584,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
     - target: {fileID: 8403521804972852037, guid: aaf2433d73d986543b68cfec5c617584,
         type: 3}
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8683269544685915643, guid: aaf2433d73d986543b68cfec5c617584,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb0018a0d9c997e458dcdf08c4507703, type: 2}
     - target: {fileID: 8691349384932645866, guid: aaf2433d73d986543b68cfec5c617584,
         type: 3}
       propertyPath: m_Layer
