@@ -7,15 +7,17 @@ using StateMachine;
 public class AlienManager : MonoBehaviour
 {
 
-    [HideInInspector] public AlienGestureController gestureController;
-    [HideInInspector] public AlienMovementController moveController;
+    public Transform player;
+
+    [HideInInspector] public AlienGestureController gc;
+    [HideInInspector] public AlienMovementController mc;
     [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public StateMachine<AlienManager> stateMachine;
 
     private void Awake()
     {
-        gestureController = GetComponent<AlienGestureController>();
-        moveController = GetComponent<AlienMovementController>();
+        gc = GetComponent<AlienGestureController>();
+        mc = GetComponent<AlienMovementController>();
         agent = GetComponent<NavMeshAgent>();
         stateMachine = new StateMachine<AlienManager>( this );
     }
