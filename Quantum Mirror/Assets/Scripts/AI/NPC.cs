@@ -110,7 +110,7 @@ public class NPC : MonoBehaviour {
     public void OnCommunicate( InputAction.CallbackContext value ) 
     {
         if ( value.performed && Vector3.Distance( player.transform.position, transform.position ) < interactionDistance )
-            gc.OnGesture( player.transform );
+            //gc.OnGesture( player.transform );
         wanderTarget = transform.position;
 	}
 

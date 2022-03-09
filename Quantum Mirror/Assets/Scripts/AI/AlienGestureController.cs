@@ -8,7 +8,7 @@ public class AlienGestureController : MonoBehaviour
 	[Header( "References" )]
 	public BoolValue confirmGesture;
 	public BoolValue isInGestureMode;
-	public Vector2Value handPos;
+	public IntValue handPos;
 	public BoolArrayValue fingers;
 
 	public UI_Text_Changer textChanger;
@@ -20,6 +20,7 @@ public class AlienGestureController : MonoBehaviour
 	public float gestureSpeed = 1f;
 	public float holdPosFor = 1f;
 
+	[HideInInspector] public AlienManager alienManager;
 	[HideInInspector] public int handIndex;
 	[HideInInspector] public int gestureIndex = 0;
 	[HideInInspector] public float waitTimeStamp;
@@ -30,24 +31,22 @@ public class AlienGestureController : MonoBehaviour
 
 	private void Update()
 	{
-	}
+		if ( confirmGesture.Value ) {
+			gesture = false;
+			hands[ handIndex ].enabled = true;
+			gestureCircles[ handIndex ].SetActive( false );
 
-	public void OnGesture( Transform respondTo )
-	{
-		gesture = false;
-		hands[ handIndex ].enabled = true;
-		gestureCircles[ handIndex ].SetActive( false );
+			int closestHand = FindClosestHand( alienManager.player );
 
-		int closestHand = FindClosestHand( respondTo );
-
-		hands[ closestHand ].enabled = false;
-		hands[ closestHand ].gameObject.transform.position = gestureCircles[ closestHand ].transform.position;
-		handIndex = closestHand;
-		gesture = true;
-		gestureIndex = 0;
-		startGesture = false;
-		waiting = false;
-		textChanger.OnAlienInteract();
+			hands[ closestHand ].enabled = false;
+			hands[ closestHand ].gameObject.transform.position = gestureCircles[ closestHand ].transform.position;
+			handIndex = closestHand;
+			gesture = true;
+			gestureIndex = 0;
+			startGesture = false;
+			waiting = false;
+			//textChanger.OnAlienInteract();
+		}
 	}
 
 	public int FindClosestHand( Transform respondTo )

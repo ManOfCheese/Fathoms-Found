@@ -35,7 +35,7 @@ public class AttentionState : State<AlienManager>
 
 	public override void EnterState( AlienManager _owner )
 	{
-
+		_owner.mc.agent.destination = _owner.transform.position; 
 	}
 
 	public override void UpdateState( AlienManager _owner )
@@ -59,9 +59,7 @@ public class AttentionState : State<AlienManager>
 			if ( _owner.gc.waiting )
 			{
 				if ( Time.time - _owner.gc.waitTimeStamp > _owner.gc.holdPosFor )
-				{
 					_owner.gc.waiting = false;
-				}
 			}
 			else
 			{
@@ -82,8 +80,8 @@ public class AttentionState : State<AlienManager>
 					}
 					else
 					{
-						_owner.gc.handTarget = circle.transform.position + new Vector3( gesturePoint.x * _owner.gc.gCircleDiameter, 0f, gesturePoint.y * 
-							_owner.gc.gCircleDiameter );
+						_owner.gc.handTarget = circle.transform.position + new Vector3( gesturePoint.x * _owner.gc.gCircleDiameter, 0f, 
+							gesturePoint.y * _owner.gc.gCircleDiameter );
 					}
 				}
 				else

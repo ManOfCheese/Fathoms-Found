@@ -60,7 +60,9 @@ public class AlienMovementController : MonoBehaviour
 
 	private void OnValidate()
 	{
-        agent.speed = speed;
+        if ( agent != null )
+            agent.speed = speed;
+
         for ( int i = 0; i < hands.Length; i++ )
         {
             hands[ i ].speed = speed;
@@ -125,7 +127,6 @@ public class AlienMovementController : MonoBehaviour
 
         NavMeshHit hit;
         NavMesh.SamplePosition( center + RandomizeDirection( randomTarget.normalized * magnitude ), out hit, 500, 1 );
-        Debug.Log( hit.position );
         return hit.position;
     }
 
@@ -151,8 +152,11 @@ public class AlienMovementController : MonoBehaviour
 	private void OnDrawGizmos()
 	{
         Gizmos.DrawSphere( destination, 2 );
-        Gizmos.DrawWireSphere( wandercircleCenter.transform.position, circleRadius );
-        Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusInnerRadius);
-        Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusOuterRadius );
+        if ( wandercircleCenter )
+            Gizmos.DrawWireSphere( wandercircleCenter.transform.position, circleRadius );
+        if ( wanderTorusCenter ) {
+            Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusInnerRadius );
+            Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusOuterRadius );
+        }
 	}
 }

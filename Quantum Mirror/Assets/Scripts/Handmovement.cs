@@ -13,8 +13,9 @@ public class Handmovement : MonoBehaviour
 
     [Header( "References" )]
     public BoolArrayValue fingers;
-    public Vector2Value handPos;
+    public IntValue handPos;
     public BoolValue isInGestureMode;
+    public BoolValue confirmGesture;
     public GameObject center;
     public GameObject circle;
     public GameObject idle;
@@ -24,6 +25,7 @@ public class Handmovement : MonoBehaviour
     public GameObject[] lights;
     public GameObject[] Digits;
     public GameObject[] ClosedDigits;
+    public SphereCollider[] subCircles;
     public JackOfController controller;
 
     [Header( "Read Only" )]
@@ -67,7 +69,6 @@ public class Handmovement : MonoBehaviour
             {
                 hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.05f );
             }
-
         }
         else
         {
@@ -75,7 +76,21 @@ public class Handmovement : MonoBehaviour
             reticle.SetActive( true );
             circle.SetActive( false );
         }
+
+        //Check in which area of the gesture circle the hand is.
+        bool foundPos = false;
+		for ( int i = 0; i < subCircles.Length; i++ ) {
+            if ( Vector3.Distance( hand.transform.position, subCircles[ i ].transform.position ) < 
+                ( subCircles[ i ].radius * subCircles[ i ].transform.localScale.x ) ) {
+                handPos.Value = i + 1;
+                foundPos = true;
+			}
+            if ( i == subCircles.Length - 1 && !foundPos ) {
+                handPos.Value = 0;
+			}
+		}
     }
+
     public void OnLook( InputAction.CallbackContext value )
 	{
         if ( Gamepad.current != null ) 
@@ -109,14 +124,14 @@ public class Handmovement : MonoBehaviour
             if ( !gestureMode )
 			{
                 gestureMode = true;
-                isInGestureMode.Value = gestureMode;
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
+
             }
 			else
 			{
                 gestureMode = false;
-                isInGestureMode.Value = gestureMode;
                 controller.ChangeSensitivity( controller.startSensitivity );
+
             }
         }
     }
@@ -144,13 +159,17 @@ public class Handmovement : MonoBehaviour
     {
         if ( value.performed )
         {
-            if ( gameObject.transform.localPosition.z < 0.4f )
+            if ( gameObject.transform.localPosition.z < 0.4f ) {
                 gameObject.transform.Translate( punchdestination );
+                confirmGesture.Value = true;
+            }
         }
         else if ( value.canceled )
         {
-            if ( gameObject.transform.localPosition.z >= 0f )
+            if ( gameObject.transform.localPosition.z >= 0f ) {
                 gameObject.transform.Translate( -punchdestination );
+                confirmGesture.Value = false;
+            }
         }
     }
 
