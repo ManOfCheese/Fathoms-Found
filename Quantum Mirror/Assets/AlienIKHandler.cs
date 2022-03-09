@@ -5,6 +5,8 @@ using UnityEngine;
 public class AlienIKHandler : MonoBehaviour
 {
 
+    public SphereCollider[] subCircles;
+    
     [SerializeField] LayerMask terrainLayer = default;
     [SerializeField] Transform body = default;
     // [SerializeField] AlienIKHandler otherFoot = default;

@@ -44,16 +44,13 @@ public class AttentionState : State<AlienManager>
 		{
 			GameObject circle = _owner.gc.gestureCircles[ _owner.gc.handIndex ];
 			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.handIndex ];
-			Vector3 handPos = hand.transform.position;
-			Vector2 gesturePoint = _owner.gc.gesturePoints[ _owner.gc.gestureIndex ];
+			List<Gesture> gestures = _owner.gc.responses.Items[ _owner.gc.gestureIndex ].words;
 
 			if ( !_owner.gc.startGesture )
 			{
 				circle.SetActive( true );
-				Vector3 left = circle.transform.right * gesturePoint.x;
-				Vector3 up = circle.transform.up * gesturePoint.y;
-				_owner.gc.handTarget = circle.transform.position + ( ( left + up ) * _owner.gc.gCircleDiameter );
-				_owner.gc.startGesture = true;
+				_owner.gc.handTarget = circle.transform.position;
+				_owner.gc.startGesture = false;
 			}
 
 			if ( _owner.gc.waiting )
@@ -63,16 +60,16 @@ public class AttentionState : State<AlienManager>
 			}
 			else
 			{
-				float magnitude = _owner.gc.gestureSpeed * Time.deltaTime;
-				float dist = Vector3.Distance( handPos, _owner.gc.handTarget );
-				if ( dist < magnitude )
+				float speed = _owner.gc.gestureSpeed * Time.deltaTime;
+				float dist = Vector3.Distance( hand.transform.position, _owner.gc.handTarget );
+				if ( dist < speed )
 				{
-					handPos += ( _owner.gc.handTarget - handPos ).normalized * dist;
+					hand.transform.position += ( _owner.gc.handTarget - hand.transform.position ).normalized * dist;
 					_owner.gc.waitTimeStamp = Time.time;
 					_owner.gc.waiting = true;
 
 					_owner.gc.gestureIndex++;
-					if ( _owner.gc.gestureIndex >= _owner.gc.gesturePoints.Length )
+					if ( _owner.gc.gestureIndex >= gestures.Count )
 					{
 						_owner.gc.gesture = false;
 						hand.enabled = true;
@@ -80,13 +77,12 @@ public class AttentionState : State<AlienManager>
 					}
 					else
 					{
-						_owner.gc.handTarget = circle.transform.position + new Vector3( gesturePoint.x * _owner.gc.gCircleDiameter, 0f, 
-							gesturePoint.y * _owner.gc.gCircleDiameter );
+						_owner.gc.handTarget = hand.subCircles[ gestures[ _owner.gc.gestureIndex ].circle ].transform.position;
 					}
 				}
 				else
 				{
-					handPos += ( _owner.gc.handTarget - handPos ).normalized * magnitude;
+					hand.transform.position += ( _owner.gc.handTarget - hand.transform.position ).normalized * speed;
 				}
 			}
 		}
