@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public enum MovementMode
 {
     PointToPoint,
-    Timed
+    Timed,
+    Static
 }
 
 public enum WanderShape
@@ -73,6 +74,8 @@ public class AlienMovementController : MonoBehaviour
 	{
         switch ( movementMode )
         {
+            case MovementMode.Static:
+                break;
             case MovementMode.PointToPoint:
                 if ( CheckDestinationReached() || isFirstDestination )
                 {

@@ -994,7 +994,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5
@@ -2170,7 +2170,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5
@@ -2274,7 +2274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6560390591115435733
 Transform:
   m_ObjectHideFlags: 0
@@ -2487,7 +2487,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5
@@ -2882,7 +2882,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5
@@ -3140,7 +3140,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.81
-  m_Speed: 2
+  m_Speed: 0
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -4208,7 +4208,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5
@@ -4557,8 +4557,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  attentionDistance: 0
-  lookAtForAttention: 0
+  attentionDistance: 10
+  lookAtForAttention: 1
   gc: {fileID: 0}
   mc: {fileID: 0}
   agent: {fileID: 0}
@@ -4581,14 +4581,14 @@ MonoBehaviour:
   fingers: {fileID: 11400000, guid: 9a373f8d0f773414fa550858fe659b04, type: 2}
   textChanger: {fileID: 0}
   hands:
-  - {fileID: 2871712679898813848}
   - {fileID: 3212807522618574264}
   - {fileID: 8580479925270609438}
-  - {fileID: 1427232768790329277}
-  - {fileID: 536645856955449490}
+  - {fileID: 2871712679898813848}
   - {fileID: 4709334364615308592}
+  - {fileID: 536645856955449490}
   - {fileID: 7400975075281896091}
   - {fileID: 2160892497755673983}
+  - {fileID: 1427232768790329277}
   gestureCircles:
   - {fileID: 2131243980881740481}
   - {fileID: 3232463932793072692}
@@ -4601,16 +4601,20 @@ MonoBehaviour:
   gCircleDiameter: 1.6
   gestures: {fileID: 11400000, guid: c7ad4e18ea75b2e4eb55456a27815fcd, type: 2}
   responses: {fileID: 11400000, guid: e76663091c58e594eb686e0b880ea171, type: 2}
-  gestureSpeed: 10
-  holdPosFor: 1
+  gestureSpeed: 1
+  holdPosFor: 3
+  gesture: 0
+  waiting: 0
+  startGesture: 0
+  endGesture: 0
+  waitTimeStamp: 0
+  handIndex: 0
+  sentenceIndex: 0
+  wordIndex: 0
+  preGestureHandPos: {x: 0, y: 0, z: 0}
+  playerGestures: []
   respondTo: []
   alienManager: {fileID: 0}
-  handIndex: 0
-  gestureIndex: 0
-  waitTimeStamp: 0
-  gesture: 0
-  startGesture: 0
-  waiting: 0
   handTarget: {x: 0, y: 0, z: 0}
 --- !u!114 &6278649203793106860
 MonoBehaviour:
@@ -4624,11 +4628,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a6e4e6c54d79f488eb4cc6b28f61be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
-  hands: []
+  agent: {fileID: 2101344780168200542}
+  hands:
+  - {fileID: 2871712679898813848}
+  - {fileID: 3212807522618574264}
+  - {fileID: 8580479925270609438}
+  - {fileID: 1427232768790329277}
+  - {fileID: 536645856955449490}
+  - {fileID: 4709334364615308592}
+  - {fileID: 7400975075281896091}
+  - {fileID: 2160892497755673983}
   movementMode: 1
   wanderShape: 2
-  speed: 5
+  speed: 0
   changeDestinationTime: 10
   minDistance: 30
   maxDistance: 40
@@ -6313,7 +6325,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5
@@ -6509,7 +6521,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5
@@ -6570,7 +6582,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   body: {fileID: 2328613941833931731}
-  speed: 2.5
+  speed: 0
   stepDistance: 2
   stepLength: 0.5
   stepHeight: 0.5

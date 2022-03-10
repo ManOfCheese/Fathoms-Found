@@ -22,16 +22,21 @@ public class AlienGestureController : MonoBehaviour
 	public float gestureSpeed = 1f;
 	public float holdPosFor = 1f;
 
+	[ReadOnly] public bool gesture;
+	[ReadOnly] public bool waiting = false;
+	[ReadOnly] public bool startGesture;
+	[ReadOnly] public bool endGesture;
+	[ReadOnly] public float waitTimeStamp;
+	[ReadOnly] public int handIndex;
+	[ReadOnly] public int sentenceIndex;
+	[ReadOnly] public int wordIndex = 0;
+	[ReadOnly] public Vector3 preGestureHandPos;
+
 	[HideInInspector] public List<Gesture> playerGestures = new List<Gesture>();
 	[HideInInspector] public List<Gesture> respondTo = new List<Gesture>();
 
 	[HideInInspector] public AlienManager alienManager;
-	[HideInInspector] public int handIndex;
-	[HideInInspector] public int gestureIndex = 0;
-	[HideInInspector] public float waitTimeStamp;
-	[HideInInspector] public bool gesture;
-	[HideInInspector] public bool startGesture;
-	[HideInInspector] public bool waiting = false;
+
 	[HideInInspector] public Vector3 handTarget;
 
 	public int FindClosestHand( Transform respondTo )
@@ -63,15 +68,15 @@ public class AlienGestureController : MonoBehaviour
 				//Find the player's sentence in the library and save the id.
 				bool sentenceFound = false;
 				for ( int i = 0; i < gestures.Items.Count; i++ ) {
-					Debug.Log( gestures.Items[ i ].words[ 0 ].circle + "-" + gestures.Items[ i ].words[ 0 ].fingers[ 0 ] + "-"
-						+ gestures.Items[ i ].words[ 0 ].fingers[ 1 ] + "-" + gestures.Items[ i ].words[ 0 ].fingers[ 2 ] + " | " 
-						+ respondTo[ 0 ].circle + "-" + respondTo[ 0 ].fingers[ 0 ] + "-" + respondTo[ 0 ].fingers[ 1 ] + "-" 
-						+ respondTo[ 0 ].fingers[ 2 ] );
+					//Debug.Log( gestures.Items[ i ].words[ 0 ].circle + "-" + gestures.Items[ i ].words[ 0 ].fingers[ 0 ] + "-"
+					//	+ gestures.Items[ i ].words[ 0 ].fingers[ 1 ] + "-" + gestures.Items[ i ].words[ 0 ].fingers[ 2 ] + " | " 
+					//	+ respondTo[ 0 ].circle + "-" + respondTo[ 0 ].fingers[ 0 ] + "-" + respondTo[ 0 ].fingers[ 1 ] + "-" 
+					//	+ respondTo[ 0 ].fingers[ 2 ] );
 					if ( gestures.Items[ i ].words[ 0 ].circle == respondTo[ 0 ].circle &&
 						gestures.Items[ i ].words[ 0 ].fingers[ 0 ] == respondTo[ 0 ].fingers[ 0 ] &&
 						gestures.Items[ i ].words[ 0 ].fingers[ 1 ] == respondTo[ 0 ].fingers[ 1 ] &&
 						gestures.Items[ i ].words[ 0 ].fingers[ 2 ] == respondTo[ 0 ].fingers[ 2 ] ) {
-						gestureIndex = i;
+						sentenceIndex = i;
 						sentenceFound = true;
 					}
 				}
@@ -83,9 +88,10 @@ public class AlienGestureController : MonoBehaviour
 					handIndex = closestHand;
 					hands[ handIndex ].enabled = false;
 					gesture = true;
-					gestureIndex = 0;
-					startGesture = false;
+					wordIndex = -1;
+					startGesture = true;
 					waiting = false;
+					preGestureHandPos = hands[ handIndex ].transform.position;
 					//textChanger.OnAlienInteract();
 				}
 				else {
@@ -94,9 +100,13 @@ public class AlienGestureController : MonoBehaviour
 			}
 			else {
 				playerGestures.Add( new Gesture( handPos.Value, fingers.Value ) );
-				Debug.Log( playerGestures[ playerGestures.Count - 1 ].circle + " | " + playerGestures[ playerGestures.Count - 1 ].fingers[ 0 ] + "-"
-					+ playerGestures[ playerGestures.Count - 1 ].fingers[ 1 ] + "-" + playerGestures[ playerGestures.Count - 1 ].fingers[ 2 ] );
+				//Debug.Log( playerGestures[ playerGestures.Count - 1 ].circle + " | " + playerGestures[ playerGestures.Count - 1 ].fingers[ 0 ] + "-"
+				//	+ playerGestures[ playerGestures.Count - 1 ].fingers[ 1 ] + "-" + playerGestures[ playerGestures.Count - 1 ].fingers[ 2 ] );
 			}
 		}
+	}
+
+	private void OnDrawGizmos() {
+		Gizmos.DrawCube( handTarget, Vector3.one );
 	}
 }
