@@ -15,6 +15,7 @@ public class AlienGestureController : MonoBehaviour
 	public UI_Text_Changer textChanger;
     public AlienIKHandler[] hands;
 	public GameObject[] gestureCircles;
+	public Transform[] idleHandTargets;
 	public float gCircleDiameter;
 
 	public GestureSequence_Set gestures;
@@ -22,13 +23,16 @@ public class AlienGestureController : MonoBehaviour
 	public float gestureSpeed = 1f;
 	public float holdPosFor = 1f;
 
-	[ReadOnly] public bool gesture;
+	[ReadOnly] public bool repositioning;
+	[ReadOnly] public List<int> repositionedLegs = new List<int>();
+
+	[ReadOnly] public bool gesture = false;
 	[ReadOnly] public bool waiting = false;
-	[ReadOnly] public bool startGesture;
-	[ReadOnly] public bool endGesture;
-	[ReadOnly] public float waitTimeStamp;
-	[ReadOnly] public int handIndex;
-	[ReadOnly] public int sentenceIndex;
+	[ReadOnly] public bool startGesture = false;
+	[ReadOnly] public bool endGesture = false;
+	[ReadOnly] public float waitTimeStamp = 0f;
+	[ReadOnly] public int handIndex = -1;
+	[ReadOnly] public int sentenceIndex = 0;
 	[ReadOnly] public int wordIndex = 0;
 	[ReadOnly] public Vector3 preGestureHandPos;
 
@@ -86,7 +90,6 @@ public class AlienGestureController : MonoBehaviour
 					int closestHand = FindClosestHand( alienManager.player );
 
 					handIndex = closestHand;
-					hands[ handIndex ].enabled = false;
 					gesture = true;
 					wordIndex = -1;
 					startGesture = true;

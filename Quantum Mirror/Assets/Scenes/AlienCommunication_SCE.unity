@@ -699,16 +699,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2101344780168200542, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
-        type: 3}
-      propertyPath: m_Speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2131243980881740481, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
       propertyPath: m_RootOrder
@@ -776,28 +766,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
-      propertyPath: speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
-        type: 3}
-      propertyPath: wanderTorusCenter
+      propertyPath: torusCenter
       value: 
       objectReference: {fileID: 1635819437}
     - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
-      propertyPath: wandercircleCenter
+      propertyPath: circleCenter
       value: 
       objectReference: {fileID: 52255610}
-    - target: {fileID: 7223040693863163904, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+    - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
-      propertyPath: holdPosFor
-      value: 1
+      propertyPath: movementMode
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7223040693863163904, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+    - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
-      propertyPath: gestureSpeed
-      value: 5
+      propertyPath: movementShape
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
