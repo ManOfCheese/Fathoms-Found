@@ -10,7 +10,7 @@ Material:
   m_Name: Retro
   m_Shader: {fileID: -6465566751694194690, guid: 77b7bf11caf2e2e43823cdbe4ee381e1,
     type: 3}
-  m_ShaderKeywords: CRT_WARP_ON SCROLL_STATIC_ON
+  m_ShaderKeywords: CRT_WARP_ON DISTORT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -38,20 +38,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - CRT_WARP: 1
-    - DISTORT: 0
+    - DISTORT: 1
     - RGB_STRIPES: 0
-    - SCROLL_STATIC: 1
+    - SCROLL_STATIC: 0
     - STATIC: 0
-    - Vector1_1BFF6B46: 0
+    - Vector1_1BFF6B46: 900
     - Vector1_5660967D: 1.2
     - Vector1_63AA1B2A: 0.2
     - Vector1_96113905: 100
     - Vector1_DF019693: 0.5
     - WOBBLE: 0
-    - _DistortionStrength: 1
-    - _ScanlineHeight: 15
+    - _DistortionStrength: -0.001
+    - _ScanlineHeight: 18.64
     - _ScanlineStrength: 0.0002
-    - _StaticStrength: 0.008
+    - _StaticStrength: 0.16
     m_Colors:
-    - _CRTWarpStrength: {r: 0.005, g: 0.005, b: 0, a: 0}
+    - _CRTWarpStrength: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
