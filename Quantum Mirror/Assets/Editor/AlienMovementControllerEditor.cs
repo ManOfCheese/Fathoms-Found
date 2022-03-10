@@ -54,8 +54,6 @@ public class AlienMovementControllerEditor : Editor
 
             case MovementMode.PointToPoint:
                 EditorGUILayout.PropertyField( speed_Prop, new GUIContent( "speed" ) );
-                EditorGUILayout.PropertyField( changeDestinationTime_Prop, new GUIContent( "changeDestinationTime" ) );
-                EditorGUILayout.PropertyField( destinationReachedWindow_prop, new GUIContent( "destinationReachedWindow" ) );
                 DisplayWanderShape();
                 break;
 
