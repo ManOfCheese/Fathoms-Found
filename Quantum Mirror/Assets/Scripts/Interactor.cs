@@ -35,7 +35,7 @@ public class Interactor : MonoBehaviour {
     public static event ObjectAction DropObject;
     public static event ObjectAction UseObject;
 
-    private bool looking;
+    private AlienManager lookingAt;
 
     private void Awake()
     {
@@ -48,15 +48,17 @@ public class Interactor : MonoBehaviour {
     {
         RaycastHit hit;
         if ( Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity ) ) {
-			if ( hit.transform.GetComponent<NPC>() ) {
-				LookAtNPC?.Invoke();
-				looking = true;
+			if ( hit.transform.GetComponentInChildren<AlienManager>() ) {
+				if ( lookingAt == null ) {
+                    lookingAt = hit.transform.GetComponentInChildren<AlienManager>();
+                    lookingAt.OnLookAt();
+                }
 			}
-		}
-		else if ( looking ) {
-			looking = false;
-			LookAway?.Invoke();
-		}
+            else if ( lookingAt != null ) {
+                lookingAt.OnLookAway();
+                lookingAt = null;
+            }
+        }
 
 		pickUpObject = null;
         interactableObject = null;

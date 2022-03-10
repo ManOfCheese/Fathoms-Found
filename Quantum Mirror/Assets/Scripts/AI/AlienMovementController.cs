@@ -20,38 +20,54 @@ public class AlienMovementController : MonoBehaviour
 {
 
     [Header( "References" )]
-    public CharacterController characterController;
     public NavMeshAgent agent;
+    public AlienIKHandler[] hands;
 
     [Header( "Settings" )]
     public MovementMode movementMode;
     public WanderShape wanderShape;
-
-    public Transform torusInnerCircle;
-    public Transform torusOuterCircle;
-    public float torusInnerRadius;
-    public float torusOuterRadius;
-
-    public Transform wandercircle;
-    public float circleRadius;
-
     public float speed;
     public float changeDestinationTime;
     public float minDistance;
     public float maxDistance;
     public float destinationReachedWindow;
 
+    [Space(10)]
+    public Transform wanderTorusCenter;
+    public float torusInnerRadius;
+    public float torusOuterRadius;
+
+    [Space( 10 )]
+    public Transform wandercircleCenter;
+    public float circleRadius;
+
     [Header( "Runtime" )]
-    public float bodyHeight;
-    public Vector3 destination;
+    [ReadOnly] public float bodyHeight;
+    [ReadOnly] public Vector3 destination;
 
     [HideInInspector] public float idleDestinationTimestamp;
 
 	private void Awake()
 	{
-		agent.speed = speed;
+        agent.speed = speed;
         agent.destination = transform.position;
+
+		for ( int i = 0; i < hands.Length; i++ )
+		{
+            hands[ i ].speed = speed;
+		}
 	}
+
+	private void OnValidate()
+	{
+        if ( agent != null )
+            agent.speed = speed;
+
+        for ( int i = 0; i < hands.Length; i++ )
+        {
+            hands[ i ].speed = speed;
+        }
+    }
 
 	public void EvaluateMovement( bool isFirstDestination )
 	{
@@ -80,9 +96,9 @@ public class AlienMovementController : MonoBehaviour
         switch ( wanderShape )
         {
             case WanderShape.Torus:
-                return GetRandomPos( torusInnerCircle.transform.position, torusInnerRadius, torusOuterRadius );
+                return GetRandomPos( wanderTorusCenter.transform.position, torusInnerRadius, torusOuterRadius );
             case WanderShape.Circle:
-                return GetRandomPos( wandercircle.transform.position, 0f, circleRadius );
+                return GetRandomPos( wandercircleCenter.transform.position, 0f, circleRadius );
             case WanderShape.None:
                 return GetRandomPos( transform.position, minDistance, maxDistance );
             default:
@@ -111,7 +127,6 @@ public class AlienMovementController : MonoBehaviour
 
         NavMeshHit hit;
         NavMesh.SamplePosition( center + RandomizeDirection( randomTarget.normalized * magnitude ), out hit, 500, 1 );
-        Debug.Log( hit.position );
         return hit.position;
     }
 
@@ -137,8 +152,11 @@ public class AlienMovementController : MonoBehaviour
 	private void OnDrawGizmos()
 	{
         Gizmos.DrawSphere( destination, 2 );
-        Gizmos.DrawWireSphere( wandercircle.transform.position, circleRadius );
-        Gizmos.DrawWireSphere( torusInnerCircle.transform.position, torusInnerRadius);
-        Gizmos.DrawWireSphere( torusOuterCircle.transform.position, torusOuterRadius );
+        if ( wandercircleCenter )
+            Gizmos.DrawWireSphere( wandercircleCenter.transform.position, circleRadius );
+        if ( wanderTorusCenter ) {
+            Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusInnerRadius );
+            Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusOuterRadius );
+        }
 	}
 }

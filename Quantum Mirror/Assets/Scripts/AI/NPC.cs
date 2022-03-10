@@ -28,7 +28,7 @@ public class NPC : MonoBehaviour {
 
     private List<Action> currentActions;
     [HideInInspector] public NavMeshAgent agent;
-    [HideInInspector] public AlienGestureController gestureController;
+    [HideInInspector] public AlienGestureController gc;
     [HideInInspector] public AlienMovementController moveController;
 
     [Header( "Runtime" )]
@@ -38,7 +38,7 @@ public class NPC : MonoBehaviour {
     private void Awake() 
     {
         moveController = GetComponent<AlienMovementController>();
-        gestureController = GetComponent<AlienGestureController>();
+        gc = GetComponent<AlienGestureController>();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -110,7 +110,7 @@ public class NPC : MonoBehaviour {
     public void OnCommunicate( InputAction.CallbackContext value ) 
     {
         if ( value.performed && Vector3.Distance( player.transform.position, transform.position ) < interactionDistance )
-            gestureController.OnGesture( player.transform );
+            //gc.OnGesture( player.transform );
         wanderTarget = transform.position;
 	}
 

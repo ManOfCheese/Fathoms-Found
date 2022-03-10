@@ -5,90 +5,48 @@ using UnityEngine;
 public class AlienGestureController : MonoBehaviour
 {
 
+	[Header( "References" )]
+	public BoolValue confirmGesture;
+	public BoolValue isInGestureMode;
+	public IntValue handPos;
+	public BoolArrayValue fingers;
+
 	public UI_Text_Changer textChanger;
-    public AlienIKHandler[] alienHands;
+    public AlienIKHandler[] hands;
 	public GameObject[] gestureCircles;
-	public float gestureCircleDiameter;
+	public float gCircleDiameter;
 
 	public Vector2[] gesturePoints;
 	public float gestureSpeed = 1f;
-	public float holdPositionDuration = 1f;
+	public float holdPosFor = 1f;
 
-	private int handIndex;
-	private int gestureIndex = 0;
-	private float waitTimeStamp;
-	private bool gesture;
-	private bool startGesture;
-	private bool waiting = false;
-	private Vector3 handTarget;
+	[HideInInspector] public AlienManager alienManager;
+	[HideInInspector] public int handIndex;
+	[HideInInspector] public int gestureIndex = 0;
+	[HideInInspector] public float waitTimeStamp;
+	[HideInInspector] public bool gesture;
+	[HideInInspector] public bool startGesture;
+	[HideInInspector] public bool waiting = false;
+	[HideInInspector] public Vector3 handTarget;
 
 	private void Update()
 	{
-		if ( gesture )
-		{
-			if ( !startGesture )
-			{
-				gestureCircles[ handIndex ].SetActive( true );
-				Vector3 left = gestureCircles[ handIndex ].transform.right * gesturePoints[ gestureIndex ].x;
-				Vector3 up = gestureCircles[ handIndex ].transform.up * gesturePoints[ gestureIndex ].y;
-				handTarget = gestureCircles[ handIndex ].transform.position + ( ( left + up ) * gestureCircleDiameter );
-				startGesture = true;
-			}
+		if ( confirmGesture.Value ) {
+			gesture = false;
+			hands[ handIndex ].enabled = true;
+			gestureCircles[ handIndex ].SetActive( false );
 
-			if ( waiting )
-			{
-				if ( Time.time - waitTimeStamp > holdPositionDuration )
-				{
-					waiting = false;
-				}
-			}
-			else
-			{
-				float magnitude = gestureSpeed * Time.deltaTime;
-				float dist = Vector3.Distance( alienHands[ handIndex ].transform.position, handTarget );
-				if ( dist < magnitude )
-				{
-					alienHands[ handIndex ].transform.position += ( handTarget - alienHands[ handIndex ].transform.position ).normalized * dist;
-					waitTimeStamp = Time.time;
-					waiting = true;
+			int closestHand = FindClosestHand( alienManager.player );
 
-					gestureIndex++;
-					if ( gestureIndex >= gesturePoints.Length )
-					{
-						gesture = false;
-						alienHands[ handIndex ].enabled = true;
-						gestureCircles[ handIndex ].SetActive( false );
-					}
-					else
-					{
-						handTarget = gestureCircles[ handIndex ].transform.position + new Vector3( gesturePoints[ gestureIndex ].x * gestureCircleDiameter, 0f,
-							gesturePoints[ gestureIndex ].y * gestureCircleDiameter );
-					}
-				}
-				else
-				{
-					alienHands[ handIndex ].transform.position += ( handTarget - alienHands[ handIndex ].transform.position ).normalized * magnitude;
-				}
-			}
+			hands[ closestHand ].enabled = false;
+			hands[ closestHand ].gameObject.transform.position = gestureCircles[ closestHand ].transform.position;
+			handIndex = closestHand;
+			gesture = true;
+			gestureIndex = 0;
+			startGesture = false;
+			waiting = false;
+			//textChanger.OnAlienInteract();
 		}
-	}
-
-	public void OnGesture( Transform respondTo )
-	{
-		gesture = false;
-		alienHands[ handIndex ].enabled = true;
-		gestureCircles[ handIndex ].SetActive( false );
-
-		int closestHand = FindClosestHand( respondTo );
-
-		alienHands[ closestHand ].enabled = false;
-		alienHands[ closestHand ].gameObject.transform.position = gestureCircles[ closestHand ].transform.position;
-		handIndex = closestHand;
-		gesture = true;
-		gestureIndex = 0;
-		startGesture = false;
-		waiting = false;
-		textChanger.OnAlienInteract();
 	}
 
 	public int FindClosestHand( Transform respondTo )
