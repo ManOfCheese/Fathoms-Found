@@ -40,12 +40,10 @@ public class AlienManager : MonoBehaviour
         if ( Vector3.Distance( transform.position, player.position ) < attentionDistance ) {
             if ( lookAtForAttention && looking && stateMachine.CurrentState != AttentionState.Instance ) {
                 stateMachine.ChangeState( AttentionState.Instance );
-                Debug.Log( "Entered Attention State" );
 			}
 		}
         else if ( stateMachine.CurrentState == AttentionState.Instance ) {
             stateMachine.ChangeState( WanderState.Instance );
-            Debug.Log( "Exited Attention State" );
         }
     }
 
@@ -58,7 +56,6 @@ public class AlienManager : MonoBehaviour
 
         if ( lookAtForAttention && stateMachine.CurrentState == AttentionState.Instance ) {
             stateMachine.ChangeState( WanderState.Instance );
-            Debug.Log( "Exited Attention State" );
         }
     }
 }
