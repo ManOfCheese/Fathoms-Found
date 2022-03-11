@@ -10,12 +10,14 @@ public class Handmovement : MonoBehaviour
     public float gestureModeLookSensitivity;
     public float handSensitivity;
     public float scrollSensitivity;
+    public bool rotateHand;
 
     [Header( "References" )]
     public BoolArrayValue fingers;
     public IntValue handPos;
     public BoolValue isInGestureMode;
     public BoolValue confirmGesture;
+    
     public GameObject center;
     public GameObject circle;
     public GameObject idle;
@@ -40,19 +42,22 @@ public class Handmovement : MonoBehaviour
     {
         if ( gestureMode == true )
         {
+            float distance = Vector3.Distance(center.transform.position, hand.transform.position);
+
+            if ( rotateHand )
+            { 
             //Hand rotates outward from the gesture circle
             Vector3 relativepos = handmodel.transform.InverseTransformPoint( center.transform.position );
             relativepos.y = 0;
 
             Vector3 targetPostition = handmodel.transform.TransformPoint( relativepos );
 
-            float distance = Vector3.Distance(center.transform.position, hand.transform.position);
-
             //if in outside ring, lerp to face hand outward
             if (distance > 0.25)
                 handmodel.transform.LookAt(targetPostition, handmodel.transform.up);
             else
                 handmodel.transform.localRotation = Quaternion.Euler(90,0,0);
+            }
 
             reticle.SetActive( false );
             circle.SetActive( true );
