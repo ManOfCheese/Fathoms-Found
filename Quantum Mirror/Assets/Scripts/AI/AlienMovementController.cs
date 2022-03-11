@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public enum MovementMode
 {
     PointToPoint,
-    Timed
+    Timed,
+    Static
 }
 
-public enum WanderShape
+public enum MovementShape
 {
     Torus,
     Circle,
@@ -25,20 +26,22 @@ public class AlienMovementController : MonoBehaviour
 
     [Header( "Settings" )]
     public MovementMode movementMode;
-    public WanderShape wanderShape;
+    public MovementShape movementShape;
     public float speed;
     public float changeDestinationTime;
-    public float minDistance;
-    public float maxDistance;
     public float destinationReachedWindow;
 
-    [Space(10)]
-    public Transform wanderTorusCenter;
+    //None mode
+    public float minDistance;
+    public float maxDistance;
+
+    //Torus mode
+    public Transform torusCenter;
     public float torusInnerRadius;
     public float torusOuterRadius;
 
-    [Space( 10 )]
-    public Transform wandercircleCenter;
+    //Circle mode
+    public Transform circleCenter;
     public float circleRadius;
 
     [Header( "Runtime" )]
@@ -73,6 +76,8 @@ public class AlienMovementController : MonoBehaviour
 	{
         switch ( movementMode )
         {
+            case MovementMode.Static:
+                break;
             case MovementMode.PointToPoint:
                 if ( CheckDestinationReached() || isFirstDestination )
                 {
@@ -93,13 +98,13 @@ public class AlienMovementController : MonoBehaviour
 
     public Vector3 CheckWanderShape()
 	{
-        switch ( wanderShape )
+        switch ( movementShape )
         {
-            case WanderShape.Torus:
-                return GetRandomPos( wanderTorusCenter.transform.position, torusInnerRadius, torusOuterRadius );
-            case WanderShape.Circle:
-                return GetRandomPos( wandercircleCenter.transform.position, 0f, circleRadius );
-            case WanderShape.None:
+            case MovementShape.Torus:
+                return GetRandomPos( torusCenter.transform.position, torusInnerRadius, torusOuterRadius );
+            case MovementShape.Circle:
+                return GetRandomPos( circleCenter.transform.position, 0f, circleRadius );
+            case MovementShape.None:
                 return GetRandomPos( transform.position, minDistance, maxDistance );
             default:
                 return GetRandomPos( transform.position, minDistance, maxDistance );
@@ -152,11 +157,11 @@ public class AlienMovementController : MonoBehaviour
 	private void OnDrawGizmos()
 	{
         Gizmos.DrawSphere( destination, 2 );
-        if ( wandercircleCenter )
-            Gizmos.DrawWireSphere( wandercircleCenter.transform.position, circleRadius );
-        if ( wanderTorusCenter ) {
-            Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusInnerRadius );
-            Gizmos.DrawWireSphere( wanderTorusCenter.transform.position, torusOuterRadius );
+        if ( circleCenter )
+            Gizmos.DrawWireSphere( circleCenter.transform.position, circleRadius );
+        if ( torusCenter ) {
+            Gizmos.DrawWireSphere( torusCenter.transform.position, torusInnerRadius );
+            Gizmos.DrawWireSphere( torusCenter.transform.position, torusOuterRadius );
         }
 	}
 }

@@ -35,58 +35,93 @@ public class AttentionState : State<AlienManager>
 
 	public override void EnterState( AlienManager _owner )
 	{
-		_owner.mc.agent.destination = _owner.transform.position; 
+		_owner.mc.agent.destination = _owner.transform.position;
+		_owner.gc.repositioning = true;
+		_owner.gc.repositionedLegs.Clear();
+
+		for ( int i = 0; i < _owner.gc.hands.Length; i++ ) {
+			_owner.gc.hands[ i ].enabled = false;
+		}
 	}
 
 	public override void UpdateState( AlienManager _owner )
 	{
+		if ( _owner.gc.repositioning ) {
+			for ( int i = 0; i < _owner.gc.hands.Length; i++ ) 
+			{
+				if ( ( i != _owner.gc.handIndex || _owner.gc.handIndex == -1 ) && !_owner.gc.repositionedLegs.Contains( i ) ) 
+				{
+					Transform handTransform = _owner.gc.hands[ i ].transform;
+					handTransform.position = Vector3.MoveTowards( handTransform.position, _owner.gc.idleHandTargets[ i ].position, 
+						_owner.mc.speed * Time.deltaTime );
+
+					if ( handTransform.position == _owner.gc.idleHandTargets[ i ].position )
+						_owner.gc.repositionedLegs.Add( i );
+				}
+			}
+			if ( _owner.gc.handIndex != -1 && !_owner.gc.repositionedLegs.Contains( _owner.gc.handIndex ) )
+				_owner.gc.repositionedLegs.Add( _owner.gc.handIndex );
+
+			if ( _owner.gc.repositionedLegs.Count == _owner.gc.hands.Length )
+				_owner.gc.repositioning = false;
+		}
+		
 		if ( _owner.gc.gesture )
 		{
 			GameObject circle = _owner.gc.gestureCircles[ _owner.gc.handIndex ];
+			List<Gesture> gestures = _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words;
 			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.handIndex ];
-			Vector3 handPos = hand.transform.position;
-			Vector2 gesturePoint = _owner.gc.gesturePoints[ _owner.gc.gestureIndex ];
 
-			if ( !_owner.gc.startGesture )
+			if ( _owner.gc.startGesture )
 			{
 				circle.SetActive( true );
-				Vector3 left = circle.transform.right * gesturePoint.x;
-				Vector3 up = circle.transform.up * gesturePoint.y;
-				_owner.gc.handTarget = circle.transform.position + ( ( left + up ) * _owner.gc.gCircleDiameter );
-				_owner.gc.startGesture = true;
+				_owner.gc.handTarget = circle.transform.position;
+				_owner.gc.startGesture = false;
 			}
 
+			//Hold Gesture
 			if ( _owner.gc.waiting )
 			{
 				if ( Time.time - _owner.gc.waitTimeStamp > _owner.gc.holdPosFor )
 					_owner.gc.waiting = false;
 			}
+			//Check if we have reached our new hand target.
 			else
 			{
-				float magnitude = _owner.gc.gestureSpeed * Time.deltaTime;
-				float dist = Vector3.Distance( handPos, _owner.gc.handTarget );
-				if ( dist < magnitude )
+				float speed = _owner.gc.gestureSpeed * Time.deltaTime;
+				//Debug.Log( speed + " > " + Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
+				if ( speed > Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) )
 				{
-					handPos += ( _owner.gc.handTarget - handPos ).normalized * dist;
-					_owner.gc.waitTimeStamp = Time.time;
-					_owner.gc.waiting = true;
-
-					_owner.gc.gestureIndex++;
-					if ( _owner.gc.gestureIndex >= _owner.gc.gesturePoints.Length )
+					if ( _owner.gc.endGesture ) 
 					{
 						_owner.gc.gesture = false;
-						hand.enabled = true;
 						circle.SetActive( false );
+						_owner.gc.waiting = false;
+						_owner.gc.handIndex = -1;
 					}
-					else
-					{
-						_owner.gc.handTarget = circle.transform.position + new Vector3( gesturePoint.x * _owner.gc.gCircleDiameter, 0f, 
-							gesturePoint.y * _owner.gc.gCircleDiameter );
+					//Set new hand target.
+					else {
+						hand.transform.position = _owner.gc.handTarget;
+						_owner.gc.waitTimeStamp = Time.time;
+						_owner.gc.waiting = true;
+
+						_owner.gc.wordIndex++;
+						//Set target as our previous position.
+						if ( _owner.gc.wordIndex > _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words.Count - 1 ) {
+							_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.handIndex ].position;
+							_owner.gc.endGesture = true;
+						}
+						//Set target as the next word in the sentence.
+						else {
+							_owner.gc.handTarget = hand.subCircles[ gestures[ _owner.gc.wordIndex ].circle ].transform.position;
+							Debug.Log( Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
+						}
 					}
 				}
+				//Move towards hand target.
 				else
 				{
-					handPos += ( _owner.gc.handTarget - handPos ).normalized * magnitude;
+					hand.transform.position = Vector3.MoveTowards( hand.transform.position, _owner.gc.handTarget, speed );
 				}
 			}
 		}
@@ -94,6 +129,8 @@ public class AttentionState : State<AlienManager>
 
 	public override void ExitState( AlienManager _owner )
 	{
-
+		for ( int i = 0; i < _owner.gc.hands.Length; i++ ) {
+			_owner.gc.hands[ i ].enabled = true;
+		}
 	}
 }
