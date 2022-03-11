@@ -89,7 +89,7 @@ public class AttentionState : State<AlienManager>
 			else
 			{
 				float speed = _owner.gc.gestureSpeed * Time.deltaTime;
-				Debug.Log( speed + " > " + Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
+				//Debug.Log( speed + " > " + Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
 				if ( speed > Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) )
 				{
 					if ( _owner.gc.endGesture ) 
