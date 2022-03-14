@@ -26,7 +26,7 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public bool repositioning;
 	[ReadOnly] public List<int> repositionedLegs = new List<int>();
 
-	[ReadOnly] public bool gesture = false;
+	[ReadOnly] public bool gesturing = false;
 	[ReadOnly] public bool waiting = false;
 	[ReadOnly] public bool startGesture = false;
 	[ReadOnly] public bool endGesture = false;
@@ -71,8 +71,7 @@ public class AlienGestureController : MonoBehaviour
 	}
 
 	public void OnPlayerTogglesGestureMode( bool isInGesturemode ) {
-		if ( !isInGestureMode )
-			playerGestures.Clear();
+		playerGestures.Clear();
 	}
 
 	public void OnConfirmGesture( bool confirmGesture ) {
@@ -117,7 +116,7 @@ public class AlienGestureController : MonoBehaviour
 					int closestHand = FindClosestHand( alienManager.player );
 
 					handIndex = closestHand;
-					gesture = true;
+					gesturing = true;
 					wordIndex = -1;
 					startGesture = true;
 					waiting = false;

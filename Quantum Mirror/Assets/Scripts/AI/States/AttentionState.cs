@@ -49,7 +49,7 @@ public class AttentionState : State<AlienManager>
 		if ( _owner.gc.repositioning ) {
 			for ( int i = 0; i < _owner.gc.hands.Length; i++ ) 
 			{
-				if ( ( i != _owner.gc.handIndex || _owner.gc.handIndex == -1 ) && !_owner.gc.repositionedLegs.Contains( i ) ) 
+				if ( !_owner.gc.repositionedLegs.Contains( i ) ) 
 				{
 					Transform handTransform = _owner.gc.hands[ i ].transform;
 					handTransform.position = Vector3.MoveTowards( handTransform.position, _owner.gc.idleHandTargets[ i ].position, 
@@ -59,14 +59,12 @@ public class AttentionState : State<AlienManager>
 						_owner.gc.repositionedLegs.Add( i );
 				}
 			}
-			if ( _owner.gc.handIndex != -1 && !_owner.gc.repositionedLegs.Contains( _owner.gc.handIndex ) )
-				_owner.gc.repositionedLegs.Add( _owner.gc.handIndex );
 
 			if ( _owner.gc.repositionedLegs.Count == _owner.gc.hands.Length )
 				_owner.gc.repositioning = false;
 		}
 		
-		if ( _owner.gc.gesture )
+		if ( _owner.gc.gesturing )
 		{
 			GameObject circle = _owner.gc.gestureCircles[ _owner.gc.handIndex ];
 			List<Gesture> gestures = _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words;
@@ -94,7 +92,7 @@ public class AttentionState : State<AlienManager>
 				{
 					if ( _owner.gc.endGesture ) 
 					{
-						_owner.gc.gesture = false;
+						_owner.gc.gesturing = false;
 						circle.SetActive( false );
 						_owner.gc.waiting = false;
 						_owner.gc.handIndex = -1;
@@ -129,8 +127,13 @@ public class AttentionState : State<AlienManager>
 
 	public override void ExitState( AlienManager _owner )
 	{
-		for ( int i = 0; i < _owner.gc.hands.Length; i++ ) {
+		for ( int i = 0; i < _owner.gc.hands.Length; i++ )
 			_owner.gc.hands[ i ].enabled = true;
-		}
+		for ( int i = 0; i < _owner.gc.gestureCircles.Length; i++ )
+			_owner.gc.gestureCircles[ i ].SetActive( false );
+		_owner.gc.gesturing = false;
+		_owner.gc.waiting = false;
+		_owner.gc.handIndex = -1;
+		_owner.gc.repositioning = false;
 	}
 }

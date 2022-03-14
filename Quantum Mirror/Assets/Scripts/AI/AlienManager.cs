@@ -38,11 +38,11 @@ public class AlienManager : MonoBehaviour
         stateMachine.Update();
 
         if ( Vector3.Distance( transform.position, player.position ) < attentionDistance ) {
-            if ( lookAtForAttention && looking && stateMachine.CurrentState != AttentionState.Instance ) {
+            if ( ( !lookAtForAttention || lookAtForAttention && looking ) && stateMachine.CurrentState != AttentionState.Instance ) {
                 stateMachine.ChangeState( AttentionState.Instance );
 			}
 		}
-        else if ( stateMachine.CurrentState == AttentionState.Instance ) {
+        else if ( stateMachine.CurrentState == AttentionState.Instance && !gc.gesturing && !gc.repositioning ) {
             stateMachine.ChangeState( WanderState.Instance );
         }
     }
@@ -54,7 +54,7 @@ public class AlienManager : MonoBehaviour
     public void OnLookAway() {
         looking = false;
 
-        if ( lookAtForAttention && stateMachine.CurrentState == AttentionState.Instance ) {
+        if ( lookAtForAttention && stateMachine.CurrentState == AttentionState.Instance && !gc.gesturing && !gc.repositioning ) {
             stateMachine.ChangeState( WanderState.Instance );
         }
     }
