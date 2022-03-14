@@ -64,16 +64,16 @@ public class Handmovement : MonoBehaviour
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
             
-            if ( distance < 0.8 )
-            {
+            //if ( distance < 0.8 )
+            //{
                 float xMove = lookVector.normalized.y * handSensitivity * Time.deltaTime;
                 float yMove = lookVector.normalized.x * handSensitivity * Time.deltaTime;
                 hand.transform.Translate(new Vector3( xMove, yMove, 0 ) );
-            }
-            else
-            {
-                hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.05f );
-            }
+            //}
+            //else
+            //{
+                //hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.05f );
+            //}
         }
         else
         {
@@ -164,6 +164,9 @@ public class Handmovement : MonoBehaviour
     {
         if ( value.performed )
         {
+            Digits[1].GetComponent<Animator>().SetBool("FingerOpen", true);
+            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", true);
+            Digits[3].GetComponent<Animator>().SetBool("FingerOpen", true);
             if ( gameObject.transform.localPosition.z < 0.4f ) {
                 gameObject.transform.Translate( punchdestination );
                 confirmGesture.Value = true;
@@ -171,6 +174,9 @@ public class Handmovement : MonoBehaviour
         }
         else if ( value.canceled )
         {
+            Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
+            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false);
+            Digits[3].GetComponent<Animator>().SetBool("FingerOpen", false);
             if ( gameObject.transform.localPosition.z >= 0f ) {
                 gameObject.transform.Translate( -punchdestination );
                 confirmGesture.Value = false;
@@ -182,15 +188,17 @@ public class Handmovement : MonoBehaviour
     {
         if ( value.performed )
         {
-            Digits[1].SetActive(false);
-            ClosedDigits[1].SetActive(true);
+            Digits[1].GetComponent<Animator>().SetBool("FingerOpen", true);
+            //Digits[1].SetActive(false);
+            //ClosedDigits[1].SetActive(true);
             fingers.Value[ 0 ] = false;
         }
 
         if ( value.canceled )
         {
-            Digits[1].SetActive(true);
-            ClosedDigits[1].SetActive(false);
+            Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
+            //Digits[1].SetActive(true);
+            //ClosedDigits[1].SetActive(false);
             fingers.Value[ 0 ] = true;
         }
         
@@ -200,15 +208,17 @@ public class Handmovement : MonoBehaviour
     {
         if (value.performed)
         {
-            Digits[2].SetActive(false);
-            ClosedDigits[2].SetActive(true);
+            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", true);
+            //Digits[2].SetActive(false);
+            //ClosedDigits[2].SetActive(true);
             fingers.Value[ 1 ] = false;
         }
 
         if (value.canceled)
         {
-            Digits[2].SetActive(true);
-            ClosedDigits[2].SetActive(false);
+            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false);
+            //Digits[2].SetActive(true);
+            //ClosedDigits[2].SetActive(false);
             fingers.Value[ 1 ] = true;
         }
 
@@ -218,15 +228,17 @@ public class Handmovement : MonoBehaviour
     {
         if (value.performed)
         {
-            Digits[3].SetActive(false);
-            ClosedDigits[3].SetActive(true);
+            Digits[3].GetComponent<Animator>().SetBool("FingerOpen", true);
+            //Digits[3].SetActive(false);
+            //ClosedDigits[3].SetActive(true);
             fingers.Value[ 2 ] = false;
         }
 
         if (value.canceled)
         {
-            Digits[3].SetActive(true);
-            ClosedDigits[3].SetActive(false);
+            Digits[3].GetComponent<Animator>().SetBool("FingerOpen", false);
+            //Digits[3].SetActive(true);
+            //ClosedDigits[3].SetActive(false);
             fingers.Value[ 2 ] = true;
         }
 
