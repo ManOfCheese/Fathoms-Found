@@ -51,7 +51,10 @@ public class Gesture {
 
 	public Gesture( int _circle, bool[] _fingers ) {
 		circle = _circle;
-		fingers = _fingers;
+		fingers = new bool[ _fingers.Length ];
+		for ( int i = 0; i < _fingers.Length; i++ ) {
+			fingers[ i ] = _fingers[ i ];
+		}
 	}
 
 	public int circle;

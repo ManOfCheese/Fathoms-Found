@@ -36,12 +36,22 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public int wordIndex = 0;
 	[ReadOnly] public Vector3 preGestureHandPos;
 
-	[HideInInspector] public List<Gesture> playerGestures = new List<Gesture>();
+	public List<Gesture> playerGestures = new List<Gesture>();
 	[HideInInspector] public List<int> respondTo = new List<int>();
 
 	[HideInInspector] public AlienManager alienManager;
 
 	[HideInInspector] public Vector3 handTarget;
+
+	private void OnEnable() {
+		isInGestureMode.onValueChanged += OnPlayerTogglesGestureMode;
+		confirmGesture.onValueChanged += OnConfirmGesture;
+	}
+
+	private void OnDisable() {
+		isInGestureMode.onValueChanged -= OnPlayerTogglesGestureMode;
+		confirmGesture.onValueChanged += OnConfirmGesture;
+	}
 
 	public int FindClosestHand( Transform respondTo )
 	{
@@ -60,38 +70,41 @@ public class AlienGestureController : MonoBehaviour
 		return closestHand;
 	}
 
-	public void OnConfirmGesture( InputAction.CallbackContext value ) {
-		if ( value.performed && alienManager.stateMachine.CurrentState == AttentionState.Instance ) {
+	public void OnPlayerTogglesGestureMode( bool isInGesturemode ) {
+		if ( !isInGestureMode )
+			playerGestures.Clear();
+	}
+
+	public void OnConfirmGesture( bool confirmGesture ) {
+		if ( confirmGesture && alienManager.stateMachine.CurrentState == AttentionState.Instance ) {
 			if ( handPos.Value == 0 ) {
 				//Generate gCode for player gesture.
 				respondTo.Clear();
 
 				respondTo.Add( playerGestures.Count );
-				for ( int i = 0; i < playerGestures.Count; i++ ) {
+				for ( int i = 0; i < playerGestures.Count; i++ ) 
 					respondTo.Add( playerGestures[ i ].circle );
-				}
-				for ( int i = 0; i < playerGestures.Count; i++ ) {
-					for ( int j = 0; j < playerGestures[ i ].fingers.Length; j++ ) {
+
+				for ( int i = 0; i < playerGestures.Count; i++ ) 
+				{
+					for ( int j = 0; j < playerGestures[ i ].fingers.Length; j++ )
 						respondTo.Add( playerGestures[ i ].fingers[ j ] ? 1 : 0 );
-					}
 				}
 
 				string respondGCode = "";
-				for ( int i = 0; i < respondTo.Count; i++ ) {
+				for ( int i = 0; i < respondTo.Count; i++ )
 					respondGCode += respondTo[ i ];
-				}
-				Debug.Log( respondGCode );
 				playerGestures.Clear();
 
 				//Find the player's sentence in the library and save the id.
 				bool sentenceFound = false;
-				for ( int i = 0; i < gestureLibrary.Items.Count; i++ ) {
+				for ( int i = 0; i < gestureLibrary.Items.Count; i++ ) 
+				{
 					//Check if the gesture codes match.
-					for ( int j = 0; j < gestureLibrary.Items[ i ].gestureCode.Length; j++ ) {
-						//if ( gestureLibrary.Items[ i ].gestureCode.Length != respondTo.Count ) { continue; }
-						//else if ( gestureLibrary.Items[ i ].gestureCode[ j ] != respondTo[ j ] ) { continue; }
-
-						if ( gestureLibrary.Items[ i ].gCode == respondGCode ) {
+					for ( int j = 0; j < gestureLibrary.Items[ i ].gestureCode.Length; j++ ) 
+					{
+						if ( gestureLibrary.Items[ i ].gCode == respondGCode ) 
+						{
 							sentenceIndex = i;
 							sentenceFound = true;
 							break;
@@ -117,8 +130,6 @@ public class AlienGestureController : MonoBehaviour
 			}
 			else {
 				playerGestures.Add( new Gesture( handPos.Value, fingers.Value ) );
-				//Debug.Log( playerGestures[ playerGestures.Count - 1 ].circle + " | " + playerGestures[ playerGestures.Count - 1 ].fingers[ 0 ] + "-"
-				//	+ playerGestures[ playerGestures.Count - 1 ].fingers[ 1 ] + "-" + playerGestures[ playerGestures.Count - 1 ].fingers[ 2 ] );
 			}
 		}
 	}

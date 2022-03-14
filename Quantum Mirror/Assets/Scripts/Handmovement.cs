@@ -177,6 +177,9 @@ public class Handmovement : MonoBehaviour
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false);
             Digits[3].GetComponent<Animator>().SetBool("FingerOpen", false);
+            fingers.Value[ 0 ] = false;
+            fingers.Value[ 1 ] = false;
+            fingers.Value[ 2 ] = false;
             if ( gameObject.transform.localPosition.z >= 0f ) {
                 gameObject.transform.Translate( -punchdestination );
                 confirmGesture.Value = false;
@@ -191,7 +194,7 @@ public class Handmovement : MonoBehaviour
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", true);
             //Digits[1].SetActive(false);
             //ClosedDigits[1].SetActive(true);
-            fingers.Value[ 0 ] = false;
+            fingers.Value[ 0 ] = true;
         }
 
         if ( value.canceled )
@@ -199,7 +202,7 @@ public class Handmovement : MonoBehaviour
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
             //Digits[1].SetActive(true);
             //ClosedDigits[1].SetActive(false);
-            fingers.Value[ 0 ] = true;
+            fingers.Value[ 0 ] = false;
         }
         
     }
@@ -211,7 +214,7 @@ public class Handmovement : MonoBehaviour
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", true);
             //Digits[2].SetActive(false);
             //ClosedDigits[2].SetActive(true);
-            fingers.Value[ 1 ] = false;
+            fingers.Value[ 1 ] = true;
         }
 
         if (value.canceled)
@@ -219,7 +222,7 @@ public class Handmovement : MonoBehaviour
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false);
             //Digits[2].SetActive(true);
             //ClosedDigits[2].SetActive(false);
-            fingers.Value[ 1 ] = true;
+            fingers.Value[ 1 ] = false;
         }
 
     }
@@ -231,7 +234,7 @@ public class Handmovement : MonoBehaviour
             Digits[3].GetComponent<Animator>().SetBool("FingerOpen", true);
             //Digits[3].SetActive(false);
             //ClosedDigits[3].SetActive(true);
-            fingers.Value[ 2 ] = false;
+            fingers.Value[ 2 ] = true;
         }
 
         if (value.canceled)
@@ -239,7 +242,7 @@ public class Handmovement : MonoBehaviour
             Digits[3].GetComponent<Animator>().SetBool("FingerOpen", false);
             //Digits[3].SetActive(true);
             //ClosedDigits[3].SetActive(false);
-            fingers.Value[ 2 ] = true;
+            fingers.Value[ 2 ] = false;
         }
 
     }
