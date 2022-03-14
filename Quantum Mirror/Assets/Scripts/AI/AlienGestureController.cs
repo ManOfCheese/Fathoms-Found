@@ -18,7 +18,7 @@ public class AlienGestureController : MonoBehaviour
 	public Transform[] idleHandTargets;
 	public float gCircleDiameter;
 
-	public GestureSequence_Set gestures;
+	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
 	public float gestureSpeed = 1f;
 	public float holdPosFor = 1f;
@@ -37,7 +37,7 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public Vector3 preGestureHandPos;
 
 	[HideInInspector] public List<Gesture> playerGestures = new List<Gesture>();
-	[HideInInspector] public List<Gesture> respondTo = new List<Gesture>();
+	[HideInInspector] public List<int> respondTo = new List<int>();
 
 	[HideInInspector] public AlienManager alienManager;
 
@@ -63,28 +63,42 @@ public class AlienGestureController : MonoBehaviour
 	public void OnConfirmGesture( InputAction.CallbackContext value ) {
 		if ( value.performed && alienManager.stateMachine.CurrentState == AttentionState.Instance ) {
 			if ( handPos.Value == 0 ) {
+				//Generate gCode for player gesture.
 				respondTo.Clear();
+
+				respondTo.Add( playerGestures.Count );
 				for ( int i = 0; i < playerGestures.Count; i++ ) {
-					respondTo.Add( playerGestures[ i ] );
+					respondTo.Add( playerGestures[ i ].circle );
 				}
+				for ( int i = 0; i < playerGestures.Count; i++ ) {
+					for ( int j = 0; j < playerGestures[ i ].fingers.Length; j++ ) {
+						respondTo.Add( playerGestures[ i ].fingers[ j ] ? 1 : 0 );
+					}
+				}
+
+				string respondGCode = "";
+				for ( int i = 0; i < respondTo.Count; i++ ) {
+					respondGCode += respondTo[ i ];
+				}
+				Debug.Log( respondGCode );
 				playerGestures.Clear();
 
 				//Find the player's sentence in the library and save the id.
 				bool sentenceFound = false;
-				for ( int i = 0; i < gestures.Items.Count; i++ ) {
-					//Debug.Log( gestures.Items[ i ].words[ 0 ].circle + "-" + gestures.Items[ i ].words[ 0 ].fingers[ 0 ] + "-"
-					//	+ gestures.Items[ i ].words[ 0 ].fingers[ 1 ] + "-" + gestures.Items[ i ].words[ 0 ].fingers[ 2 ] + " | " 
-					//	+ respondTo[ 0 ].circle + "-" + respondTo[ 0 ].fingers[ 0 ] + "-" + respondTo[ 0 ].fingers[ 1 ] + "-" 
-					//	+ respondTo[ 0 ].fingers[ 2 ] );
-					if ( gestures.Items[ i ].words[ 0 ].circle == respondTo[ 0 ].circle &&
-						gestures.Items[ i ].words[ 0 ].fingers[ 0 ] == respondTo[ 0 ].fingers[ 0 ] &&
-						gestures.Items[ i ].words[ 0 ].fingers[ 1 ] == respondTo[ 0 ].fingers[ 1 ] &&
-						gestures.Items[ i ].words[ 0 ].fingers[ 2 ] == respondTo[ 0 ].fingers[ 2 ] ) {
-						sentenceIndex = i;
-						sentenceFound = true;
+				for ( int i = 0; i < gestureLibrary.Items.Count; i++ ) {
+					//Check if the gesture codes match.
+					for ( int j = 0; j < gestureLibrary.Items[ i ].gestureCode.Length; j++ ) {
+						//if ( gestureLibrary.Items[ i ].gestureCode.Length != respondTo.Count ) { continue; }
+						//else if ( gestureLibrary.Items[ i ].gestureCode[ j ] != respondTo[ j ] ) { continue; }
+
+						if ( gestureLibrary.Items[ i ].gCode == respondGCode ) {
+							sentenceIndex = i;
+							sentenceFound = true;
+							break;
+						}
 					}
 				}
-				Debug.Log( "Known Sentence?: " + sentenceFound + " (" + respondTo.Count + ")" );
+				Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
 
 				if ( sentenceFound ) {
 					int closestHand = FindClosestHand( alienManager.player );
