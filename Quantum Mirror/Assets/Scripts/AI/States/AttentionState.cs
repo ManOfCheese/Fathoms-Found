@@ -110,6 +110,23 @@ public class AttentionState : State<AlienManager>
 							gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 1 ].SetActive( gesture.fingers[ 0 ] );
 							gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 2 ].SetActive( gesture.fingers[ 1 ] );
 							gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 3 ].SetActive( gesture.fingers[ 2 ] );
+
+							gestureCircle.hand.LookAt( _owner.player );
+
+							if ( gesture.fingers[ 0 ] )
+								gestureCircle.claws[ 0 ].transform.rotation = Quaternion.Euler( new Vector3( 0, 50, 0 ) );
+							else
+								gestureCircle.claws[ 0 ].transform.rotation = Quaternion.Euler( new Vector3( 0, 0, 0 ) );
+
+							if ( gesture.fingers[ 1 ] )
+								gestureCircle.claws[ 1 ].transform.rotation = Quaternion.Euler( new Vector3( 0, 50, 0 ) );
+							else
+								gestureCircle.claws[ 1 ].transform.rotation = Quaternion.Euler( new Vector3( 0, 0, 0 ) );
+
+							if ( gesture.fingers[ 2 ] )
+								gestureCircle.claws[ 2 ].transform.rotation = Quaternion.Euler( new Vector3( 0, 50, 0 ) );
+							else
+								gestureCircle.claws[ 2 ].transform.rotation = Quaternion.Euler( new Vector3( 0, 0, 0 ) );
 						}
 
 						_owner.gc.wordIndex++;

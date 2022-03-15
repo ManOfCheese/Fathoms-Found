@@ -7,5 +7,7 @@ public class GestureCircle : MonoBehaviour
 
     public SphereCollider[] subCircles;
     public GameObject[] fingerSprites;
+    public Transform hand;
+    public Transform[] claws;
 
 }
