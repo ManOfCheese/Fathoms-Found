@@ -19,7 +19,6 @@ public class Handmovement : MonoBehaviour
     public BoolValue confirmGesture;
     
     public GameObject center;
-    public GameObject circle;
     public GameObject idle;
     public GameObject hand;
     public GameObject handmodel;
@@ -27,7 +26,7 @@ public class Handmovement : MonoBehaviour
     public GameObject[] lights;
     public GameObject[] Digits;
     public GameObject[] ClosedDigits;
-    public GameObject[] fingerSprites;
+    public GestureCircle gestureCircle;
     public SphereCollider[] subCircles;
     public JackOfController controller;
 
@@ -61,7 +60,7 @@ public class Handmovement : MonoBehaviour
             }
 
             reticle.SetActive( false );
-            circle.SetActive( true );
+            gestureCircle.gameObject.SetActive( true );
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
             
@@ -80,7 +79,7 @@ public class Handmovement : MonoBehaviour
         {
             hand.transform.localPosition = idle.transform.localPosition;
             reticle.SetActive( true );
-            circle.SetActive( false );
+            gestureCircle.gameObject.SetActive( false );
         }
 
         //Check in which area of the gesture circle the hand is.
@@ -137,11 +136,8 @@ public class Handmovement : MonoBehaviour
 			{
                 gestureMode = false;
                 controller.ChangeSensitivity( controller.startSensitivity );
-                for ( int i = 0; i < fingerSprites.Length; i++ )
-                {
-                    fingerSprites[ i ].SetActive( false );
-                }
-
+                for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
+                    gestureCircle.fingerSprites[ i ].SetActive( false );
             }
         }
     }
@@ -171,17 +167,17 @@ public class Handmovement : MonoBehaviour
         {
             if ( handPos.Value == 0 )
 			{
-				for ( int i = 0; i < fingerSprites.Length; i++ )
+				for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
 				{
-                    fingerSprites[ i ].SetActive( false );
+                    gestureCircle.fingerSprites[ i ].SetActive( false );
 				}
 			}
 			else
 			{
-                fingerSprites[ ( handPos.Value - 1 ) * 4 ].SetActive( true );
-                fingerSprites[ ( handPos.Value - 1 ) * 4 + 1 ].SetActive( fingers.Value[ 0 ] );
-                fingerSprites[ ( handPos.Value - 1 ) * 4 + 2 ].SetActive( fingers.Value[ 1 ] );
-                fingerSprites[ ( handPos.Value - 1 ) * 4 + 3 ].SetActive( fingers.Value[ 2 ] );
+                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 ].SetActive( true );
+                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 + 1 ].SetActive( fingers.Value[ 0 ] );
+                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 + 2 ].SetActive( fingers.Value[ 1 ] );
+                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 + 3 ].SetActive( fingers.Value[ 2 ] );
             }
 
 			for ( int i = 0; i < Digits.Length; i++ )

@@ -14,7 +14,7 @@ public class AlienGestureController : MonoBehaviour
 
 	public UI_Text_Changer textChanger;
     public AlienIKHandler[] hands;
-	public GameObject[] gestureCircles;
+	public GestureCircle[] gestureCircles;
 	public Transform[] idleHandTargets;
 	public float gCircleDiameter;
 

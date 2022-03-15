@@ -66,14 +66,14 @@ public class AttentionState : State<AlienManager>
 		
 		if ( _owner.gc.gesturing )
 		{
-			GameObject circle = _owner.gc.gestureCircles[ _owner.gc.handIndex ];
+			GestureCircle gestureCircle = _owner.gc.gestureCircles[ _owner.gc.handIndex ];
 			List<Gesture> gestures = _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words;
 			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.handIndex ];
 
 			if ( _owner.gc.startGesture )
 			{
-				circle.SetActive( true );
-				_owner.gc.handTarget = circle.transform.position;
+				gestureCircle.gameObject.SetActive( true );
+				_owner.gc.handTarget = gestureCircle.transform.position;
 				_owner.gc.startGesture = false;
 			}
 
@@ -93,7 +93,7 @@ public class AttentionState : State<AlienManager>
 					if ( _owner.gc.endGesture ) 
 					{
 						_owner.gc.gesturing = false;
-						circle.SetActive( false );
+						gestureCircle.gameObject.SetActive( false );
 						_owner.gc.waiting = false;
 						_owner.gc.handIndex = -1;
 					}
@@ -103,15 +103,24 @@ public class AttentionState : State<AlienManager>
 						_owner.gc.waitTimeStamp = Time.time;
 						_owner.gc.waiting = true;
 
+						if ( _owner.gc.wordIndex >= 0 )
+						{
+							Gesture gesture = gestures[ _owner.gc.wordIndex ];
+							gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 ].SetActive( true );
+							gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 1 ].SetActive( gesture.fingers[ 0 ] );
+							gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 2 ].SetActive( gesture.fingers[ 1 ] );
+							gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 3 ].SetActive( gesture.fingers[ 2 ] );
+						}
+
 						_owner.gc.wordIndex++;
-						//Set target as our previous position.
+						//Set target as our start position.
 						if ( _owner.gc.wordIndex > _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words.Count - 1 ) {
 							_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.handIndex ].position;
 							_owner.gc.endGesture = true;
 						}
 						//Set target as the next word in the sentence.
 						else {
-							_owner.gc.handTarget = hand.subCircles[ gestures[ _owner.gc.wordIndex ].circle ].transform.position;
+							_owner.gc.handTarget = gestureCircle.subCircles[ gestures[ _owner.gc.wordIndex ].circle - 1 ].transform.position;
 							Debug.Log( Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
 						}
 					}
@@ -130,7 +139,7 @@ public class AttentionState : State<AlienManager>
 		for ( int i = 0; i < _owner.gc.hands.Length; i++ )
 			_owner.gc.hands[ i ].enabled = true;
 		for ( int i = 0; i < _owner.gc.gestureCircles.Length; i++ )
-			_owner.gc.gestureCircles[ i ].SetActive( false );
+			_owner.gc.gestureCircles[ i ].gameObject.SetActive( false );
 		_owner.gc.gesturing = false;
 		_owner.gc.waiting = false;
 		_owner.gc.handIndex = -1;
