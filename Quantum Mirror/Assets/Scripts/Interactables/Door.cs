@@ -18,4 +18,9 @@ public class Door : InteractableObject
 		animator.SetTrigger( "Open" );
 	}
 
+	private void OnApplicationQuit()
+	{
+		doors.Items.Clear();
+	}
+
 }
