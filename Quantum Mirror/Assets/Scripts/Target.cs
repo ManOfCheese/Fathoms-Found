@@ -12,4 +12,9 @@ public class Target : MonoBehaviour
 		set.Add( transform );
 	}
 
+	private void OnApplicationQuit()
+	{
+		set.Items.Clear();
+	}
+
 }
