@@ -96,6 +96,7 @@ public class AttentionState : State<AlienManager>
 						gestureCircle.gameObject.SetActive( false );
 						_owner.gc.waiting = false;
 						_owner.gc.handIndex = -1;
+						_owner.gc.endGesture = false;
 					}
 					//Set new hand target.
 					else {
@@ -161,5 +162,6 @@ public class AttentionState : State<AlienManager>
 		_owner.gc.waiting = false;
 		_owner.gc.handIndex = -1;
 		_owner.gc.repositioning = false;
+		_owner.gc.endGesture = false;
 	}
 }
