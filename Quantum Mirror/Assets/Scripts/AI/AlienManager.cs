@@ -7,23 +7,31 @@ using StateMachine;
 public class AlienManager : MonoBehaviour
 {
 
+    [Header( "References" )]
     public Transform player;
+    public Transform moveTarget;
+    public Transform pointTarget;
+
+    [Header( "Settings" )]
     public float attentionDistance;
+    public float interestDuration;
     public bool lookAtForAttention;
+
+    [Header( "Runtime" )]
+    [ReadOnly] public string currentState;
+    [ReadOnly] public float interestTimeStamp;
+    [ReadOnly] public bool interest;
+    [ReadOnly] public bool looking;
 
     [HideInInspector] public AlienGestureController gc;
     [HideInInspector] public AlienMovementController mc;
-    [HideInInspector] public NavMeshAgent agent;
     [HideInInspector] public StateMachine<AlienManager> stateMachine;
-
-    [ReadOnly] public bool looking;
 
     private void Awake()
     {
         gc = GetComponent<AlienGestureController>();
         gc.alienManager = this;
         mc = GetComponent<AlienMovementController>();
-        agent = GetComponent<NavMeshAgent>();
         stateMachine = new StateMachine<AlienManager>( this );
     }
 
@@ -35,14 +43,17 @@ public class AlienManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+        currentState = stateMachine.CurrentState.stateName;
         stateMachine.Update();
 
         if ( Vector3.Distance( transform.position, player.position ) < attentionDistance ) {
-            if ( ( !lookAtForAttention || lookAtForAttention && looking ) && stateMachine.CurrentState != AttentionState.Instance ) {
+            if ( ( !lookAtForAttention || lookAtForAttention && looking ) && stateMachine.CurrentState != AttentionState.Instance &&
+                ( stateMachine.CurrentState != InterestState.Instance || interest ) ) {
                 stateMachine.ChangeState( AttentionState.Instance );
 			}
 		}
-        else if ( stateMachine.CurrentState == AttentionState.Instance && !gc.gesturing && !gc.repositioning ) {
+        else if ( stateMachine.CurrentState == AttentionState.Instance && stateMachine.CurrentState != InterestState.Instance && !gc.gesturing && 
+            !gc.repositioning ) {
             stateMachine.ChangeState( WanderState.Instance );
         }
     }

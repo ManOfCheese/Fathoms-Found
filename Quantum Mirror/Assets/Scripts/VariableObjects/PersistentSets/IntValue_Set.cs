@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu( fileName = "IntValueSet", menuName = "VariableSets/IntValueSet" )]
+[CreateAssetMenu( fileName = "IntValue_Set", menuName = "VariableSets/IntValue_Set" )]
 public class IntValue_Set : PersistentSet<IntValue> {
 
 }

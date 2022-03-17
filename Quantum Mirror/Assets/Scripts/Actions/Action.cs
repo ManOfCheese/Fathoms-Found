@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Action : PersistentSetElement {
 
-	public virtual void ExecuteAction( NPC npc ) {
+	public virtual void ExecuteAction( AlienManager alienManagers ) {
 
 	}
 

@@ -16,6 +16,7 @@ public class WanderState : State<AlienManager>
 			return;
 		}
 
+		stateName = "WanderState";
 		_instance = this;
 	}
 

@@ -7,7 +7,7 @@ public class Respond_Action : Action {
 
 	public Sprite response;
 
-    public override void ExecuteAction( NPC npc ) {
+    public override void ExecuteAction( AlienManager alienManager ) {
 		//npc.image.sprite = response;
 	}
 

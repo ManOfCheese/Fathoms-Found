@@ -37,12 +37,6 @@ public class Interactor : MonoBehaviour {
 
     private AlienManager lookingAt;
 
-    private void Awake()
-    {
-        approachPlayer.target = this.transform;
-        runAway.target = this.transform;
-    }
-
     // Update is called once per frame
     void Update() 
     {
@@ -50,7 +44,7 @@ public class Interactor : MonoBehaviour {
         if ( Physics.Raycast( cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity ) ) {
 			if ( hit.transform.GetComponentInChildren<AlienManager>() ) {
 				if ( lookingAt == null ) {
-                    lookingAt = hit.transform.GetComponentInChildren<AlienManager>();
+                    AlienManager lookingAt = hit.transform.GetComponentInChildren<AlienManager>();
                     lookingAt.OnLookAt();
                 }
 			}

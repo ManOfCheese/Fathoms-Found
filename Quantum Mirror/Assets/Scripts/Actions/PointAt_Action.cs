@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu( fileName = "Action", menuName = "Action/MoveTowards_Action" )]
-public class MoveTowards_Action : Move_Action {
+[CreateAssetMenu( fileName = "Action", menuName = "Action/PointAt_Action" )]
+public class PointAt_Action : Action
+{
 
 	public RunTimeSet<Transform> targetObjects;
 
-	public override void ExecuteAction( AlienManager alienManager ) {
+	public override void ExecuteAction( AlienManager alienManager )
+	{
 		//Find closest object.
 		float shortestDist = 0f;
 		int closestObjectIndex = 0;
@@ -28,10 +30,13 @@ public class MoveTowards_Action : Move_Action {
 				}
 			}
 		}
-		alienManager.moveTarget = targetObjects.Items[ closestObjectIndex ];
-
-		alienManager.mc.agent.destination = alienManager.moveTarget.position;
-		alienManager.stateMachine.ChangeState( InterestState.Instance );
+		alienManager.pointTarget = targetObjects.Items[ closestObjectIndex ];
+		
+		//Initiate point.
+		int closestHand = alienManager.gc.FindClosestHand( alienManager.pointTarget );
+		alienManager.gc.handIndex = closestHand;
+		alienManager.gc.pointing = true;
+		alienManager.gc.handTarget = alienManager.pointTarget.position;
 	}
 
 }

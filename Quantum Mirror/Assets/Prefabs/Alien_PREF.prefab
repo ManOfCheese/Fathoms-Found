@@ -3065,12 +3065,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  moveTarget: {fileID: 0}
+  pointTarget: {fileID: 0}
   attentionDistance: 10
+  interestDuration: 0
   lookAtForAttention: 1
+  currentState: 
+  interestTimeStamp: 0
+  interest: 0
+  looking: 0
   gc: {fileID: 0}
   mc: {fileID: 0}
-  agent: {fileID: 0}
-  looking: 0
 --- !u!114 &7223040693863163904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3112,10 +3117,12 @@ MonoBehaviour:
   gCircleDiameter: 1.6
   gestureLibrary: {fileID: 11400000, guid: c7ad4e18ea75b2e4eb55456a27815fcd, type: 2}
   responses: {fileID: 11400000, guid: e76663091c58e594eb686e0b880ea171, type: 2}
+  actionResponses: {fileID: 0}
   gestureSpeed: 5
-  holdPosFor: 1
+  holdGestureFor: 1
+  holdPointFor: 1
   repositioning: 0
-  repositionedLegs: 
+  pointing: 0
   gesturing: 0
   waiting: 0
   startGesture: 0
@@ -3125,6 +3132,7 @@ MonoBehaviour:
   sentenceIndex: 0
   wordIndex: 0
   preGestureHandPos: {x: 0, y: 0, z: 0}
+  repositionedLegs: 
   playerGestures: []
   respondTo: 
   alienManager: {fileID: 0}

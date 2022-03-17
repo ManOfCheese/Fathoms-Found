@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "FloatValueSet", menuName = "VariableSets/FloatValueSet")]
+[CreateAssetMenu (fileName = "FloatValue_Set", menuName = "VariableSets/FloatValue_Set")]
 public class FloatValue_Set : PersistentSet<FloatValue> {
 
 }

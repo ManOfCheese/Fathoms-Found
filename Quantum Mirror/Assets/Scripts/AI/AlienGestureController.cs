@@ -20,12 +20,13 @@ public class AlienGestureController : MonoBehaviour
 
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
+	public Action_Set actionResponses;
 	public float gestureSpeed = 1f;
-	public float holdPosFor = 1f;
+	public float holdGestureFor = 1f;
+	public float holdPointFor = 3f;
 
 	[ReadOnly] public bool repositioning;
-	[ReadOnly] public List<int> repositionedLegs = new List<int>();
-
+	[ReadOnly] public bool pointing = false;
 	[ReadOnly] public bool gesturing = false;
 	[ReadOnly] public bool waiting = false;
 	[ReadOnly] public bool startGesture = false;
@@ -36,7 +37,8 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public int wordIndex = 0;
 	[ReadOnly] public Vector3 preGestureHandPos;
 
-	public List<Gesture> playerGestures = new List<Gesture>();
+	[HideInInspector] public List<int> repositionedLegs = new List<int>();
+	[HideInInspector] public List<Gesture> playerGestures = new List<Gesture>();
 	[HideInInspector] public List<int> respondTo = new List<int>();
 
 	[HideInInspector] public AlienManager alienManager;
@@ -113,14 +115,22 @@ public class AlienGestureController : MonoBehaviour
 				Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
 
 				if ( sentenceFound ) {
-					int closestHand = FindClosestHand( alienManager.player );
+					if ( responses.Items[ sentenceIndex ] != null )
+					{
+						int closestHand = FindClosestHand( alienManager.player );
 
-					handIndex = closestHand;
-					gesturing = true;
-					wordIndex = -1;
-					startGesture = true;
-					waiting = false;
-					preGestureHandPos = hands[ handIndex ].transform.position;
+						handIndex = closestHand;
+						gesturing = true;
+						wordIndex = -1;
+						startGesture = true;
+						waiting = false;
+						preGestureHandPos = hands[ handIndex ].transform.position;
+					}
+					else if ( actionResponses.Items[ sentenceIndex ] != null )
+					{
+						actionResponses.Items[ sentenceIndex ].ExecuteAction( alienManager );
+					}
+
 					//textChanger.OnAlienInteract();
 				}
 				else {
