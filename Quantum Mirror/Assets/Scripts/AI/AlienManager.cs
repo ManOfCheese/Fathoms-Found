@@ -18,6 +18,7 @@ public class AlienManager : MonoBehaviour
     public bool lookAtForAttention;
 
     [Header( "Runtime" )]
+    [ReadOnly] public Door doorToOpen;
     [ReadOnly] public string currentState;
     [ReadOnly] public float interestTimeStamp;
     [ReadOnly] public bool interest;
@@ -69,4 +70,15 @@ public class AlienManager : MonoBehaviour
             stateMachine.ChangeState( WanderState.Instance );
         }
     }
+
+    public void TryDoor()
+	{
+        if ( doorToOpen != null && Vector3.Distance( doorToOpen.transform.position, transform.position ) < mc.destinationReachedWindow )
+		{
+            doorToOpen.Open();
+            interest = false;
+            doorToOpen = null;
+            stateMachine.ChangeState( WanderState.Instance );
+        }
+	}
 }

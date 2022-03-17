@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Door : InteractableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public RunTimeSet<Door> doors;
+	public Animator animator;
+
+	private void Awake()
+	{
+		doors.Add( this );
+	}
+
+	public void Open()
+	{
+		animator.SetTrigger( "Open" );
+	}
+
 }

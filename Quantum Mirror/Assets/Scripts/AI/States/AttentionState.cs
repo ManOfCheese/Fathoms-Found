@@ -47,6 +47,8 @@ public class AttentionState : State<AlienManager>
 
 	public override void UpdateState( AlienManager _owner )
 	{
+		_owner.TryDoor();
+
 		if ( _owner.gc.repositioning ) {
 			for ( int i = 0; i < _owner.gc.hands.Length; i++ ) 
 			{

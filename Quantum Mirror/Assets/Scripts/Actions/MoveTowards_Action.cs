@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu( fileName = "Action", menuName = "Action/MoveTowards_Action" )]
+[CreateAssetMenu( fileName = "MoveTowards_Action", menuName = "Action/MoveTowards_Action" )]
 public class MoveTowards_Action : Move_Action {
 
 	public RunTimeSet<Transform> targetObjects;

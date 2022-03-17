@@ -55,6 +55,8 @@ public class InterestState : State<AlienManager>
 				_owner.stateMachine.ChangeState( WanderState.Instance );
 			}
 		}
+
+		_owner.TryDoor();
 	}
 
 	public override void ExitState( AlienManager _owner )
