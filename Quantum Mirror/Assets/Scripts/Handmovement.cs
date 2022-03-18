@@ -105,7 +105,7 @@ public class Handmovement : MonoBehaviour
                 if ( value.performed )
                 {
                     var handpos = Gamepad.current.rightStick.ReadValue();
-                    hand.transform.localPosition = new Vector3( handpos.x * 0.6f, handpos.y * 0.6f, 0f );
+                    hand.transform.localPosition = new Vector3( handpos.x * 0.8f, handpos.y * 0.8f, 0f );
                 }
             }
             else
