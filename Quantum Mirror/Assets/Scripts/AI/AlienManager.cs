@@ -11,6 +11,7 @@ public class AlienManager : MonoBehaviour
     public Transform player;
     public Transform moveTarget;
     public Transform pointTarget;
+    public GestureSequence standardResponse;
 
     [Header( "Settings" )]
     public float attentionDistance;

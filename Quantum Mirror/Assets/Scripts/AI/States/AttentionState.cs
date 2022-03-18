@@ -70,7 +70,17 @@ public class AttentionState : State<AlienManager>
 		if ( _owner.gc.gesturing )
 		{
 			GestureCircle gestureCircle = _owner.gc.gestureCircles[ _owner.gc.handIndex ];
-			List<Gesture> gestures = _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words;
+			List<Gesture> gestures;
+			if ( _owner.gc.standardGesture )
+			{
+				gestures = new List<Gesture>();
+				for ( int i = 0; i < _owner.standardResponse.words.Count; i++ )
+				{
+					gestures.Add( _owner.standardResponse.words[ i ] );
+				}
+			}
+			else
+				gestures = _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words;
 			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.handIndex ];
 
 			//Hold Gesture
@@ -100,6 +110,7 @@ public class AttentionState : State<AlienManager>
 						_owner.gc.waiting = false;
 						_owner.gc.handIndex = -1;
 						_owner.gc.endGesture = false;
+						if ( _owner.gc.standardGesture ) _owner.gc.standardGesture = false;
 						for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
 						{
 							gestureCircle.fingerSprites[ i ].SetActive( false );

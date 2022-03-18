@@ -31,6 +31,7 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public bool waiting = false;
 	[ReadOnly] public bool startGesture = false;
 	[ReadOnly] public bool endGesture = false;
+	[ReadOnly] public bool standardGesture = false;
 	[ReadOnly] public float waitTimeStamp = 0f;
 	[ReadOnly] public int handIndex = -1;
 	[ReadOnly] public int sentenceIndex = 0;
@@ -134,7 +135,15 @@ public class AlienGestureController : MonoBehaviour
 					//textChanger.OnAlienInteract();
 				}
 				else {
-					//Unknown sentence behaviour?
+					int closestHand = FindClosestHand( alienManager.player );
+
+					handIndex = closestHand;
+					gesturing = true;
+					wordIndex = -1;
+					startGesture = true;
+					waiting = false;
+					standardGesture = true;
+					preGestureHandPos = hands[ handIndex ].transform.position;
 				}
 			}
 			else {
