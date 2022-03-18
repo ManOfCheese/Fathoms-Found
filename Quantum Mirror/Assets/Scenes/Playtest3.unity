@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.06576762, g: 0.26572835, b: 0.28107214, a: 1}
+  m_IndirectSpecularColor: {r: 0.06576764, g: 0.2657278, b: 0.28107086, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2510,7 +2510,7 @@ PrefabInstance:
     - target: {fileID: 885228637, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
       propertyPath: reticle
       value: 
-      objectReference: {fileID: 2030886208}
+      objectReference: {fileID: 1753770209}
     - target: {fileID: 885228637, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
       propertyPath: gestureCircle
       value: 
@@ -4402,6 +4402,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705730836}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1753770209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4588821104531455292, guid: c5553df80bb988d4c899797954c9b6e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2030886207}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1913535272
 GameObject:
   m_ObjectHideFlags: 0
@@ -4756,6 +4762,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1923118639, guid: c5553df80bb988d4c899797954c9b6e5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5369271376899695983, guid: c5553df80bb988d4c899797954c9b6e5,
         type: 3}
       propertyPath: m_Name
@@ -4868,12 +4878,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5553df80bb988d4c899797954c9b6e5, type: 3}
---- !u!1 &2030886208 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1923118639, guid: c5553df80bb988d4c899797954c9b6e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 2030886207}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2037239380
 GameObject:
   m_ObjectHideFlags: 0

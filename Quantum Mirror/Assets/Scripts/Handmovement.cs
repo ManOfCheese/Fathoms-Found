@@ -130,7 +130,6 @@ public class Handmovement : MonoBehaviour
 			{
                 gestureMode = true;
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
-
             }
 			else
 			{
@@ -172,7 +171,7 @@ public class Handmovement : MonoBehaviour
                     gestureCircle.fingerSprites[ i ].SetActive( false );
 				}
 			}
-			else
+			else if ( gestureCircle.gameObject.activeSelf )
 			{
                 gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 ].SetActive( true );
                 gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 + 1 ].SetActive( fingers.Value[ 0 ] );
