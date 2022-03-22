@@ -6,18 +6,20 @@ using UnityEngine.InputSystem;
 public class Handmovement : MonoBehaviour
 {
 
-    [Header( "Settings" )]
+    [Header("Settings")]
     public float gestureModeLookSensitivity;
     public float handSensitivity;
     public float scrollSensitivity;
     public bool rotateHand;
 
-    [Header( "References" )]
+    [Header("References")]
     public BoolArrayValue fingers;
     public IntValue handPos;
     public BoolValue isInGestureMode;
     public BoolValue confirmGesture;
-    
+
+    public GameObject cursor;
+
     public GameObject center;
     public GameObject idle;
     public GameObject hand;
@@ -30,16 +32,28 @@ public class Handmovement : MonoBehaviour
     public SphereCollider[] subCircles;
     public JackOfController controller;
 
-    [Header( "Read Only" )]
+    [Header("Read Only")]
     [ReadOnly] public bool gestureMode;
     [ReadOnly] public int fingermode = 0;
     [ReadOnly] public Vector2 lookVector;
-    [ReadOnly] public Vector3 punchdestination = new Vector3( 0, 0, 0.08f );
+    [ReadOnly] public Vector3 punchdestination = new Vector3(0, 0, 0.08f);
+    [ReadOnly] public Vector3 mouseWorldPos;
 
     private int i = 0;
 
+    private void LateUpdate()
+    {
+        Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = gestureCircle.transform.position.z;
+
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        cursor.transform.position = mouseWorldPos;
+        hand.transform.position = mouseWorldPos;
+    }
     void Update()
     {
+
         if ( gestureMode == true )
         {
             float distance = Vector3.Distance(center.transform.position, hand.transform.position);
@@ -62,21 +76,16 @@ public class Handmovement : MonoBehaviour
             reticle.SetActive( false );
             gestureCircle.gameObject.SetActive( true );
 
-            //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
-            
-            //if ( distance < 0.8 )
-            //{
-                float xMove = lookVector.normalized.y * handSensitivity * Time.deltaTime;
-                float yMove = lookVector.normalized.x * handSensitivity * Time.deltaTime;
-                hand.transform.Translate(new Vector3( xMove, yMove, 0 ) );
-            //}
-            //else
-            //{
-                //hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.05f );
-            //}
+            //Moving the hand with the mouse as long as it's on the screen
+
+            //float xMove = lookVector.normalized.y * handSensitivity * Time.deltaTime;
+            //float yMove = lookVector.normalized.x * handSensitivity * Time.deltaTime;
+           
         }
         else
         {
+            //firstPersonControls.SetActive(true);
+
             hand.transform.localPosition = idle.transform.localPosition;
             reticle.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
@@ -246,16 +255,12 @@ public class Handmovement : MonoBehaviour
         if (value.performed)
         {
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", true);
-            //Digits[3].SetActive(false);
-            //ClosedDigits[3].SetActive(true);
             fingers.Value[ 2 ] = true;
         }
 
         if (value.canceled)
         {
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false);
-            //Digits[3].SetActive(true);
-            //ClosedDigits[3].SetActive(false);
             fingers.Value[ 2 ] = false;
         }
 
