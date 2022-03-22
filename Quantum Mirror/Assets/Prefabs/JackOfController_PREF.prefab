@@ -340,7 +340,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c142a927f4066fe41b441b160f601486, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.686
+  m_Volume: 0.2
   m_Pitch: 1.29
   Loop: 1
   Mute: 0
@@ -607,7 +607,7 @@ MonoBehaviour:
   legsBroken: {fileID: 11400000, guid: a9091dbbb705f4a4cab8f38cbebfdf8e, type: 2}
   jom: {fileID: 0}
   inverted: 0
-  sensitivity: 0.708
+  sensitivity: 0.4
   xRotationLimitsUp: -90
   xRotationLimitsDown: 60
   speed: 12
@@ -1386,6 +1386,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OyxgenTool_PREF
       objectReference: {fileID: 0}
+    - target: {fileID: 6754481483344855323, guid: f715c780a78c89b40bd13a6844ddd56e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 235089533008349913, guid: f715c780a78c89b40bd13a6844ddd56e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f715c780a78c89b40bd13a6844ddd56e, type: 3}
@@ -1591,6 +1596,11 @@ PrefabInstance:
       objectReference: {fileID: 182677836590286789}
     - target: {fileID: 8706991455412890503, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
         type: 3}
+      propertyPath: gestureCircle
+      value: 
+      objectReference: {fileID: 4403267800042918975}
+    - target: {fileID: 8706991455412890503, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
+        type: 3}
       propertyPath: Digits.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -1604,6 +1614,11 @@ PrefabInstance:
       propertyPath: Digits.Array.data[2]
       value: 
       objectReference: {fileID: 63287982558831584}
+    - target: {fileID: 8706991455412890503, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
+        type: 3}
+      propertyPath: gestureModeLookSensitivity
+      value: 0.0005
+      objectReference: {fileID: 0}
     - target: {fileID: 8948207623397548352, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
         type: 3}
       propertyPath: m_IsActive
@@ -1632,6 +1647,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a738d58a5558ae4bbb5e16506822aca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4403267800042918975 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5030237268661894117, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8706991455760855002}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6a1bc6181909544992d6dab06006f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7988420390203545897 stripped
