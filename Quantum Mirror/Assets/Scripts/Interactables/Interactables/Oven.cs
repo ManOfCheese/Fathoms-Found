@@ -28,7 +28,7 @@ public class Oven : InteractableObject
         }
     }
 
-	public override void Interact( Interactor player )
+	public override void Interact( Interactor interactor )
 	{
         if ( objInOven ) {
             objInOven.rb.isKinematic = false;
@@ -36,18 +36,18 @@ public class Oven : InteractableObject
             for ( int i = 0; i < objInOven.colliders.Length; i++ ) {
                 objInOven.colliders[ i ].enabled = true;
             }
-            player.PickUp( objInOven );
+            interactor.PickUp( objInOven );
             objInOven = null;
             isInOven = false;
 		}
-        else if ( player.objectInHand ) {
-            objInOven = player.objectInHand;
+        else if ( interactor.objectInHand ) {
+            objInOven = interactor.objectInHand;
             objInOven.rb.isKinematic = true;
             objInOven.rb.useGravity = false;
 			for ( int i = 0; i < objInOven.colliders.Length; i++ ) {
                 objInOven.colliders[ i ].enabled = false;
 			}
-            player.OnDrop();
+            interactor.OnDrop();
             objInOven.transform.position = ovenPos.position;
             isInOven = true;
         }
