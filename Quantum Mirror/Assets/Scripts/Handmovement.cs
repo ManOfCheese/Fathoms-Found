@@ -17,6 +17,7 @@ public class Handmovement : MonoBehaviour
     public IntValue handPos;
     public BoolValue isInGestureMode;
     public BoolValue confirmGesture;
+    public GameObject handEntryPos;
 
     public GameObject cursor;
 
@@ -43,19 +44,28 @@ public class Handmovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        //The new arm controls based on the actual mouse position
+
         Vector3 mousePos = Mouse.current.position.ReadValue();
         mousePos.z = gestureCircle.transform.localPosition.z;
 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        cursor.transform.position = mouseWorldPos;
-        hand.transform.position = mouseWorldPos;
+
+        Vector3 handStartPos = hand.transform.position;
+        
+        hand.transform.position = Vector3.Lerp(handStartPos,cursor.transform.position, 0.08f);
     }
     void Update()
     {
+        Cursor.visible = false;
 
         if ( gestureMode == true )
         {
+            Cursor.lockState = CursorLockMode.None;
+            
+            cursor.transform.position = mouseWorldPos;
+
             float distance = Vector3.Distance(center.transform.position, hand.transform.position);
 
             if ( rotateHand )
@@ -86,9 +96,11 @@ public class Handmovement : MonoBehaviour
         {
             //firstPersonControls.SetActive(true);
 
-            hand.transform.localPosition = idle.transform.localPosition;
+            cursor.transform.position = idle.transform.position;
             reticle.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
+
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         //Check in which area of the gesture circle the hand is.
@@ -139,6 +151,7 @@ public class Handmovement : MonoBehaviour
 			{
                 gestureMode = true;
                 isInGestureMode.Value = true;
+                //Mouse.current.WarpCursorPosition(handEntryPos.transform.position);
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
             }
 			else
