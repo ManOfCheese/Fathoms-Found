@@ -943,6 +943,7 @@ Transform:
   m_Children:
   - {fileID: 860750655}
   - {fileID: 1238558949}
+  - {fileID: 546202113}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -977,6 +978,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 611ff9a441100574db5332a05aae2be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactOnEnter: 0
+  interactOnStay: 0
+  interactOnExit: 0
   doors: {fileID: 11400000, guid: 02b681cf64a2f2e4e8b2fe0648da4610, type: 2}
   animator: {fileID: 195754934}
 --- !u!114 &195754936
@@ -2275,6 +2279,69 @@ Transform:
   m_Father: {fileID: 1330245731}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -127.266, z: 0}
+--- !u!1 &546202112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 546202113}
+  - component: {fileID: 546202114}
+  - component: {fileID: 546202115}
+  m_Layer: 0
+  m_Name: Door_Logic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &546202113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546202112}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 195754933}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546202114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546202112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce02d2fbce132044aab0f90d55d7602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactOnEnter: 0
+  interactOnStay: 1
+  interactOnExit: 0
+  gestureListener: {fileID: 1550205201}
+  door: {fileID: 195754935}
+  passwordGesture: {fileID: 11400000, guid: e7ff94e125a681a49871057cbcc6cb44, type: 2}
+--- !u!135 &546202115
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546202112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.39
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &601734515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2797,7 +2864,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 860750651}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

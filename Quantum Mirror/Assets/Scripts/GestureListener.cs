@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gestures;
 
 public class GestureListener : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class GestureListener : MonoBehaviour
 			if ( handPos.Value != 0 )
 			{
 				Gesture word = new Gesture( handPos.Value, fingers.Value );
+				onWord?.Invoke( word );
 
 				//Check if a word was already submitted in this circle.
 				bool replacedWord = false;
@@ -59,20 +61,10 @@ public class GestureListener : MonoBehaviour
 					words.Add( word );
 
 				words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
-				onWord?.Invoke( word );
+				playerSentence = Gestures.GestureLogic.WordListToCode( words );
 			}
 			else
 			{
-				playerSentence.Clear();
-				playerSentence.Add( words.Count );
-				for ( int i = 0; i < words.Count; i++ )
-					playerSentence.Add( words[ i ].circle );
-
-				for ( int i = 0; i < words.Count; i++ )
-				{
-					for ( int j = 0; j < words[ i ].fingers.Length; j++ )
-						playerSentence.Add( words[ i ].fingers[ j ] ? 1 : 0 );
-				}
 				onSentence?.Invoke( playerSentence );
 			}
 		}

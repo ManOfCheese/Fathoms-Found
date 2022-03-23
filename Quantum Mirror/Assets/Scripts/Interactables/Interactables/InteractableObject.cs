@@ -5,16 +5,37 @@ using UnityEngine.Events;
 
 public class InteractableObject : MonoBehaviour
 {
-    public virtual void Interact( Interactor interactor )
+    
+	public bool interactOnEnter;
+	public bool interactOnStay;
+	public bool interactOnExit;
+
+	public virtual void Interact( Interactor interactor )
     {
 
     }
 
 	private void OnTriggerEnter( Collider other )
 	{
-		if ( other.GetComponent<Interactor>() )
+		if ( interactOnEnter && other.GetComponentInChildren<Interactor>() )
 		{
-			Interact( other.GetComponent<Interactor>() );
+			Interact( other.GetComponentInChildren<Interactor>() );
+		}
+	}
+
+	private void OnTriggerStay( Collider other )
+	{
+		if ( interactOnStay && other.GetComponentInChildren<Interactor>() )
+		{
+			Interact( other.GetComponentInChildren<Interactor>() );
+		}
+	}
+
+	private void OnTriggerExit( Collider other )
+	{
+		if ( interactOnExit && other.GetComponentInChildren<Interactor>() )
+		{
+			Interact( other.GetComponentInChildren<Interactor>() );
 		}
 	}
 
