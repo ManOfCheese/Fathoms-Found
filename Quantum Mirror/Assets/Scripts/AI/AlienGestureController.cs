@@ -75,6 +75,10 @@ public class AlienGestureController : MonoBehaviour
 
 	public void OnPlayerTogglesGestureMode( bool isInGesturemode ) {
 		playerGestures.Clear();
+		if ( isInGestureMode )
+			Cursor.lockState = CursorLockMode.None;
+		else
+			Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	public void OnConfirmGesture( bool confirmGesture ) {
