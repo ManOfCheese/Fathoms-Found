@@ -7,19 +7,30 @@ public class AlienGestureController : MonoBehaviour
 {
 
 	[Header( "References" )]
-	public GestureListener gestureListener;
-
     public AlienIKHandler[] hands;
 	public GestureCircle[] gestureCircles;
 	public Transform[] idleHandTargets;
-
+	public GestureListener gestureListener;
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
 	public Action_Set actionResponses;
+
+
+	[Header( "Settings" )]
+	[Tooltip( "Should the alien hold at the centre of the circle before starting with the gestures?" )]
+	public bool holdStart;
+	[Tooltip( "How fast in units per second should the alien gestures." )]
 	public float gestureSpeed = 1f;
+	[Tooltip( "How long should the alien hold a gestures before moving on to the next one." )]
 	public float holdGestureFor = 1f;
+	[Tooltip( "How fast in units per second should the alien point." )]
+	public float pointSpeed = 1f;
+	[Tooltip( "How far away from the alien's center should the point target be allowed to be in units, if set low the arm may not full extend." )]
+	public float maxPointDistance = 5f;
+	[Tooltip( "How long should the alien hold a point before lowering it's arm again." )]
 	public float holdPointFor = 3f;
 
+	[Header( "Runtime" )]
 	[ReadOnly] public bool repositioning;
 	[ReadOnly] public bool pointing = false;
 	[ReadOnly] public bool gesturing = false;
@@ -27,7 +38,8 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public bool startGesture = false;
 	[ReadOnly] public bool endGesture = false;
 	[ReadOnly] public bool standardGesture = false;
-	[ReadOnly] public float waitTimeStamp = 0f;
+	[ReadOnly] public float gestureHoldTimeStamp = 0f;
+	[ReadOnly] public float pointHoldTimeStamp = 0f;
 	[ReadOnly] public int gestureHandIndex = -1;
 	[ReadOnly] public int pointHandIndex = -1;
 	[ReadOnly] public int sentenceIndex = 0;

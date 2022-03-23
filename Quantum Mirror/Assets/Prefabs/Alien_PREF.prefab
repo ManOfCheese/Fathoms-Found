@@ -3090,7 +3090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152d01b9bb85e934d8ae3fc2a44b58c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gestureListener: {fileID: 0}
   hands:
   - {fileID: 3212807522618574264}
   - {fileID: 8580479925270609438}
@@ -3112,11 +3111,15 @@ MonoBehaviour:
   - {fileID: 3964272598288802831}
   - {fileID: 4663398601983397297}
   - {fileID: 5562524808917088814}
+  gestureListener: {fileID: 0}
   gestureLibrary: {fileID: 11400000, guid: c7ad4e18ea75b2e4eb55456a27815fcd, type: 2}
   responses: {fileID: 11400000, guid: e76663091c58e594eb686e0b880ea171, type: 2}
   actionResponses: {fileID: 0}
+  holdStart: 0
   gestureSpeed: 5
   holdGestureFor: 1
+  pointSpeed: 1
+  maxPointDistance: 0
   holdPointFor: 1
   repositioning: 0
   pointing: 0
@@ -3125,7 +3128,8 @@ MonoBehaviour:
   startGesture: 0
   endGesture: 0
   standardGesture: 0
-  waitTimeStamp: 0
+  gestureHoldTimeStamp: 0
+  pointHoldTimeStamp: 0
   gestureHandIndex: -1
   pointHandIndex: -1
   sentenceIndex: 0

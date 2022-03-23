@@ -14,8 +14,11 @@ public class AlienManager : MonoBehaviour
     public GestureSequence standardResponse;
 
     [Header( "Settings" )]
+    [Tooltip( "From how far away in units should the player be able to get the alien's attention by looking at it." )]
     public float attentionDistance;
+    [Tooltip( "How long in seconds should the alien remain at objects of interest before moving on." )]
     public float interestDuration;
+    [Tooltip( "Should the player have to look at the alien to trigger it's attention state." )]
     public bool lookAtForAttention;
 
     [Header( "Runtime" )]
@@ -76,8 +79,6 @@ public class AlienManager : MonoBehaviour
 
     public void TryDoor()
 	{
-        if ( doorToOpen != null )
-            Debug.Log( Vector3.Distance( doorToOpen.transform.position, transform.position ) );
         if ( doorToOpen != null && Vector3.Distance( doorToOpen.transform.position, transform.position ) < mc.destinationReachedWindow )
 		{
             Debug.Log( "Open Door" );
