@@ -134,7 +134,7 @@ public class AttentionState : State<AlienManager>
 
 						_owner.gc.wordIndex++;
 						//Set target as our start position.
-						if ( _owner.gc.wordIndex > _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words.Count - 1 )
+						if ( _owner.gc.wordIndex > gestures.Count - 1 )
 						{
 							_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.handIndex ].position;
 							_owner.gc.endGesture = true;
@@ -143,7 +143,7 @@ public class AttentionState : State<AlienManager>
 						else
 						{
 							_owner.gc.handTarget = gestureCircle.subCircles[ gestures[ _owner.gc.wordIndex ].circle - 1 ].transform.position;
-							Debug.Log( Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
+							//Debug.Log( Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
 						}
 					}
 				}
