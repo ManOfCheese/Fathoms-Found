@@ -7,24 +7,30 @@ public class AlienGestureController : MonoBehaviour
 {
 
 	[Header( "References" )]
-	public BoolValue confirmGesture;
-	public BoolValue isInGestureMode;
-	public IntValue handPos;
-	public BoolArrayValue fingers;
-
-	public UI_Text_Changer textChanger;
     public AlienIKHandler[] hands;
 	public GestureCircle[] gestureCircles;
 	public Transform[] idleHandTargets;
-	public float gCircleDiameter;
-
+	public GestureListener gestureListener;
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
 	public Action_Set actionResponses;
+
+
+	[Header( "Settings" )]
+	[Tooltip( "Should the alien hold at the centre of the circle before starting with the gestures?" )]
+	public bool holdStart;
+	[Tooltip( "How fast in units per second should the alien gestures." )]
 	public float gestureSpeed = 1f;
+	[Tooltip( "How long should the alien hold a gestures before moving on to the next one." )]
 	public float holdGestureFor = 1f;
+	[Tooltip( "How fast in units per second should the alien point." )]
+	public float pointSpeed = 1f;
+	[Tooltip( "How far away from the alien's center should the point target be allowed to be in units, if set low the arm may not full extend." )]
+	public float maxPointDistance = 5f;
+	[Tooltip( "How long should the alien hold a point before lowering it's arm again." )]
 	public float holdPointFor = 3f;
 
+	[Header( "Runtime" )]
 	[ReadOnly] public bool repositioning;
 	[ReadOnly] public bool pointing = false;
 	[ReadOnly] public bool gesturing = false;
@@ -32,8 +38,10 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public bool startGesture = false;
 	[ReadOnly] public bool endGesture = false;
 	[ReadOnly] public bool standardGesture = false;
-	[ReadOnly] public float waitTimeStamp = 0f;
-	[ReadOnly] public int handIndex = -1;
+	[ReadOnly] public float gestureHoldTimeStamp = 0f;
+	[ReadOnly] public float pointHoldTimeStamp = 0f;
+	[ReadOnly] public int gestureHandIndex = -1;
+	[ReadOnly] public int pointHandIndex = -1;
 	[ReadOnly] public int sentenceIndex = 0;
 	[ReadOnly] public int wordIndex = 0;
 	[ReadOnly] public Vector3 preGestureHandPos;
@@ -47,13 +55,11 @@ public class AlienGestureController : MonoBehaviour
 	[HideInInspector] public Vector3 handTarget;
 
 	private void OnEnable() {
-		isInGestureMode.onValueChanged += OnPlayerTogglesGestureMode;
-		confirmGesture.onValueChanged += OnConfirmGesture;
+		gestureListener.onSentence += OnSentence;
 	}
 
 	private void OnDisable() {
-		isInGestureMode.onValueChanged -= OnPlayerTogglesGestureMode;
-		confirmGesture.onValueChanged += OnConfirmGesture;
+		gestureListener.onSentence += OnSentence;
 	}
 
 	public int FindClosestHand( Transform respondTo )
@@ -73,85 +79,54 @@ public class AlienGestureController : MonoBehaviour
 		return closestHand;
 	}
 
-	public void OnPlayerTogglesGestureMode( bool isInGesturemode ) {
-		playerGestures.Clear();
-		if ( isInGestureMode )
-			Cursor.lockState = CursorLockMode.None;
-		else
-			Cursor.lockState = CursorLockMode.Locked;
-	}
+	public void OnSentence( List<int> sentenceCode ) {
+		if ( alienManager.stateMachine.CurrentState == AttentionState.Instance ) {
+			string respondGCode = "";
+			for ( int i = 0; i < sentenceCode.Count; i++ )
+				respondGCode += sentenceCode[ i ];
 
-	public void OnConfirmGesture( bool confirmGesture ) {
-		if ( confirmGesture && alienManager.stateMachine.CurrentState == AttentionState.Instance ) {
-			if ( handPos.Value == 0 ) {
-				//Generate gCode for player gesture.
-				respondTo.Clear();
-
-				respondTo.Add( playerGestures.Count );
-				for ( int i = 0; i < playerGestures.Count; i++ ) 
-					respondTo.Add( playerGestures[ i ].circle );
-
-				for ( int i = 0; i < playerGestures.Count; i++ ) 
+			//Find the player's sentence in the library and save the id.
+			bool sentenceFound = false;
+			for ( int i = 0; i < gestureLibrary.Items.Count; i++ ) 
+			{
+				//Check if the gesture codes match.
+				for ( int j = 0; j < gestureLibrary.Items[ i ].gestureCode.Length; j++ ) 
 				{
-					for ( int j = 0; j < playerGestures[ i ].fingers.Length; j++ )
-						respondTo.Add( playerGestures[ i ].fingers[ j ] ? 1 : 0 );
+					if ( gestureLibrary.Items[ i ].gCode == respondGCode ) 
+					{
+						sentenceIndex = i;
+						sentenceFound = true;
+						break;
+					}
 				}
+			}
 
-				string respondGCode = "";
-				for ( int i = 0; i < respondTo.Count; i++ )
-					respondGCode += respondTo[ i ];
-				playerGestures.Clear();
-
-				//Find the player's sentence in the library and save the id.
-				bool sentenceFound = false;
-				for ( int i = 0; i < gestureLibrary.Items.Count; i++ ) 
+			Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
+			if ( sentenceFound ) {
+				if ( responses.Items[ sentenceIndex ] != null )
 				{
-					//Check if the gesture codes match.
-					for ( int j = 0; j < gestureLibrary.Items[ i ].gestureCode.Length; j++ ) 
-					{
-						if ( gestureLibrary.Items[ i ].gCode == respondGCode ) 
-						{
-							sentenceIndex = i;
-							sentenceFound = true;
-							break;
-						}
-					}
-				}
-				//Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
-
-				if ( sentenceFound ) {
-					if ( responses.Items[ sentenceIndex ] != null )
-					{
-						int closestHand = FindClosestHand( alienManager.player );
-
-						handIndex = closestHand;
-						gesturing = true;
-						wordIndex = -1;
-						startGesture = true;
-						waiting = false;
-						preGestureHandPos = hands[ handIndex ].transform.position;
-					}
-					else if ( actionResponses.Items[ sentenceIndex ] != null )
-					{
-						actionResponses.Items[ sentenceIndex ].ExecuteAction( alienManager );
-					}
-
-					//textChanger.OnAlienInteract();
-				}
-				else {
 					int closestHand = FindClosestHand( alienManager.player );
 
-					handIndex = closestHand;
+					gestureHandIndex = closestHand;
 					gesturing = true;
 					wordIndex = -1;
 					startGesture = true;
 					waiting = false;
-					standardGesture = true;
-					preGestureHandPos = hands[ handIndex ].transform.position;
+					preGestureHandPos = hands[ gestureHandIndex ].transform.position;
 				}
+				else if ( actionResponses.Items[ sentenceIndex ] != null )
+					actionResponses.Items[ sentenceIndex ].ExecuteAction( alienManager );
 			}
 			else {
-				playerGestures.Add( new Gesture( handPos.Value, fingers.Value ) );
+				int closestHand = FindClosestHand( alienManager.player );
+
+				gestureHandIndex = closestHand;
+				gesturing = true;
+				wordIndex = -1;
+				startGesture = true;
+				waiting = false;
+				standardGesture = true;
+				preGestureHandPos = hands[ gestureHandIndex ].transform.position;
 			}
 		}
 	}

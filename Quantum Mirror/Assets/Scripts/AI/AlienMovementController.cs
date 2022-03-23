@@ -25,23 +25,33 @@ public class AlienMovementController : MonoBehaviour
     public AlienIKHandler[] hands;
 
     [Header( "Settings" )]
+    [Tooltip( "How should the alien move, if at all." )]
     public MovementMode movementMode;
+    [Tooltip( "What kind of pattern should be used to determine destinations." )]
     public MovementShape movementShape;
+    [Tooltip( "How fast in units does the alien walk." )]
     public float speed;
+    [Tooltip( "How often in seconds should the alien switch destination" )]
     public float changeDestinationTime;
+    [Tooltip( "How close in units should the alien be to it's destination to consider it reached, this is from center to center." )]
     public float destinationReachedWindow;
 
     //None mode
+    [Tooltip( "What is the minimum distance in units between the current position and the new destination." )]
     public float minDistance;
+    [Tooltip( "What is the maximum distance in units between the current position and the new destination." )]
     public float maxDistance;
 
     //Torus mode
     public Transform torusCenter;
+    [Tooltip( "What is the inner radius in units of the torus." )]
     public float torusInnerRadius;
+    [Tooltip( "What is the outer radius in units of the torus." )]
     public float torusOuterRadius;
 
     //Circle mode
     public Transform circleCenter;
+    [Tooltip( "What is the radius in units of the circle." )]
     public float circleRadius;
 
     [Header( "Runtime" )]
