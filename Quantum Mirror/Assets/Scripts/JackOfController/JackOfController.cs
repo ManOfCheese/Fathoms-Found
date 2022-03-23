@@ -210,18 +210,6 @@ public class JackOfController : MonoBehaviour {
             Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y, 
                 relativeMovementVector.z * currentSpeed );
             cc.Move( finalMovementVector * Time.deltaTime );
-
-   //         Debug.Log( prevRawMoveVector.magnitude + " | " + rawMoveVector.magnitude );
-   //         if ( prevRawMoveVector.magnitude == 0 && rawMoveVector.magnitude != 0 )
-			//{
-   //             tracksStartSource.clip = tracksStart[ Random.Range( 0, tracksStart.Length - 1 ) ];
-   //             tracksStartSource.Play( 0 );
-			//}
-   //         else if ( prevRawMoveVector.magnitude > 0 && rawMoveVector.magnitude == 0 )
-			//{
-   //             tracksStopSource.clip = tracksStop[ Random.Range( 0, tracksStart.Length - 1 ) ];
-   //             tracksStopSource.Play( 0 );
-   //         }
         }
     }
 
