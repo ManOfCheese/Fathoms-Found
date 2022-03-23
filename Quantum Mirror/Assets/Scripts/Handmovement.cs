@@ -129,11 +129,13 @@ public class Handmovement : MonoBehaviour
             if ( !gestureMode )
 			{
                 gestureMode = true;
+                isInGestureMode.Value = true;
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
             }
 			else
 			{
                 gestureMode = false;
+                isInGestureMode.Value = false;
                 controller.ChangeSensitivity( controller.startSensitivity );
                 for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
                     gestureCircle.fingerSprites[ i ].SetActive( false );

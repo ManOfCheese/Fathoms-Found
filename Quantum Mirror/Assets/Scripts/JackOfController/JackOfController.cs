@@ -106,7 +106,6 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public Vector3 velocity;
     [ReadOnly] public Vector3 velocityOnJump;
 
-    private Vector2 prevRawMoveVector;
     private bool moving;
 
     private void Awake() {
@@ -132,7 +131,6 @@ public class JackOfController : MonoBehaviour {
     {
         if ( !legsBroken.Value )
         {
-            prevRawMoveVector = rawMoveVector;
             rawMoveVector = value.ReadValue<Vector2>();
         }
 
@@ -191,15 +189,17 @@ public class JackOfController : MonoBehaviour {
 	#region Movement
     public void CameraLook() 
     {
-        xCamRotation -= sensitivity * lookVector.x;
-        yCamRotation += sensitivity * lookVector.y;
+        if ( !inGestureMode.Value ) {
+            xCamRotation -= sensitivity * lookVector.x;
+            yCamRotation += sensitivity * lookVector.y;
 
-        xCamRotation %= 360;
-        yCamRotation %= 360;
-        xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
-        cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
-        cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation, 
-            cc.transform.eulerAngles.z );
+            xCamRotation %= 360;
+            yCamRotation %= 360;
+            xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
+            cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
+            cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation,
+                cc.transform.eulerAngles.z );
+        }
     }
 
     public void Walk() 
