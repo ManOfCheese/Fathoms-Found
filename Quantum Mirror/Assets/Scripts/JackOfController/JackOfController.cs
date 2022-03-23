@@ -13,9 +13,24 @@ public enum AerialMovementSettings {
 public class JackOfController : MonoBehaviour {
 
     public JackOfControllerSystem system;
-    public BoolValue legsBroken;
 
-    [HideInInspector] public JackOfManager jom;
+    [Header( "Audio References" )]
+    public AudioSource tracksStartSource;
+    public AudioSource tracksGoingSource;
+    public AudioSource tracksSprintSource;
+    public AudioSource tracksStopSource;
+    public Fader tracksFader;
+
+    [Header( "Audio Settings" )]
+    public float crossFadeDuration;
+    public AudioClip[] tracksStart;
+    public AudioClip[] tracks;
+    public AudioClip[] tracksSprint;
+    public AudioClip[] tracksStop;
+
+    [Header( "VariableObjects" )]
+    public BoolValue inGestureMode;
+    public BoolValue legsBroken;
 
     [Header( "Camera Settings" )]
     [Tooltip( "When true camera controls will be inverted meaning moving left will move the camera to the right." )]
@@ -38,16 +53,16 @@ public class JackOfController : MonoBehaviour {
     [Header( "Sprint Settings" )]
     [Tooltip( "Is sprinting enabled" )]
     public bool sprintAllowed = true;
-    [Tooltip( "Should the FOV momentarily increase when you start sprinting" )]
-    public bool FOVBurst = true;
-    [Tooltip( "Should the FOV increase when you start sprinting" )]
-    public bool FOVBoost = true;
+    //[Tooltip( "Should the FOV momentarily increase when you start sprinting" )]
+    //public bool FOVBurst = true;
+    //[Tooltip( "Should the FOV increase when you start sprinting" )]
+    //public bool FOVBoost = true;
     [Tooltip( "Sprinting speed in units per second" )]
     public float sprintSpeed = 10f;
     [Tooltip( "Sprinting speed relative to the walking speed" )]
     public float relativeSprintSpeed = 2f;
-    public AnimationCurve startSprintCurve;
-    public AnimationCurve endSprintCurve;
+    //public AnimationCurve startSprintCurve;
+    //public AnimationCurve endSprintCurve;
 
     [Header( "Jump Settings" )]
     [Tooltip( "Height of the jump" )]
@@ -64,6 +79,7 @@ public class JackOfController : MonoBehaviour {
     public float groundDistance;
     public LayerMask groundMask;
 
+    [HideInInspector] public JackOfManager jom;
     [HideInInspector] public Camera cam;
     [HideInInspector] public CharacterController cc;
     [HideInInspector] public PlayerInput playerInput;
@@ -86,9 +102,11 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public float yCamRotation = 0.0f;
     [ReadOnly] public int jumpCount;
     [ReadOnly] public Vector2 lookVector;
-    [ReadOnly] public Vector2 rawMovementVector;
+    [ReadOnly] public Vector2 rawMoveVector;
     [ReadOnly] public Vector3 velocity;
     [ReadOnly] public Vector3 velocityOnJump;
+
+    private bool moving;
 
     private void Awake() {
         system.joc = this;
@@ -100,52 +118,115 @@ public class JackOfController : MonoBehaviour {
 	}
 
     #region Input
-	public void OnLook( InputAction.CallbackContext value ) {
-        Vector2 mouseLook = value.ReadValue<Vector2>();
-        lookVector = new Vector2( mouseLook.y, mouseLook.x );
-    }
-
-    public void OnMove( InputAction.CallbackContext value ) {
-        if ( !legsBroken.Value )
-            rawMovementVector = value.ReadValue<Vector2>();
-    }
-
-    public void OnSprint( InputAction.CallbackContext value ) {
-        if ( value.started ) sprinting = true;
-        if ( value.canceled ) {
-            sprinting = false;
-            currentSpeed = speed;
+	public void OnLook( InputAction.CallbackContext value ) 
+    {
+        if ( !inGestureMode.Value )
+		{
+            Vector2 mouseLook = value.ReadValue<Vector2>();
+            lookVector = new Vector2( mouseLook.y, mouseLook.x );
         }
     }
 
-    public void OnJump( InputAction.CallbackContext value ) {
+    public void OnMove( InputAction.CallbackContext value ) 
+    {
+        if ( !legsBroken.Value )
+        {
+            rawMoveVector = value.ReadValue<Vector2>();
+        }
+
+        //Sound
+        if ( value.performed && !moving )
+		{
+            moving = true;
+            tracksStartSource.clip = tracksStart[ Random.Range( 0, tracksStart.Length - 1 ) ];
+            tracksStartSource.Play();
+            if ( sprinting ) {
+                tracksSprintSource.volume = 1f;
+                tracksSprintSource.Play();
+            }
+			else {
+                tracksGoingSource.volume = 1f;
+                tracksGoingSource.Play();
+            }
+        }
+        else if ( value.canceled && moving )
+		{
+            moving = false;
+            tracksStopSource.clip = tracksStop[ Random.Range( 0, tracksStart.Length - 1 ) ];
+            tracksStopSource.Play();
+            tracksSprintSource.Stop();
+            tracksGoingSource.Stop();
+        }
+    }
+
+    public void OnSprint( InputAction.CallbackContext value ) 
+    {
+        if ( value.started )
+        {
+            sprinting = true;
+            if ( moving )
+			{
+                tracksFader.Crossfade( tracksGoingSource, tracksSprintSource, tracksGoingSource.volume, 0f, crossFadeDuration );
+            }
+        }
+        if ( value.canceled ) 
+        {
+            sprinting = false;
+            currentSpeed = speed;
+            if ( moving )
+            {
+                tracksFader.Crossfade( tracksSprintSource, tracksGoingSource, tracksSprintSource.volume, 0f, crossFadeDuration );
+            }
+        }
+    }
+
+    public void OnJump( InputAction.CallbackContext value ) 
+    {
         if ( value.performed && ( grounded || jumpCount < jumps ) ) jump = true;
     }
 	#endregion
 
 	#region Movement
-    public void CameraLook() {
-        xCamRotation -= sensitivity * lookVector.x;
-        yCamRotation += sensitivity * lookVector.y;
+    public void CameraLook() 
+    {
+        if ( !inGestureMode.Value ) {
+            xCamRotation -= sensitivity * lookVector.x;
+            yCamRotation += sensitivity * lookVector.y;
 
-        xCamRotation %= 360;
-        yCamRotation %= 360;
-        xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
-        cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
-        cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation, 
-            cc.transform.eulerAngles.z );
-    }
-
-    public void Walk() {
-        if ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) {
-            Vector3 relativeMovementVector = rawMovementVector.x * cc.transform.right + rawMovementVector.y * cc.transform.forward;
-            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y, 
-                relativeMovementVector.z * currentSpeed );
-            cc.Move( finalMovementVector * Time.deltaTime );
+            xCamRotation %= 360;
+            yCamRotation %= 360;
+            xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
+            cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
+            cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation,
+                cc.transform.eulerAngles.z );
         }
     }
 
-    public void Jump() {
+    public void Walk() 
+    {
+        if ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) 
+        {
+            Vector3 relativeMovementVector = rawMoveVector.x * cc.transform.right + rawMoveVector.y * cc.transform.forward;
+            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y, 
+                relativeMovementVector.z * currentSpeed );
+            cc.Move( finalMovementVector * Time.deltaTime );
+
+   //         Debug.Log( prevRawMoveVector.magnitude + " | " + rawMoveVector.magnitude );
+   //         if ( prevRawMoveVector.magnitude == 0 && rawMoveVector.magnitude != 0 )
+			//{
+   //             tracksStartSource.clip = tracksStart[ Random.Range( 0, tracksStart.Length - 1 ) ];
+   //             tracksStartSource.Play( 0 );
+			//}
+   //         else if ( prevRawMoveVector.magnitude > 0 && rawMoveVector.magnitude == 0 )
+			//{
+   //             tracksStopSource.clip = tracksStop[ Random.Range( 0, tracksStart.Length - 1 ) ];
+   //             tracksStopSource.Play( 0 );
+   //         }
+        }
+    }
+
+    public void Jump() 
+    {
         if ( jump && ( grounded || jumpCount < jumps ) ) {
             velocity.y = Mathf.Sqrt( jumpHeight * -2 * gravity );
             jump = false;
@@ -155,30 +236,33 @@ public class JackOfController : MonoBehaviour {
         cc.Move( ( velocityOnJump + velocity ) * Time.deltaTime );
     }
 
-    public void LookMove() {
-        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement ) {
+    public void LookMove() 
+    {
+        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement ) 
+        {
             Vector3 camVector = new Vector3( cam.transform.forward.x, 0f, cam.transform.forward.z );
 
-            if ( aerialMovement == AerialMovementSettings.FullCameraMovement ) {
+            if ( aerialMovement == AerialMovementSettings.FullCameraMovement )
                 velocityOnJump = camVector * currentSpeed;
-            }
-            if ( aerialMovement == AerialMovementSettings.LimitedCameraMovement ) {
+            if ( aerialMovement == AerialMovementSettings.LimitedCameraMovement )
                 velocityOnJump = ( ( ( camVector * aerialTurnSpeed ) + velocityOnJump ) / 2f ).normalized * currentSpeed;
-            }
         }
 	}
 
-    public void Gravity() {
+    public void Gravity() 
+    {
         velocity.y += gravity * Time.deltaTime;
     }
 
-    public void StickToGround() {
+    public void StickToGround() 
+    {
         velocity.y = stickToGroundForce;
     }
 	#endregion
 
 	#region Checks
-	public void CheckGround() {
+	public void CheckGround() 
+    {
         bool newGrounded;
 
         float radius = cc.height / 4f;
@@ -186,7 +270,8 @@ public class JackOfController : MonoBehaviour {
             groundDistance, groundMask );
 
         if ( newGrounded != grounded ) {
-            if ( newGrounded && jom.stateMachine.CurrentState != jom.statesByName[ "GroundedState" ] ) {
+            if ( newGrounded && jom.stateMachine.CurrentState != jom.statesByName[ "GroundedState" ] ) 
+            {
                 jom.stateMachine.ChangeState( jom.statesByName[ "GroundedState" ] );
                 velocityOnJump = Vector3.zero;
                 jumpCount = 0;
@@ -198,9 +283,12 @@ public class JackOfController : MonoBehaviour {
         grounded = newGrounded;
     }
 
-    public void CheckSprint() {
-        if ( sprintAllowed && ( grounded || midAirSprint ) ) {
-            if ( sprinting ) {
+    public void CheckSprint() 
+    {
+        if ( sprintAllowed && ( grounded || midAirSprint ) ) 
+        {
+            if ( sprinting ) 
+            {
                 if ( sprintSpeed != 0f )
                     currentSpeed = sprintSpeed;
                 else
@@ -210,7 +298,8 @@ public class JackOfController : MonoBehaviour {
     }
 	#endregion
 
-	public void OnDrawGizmos() {
+	public void OnDrawGizmos() 
+    {
         float radius = playerStartHeight / 4;
 
         Gizmos.color = Color.yellow;

@@ -44,7 +44,7 @@ public class Handmovement : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 mousePos = Mouse.current.position.ReadValue();
-        mousePos.z = gestureCircle.transform.position.z;
+        mousePos.z = gestureCircle.transform.localPosition.z;
 
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -138,11 +138,13 @@ public class Handmovement : MonoBehaviour
             if ( !gestureMode )
 			{
                 gestureMode = true;
+                isInGestureMode.Value = true;
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
             }
 			else
 			{
                 gestureMode = false;
+                isInGestureMode.Value = false;
                 controller.ChangeSensitivity( controller.startSensitivity );
                 for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
                     gestureCircle.fingerSprites[ i ].SetActive( false );

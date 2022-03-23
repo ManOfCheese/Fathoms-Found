@@ -113,7 +113,7 @@ public class AlienGestureController : MonoBehaviour
 						}
 					}
 				}
-				Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
+				//Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
 
 				if ( sentenceFound ) {
 					if ( responses.Items[ sentenceIndex ] != null )
