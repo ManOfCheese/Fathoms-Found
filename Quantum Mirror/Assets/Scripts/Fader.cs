@@ -29,18 +29,22 @@ public class Fader : MonoBehaviour
 	public IEnumerator FadeCoroutine( AudioSource source, float startVolume, float endVolume, float duration, float delay )
 	{
 		yield return new WaitForSeconds( delay );
-		float volume = source.volume;
+		if ( !source.isPlaying )
+			source.Play();
 		float startTimeStamp = Time.time;
 		source.volume = startVolume;
 
 		while ( true )
 		{
-			float elapsedTime = startTimeStamp - Time.time;
+			float elapsedTime = Time.time - startTimeStamp;
 			source.volume = Mathf.Lerp( startVolume, endVolume, elapsedTime / duration );
+			Debug.Log( source.volume );
 
 			if ( elapsedTime >= duration )
 			{
 				source.volume = endVolume;
+				if ( endVolume == 0 )
+					source.Stop();
 				break;
 			}
 			yield return null;

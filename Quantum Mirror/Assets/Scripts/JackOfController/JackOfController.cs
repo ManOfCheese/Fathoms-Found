@@ -14,6 +14,20 @@ public class JackOfController : MonoBehaviour {
 
     public JackOfControllerSystem system;
 
+    [Header( "Audio References" )]
+    public AudioSource tracksStartSource;
+    public AudioSource tracksGoingSource;
+    public AudioSource tracksSprintSource;
+    public AudioSource tracksStopSource;
+    public Fader tracksFader;
+
+    [Header( "Audio Settings" )]
+    public float crossFadeDuration;
+    public AudioClip[] tracksStart;
+    public AudioClip[] tracks;
+    public AudioClip[] tracksSprint;
+    public AudioClip[] tracksStop;
+
     [Header( "VariableObjects" )]
     public BoolValue inGestureMode;
     public BoolValue legsBroken;
@@ -64,19 +78,6 @@ public class JackOfController : MonoBehaviour {
     [Header( "Groundcheck Settings" )]
     public float groundDistance;
     public LayerMask groundMask;
-
-    [Header( "Audio" )]
-    public AudioSource tracksStartSource;
-    public Fader tracksStartFader;
-    public AudioClip[] tracksStart;
-    public AudioSource tracksGoingSource;
-    public Fader tracksFader;
-    public AudioClip[] tracks;
-    public AudioSource tracksSprintSource;
-    public AudioClip[] tracksSprint;
-    public AudioSource tracksStopSource;
-    public Fader tracksStopFader;
-    public AudioClip[] tracksStop;
 
     [HideInInspector] public JackOfManager jom;
     [HideInInspector] public Camera cam;
@@ -141,13 +142,21 @@ public class JackOfController : MonoBehaviour {
             moving = true;
             tracksStartSource.clip = tracksStart[ Random.Range( 0, tracksStart.Length - 1 ) ];
             tracksStartSource.Play();
-            tracksGoingSource.Play();
+            if ( sprinting ) {
+                tracksSprintSource.volume = 1f;
+                tracksSprintSource.Play();
+            }
+			else {
+                tracksGoingSource.volume = 1f;
+                tracksGoingSource.Play();
+            }
         }
         else if ( value.canceled && moving )
 		{
             moving = false;
             tracksStopSource.clip = tracksStop[ Random.Range( 0, tracksStart.Length - 1 ) ];
             tracksStopSource.Play();
+            tracksSprintSource.Stop();
             tracksGoingSource.Stop();
         }
     }
@@ -159,7 +168,7 @@ public class JackOfController : MonoBehaviour {
             sprinting = true;
             if ( moving )
 			{
-                tracksFader.Crossfade( tracksGoingSource, tracksSprintSource, tracksGoingSource.volume, 0f, 1f );
+                tracksFader.Crossfade( tracksGoingSource, tracksSprintSource, tracksGoingSource.volume, 0f, crossFadeDuration );
             }
         }
         if ( value.canceled ) 
@@ -168,7 +177,7 @@ public class JackOfController : MonoBehaviour {
             currentSpeed = speed;
             if ( moving )
             {
-                tracksFader.Crossfade( tracksSprintSource, tracksGoingSource, tracksSprintSource.volume, 0f, 1f );
+                tracksFader.Crossfade( tracksSprintSource, tracksGoingSource, tracksSprintSource.volume, 0f, crossFadeDuration );
             }
         }
     }
