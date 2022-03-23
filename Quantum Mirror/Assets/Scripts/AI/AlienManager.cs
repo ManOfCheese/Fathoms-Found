@@ -48,14 +48,17 @@ public class AlienManager : MonoBehaviour
         currentState = stateMachine.CurrentState.stateName;
         stateMachine.Update();
 
-        if ( Vector3.Distance( transform.position, player.position ) < attentionDistance ) {
+        if ( Vector3.Distance( transform.position, player.position ) < attentionDistance ) 
+        {
             if ( ( !lookAtForAttention || lookAtForAttention && looking ) && stateMachine.CurrentState != AttentionState.Instance &&
-                ( stateMachine.CurrentState != InterestState.Instance || interest ) ) {
+                ( stateMachine.CurrentState != InterestState.Instance || interest ) ) 
+            {
                 stateMachine.ChangeState( AttentionState.Instance );
 			}
 		}
-        else if ( stateMachine.CurrentState == AttentionState.Instance && stateMachine.CurrentState != InterestState.Instance && !gc.gesturing && 
-            !gc.repositioning ) {
+        else if ( stateMachine.CurrentState == AttentionState.Instance && stateMachine.CurrentState != InterestState.Instance && 
+            !gc.gesturing && !gc.repositioning ) 
+        {
             stateMachine.ChangeState( WanderState.Instance );
         }
     }
@@ -67,15 +70,17 @@ public class AlienManager : MonoBehaviour
     public void OnLookAway() {
         looking = false;
 
-        if ( lookAtForAttention && stateMachine.CurrentState == AttentionState.Instance && !gc.gesturing && !gc.repositioning ) {
+        if ( lookAtForAttention && stateMachine.CurrentState == AttentionState.Instance && !gc.gesturing && !gc.repositioning ) 
             stateMachine.ChangeState( WanderState.Instance );
-        }
     }
 
     public void TryDoor()
 	{
+        if ( doorToOpen != null )
+            Debug.Log( Vector3.Distance( doorToOpen.transform.position, transform.position ) );
         if ( doorToOpen != null && Vector3.Distance( doorToOpen.transform.position, transform.position ) < mc.destinationReachedWindow )
 		{
+            Debug.Log( "Open Door" );
             doorToOpen.Open();
             interest = false;
             doorToOpen = null;

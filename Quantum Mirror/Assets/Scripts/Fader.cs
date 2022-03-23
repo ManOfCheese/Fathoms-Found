@@ -38,7 +38,6 @@ public class Fader : MonoBehaviour
 		{
 			float elapsedTime = Time.time - startTimeStamp;
 			source.volume = Mathf.Lerp( startVolume, endVolume, elapsedTime / duration );
-			Debug.Log( source.volume );
 
 			if ( elapsedTime >= duration )
 			{

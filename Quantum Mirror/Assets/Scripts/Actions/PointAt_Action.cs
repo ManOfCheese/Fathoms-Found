@@ -34,7 +34,7 @@ public class PointAt_Action : Action
 		
 		//Initiate point.
 		int closestHand = alienManager.gc.FindClosestHand( alienManager.pointTarget );
-		alienManager.gc.handIndex = closestHand;
+		alienManager.gc.pointHandIndex = closestHand;
 		alienManager.gc.pointing = true;
 		alienManager.gc.handTarget = alienManager.pointTarget.position;
 	}

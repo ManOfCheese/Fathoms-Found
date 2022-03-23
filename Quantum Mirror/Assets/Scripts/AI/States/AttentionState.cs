@@ -69,7 +69,9 @@ public class AttentionState : State<AlienManager>
 
 		if ( _owner.gc.gesturing )
 		{
-			GestureCircle gestureCircle = _owner.gc.gestureCircles[ _owner.gc.handIndex ];
+			GestureCircle gestureCircle = _owner.gc.gestureCircles[ _owner.gc.gestureHandIndex ];
+			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.gestureHandIndex ];
+
 			List<Gesture> gestures;
 			if ( _owner.gc.standardGesture )
 			{
@@ -81,7 +83,6 @@ public class AttentionState : State<AlienManager>
 			}
 			else
 				gestures = _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words;
-			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.handIndex ];
 
 			//Hold Gesture
 			if ( _owner.gc.waiting )
@@ -108,7 +109,7 @@ public class AttentionState : State<AlienManager>
 						_owner.gc.gesturing = false;
 						gestureCircle.gameObject.SetActive( false );
 						_owner.gc.waiting = false;
-						_owner.gc.handIndex = -1;
+						_owner.gc.gestureHandIndex = -1;
 						_owner.gc.endGesture = false;
 						if ( _owner.gc.standardGesture ) _owner.gc.standardGesture = false;
 						for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
@@ -136,7 +137,7 @@ public class AttentionState : State<AlienManager>
 						//Set target as our start position.
 						if ( _owner.gc.wordIndex > gestures.Count - 1 )
 						{
-							_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.handIndex ].position;
+							_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.gestureHandIndex ].position;
 							_owner.gc.endGesture = true;
 						}
 						//Set target as the next word in the sentence.
@@ -157,7 +158,7 @@ public class AttentionState : State<AlienManager>
 
 		if ( _owner.gc.pointing )
 		{
-			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.handIndex ];
+			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.pointHandIndex ];
 
 			if ( _owner.gc.waiting )
 			{
@@ -170,21 +171,17 @@ public class AttentionState : State<AlienManager>
 			{
 				hand.transform.position = _owner.gc.handTarget;
 
-				if ( _owner.gc.handTarget != _owner.gc.idleHandTargets[ _owner.gc.handIndex ].position )
+				if ( _owner.gc.handTarget != _owner.gc.idleHandTargets[ _owner.gc.pointHandIndex ].position )
 				{
 					_owner.gc.waitTimeStamp = Time.time;
 					_owner.gc.waiting = true;
-					_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.handIndex ].position;
+					_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.pointHandIndex ].position;
 				}
 				else
-				{
 					_owner.gc.pointing = false;
-				}
 			}
 			else
-			{
 				hand.transform.position = Vector3.MoveTowards( hand.transform.position, _owner.gc.handTarget, speed );
-			}
 		}
 	}
 
@@ -196,7 +193,7 @@ public class AttentionState : State<AlienManager>
 			_owner.gc.gestureCircles[ i ].gameObject.SetActive( false );
 		_owner.gc.gesturing = false;
 		_owner.gc.waiting = false;
-		_owner.gc.handIndex = -1;
+		_owner.gc.gestureHandIndex = -1;
 		_owner.gc.repositioning = false;
 		_owner.gc.endGesture = false;
 	}
