@@ -217,16 +217,12 @@ public class Handmovement : MonoBehaviour
         if ( value.performed )
         {
             Digits[0].GetComponent<Animator>().SetBool("FingerOpen", true);
-            //Digits[1].SetActive(false);
-            //ClosedDigits[1].SetActive(true);
             fingers.Value[ 0 ] = true;
         }
 
         if ( value.canceled )
         {
             Digits[0].GetComponent<Animator>().SetBool("FingerOpen", false);
-            //Digits[1].SetActive(true);
-            //ClosedDigits[1].SetActive(false);
             fingers.Value[ 0 ] = false;
         }
         
@@ -237,16 +233,12 @@ public class Handmovement : MonoBehaviour
         if (value.performed)
         {
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", true);
-            //Digits[2].SetActive(false);
-            //ClosedDigits[2].SetActive(true);
             fingers.Value[ 1 ] = true;
         }
 
         if (value.canceled)
         {
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
-            //Digits[2].SetActive(true);
-            //ClosedDigits[2].SetActive(false);
             fingers.Value[ 1 ] = false;
         }
 
@@ -267,123 +259,6 @@ public class Handmovement : MonoBehaviour
         }
 
     }
-
-
-    /*public void OnArticaluteFingers( InputAction.CallbackContext value )
-	{
-        float mouseDelta = value.ReadValue<float>();
-
-        switch ( fingermode )
-        {
-            case 0:
-                if ( mouseDelta < scrollSensitivity && i <= 3 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i += 1;
-                }
-
-                if ( mouseDelta > scrollSensitivity && i > 0 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i -= 1;
-                }
-                break;
-
-            case 1:
-                if ( mouseDelta < scrollSensitivity && i <= 3 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( true );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( false );
-                    }
-
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i += 1;
-                }
-
-                if ( mouseDelta > scrollSensitivity && i > 0 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( true );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( false );
-                    }
-
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i -= 1;
-                }
-                break;
-
-            case 2:
-                if ( mouseDelta < scrollSensitivity && i <= 3 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( false );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( true );
-                    }
-
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i += 1;
-                }
-
-                if ( mouseDelta > scrollSensitivity && i > 3 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( false );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( true );
-                    }
-
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i -= 1;
-                }
-                break;
-
-            default:
-                if ( mouseDelta < 0 && i <= 3 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i += 1;
-                }
-
-                if ( mouseDelta > 0 && i > 0 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i -= 1;
-                }
-                break;
-        }
-    }*/
 
 }
 
