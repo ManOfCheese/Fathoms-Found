@@ -13,10 +13,6 @@ public class Interactor : MonoBehaviour {
     public Animator anim;
     public Transform handPosition;
     public GameObject cam;
-    public GameObject pickUpPrompt;
-    public GameObject dropPrompt;
-    public GameObject interactPrompt;
-    public GameObject usePrompt;
     public Move_Action approachPlayer;
     public Move_Action runAway;
 
@@ -69,35 +65,6 @@ public class Interactor : MonoBehaviour {
                 interactableObject = hit.collider.GetComponent<InteractableObject>();
             }
 		}
-
-        //Manage prompts.
-        if ( objectInHand != null )
-		{
-            dropPrompt.gameObject.SetActive( false );
-            interactPrompt.gameObject.SetActive( false );
-            pickUpPrompt.gameObject.SetActive( false );
-            usePrompt.SetActive( true );
-        }
-        if ( interactableObject != null )
-        {
-            dropPrompt.gameObject.SetActive( false );
-            interactPrompt.gameObject.SetActive( true );
-            pickUpPrompt.gameObject.SetActive( false );
-            usePrompt.SetActive( false );
-        }
-        else if ( pickUpObject != null )
-        {
-            dropPrompt.gameObject.SetActive( false );
-            interactPrompt.gameObject.SetActive( false );
-            pickUpPrompt.gameObject.SetActive( true );
-            usePrompt.SetActive( false );
-        }
-		else {
-            dropPrompt.gameObject.SetActive( false );
-            interactPrompt.gameObject.SetActive( false );
-            pickUpPrompt.gameObject.SetActive( false );
-            usePrompt.SetActive( false );
-        }
     }
 
     public void PickUp( PickUpObject obj ) 

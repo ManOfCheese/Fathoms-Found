@@ -59,7 +59,8 @@ public class Handmovement : MonoBehaviour
                 handmodel.transform.localRotation = Quaternion.Euler(90,0,0);
             }
 
-            reticle.SetActive( false );
+            if ( reticle != null )
+                reticle.SetActive( false );
             gestureCircle.gameObject.SetActive( true );
 
             //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
@@ -78,7 +79,8 @@ public class Handmovement : MonoBehaviour
         else
         {
             hand.transform.localPosition = idle.transform.localPosition;
-            reticle.SetActive( true );
+            if ( reticle != null)
+                reticle.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
         }
 
