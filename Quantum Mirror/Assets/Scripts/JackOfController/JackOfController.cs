@@ -23,6 +23,7 @@ public class JackOfController : MonoBehaviour {
     public Fader tracksFader;
 
     [Header( "Audio Settings" )]
+    public bool cameraSounds;
     public float crossFadeDuration;
     public float cameraStopTime;
     public AudioClip[] tracksStart;
@@ -108,12 +109,27 @@ public class JackOfController : MonoBehaviour {
 
     private bool moving;
     private bool looking = false;
+    [ReadOnly] public float cameraStillTimer;
 
     private void Awake() {
         system.joc = this;
     }
 
-    public void ChangeSensitivity( float newSensitivity )
+	private void Update()
+	{
+        if ( cameraSounds )
+		{
+            cameraStillTimer += Time.deltaTime;
+
+            if ( cameraStillTimer > cameraStopTime )
+            {
+                looking = false;
+                cameraMoveSource.Stop();
+            }
+        }
+	}
+
+	public void ChangeSensitivity( float newSensitivity )
 	{
         sensitivity = newSensitivity;
 	}
@@ -125,15 +141,11 @@ public class JackOfController : MonoBehaviour {
 		{
             Vector2 mouseLook = value.ReadValue<Vector2>();
             lookVector = new Vector2( mouseLook.y, mouseLook.x );
-            if ( lookVector.magnitude > 0f && !looking )
+            cameraStillTimer = 0f;
+            if ( !looking && cameraSounds )
 			{
                 looking = true;
                 cameraMoveSource.Play();
-            }
-			else if ( lookVector.magnitude == 0f && looking )
-			{
-                looking = false;
-                cameraMoveSource.Stop();
             }
         }
     }
