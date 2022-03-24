@@ -19,13 +19,13 @@ public class JackOfController : MonoBehaviour {
     public AudioSource tracksGoingSource;
     public AudioSource tracksSprintSource;
     public AudioSource tracksStopSource;
+    public AudioSource cameraMoveSource;
     public Fader tracksFader;
 
     [Header( "Audio Settings" )]
     public float crossFadeDuration;
+    public float cameraStopTime;
     public AudioClip[] tracksStart;
-    public AudioClip[] tracks;
-    public AudioClip[] tracksSprint;
     public AudioClip[] tracksStop;
 
     [Header( "VariableObjects" )]
@@ -107,6 +107,7 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public Vector3 velocityOnJump;
 
     private bool moving;
+    private bool looking = false;
 
     private void Awake() {
         system.joc = this;
@@ -124,6 +125,16 @@ public class JackOfController : MonoBehaviour {
 		{
             Vector2 mouseLook = value.ReadValue<Vector2>();
             lookVector = new Vector2( mouseLook.y, mouseLook.x );
+            if ( lookVector.magnitude > 0f && !looking )
+			{
+                looking = true;
+                cameraMoveSource.Play();
+            }
+			else if ( lookVector.magnitude == 0f && looking )
+			{
+                looking = false;
+                cameraMoveSource.Stop();
+            }
         }
     }
 
