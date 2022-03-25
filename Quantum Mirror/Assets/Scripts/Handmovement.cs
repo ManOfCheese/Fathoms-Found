@@ -26,44 +26,86 @@ public class Handmovement : MonoBehaviour
     public GameObject hand;
     public GameObject handmodel;
     public GameObject reticle;
+    public JackOfController controller;
+    public LayerMask layerMask;
+    public GameObject IKpole;
+    public GameObject IKpoleIdle;
+
     public GameObject[] lights;
     public GameObject[] Digits;
-    public GameObject[] ClosedDigits;
     public GestureCircle gestureCircle;
     public SphereCollider[] subCircles;
-    public JackOfController controller;
 
     [Header("Read Only")]
     [ReadOnly] public bool gestureMode;
     [ReadOnly] public int fingermode = 0;
     [ReadOnly] public Vector2 lookVector;
     [ReadOnly] public Vector3 punchdestination = new Vector3(0, 0, 0.08f);
+    [ReadOnly] public Vector3 mousePos;
     [ReadOnly] public Vector3 mouseWorldPos;
+    [ReadOnly] public Collider planeCollider;
+    [ReadOnly] public RaycastHit hitData;
+    [ReadOnly] public Vector3 IKpoleNew;
 
     private int i = 0;
 
-    private void LateUpdate()
+    public float l = 0f;
+
+    private void Start()
     {
-        //The new arm controls based on the actual mouse position
-
-        Vector3 mousePos = Mouse.current.position.ReadValue();
-        mousePos.z = gestureCircle.transform.localPosition.z;
-
-        mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
-
-
-        Vector3 handStartPos = hand.transform.position;
-        
-        hand.transform.position = Vector3.Lerp(handStartPos,cursor.transform.position, 0.08f);
     }
+
     void Update()
     {
         Cursor.visible = false;
 
+        //The new arm controls based on the actual mouse position
+
+        Vector3 handStartPos = hand.transform.position;
+
+        hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.2f);
+
+
+        
+        
+
         if ( gestureMode == true )
         {
             Cursor.lockState = CursorLockMode.None;
-            
+
+            //Raycast looking for snapping planes            
+
+            mousePos = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay( mousePos );
+
+            if ( Physics.Raycast( ray, out hitData, 5, layerMask ) )
+            {
+                Debug.Log("Snap!");
+                mouseWorldPos = hitData.point;
+                Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild(0).gameObject.transform.position;
+                IKpoleNew = planeIKpole;
+
+                if (l < 1)
+                    l += 0.05f;
+
+                handmodel.transform.rotation = hitData.collider.gameObject.transform.rotation;
+            }
+
+            else 
+            {
+                Debug.Log("normal~");
+                //mouseWorldPos.z = gestureCircle.transform.localPosition.z;
+                mouseWorldPos = Camera.main.ScreenToWorldPoint( new Vector3(Mouse.current.position.ReadValue().x, 
+                    Mouse.current.position.ReadValue().y, gestureCircle.transform.localPosition.z) );
+
+                if (l > 0)
+                    l -= 0.05f;
+
+                handmodel.transform.rotation = gestureCircle.transform.rotation;
+            }
+
+            IKpole.transform.position = Vector3.Lerp(IKpoleIdle.transform.position, IKpoleNew, l);
+
             cursor.transform.position = mouseWorldPos;
 
             float distance = Vector3.Distance(center.transform.position, hand.transform.position);
@@ -86,20 +128,15 @@ public class Handmovement : MonoBehaviour
             reticle.SetActive( false );
             gestureCircle.gameObject.SetActive( true );
 
-            //Moving the hand with the mouse as long as it's on the screen
-
-            //float xMove = lookVector.normalized.y * handSensitivity * Time.deltaTime;
-            //float yMove = lookVector.normalized.x * handSensitivity * Time.deltaTime;
            
         }
         else
         {
-            //firstPersonControls.SetActive(true);
-
             cursor.transform.position = idle.transform.position;
             reticle.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
 
+            IKpoleNew = IKpoleIdle.transform.localPosition;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
@@ -164,25 +201,6 @@ public class Handmovement : MonoBehaviour
             }
         }
     }
-
-    /*public void OnSwitchFingerMode( InputAction.CallbackContext value )
-    {
-        if ( value.performed )
-		{
-            if ( fingermode < 2 )
-                fingermode += 1;
-            else
-                fingermode = 0;
-
-            for ( int i = 0; i < lights.Length; i++ )
-            {
-                if ( i == fingermode )
-                    lights[ i ].SetActive( true );
-                else
-                    lights[ i ].SetActive( false );
-            }
-        }
-	}*/
 
     public void OnUseHand( InputAction.CallbackContext value )
     {
