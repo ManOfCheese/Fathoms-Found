@@ -5,6 +5,6 @@ using UnityEngine;
 public abstract class ObjectProperty : MonoBehaviour
 {
 
-    public string properyName;
+    public string propertyName;
 
 }
