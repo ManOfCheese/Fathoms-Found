@@ -63,7 +63,7 @@ public class Handmovement : MonoBehaviour
 
         Vector3 handStartPos = hand.transform.position;
 
-        hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.2f);
+        hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.4f);
 
 
         
