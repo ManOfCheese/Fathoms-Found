@@ -6,7 +6,12 @@ public class ObjModifier : MonoBehaviour
 {
     
 
-    public virtual void ModifyObject( float t )
+    public virtual void ModifyObjectPerc( float t )
+	{
+
+	}
+
+	public virtual void ModifyObjectStep( float t )
 	{
 
 	}

@@ -9,9 +9,9 @@ public class ScaleModifier : ObjModifier
     public Vector3 minScale;
     public Vector3 maxScale;
 
-	public override void ModifyObject( float t )
+	public override void ModifyObjectPerc( float t )
 	{
-		base.ModifyObject( t );
+		base.ModifyObjectPerc( t );
 		objTransform.localScale = Vector3.Lerp( minScale, maxScale, t );
 	}
 }

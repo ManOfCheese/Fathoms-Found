@@ -10,9 +10,9 @@ public class ColorShiftModifier : ObjModifier
 	public Color startColor;
 	public Color endColor;
 
-	public override void ModifyObject( float t )
+	public override void ModifyObjectPerc( float t )
 	{
-		base.ModifyObject( t );
+		base.ModifyObjectPerc( t );
 		Material mat = renderer.material;
 		mat.color = Color.Lerp( startColor, endColor, t );
 	}
