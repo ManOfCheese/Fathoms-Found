@@ -5,17 +5,16 @@ using UnityEngine;
 public class Object : MonoBehaviour
 {
 
-	public GameObject detectorsObject;
     public List<ObjModifier> modifiers = new List<ObjModifier>();
-
-	[HideInInspector] public Detector[] detectors;
+	public Detector[] detectors;
 
 	private void Start()
 	{
-		detectors = detectorsObject.GetComponents<Detector>();
-
-		for ( int i = 0; i < modifiers.Count; i++ )
+		detectors = GetComponentsInParent<Detector>();
+		ObjModifier[] mods = GetComponentsInChildren<ObjModifier>();
+		for ( int i = 0; i < mods.Length; i++ )
 		{
+			modifiers.Add( mods[ i ] );
 			modifiers[ i ].OnStart( this );
 		}
 	}
