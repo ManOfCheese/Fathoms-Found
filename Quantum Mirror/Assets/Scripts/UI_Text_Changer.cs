@@ -8,7 +8,7 @@ public class UI_Text_Changer : MonoBehaviour
     public GameObject missionObjectiveOne;
     public GameObject missionObjectiveTwo;
     public GameObject theDetector;
-    private OxygenDetector oxygenDetector;
+    private Detector oxygenDetector;
     public float oxygenCap;
     private Text missionOneText;
     private Text missionTwoText;
@@ -17,7 +17,7 @@ public class UI_Text_Changer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        oxygenDetector = theDetector.GetComponent<OxygenDetector>();
+        oxygenDetector = theDetector.GetComponent<Detector>();
         missionOneText = missionObjectiveOne.GetComponent<Text>();
         missionTwoText = missionObjectiveTwo.GetComponent<Text>();
     }
@@ -25,7 +25,7 @@ public class UI_Text_Changer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (oxygenDetector.oxygenLevels >= oxygenCap)
+        if (oxygenDetector.propertyValue >= oxygenCap)
         {
             Debug.Log("gree");
             missionOneText.color = Color.green;
