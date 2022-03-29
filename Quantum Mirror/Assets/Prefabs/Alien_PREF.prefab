@@ -1550,7 +1550,7 @@ Transform:
   m_GameObject: {fileID: 3106136456687042921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3.35, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5510002115577439621}
   - {fileID: 7623778880233620133}
@@ -3069,7 +3069,7 @@ MonoBehaviour:
   pointTarget: {fileID: 0}
   standardResponse: {fileID: 11400000, guid: dd1b939303eef8b409044a9bdcb6983c, type: 2}
   interactDistance: 0
-  attentionDistance: 10
+  attentionDistance: 50
   interestDuration: 0
   lookAtForAttention: 1
   doorToOpen: {fileID: 0}
@@ -3115,13 +3115,13 @@ MonoBehaviour:
   gestureListener: {fileID: 0}
   gestureLibrary: {fileID: 11400000, guid: c7ad4e18ea75b2e4eb55456a27815fcd, type: 2}
   responses: {fileID: 11400000, guid: e76663091c58e594eb686e0b880ea171, type: 2}
-  actionResponses: {fileID: 0}
+  actionResponses: {fileID: 11400000, guid: abb5d4c739eb37340afd75387af0adcc, type: 2}
   holdStart: 0
   gestureSpeed: 5
-  holdGestureFor: 1
-  pointSpeed: 1
-  maxPointDistance: 0
-  holdPointFor: 1
+  holdGestureFor: 3
+  pointSpeed: 5
+  maxPointDistance: 5
+  holdPointFor: 3
   repositioning: 0
   pointing: 0
   gesturing: 0
@@ -3161,11 +3161,11 @@ MonoBehaviour:
   - {fileID: 536645856955449490}
   - {fileID: 7400975075281896091}
   - {fileID: 1427232768790329277}
-  movementMode: 0
+  movementMode: 1
   movementShape: 1
   speed: 5
   changeDestinationTime: 10
-  destinationReachedWindow: 4
+  destinationReachedWindow: 10
   minDistance: 30
   maxDistance: 40
   torusCenter: {fileID: 0}
