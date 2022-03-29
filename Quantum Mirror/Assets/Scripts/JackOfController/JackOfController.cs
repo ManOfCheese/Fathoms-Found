@@ -12,22 +12,8 @@ public enum AerialMovementSettings {
 
 public class JackOfController : MonoBehaviour {
 
+    #region Variables
     public JackOfControllerSystem system;
-
-    [Header( "Audio References" )]
-    public AudioSource tracksStartSource;
-    public AudioSource tracksGoingSource;
-    public AudioSource tracksSprintSource;
-    public AudioSource tracksStopSource;
-    public AudioSource cameraMoveSource;
-    public Fader tracksFader;
-
-    [Header( "Audio Settings" )]
-    public bool cameraSounds;
-    public float crossFadeDuration;
-    public float cameraStopTime;
-    public AudioClip[] tracksStart;
-    public AudioClip[] tracksStop;
 
     [Header( "VariableObjects" )]
     public BoolValue inGestureMode;
@@ -80,62 +66,71 @@ public class JackOfController : MonoBehaviour {
     public float groundDistance;
     public LayerMask groundMask;
 
+    [Header( "Audio References" )]
+    public AudioInfo tracksStartSource;
+    public AudioInfo tracksGoingSource;
+    public AudioInfo tracksSprintSource;
+    public AudioInfo tracksStopSource;
+    public AudioInfo cameraMoveSource;
+    public Fader tracksFader;
+
+    [Header( "Audio Settings" )]
+    public bool cameraSounds;
+    public float crossFadeDuration;
+    public float cameraStopTime;
+    public AudioClip[] tracksStart;
+    public AudioClip[] tracksStop;
+    #endregion
+
+    #region Non-public Variables
+    [Header( "Start Values" )]
+    [ReadOnly] public float playerStartHeight;
+    [ReadOnly] public float camStartHeight;
+    [ReadOnly] public float startSensitivity;
+
+    [Header( "Movement Debug" )]
+    [ReadOnly] public bool sprinting = false;
+    [ReadOnly] public float currentSpeed;
+    [ReadOnly] public Vector2 rawMoveVector;
+    [ReadOnly] public Vector3 velocity;
+
+    [Header( "Camera Debug" )]
+    [ReadOnly] public float currentCamHeight;
+    [ReadOnly] public float cameraStillTimer;
+    [ReadOnly] public float xCamRotation = 0.0f;
+    [ReadOnly] public float yCamRotation = 0.0f;
+    [ReadOnly] public Vector2 lookVector;
+
+    [Header( "Jumping Debug" )]
+    [ReadOnly] public bool grounded = true;
+    [ReadOnly] public bool jump = false;
+    [ReadOnly] public int jumpCount;
+    [ReadOnly] public Vector3 velocityOnJump;
+
+    [HideInInspector] public bool looking = false;
     [HideInInspector] public JackOfManager jom;
     [HideInInspector] public Camera cam;
     [HideInInspector] public CharacterController cc;
     [HideInInspector] public PlayerInput playerInput;
     [HideInInspector] public GroundedState groundedState;
     [HideInInspector] public AirborneState airborneState;
-
-    //Startup
-    [ReadOnly] public float playerStartHeight;
-    [ReadOnly] public float camStartHeight;
-    [ReadOnly] public float startSensitivity;
-
-    //Runtime
-    [ReadOnly] public bool sprinting = false;
-    [ReadOnly] public bool jump = false;
-    [ReadOnly] public bool grounded = true;
-    [ReadOnly] public bool gestureMode = false;
-    [ReadOnly] public float currentSpeed;
-    [ReadOnly] public float currentCamHeight;
-    [ReadOnly] public float xCamRotation = 0.0f;
-    [ReadOnly] public float yCamRotation = 0.0f;
-    [ReadOnly] public int jumpCount;
-    [ReadOnly] public Vector2 lookVector;
-    [ReadOnly] public Vector2 rawMoveVector;
-    [ReadOnly] public Vector3 velocity;
-    [ReadOnly] public Vector3 velocityOnJump;
+    [HideInInspector] public AudioSource[] audioSources;
+    [HideInInspector] public AudioInfo[] audioInfos;
 
     private bool moving;
-    private bool looking = false;
-    [ReadOnly] public float cameraStillTimer;
+    #endregion
 
     private void Awake() {
         system.joc = this;
     }
 
-	private void Update()
-	{
-        if ( cameraSounds )
-		{
-            cameraStillTimer += Time.deltaTime;
-
-            if ( cameraStillTimer > cameraStopTime )
-            {
-                looking = false;
-                cameraMoveSource.Stop();
-            }
-        }
-	}
-
-	public void ChangeSensitivity( float newSensitivity )
-	{
-        sensitivity = newSensitivity;
-	}
-
     #region Input
-	public void OnLook( InputAction.CallbackContext value ) 
+    public void ChangeSensitivity( float newSensitivity )
+    {
+        sensitivity = newSensitivity;
+    }
+
+    public void OnLook( InputAction.CallbackContext value ) 
     {
         if ( !inGestureMode.Value )
 		{
@@ -145,7 +140,7 @@ public class JackOfController : MonoBehaviour {
             if ( !looking && cameraSounds )
 			{
                 looking = true;
-                cameraMoveSource.Play();
+                cameraMoveSource.source.Play();
             }
         }
     }
@@ -153,32 +148,30 @@ public class JackOfController : MonoBehaviour {
     public void OnMove( InputAction.CallbackContext value ) 
     {
         if ( !legsBroken.Value )
-        {
             rawMoveVector = value.ReadValue<Vector2>();
-        }
 
         //Sound
         if ( value.performed && !moving )
 		{
             moving = true;
             tracksStartSource.clip = tracksStart[ Random.Range( 0, tracksStart.Length - 1 ) ];
-            tracksStartSource.Play();
+            tracksStartSource.source.Play();
             if ( sprinting ) {
-                tracksSprintSource.volume = 1f;
-                tracksSprintSource.Play();
+                tracksSprintSource.source.volume = tracksGoingSource.startVolume;
+                tracksSprintSource.source.Play();
             }
 			else {
-                tracksGoingSource.volume = 1f;
-                tracksGoingSource.Play();
+                tracksGoingSource.source.volume = tracksGoingSource.startVolume;
+                tracksGoingSource.source.Play();
             }
         }
         else if ( value.canceled && moving )
 		{
             moving = false;
             tracksStopSource.clip = tracksStop[ Random.Range( 0, tracksStart.Length - 1 ) ];
-            tracksStopSource.Play();
-            tracksSprintSource.Stop();
-            tracksGoingSource.Stop();
+            tracksStopSource.source.Play();
+            tracksSprintSource.source.Stop();
+            tracksGoingSource.source.Stop();
         }
     }
 
@@ -189,7 +182,7 @@ public class JackOfController : MonoBehaviour {
             sprinting = true;
             if ( moving )
 			{
-                tracksFader.Crossfade( tracksGoingSource, tracksSprintSource, tracksGoingSource.volume, 0f, crossFadeDuration );
+                tracksFader.Crossfade( tracksGoingSource.source, tracksSprintSource.source, tracksGoingSource.source.volume, 0f, crossFadeDuration );
             }
         }
         if ( value.canceled ) 
@@ -198,7 +191,7 @@ public class JackOfController : MonoBehaviour {
             currentSpeed = speed;
             if ( moving )
             {
-                tracksFader.Crossfade( tracksSprintSource, tracksGoingSource, tracksSprintSource.volume, 0f, crossFadeDuration );
+                tracksFader.Crossfade( tracksSprintSource.source, tracksGoingSource.source, tracksSprintSource.source.volume, 0f, crossFadeDuration );
             }
         }
     }
