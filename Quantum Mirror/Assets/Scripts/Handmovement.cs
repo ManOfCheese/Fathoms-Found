@@ -6,42 +6,108 @@ using UnityEngine.InputSystem;
 public class Handmovement : MonoBehaviour
 {
 
-    [Header( "Settings" )]
+    [Header("Settings")]
     public float gestureModeLookSensitivity;
     public float handSensitivity;
     public float scrollSensitivity;
     public bool rotateHand;
 
-    [Header( "References" )]
+    [Header("References")]
     public BoolArrayValue fingers;
     public IntValue handPos;
     public BoolValue isInGestureMode;
     public BoolValue confirmGesture;
-    
+    public GameObject handEntryPos;
+
+    public GameObject cursor;
+
     public GameObject center;
     public GameObject idle;
     public GameObject hand;
     public GameObject handmodel;
     public GameObject reticle;
+    public JackOfController controller;
+    public LayerMask layerMask;
+    public GameObject IKpole;
+    public GameObject IKpoleIdle;
+
     public GameObject[] lights;
     public GameObject[] Digits;
-    public GameObject[] ClosedDigits;
     public GestureCircle gestureCircle;
     public SphereCollider[] subCircles;
-    public JackOfController controller;
 
-    [Header( "Read Only" )]
+    [Header("Read Only")]
     [ReadOnly] public bool gestureMode;
     [ReadOnly] public int fingermode = 0;
     [ReadOnly] public Vector2 lookVector;
-    [ReadOnly] public Vector3 punchdestination = new Vector3( 0, 0, 0.08f );
+    [ReadOnly] public Vector3 punchdestination = new Vector3(0, 0, 0.08f);
+    [ReadOnly] public Vector3 mousePos;
+    [ReadOnly] public Vector3 mouseWorldPos;
+    [ReadOnly] public Collider planeCollider;
+    [ReadOnly] public RaycastHit hitData;
+    [ReadOnly] public Vector3 IKpoleNew;
 
     private int i = 0;
 
+    public float l = 0f;
+
+    private void Start()
+    {
+    }
+
     void Update()
     {
+        Cursor.visible = false;
+
+        //The new arm controls based on the actual mouse position
+
+        Vector3 handStartPos = hand.transform.position;
+
+        hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.4f);
+
+
+        
+        
+
         if ( gestureMode == true )
         {
+            Cursor.lockState = CursorLockMode.None;
+
+            //Raycast looking for snapping planes            
+
+            mousePos = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay( mousePos );
+
+            if ( Physics.Raycast( ray, out hitData, 5, layerMask ) )
+            {
+                Debug.Log("Snap!");
+                mouseWorldPos = hitData.point;
+                Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild(0).gameObject.transform.position;
+                IKpoleNew = planeIKpole;
+
+                if (l < 1)
+                    l += 0.05f;
+
+                handmodel.transform.rotation = hitData.collider.gameObject.transform.rotation;
+            }
+
+            else 
+            {
+                Debug.Log("normal~");
+                //mouseWorldPos.z = gestureCircle.transform.localPosition.z;
+                mouseWorldPos = Camera.main.ScreenToWorldPoint( new Vector3(Mouse.current.position.ReadValue().x, 
+                    Mouse.current.position.ReadValue().y, gestureCircle.transform.localPosition.z) );
+
+                if (l > 0)
+                    l -= 0.05f;
+
+                handmodel.transform.rotation = gestureCircle.transform.rotation;
+            }
+
+            IKpole.transform.position = Vector3.Lerp(IKpoleIdle.transform.position, IKpoleNew, l);
+
+            cursor.transform.position = mouseWorldPos;
+
             float distance = Vector3.Distance(center.transform.position, hand.transform.position);
 
             if ( rotateHand )
@@ -59,29 +125,19 @@ public class Handmovement : MonoBehaviour
                 handmodel.transform.localRotation = Quaternion.Euler(90,0,0);
             }
 
-            if ( reticle != null )
-                reticle.SetActive( false );
+            reticle.SetActive( false );
             gestureCircle.gameObject.SetActive( true );
 
-            //Moving the hand with the mouse as long as it's in the circle, otherwise move it slightly back to center
-            
-            //if ( distance < 0.8 )
-            //{
-                float xMove = lookVector.normalized.y * handSensitivity * Time.deltaTime;
-                float yMove = lookVector.normalized.x * handSensitivity * Time.deltaTime;
-                hand.transform.Translate(new Vector3( xMove, yMove, 0 ) );
-            //}
-            //else
-            //{
-                //hand.transform.position = Vector3.MoveTowards( hand.transform.position, center.transform.position, 0.05f );
-            //}
+           
         }
         else
         {
-            hand.transform.localPosition = idle.transform.localPosition;
-            if ( reticle != null)
-                reticle.SetActive( true );
+            cursor.transform.position = idle.transform.position;
+            reticle.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
+
+            IKpoleNew = IKpoleIdle.transform.localPosition;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         //Check in which area of the gesture circle the hand is.
@@ -132,6 +188,7 @@ public class Handmovement : MonoBehaviour
 			{
                 gestureMode = true;
                 isInGestureMode.Value = true;
+                //Mouse.current.WarpCursorPosition(handEntryPos.transform.position);
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
             }
 			else
@@ -144,25 +201,6 @@ public class Handmovement : MonoBehaviour
             }
         }
     }
-
-    /*public void OnSwitchFingerMode( InputAction.CallbackContext value )
-    {
-        if ( value.performed )
-		{
-            if ( fingermode < 2 )
-                fingermode += 1;
-            else
-                fingermode = 0;
-
-            for ( int i = 0; i < lights.Length; i++ )
-            {
-                if ( i == fingermode )
-                    lights[ i ].SetActive( true );
-                else
-                    lights[ i ].SetActive( false );
-            }
-        }
-	}*/
 
     public void OnUseHand( InputAction.CallbackContext value )
     {
@@ -210,16 +248,12 @@ public class Handmovement : MonoBehaviour
         if ( value.performed )
         {
             Digits[0].GetComponent<Animator>().SetBool("FingerOpen", true);
-            //Digits[1].SetActive(false);
-            //ClosedDigits[1].SetActive(true);
             fingers.Value[ 0 ] = true;
         }
 
         if ( value.canceled )
         {
             Digits[0].GetComponent<Animator>().SetBool("FingerOpen", false);
-            //Digits[1].SetActive(true);
-            //ClosedDigits[1].SetActive(false);
             fingers.Value[ 0 ] = false;
         }
         
@@ -230,16 +264,12 @@ public class Handmovement : MonoBehaviour
         if (value.performed)
         {
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", true);
-            //Digits[2].SetActive(false);
-            //ClosedDigits[2].SetActive(true);
             fingers.Value[ 1 ] = true;
         }
 
         if (value.canceled)
         {
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
-            //Digits[2].SetActive(true);
-            //ClosedDigits[2].SetActive(false);
             fingers.Value[ 1 ] = false;
         }
 
@@ -250,137 +280,16 @@ public class Handmovement : MonoBehaviour
         if (value.performed)
         {
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", true);
-            //Digits[3].SetActive(false);
-            //ClosedDigits[3].SetActive(true);
             fingers.Value[ 2 ] = true;
         }
 
         if (value.canceled)
         {
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false);
-            //Digits[3].SetActive(true);
-            //ClosedDigits[3].SetActive(false);
             fingers.Value[ 2 ] = false;
         }
 
     }
-
-
-    /*public void OnArticaluteFingers( InputAction.CallbackContext value )
-	{
-        float mouseDelta = value.ReadValue<float>();
-
-        switch ( fingermode )
-        {
-            case 0:
-                if ( mouseDelta < scrollSensitivity && i <= 3 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i += 1;
-                }
-
-                if ( mouseDelta > scrollSensitivity && i > 0 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i -= 1;
-                }
-                break;
-
-            case 1:
-                if ( mouseDelta < scrollSensitivity && i <= 3 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( true );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( false );
-                    }
-
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i += 1;
-                }
-
-                if ( mouseDelta > scrollSensitivity && i > 0 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( true );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( false );
-                    }
-
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i -= 1;
-                }
-                break;
-
-            case 2:
-                if ( mouseDelta < scrollSensitivity && i <= 3 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( false );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( true );
-                    }
-
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i += 1;
-                }
-
-                if ( mouseDelta > scrollSensitivity && i > 3 )
-                {
-                    Debug.Log( i );
-                    foreach ( GameObject digit in Digits )
-                    {
-                        digit.SetActive( false );
-                    }
-                    foreach ( GameObject digit in ClosedDigits )
-                    {
-                        digit.SetActive( true );
-                    }
-
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i -= 1;
-                }
-                break;
-
-            default:
-                if ( mouseDelta < 0 && i <= 3 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( false );
-                    ClosedDigits[ i ].SetActive( true );
-                    i += 1;
-                }
-
-                if ( mouseDelta > 0 && i > 0 )
-                {
-                    Debug.Log( i );
-                    Digits[ i ].SetActive( true );
-                    ClosedDigits[ i ].SetActive( false );
-                    i -= 1;
-                }
-                break;
-        }
-    }*/
 
 }
 
