@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5148395429852508151}
-  - component: {fileID: 3296131406289428074}
   - component: {fileID: 6464168587696374345}
   - component: {fileID: 9194874473454054677}
+  - component: {fileID: 330394827}
   m_Layer: 0
   m_Name: Plant_Logic
   m_TagString: Untagged
@@ -33,44 +33,6 @@ Transform:
   m_Father: {fileID: 6670119917503049375}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3296131406289428074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 508191412470578368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 372e85c010ac1134d89b564a011de060, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oxygenAtCentre: 10
-  oxygenFallOff:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.016666412
-      value: 1.04953
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.0625
-      value: -0.13915253
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  sphereCollider: {fileID: 0}
 --- !u!114 &6464168587696374345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,8 +57,47 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 18
+  m_Radius: 18.04
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &330394827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508191412470578368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec29447f84daaa47bdf50f504018616, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceOf: {fileID: 11400000, guid: b2c485ad7ff01724eba263e754af514a, type: 2}
+  valueAtCentre: 10
+  fallOff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.12899159
+      outSlope: -0.12899159
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06067562
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  sphereCollider: {fileID: 0}
 --- !u!1 &4499097227056706552
 GameObject:
   m_ObjectHideFlags: 0

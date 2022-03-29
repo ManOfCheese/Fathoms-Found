@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OxygenSensor : OxygenDetector
+public class OxygenSensor : Detector
 {
     
     [Header( "References" )]
@@ -14,6 +14,6 @@ public class OxygenSensor : OxygenDetector
     // Update is called once per frame
     void Update()
     {
-        oxygenText.text = prefix + Mathf.Round( oxygenLevels ).ToString() + suffix;
+        oxygenText.text = prefix + Mathf.Round( propertyValue ).ToString() + suffix;
     }
 }
