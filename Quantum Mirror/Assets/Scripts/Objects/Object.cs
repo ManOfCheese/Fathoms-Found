@@ -5,8 +5,8 @@ using UnityEngine;
 public class Object : MonoBehaviour
 {
 
-    public List<ObjModifier> modifiers = new List<ObjModifier>();
-	public Detector[] detectors;
+    [HideInInspector] public List<ObjModifier> modifiers = new List<ObjModifier>();
+	[HideInInspector] public Detector[] detectors;
 
 	private void Start()
 	{
@@ -22,9 +22,7 @@ public class Object : MonoBehaviour
 	private void Update()
 	{
 		for ( int i = 0; i < modifiers.Count; i++ )
-		{
 			modifiers[ i ].UpdateProperty();
-		}
 	}
 
 }
