@@ -127,8 +127,7 @@ public class Handmovement : MonoBehaviour
 
             reticle.SetActive( false );
             gestureCircle.gameObject.SetActive( true );
-
-           
+         
         }
         else
         {

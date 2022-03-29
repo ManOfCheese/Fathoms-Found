@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enable: 1
-  mainAxis: {x: 1, y: 0, z: 0}
+  mainAxis: {x: 1, y: -0.000013413884, z: 0.00000137919}
   secondaryAxis: {x: 0, y: 1, z: 0}
   zeroRotation: {x: -0, y: -0, z: -0, w: 1}
   limitsOffset: {x: 0, y: 0, z: 0}
@@ -272,6 +272,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &902893693627613329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4788927995097520314}
+  m_Layer: 3
+  m_Name: Clawmodel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4788927995097520314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902893693627613329}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.07, z: -1.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7120023241902242833}
+  m_Father: {fileID: 375896333567371893}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &964699697607419654
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,14 +1063,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2548868029586179796}
-  m_LocalRotation: {x: -0, y: 0.0000000074505797, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5484259}
+  m_LocalRotation: {x: 0.7071068, y: 0.000000005350675, z: 0.0000000051860387, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.69157165, z: 0.070001185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7599342741649607472}
   - {fileID: 2140644297987200306}
   - {fileID: 891721284049591446}
-  m_Father: {fileID: 375896333567371893}
+  m_Father: {fileID: 4788927995097520314}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4119615824517209742
@@ -3072,6 +3103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375896333567371893}
   - component: {fileID: 8640614472296981927}
+  - component: {fileID: 2723759044170100771}
   m_Layer: 3
   m_Name: ClawJoint
   m_TagString: Untagged
@@ -3090,7 +3122,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.223, z: 0}
   m_LocalScale: {x: 0.74438125, y: 0.74438125, z: 0.74438125}
   m_Children:
-  - {fileID: 7120023241902242833}
+  - {fileID: 4788927995097520314}
   m_Father: {fileID: 6588575239905590830}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3112,6 +3144,30 @@ MonoBehaviour:
   Iterations: 10
   Delta: 0.001
   SnapBackStrength: 0.83
+--- !u!114 &2723759044170100771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7613212252040738679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7a022be76393744b9f1a13d09311ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enable: 1
+  mainAxis: {x: -0.0000000030779794, y: 0.000014701821, z: 1}
+  secondaryAxis: {x: 0, y: 1, z: 0}
+  zeroRotation: {x: 0, y: 0, z: 0, w: 1}
+  limitsOffset: {x: 0, y: 0, z: 0}
+  limitAngle: 18
+  applyEveryFrame: 0
+  bounce: 0
+  friction: 0
+  hingeAngleOffset: 180
+  cross: {x: 0, y: 1, z: 0}
+  zeroAxisDisplayOffset: 0
 --- !u!1 &7870642984995485884
 GameObject:
   m_ObjectHideFlags: 0
