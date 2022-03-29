@@ -29,24 +29,31 @@ public class Fader : MonoBehaviour
 	public IEnumerator FadeCoroutine( AudioSource source, float startVolume, float endVolume, float duration, float delay )
 	{
 		yield return new WaitForSeconds( delay );
-		if ( !source.isPlaying )
-			source.Play();
-		float startTimeStamp = Time.time;
-		source.volume = startVolume;
-
-		while ( true )
-		{
-			float elapsedTime = Time.time - startTimeStamp;
-			source.volume = Mathf.Lerp( startVolume, endVolume, elapsedTime / duration );
-
-			if ( elapsedTime >= duration )
-			{
-				source.volume = endVolume;
-				if ( endVolume == 0 )
-					source.Stop();
-				break;
-			}
+		if ( source == null ) 
 			yield return null;
+		else if ( source.clip == null ) 
+			yield return null;
+		else
+		{
+			if ( !source.isPlaying )
+				source.Play();
+			float startTimeStamp = Time.time;
+			source.volume = startVolume;
+
+			while ( true )
+			{
+				float elapsedTime = Time.time - startTimeStamp;
+				source.volume = Mathf.Lerp( startVolume, endVolume, elapsedTime / duration );
+
+				if ( elapsedTime >= duration )
+				{
+					source.volume = endVolume;
+					if ( endVolume == 0 )
+						source.Stop();
+					break;
+				}
+				yield return null;
+			}
 		}
 	}
 }
