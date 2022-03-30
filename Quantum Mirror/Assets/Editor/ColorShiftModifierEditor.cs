@@ -22,8 +22,11 @@ public class ColorShiftModifierEditor : ObjModifierEditor
     {
         base.OnInspectorGUI();
 
-        EditorGUILayout.PropertyField( objRenderer_Prop, new GUIContent( "objRenderer" ) );
-        EditorGUILayout.PropertyField( lerpTo_Prop, new GUIContent( "lerpTo" ) );
+        EditorGUILayout.Space( 10 );
+        EditorGUILayout.LabelField( "Color Shift Settings", EditorStyles.boldLabel );
+        EditorGUILayout.PropertyField( changeDuration_Prop, new GUIContent( "Change Duration" ) );
+        EditorGUILayout.PropertyField( objRenderer_Prop, new GUIContent( "Object Renderer" ) );
+        EditorGUILayout.PropertyField( lerpTo_Prop, new GUIContent( "Lerp To Color" ) );
 
         serializedObject.ApplyModifiedProperties();
     }

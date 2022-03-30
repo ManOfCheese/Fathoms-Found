@@ -21,43 +21,10 @@ public class ColorShiftModifier : ObjModifier
 		material = objRenderer.material;
 	}
 
-	public override void UpdateProperty()
+	public override void WhileThresholdCrossed()
 	{
-		if ( thresholdLogic == ThresholdLogic.LessThan )
-		{
-			if ( detector.propertyValue < threshold )
-				ChangeColor();
-			else
-				Reset();
-		}
-		else if ( thresholdLogic == ThresholdLogic.MoreThan )
-		{
-			if ( detector.propertyValue > threshold )
-				ChangeColor();
-			else
-				Reset();
-		}
-	}
-
-	public override void ModifyObjectPerc( float t )
-	{
-		base.ModifyObjectPerc( t );
-		material.color = Color.Lerp( startColor, lerpTo, t );
-	}
-
-	public void Reset()
-	{
-		if ( thresholdCrossed )
-		{
-			thresholdCrossed = false;
-			OnThresholdUncross();
-		}
-		startColor = material.color;
-		t = 0f;
-	}
-
-	public void ChangeColor()
-	{
+		base.WhileThresholdCrossed();
+		
 		if ( !thresholdCrossed )
 		{
 			thresholdCrossed = true;
@@ -68,4 +35,22 @@ public class ColorShiftModifier : ObjModifier
 		ModifyObjectPerc( t );
 	}
 
+	public override void WhileThresholdNotCrossed()
+	{
+		base.WhileThresholdNotCrossed();
+		
+		if ( thresholdCrossed )
+		{
+			thresholdCrossed = false;
+			OnThresholdUncross();
+		}
+		startColor = material.color;
+		t = 0f;
+	}
+
+	public override void ModifyObjectPerc( float t )
+	{
+		base.ModifyObjectPerc( t );
+		material.color = Color.Lerp( startColor, lerpTo, t );
+	}
 }
