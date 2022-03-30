@@ -11,7 +11,7 @@ public class Detector : MonoBehaviour
 	[Header( "Runtime" )]
     [ReadOnly] public float propertyValue;
 
-	[HideInInspector] public List<Source> sources;
+	public List<Source> sources;
 
 	private void Update()
 	{
@@ -20,7 +20,8 @@ public class Detector : MonoBehaviour
 		for ( int i = 0; i < sources.Count; i++ )
 		{
 			float dist = Vector3.Distance( sources[ i ].transform.position, transform.position );
-			float perc = dist / sources[ i ].sphereCollider.bounds.size.y;
+			float perc = dist / sources[ i ].sphereCollider.bounds.extents.y;
+			Debug.Log( dist + " | " + sources[ i ].sphereCollider.bounds.extents.y + " | " + perc );
 			float oxygenLevel = sources[ i ].valueAtCentre * sources[ i ].fallOff.Evaluate( perc );
 			propertyValue += oxygenLevel;
 		}
