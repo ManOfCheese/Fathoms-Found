@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2541448389540880145
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -7,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Leaf_MAT
-  m_Shader: {fileID: -6465566751694194690, guid: e03140a4d1ef76c4182c732e174d9bfa,
+  m_Name: Seed_MAT
+  m_Shader: {fileID: -6465566751694194690, guid: 6c2bd68b48723c243968b340fbeb512f,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -77,8 +90,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_26d5142e46b542b69115f8541eeb56d5: 1
-    - Vector1_3eb177e7222447b2bfb27085ed3eb5b1: 0.47
+    - Vector1_0789bf64b92943b1b3c492fcadffb5c4: 13.6
+    - Vector1_5e0435bf9a954d419d0ce49c724b195c: 0.01
+    - Vector1_87b7a2874cf3458a9551a7286246bc65: 2.6
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -106,25 +120,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_4a41628294df4201bf4ca655bc04ee00: {r: 0.8490566, g: 0.1882342, b: 0.1882342,
-        a: 0}
-    - Color_fe798e565dd44c9fab7c073f8d75be28: {r: 0.9056604, g: 0.6893661, b: 0.1324315,
-        a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &3543479013557090228
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 4
