@@ -72,7 +72,6 @@ public class Handmovement : MonoBehaviour
 
             if ( Physics.Raycast( ray, out hitData, 5, layerMask ) )
             {
-                Debug.Log("hit");
 
                 mouseWorldPos = hitData.point;
                 Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild(0).gameObject.transform.position;
@@ -92,7 +91,6 @@ public class Handmovement : MonoBehaviour
 
             else 
             {
-                Debug.Log("shit");
                 Draweranim.SetBool("isinInventory", false);
 
                 mouseWorldPos = Camera.main.ScreenToWorldPoint( new Vector3(Mouse.current.position.ReadValue().x, 
