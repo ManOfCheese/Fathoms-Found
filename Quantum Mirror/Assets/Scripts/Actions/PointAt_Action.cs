@@ -34,9 +34,12 @@ public class PointAt_Action : Action
 		
 		//Initiate point.
 		int closestHand = alienManager.gc.FindClosestHand( alienManager.pointTarget );
-		alienManager.gc.handIndex = closestHand;
+		alienManager.gc.pointHandIndex = closestHand;
 		alienManager.gc.pointing = true;
-		alienManager.gc.handTarget = alienManager.pointTarget.position;
+		Vector3 pointVector = alienManager.pointTarget.position - alienManager.transform.position;
+		if ( pointVector.magnitude > alienManager.gc.maxPointDistance )
+			pointVector = pointVector.normalized * alienManager.gc.maxPointDistance;
+		alienManager.gc.handTarget = alienManager.transform.position + pointVector;
 	}
 
 }
