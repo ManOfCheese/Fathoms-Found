@@ -29,7 +29,7 @@ public class ObjModifier : MonoBehaviour
 	public AudioInfo changeSource;
 	public AudioInfo thresholdSource;
 
-	protected AudioSource[] audioInfos;
+	protected AudioSource[] audioSources;
 	protected Detector detector;
 	protected AudioSource currentSource;
 	protected float t;
@@ -38,20 +38,32 @@ public class ObjModifier : MonoBehaviour
 	[HideInInspector] public bool canUseSpeed;
 
 	[HideInInspector] protected Fader fader;
-	[HideInInspector] protected AudioInfo[] sources;
+	[HideInInspector] protected AudioInfo[] audioInfos;
 		 
 	private void Awake()
 	{
 		fader = GetComponent<Fader>();
-		audioInfos = GetComponents<AudioSource>();
-		sources = new AudioInfo[ 3 ] { passiveSource, changeSource, thresholdSource };
+		if ( fader == null )
+			fader = gameObject.AddComponent<Fader>();
 
-		for ( int i = 0; i < Mathf.Min( sources.Length, audioInfos.Length ); i++ )
+		audioSources = GetComponents<AudioSource>();
+		while ( audioSources.Length < 3 )
 		{
-			sources[ i ].source = audioInfos[ i ];
-			audioInfos[ i ].clip = sources[ i ].clip;
-			audioInfos[ i ].volume = sources[ i ].startVolume;
-			audioInfos[ i ].loop = sources[ i ].loop;
+			gameObject.AddComponent<AudioSource>();
+			audioSources = GetComponents<AudioSource>();
+		}
+
+		for ( int i = 0; i < audioSources.Length; i++ )
+			audioSources[ i ].playOnAwake = false;
+
+		audioInfos = new AudioInfo[ 3 ] { passiveSource, changeSource, thresholdSource };
+
+		for ( int i = 0; i < Mathf.Min( audioInfos.Length, audioSources.Length ); i++ )
+		{
+			audioInfos[ i ].source = audioSources[ i ];
+			audioSources[ i ].clip = audioInfos[ i ].clip;
+			audioSources[ i ].volume = audioInfos[ i ].startVolume;
+			audioSources[ i ].loop = audioInfos[ i ].loop;
 		}
 	}
 
@@ -84,12 +96,20 @@ public class ObjModifier : MonoBehaviour
 
 	public virtual void WhileThresholdCrossed()
 	{
-
+		if ( !thresholdCrossed )
+		{
+			thresholdCrossed = true;
+			OnThresholdCross();
+		}
 	}
 
 	public virtual void WhileThresholdNotCrossed()
 	{
-
+		if ( thresholdCrossed )
+		{
+			thresholdCrossed = false;
+			OnThresholdUncross();
+		}
 	}
 
 	public virtual void OnThresholdCross()

@@ -25,11 +25,6 @@ public class ColorShiftModifier : ObjModifier
 	{
 		base.WhileThresholdCrossed();
 		
-		if ( !thresholdCrossed )
-		{
-			thresholdCrossed = true;
-			OnThresholdCross();
-		}
 		t += Time.deltaTime / changeDuration;
 		Mathf.Clamp01( t );
 		ModifyObjectPerc( t );
@@ -39,11 +34,6 @@ public class ColorShiftModifier : ObjModifier
 	{
 		base.WhileThresholdNotCrossed();
 		
-		if ( thresholdCrossed )
-		{
-			thresholdCrossed = false;
-			OnThresholdUncross();
-		}
 		startColor = material.color;
 		t = 0f;
 	}
