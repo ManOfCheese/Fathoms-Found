@@ -109,26 +109,20 @@ public class AnimationModifier : ObjModifier
 	{
 		base.WhileThresholdCrossed();
 
-		if ( !thresholdCrossed )
-		{
-			thresholdCrossed = true;
-			OnThresholdCross();
-		}
-
 		if ( linkToDetector ) { return; }
 		switch ( parameterType )
 		{
 			case AnimParameterType.Float:
 				if ( changeOverTime )
 				{
-					floatValue = updateFloatParameter( floatValue );
+					floatValue = UpdateFloatParameter( floatValue );
 					animator.SetFloat( parameterName, floatValue );
 				}
 				break;
 			case AnimParameterType.Int:
 				if ( changeOverTime )
 				{
-					intValue = Mathf.RoundToInt( updateFloatParameter( intValue ) );
+					intValue = Mathf.RoundToInt( UpdateFloatParameter( intValue ) );
 					animator.SetInteger( parameterName, intValue );
 				}
 				break;
@@ -137,18 +131,7 @@ public class AnimationModifier : ObjModifier
 		}
 	}
 
-	public override void WhileThresholdNotCrossed()
-	{
-		base.WhileThresholdNotCrossed();
-
-		if ( thresholdCrossed )
-		{
-			thresholdCrossed = false;
-			OnThresholdUncross();
-		}
-	}
-
-	public float updateFloatParameter( float parameter )
+	public float UpdateFloatParameter( float parameter )
 	{
 		switch ( changeMode )
 		{

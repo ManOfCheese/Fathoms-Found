@@ -21,7 +21,6 @@ public class Detector : MonoBehaviour
 		{
 			float dist = Vector3.Distance( sources[ i ].transform.position, transform.position );
 			float perc = dist / sources[ i ].sphereCollider.bounds.extents.y;
-			Debug.Log( dist + " | " + sources[ i ].sphereCollider.bounds.extents.y + " | " + perc );
 			float oxygenLevel = sources[ i ].valueAtCentre * sources[ i ].fallOff.Evaluate( perc );
 			propertyValue += oxygenLevel;
 		}
