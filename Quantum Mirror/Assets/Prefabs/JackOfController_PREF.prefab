@@ -1326,7 +1326,7 @@ GameObject:
   - component: {fileID: 2450569951051127295}
   - component: {fileID: 2680721044812745861}
   - component: {fileID: 7108953921908152230}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1418,9 +1418,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1504614893167359181, guid: 5b8e64daff29cdd4383ab31388624280,
         type: 3}
+      propertyPath: grabber
+      value: 
+      objectReference: {fileID: 3847058819725432842}
+    - target: {fileID: 1504614893167359181, guid: 5b8e64daff29cdd4383ab31388624280,
+        type: 3}
       propertyPath: controller
       value: 
       objectReference: {fileID: 182677836590286789}
+    - target: {fileID: 1668270048649588284, guid: 5b8e64daff29cdd4383ab31388624280,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2159712877424554147, guid: 5b8e64daff29cdd4383ab31388624280,
+        type: 3}
+      propertyPath: isHolding
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2414502087318022298, guid: 5b8e64daff29cdd4383ab31388624280,
+        type: 3}
+      propertyPath: m_Name
+      value: Grabber
+      objectReference: {fileID: 0}
+    - target: {fileID: 2511307922005575687, guid: 5b8e64daff29cdd4383ab31388624280,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4262892918066754629, guid: 5b8e64daff29cdd4383ab31388624280,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5095047175357314275, guid: 5b8e64daff29cdd4383ab31388624280,
         type: 3}
       propertyPath: m_RootOrder
@@ -1481,6 +1511,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Head
       objectReference: {fileID: 0}
+    - target: {fileID: 7859102270090702157, guid: 5b8e64daff29cdd4383ab31388624280,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.219
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b8e64daff29cdd4383ab31388624280, type: 3}
 --- !u!1 &5691289652181008240 stripped
@@ -1492,6 +1527,12 @@ GameObject:
 --- !u!4 &5932447077425775731 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5095047175357314275, guid: 5b8e64daff29cdd4383ab31388624280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1504614893918302352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3847058819725432842 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2414502087318022298, guid: 5b8e64daff29cdd4383ab31388624280,
     type: 3}
   m_PrefabInstance: {fileID: 1504614893918302352}
   m_PrefabAsset: {fileID: 0}
@@ -1519,3 +1560,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a738d58a5558ae4bbb5e16506822aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &325101255
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3847058819725432842}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
