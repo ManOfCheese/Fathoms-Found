@@ -24,8 +24,10 @@ public class Handmovement : MonoBehaviour
     public GameObject center;
     public GameObject idle;
     public GameObject hand;
+    public GameObject grabber;
     public GameObject handmodel;
-    public GameObject reticle;
+    public GameObject armModeUI;
+    public GameObject camModeUI;
     public JackOfController controller;
     public GameObject IKpole;
     public GameObject IKpoleIdle;
@@ -123,14 +125,16 @@ public class Handmovement : MonoBehaviour
                 handmodel.transform.localRotation = Quaternion.Euler(90,0,0);
             }
 
-            reticle.SetActive( false );
+            armModeUI.SetActive( true );
+            camModeUI.SetActive( false );
             gestureCircle.gameObject.SetActive( true );
          
         }
         else
         {
             cursor.transform.position = idle.transform.position;
-            reticle.SetActive( true );
+            armModeUI.SetActive( false );
+            camModeUI.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
             handmodel.transform.rotation = gestureCircle.transform.rotation;
             Draweranim.SetBool( "isinInventory", false );
@@ -205,6 +209,7 @@ public class Handmovement : MonoBehaviour
     {
         if ( value.performed )
         {
+            grabber.GetComponent<Collider>().enabled = true;
 
 			for ( int i = 0; i < Digits.Length; i++ )
                 Digits[ i ].GetComponent<Animator>().SetBool( "FingerOpen", true );
@@ -215,6 +220,8 @@ public class Handmovement : MonoBehaviour
         }
         else if ( value.canceled )
         {
+            grabber.GetComponent<Collider>().enabled = true;
+
             for ( int i = 0; i < Digits.Length; i++ )
                 Digits[ i ].GetComponent<Animator>().SetBool( "FingerOpen", false );
 
