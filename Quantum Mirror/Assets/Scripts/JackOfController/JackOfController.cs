@@ -14,6 +14,7 @@ public class JackOfController : MonoBehaviour {
 
     #region Variables
     public JackOfControllerSystem system;
+    public GameObject head;
 
     [Header( "VariableObjects" )]
     public BoolValue inGestureMode;
@@ -212,7 +213,7 @@ public class JackOfController : MonoBehaviour {
             xCamRotation %= 360;
             yCamRotation %= 360;
             xCamRotation = Mathf.Clamp( xCamRotation, xRotationLimitsUp, xRotationLimitsDown );
-            cam.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
+            head.transform.eulerAngles = new Vector3( xCamRotation, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z );
             cc.transform.eulerAngles = new Vector3( jom.cc.transform.eulerAngles.x, yCamRotation,
                 cc.transform.eulerAngles.z );
         }

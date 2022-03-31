@@ -64,6 +64,34 @@ public class ObjModifier : MonoBehaviour
 		}
 	}
 
+	public virtual void UpdateProperty()
+	{
+		if ( thresholdLogic == ThresholdLogic.LessThan )
+		{
+			if ( detector.propertyValue < threshold )
+				WhileThresholdCrossed();
+			else
+				WhileThresholdNotCrossed();
+		}
+		else if ( thresholdLogic == ThresholdLogic.MoreThan )
+		{
+			if ( detector.propertyValue > threshold )
+				WhileThresholdCrossed();
+			else
+				WhileThresholdNotCrossed();
+		}
+	}
+
+	public virtual void WhileThresholdCrossed()
+	{
+
+	}
+
+	public virtual void WhileThresholdNotCrossed()
+	{
+
+	}
+
 	public virtual void OnThresholdCross()
 	{
 		fader.Crossfade( passiveSource.source, changeSource.source, passiveSource.startVolume, 0f, crossFadeDuration );
@@ -76,11 +104,6 @@ public class ObjModifier : MonoBehaviour
 		fader.Crossfade( changeSource.source, passiveSource.source, changeSource.startVolume, 0f, crossFadeDuration );
 
 		if ( thresholdSource.source != null ) { if ( thresholdSource.clip != null ) thresholdSource.source.Stop(); }
-	}
-
-	public virtual void UpdateProperty()
-	{
-
 	}
 
     public virtual void ModifyObjectPerc( float t )

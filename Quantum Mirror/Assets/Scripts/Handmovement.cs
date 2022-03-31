@@ -27,9 +27,10 @@ public class Handmovement : MonoBehaviour
     public GameObject handmodel;
     public GameObject reticle;
     public JackOfController controller;
-    public LayerMask layerMask;
     public GameObject IKpole;
     public GameObject IKpoleIdle;
+    public Animator Draweranim;
+    public LayerMask layerMask;
 
     public GameObject[] lights;
     public GameObject[] Digits;
@@ -47,13 +48,7 @@ public class Handmovement : MonoBehaviour
     [ReadOnly] public RaycastHit hitData;
     [ReadOnly] public Vector3 IKpoleNew;
 
-    private int i = 0;
-
     public float l = 0f;
-
-    private void Start()
-    {
-    }
 
     void Update()
     {
@@ -66,9 +61,6 @@ public class Handmovement : MonoBehaviour
         hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.4f);
 
 
-        
-        
-
         if ( gestureMode == true )
         {
             Cursor.lockState = CursorLockMode.None;
@@ -80,11 +72,17 @@ public class Handmovement : MonoBehaviour
 
             if ( Physics.Raycast( ray, out hitData, 5, layerMask ) )
             {
-                Debug.Log("Snap!");
+
                 mouseWorldPos = hitData.point;
                 Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild(0).gameObject.transform.position;
                 IKpoleNew = planeIKpole;
 
+                if (hitData.collider.gameObject.name == "DrawerContactPlane")
+                {
+                    Draweranim.SetBool("isinInventory", true);
+                }
+                
+                
                 if (l < 1)
                     l += 0.05f;
 
@@ -93,8 +91,8 @@ public class Handmovement : MonoBehaviour
 
             else 
             {
-                Debug.Log("normal~");
-                //mouseWorldPos.z = gestureCircle.transform.localPosition.z;
+                Draweranim.SetBool("isinInventory", false);
+
                 mouseWorldPos = Camera.main.ScreenToWorldPoint( new Vector3(Mouse.current.position.ReadValue().x, 
                     Mouse.current.position.ReadValue().y, gestureCircle.transform.localPosition.z) );
 
@@ -134,6 +132,8 @@ public class Handmovement : MonoBehaviour
             cursor.transform.position = idle.transform.position;
             reticle.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
+            handmodel.transform.rotation = gestureCircle.transform.rotation;
+            Draweranim.SetBool( "isinInventory", false );
 
             IKpoleNew = IKpoleIdle.transform.localPosition;
             Cursor.lockState = CursorLockMode.Locked;
@@ -205,25 +205,11 @@ public class Handmovement : MonoBehaviour
     {
         if ( value.performed )
         {
-            if ( handPos.Value == 0 )
-			{
-				for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
-				{
-                    gestureCircle.fingerSprites[ i ].SetActive( false );
-				}
-			}
-			else if ( gestureCircle.gameObject.activeSelf )
-			{
-                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 ].SetActive( true );
-                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 + 1 ].SetActive( fingers.Value[ 0 ] );
-                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 + 2 ].SetActive( fingers.Value[ 1 ] );
-                gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * 4 + 3 ].SetActive( fingers.Value[ 2 ] );
-            }
 
 			for ( int i = 0; i < Digits.Length; i++ )
                 Digits[ i ].GetComponent<Animator>().SetBool( "FingerOpen", true );
             if ( gameObject.transform.localPosition.z < 0.4f ) {
-                gameObject.transform.Translate( punchdestination );
+                cursor.transform.Translate( punchdestination );
                 confirmGesture.Value = true;
             }
         }

@@ -44,36 +44,18 @@ public class ObjModifierEditor : Editor
     {
         serializedObject.Update();
 
-        EditorGUILayout.PropertyField( property_Prop, new GUIContent( "property" ) );
-        EditorGUILayout.PropertyField( thresholdLogic_Prop, new GUIContent( "thresholdLogic" ) );
-        EditorGUILayout.PropertyField( threshold_Prop, new GUIContent( "threshold" ) );
+        EditorGUILayout.LabelField( "Base Settings", EditorStyles.boldLabel );
+        EditorGUILayout.PropertyField( property_Prop, new GUIContent( "Property" ) );
+        EditorGUILayout.PropertyField( thresholdLogic_Prop, new GUIContent( "Threshold Logic" ) );
+        EditorGUILayout.PropertyField( threshold_Prop, new GUIContent( "Threshold" ) );
 
-        bool canUseSpeed = canUseSpeed_Prop.boolValue;
-        if ( canUseSpeed )
-		{
-            EditorGUILayout.PropertyField( changeMode_Prop );
-            ChangeMode mm = ( ChangeMode )changeMode_Prop.enumValueIndex;
-            switch ( mm )
-            {
-                case ChangeMode.Duration:
-                    EditorGUILayout.PropertyField( changeDuration_Prop, new GUIContent( "changeDuration" ) );
-                    break;
-
-                case ChangeMode.Speed:
-                    EditorGUILayout.PropertyField( changeSpeed_Prop, new GUIContent( "changeSpeed" ) );
-                    break;
-            }
-        }
-		else
-		{
-            EditorGUILayout.PropertyField( changeDuration_Prop, new GUIContent( "changeDuration" ) );
-        }
-
-        EditorGUILayout.PropertyField( crossFadeDuration_prop, new GUIContent( "crossFadeDuration" ) );
-        EditorGUILayout.PropertyField( crossFadeDuration_prop, new GUIContent( "fadeDuration" ) );
-        EditorGUILayout.PropertyField( passiveSource_Prop, new GUIContent( "passiveSource" ) );
-        EditorGUILayout.PropertyField( changeSource_Prop, new GUIContent( "changeSource" ) );
-        EditorGUILayout.PropertyField( thresholdSource_Prop, new GUIContent( "thresholdSource" ) );
+        EditorGUILayout.Space( 10 );
+        EditorGUILayout.LabelField( "Audio Settings", EditorStyles.boldLabel );
+        EditorGUILayout.PropertyField( crossFadeDuration_prop, new GUIContent( "Cross Fade Duration" ) );
+        EditorGUILayout.PropertyField( crossFadeDuration_prop, new GUIContent( "Fade Duration" ) );
+        EditorGUILayout.PropertyField( passiveSource_Prop, new GUIContent( "Passive Source" ) );
+        EditorGUILayout.PropertyField( changeSource_Prop, new GUIContent( "Change Source" ) );
+        EditorGUILayout.PropertyField( thresholdSource_Prop, new GUIContent( "Threshold Source" ) );
     }
 }
 
