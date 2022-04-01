@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class ObjectChecker : MonoBehaviour
 {
 
+	public Animator animator;
+	public string triggerName;
 	public Text resultDisplay;
     public Property[] propertyRequirements;
 	public LogicExpression[] logicExpressions;
@@ -83,8 +85,15 @@ public class ObjectChecker : MonoBehaviour
 					}
 				}
 			}
-
 			resultDisplay.text = resultsText;
+
+			for ( int i = 0; i < requirementsMet.Length; i++ )
+			{
+				if ( requirementsMet[ i ] == false )
+					break;
+				else if ( i == requirementsMet.Length - 1 )
+					animator.SetTrigger( triggerName );
+			}
 		}
 	}
 
