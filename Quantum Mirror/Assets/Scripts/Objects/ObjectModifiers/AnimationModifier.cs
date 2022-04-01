@@ -76,20 +76,22 @@ public class AnimationModifier : ObjModifier
 	{
 		base.OnThresholdCross();
 
-		if ( linkToDetector ) { return; }
 		switch ( parameterType )
 		{
 			case AnimParameterType.Trigger:
 				animator.SetTrigger( parameterName );
+				Debug.Log("Threshold Crossed");
 				break;
 			case AnimParameterType.Bool:
 				animator.SetBool( parameterName, boolParameter );
 				break;
 			case AnimParameterType.Float:
+				if (linkToDetector) { return; }
 				if ( !changeOverTime )
 					animator.SetFloat( parameterName, floatParameter );
 				break;
 			case AnimParameterType.Int:
+				if (linkToDetector) { return; }
 				if ( !changeOverTime )
 					animator.SetInteger( parameterName, intParameter );
 				break;
@@ -102,6 +104,7 @@ public class AnimationModifier : ObjModifier
 	{
 		base.OnThresholdUncross();
 
+		Debug.Log("Threshold Uncrossed");
 		floatValue = 0f;
 	}
 
