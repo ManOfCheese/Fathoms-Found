@@ -35,8 +35,8 @@ AnimatorController:
   m_Name: Rocket_Animator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Lift_Off
-    m_Type: 4
+  - m_Name: LiftOff
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -115,7 +115,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Lift_Off
+    m_ConditionEvent: LiftOff
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5036330305026009111}
