@@ -9,6 +9,7 @@ public class AddSourceModifierEditor : ObjModifierEditor
     public SerializedProperty
         sourcePrefab_Prop,
         parentUnderObject_Prop,
+        removeSourceWhenUnderThreshold_Prop,
         sourceOf_Prop,
         radius_Prop,
         valueAtCentre_Prop,
@@ -20,6 +21,7 @@ public class AddSourceModifierEditor : ObjModifierEditor
         // Setup the SerializedProperties
         sourcePrefab_Prop = serializedObject.FindProperty( "sourcePrefab" );
         parentUnderObject_Prop = serializedObject.FindProperty( "parentUnderObject" );
+        removeSourceWhenUnderThreshold_Prop = serializedObject.FindProperty( "removeSourceWhenUnderThreshold" );
         sourceOf_Prop = serializedObject.FindProperty( "sourceOf" );
         radius_Prop = serializedObject.FindProperty( "radius" );
         valueAtCentre_Prop = serializedObject.FindProperty( "valueAtCentre" );
@@ -34,6 +36,7 @@ public class AddSourceModifierEditor : ObjModifierEditor
         EditorGUILayout.LabelField( "Add Source Settings", EditorStyles.boldLabel );
         EditorGUILayout.PropertyField( sourcePrefab_Prop, new GUIContent( "Source Prefab" ) );
         EditorGUILayout.PropertyField( parentUnderObject_Prop, new GUIContent( "Parent Under Object" ) );
+        EditorGUILayout.PropertyField( removeSourceWhenUnderThreshold_Prop, new GUIContent( "Remove Source When Under Threshold" ) );
         EditorGUILayout.PropertyField( sourceOf_Prop, new GUIContent( "Source Of" ) );
         EditorGUILayout.PropertyField( radius_Prop, new GUIContent( "Radius" ) );
         EditorGUILayout.PropertyField( valueAtCentre_Prop, new GUIContent( "Value At Centre" ) );
