@@ -220,7 +220,7 @@ public class Handmovement : MonoBehaviour
         }
         else if ( value.canceled )
         {
-            grabber.GetComponent<Collider>().enabled = true;
+            grabber.GetComponent<Collider>().enabled = false;
 
             for ( int i = 0; i < Digits.Length; i++ )
                 Digits[ i ].GetComponent<Animator>().SetBool( "FingerOpen", false );
