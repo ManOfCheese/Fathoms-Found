@@ -31,18 +31,31 @@ public class Object : MonoBehaviour
 		for ( int i = 0; i < modifiers.Count; i++ )
 			modifiers[ i ].UpdateProperty();
 
-		for ( int i = 0; i < detectors.Length; i++ )
+		for ( int i = 0; i < properties.Length; i++ )
 		{
-			for ( int j = 0; j < properties.Length; j++ )
+			bool detector = false;
+			
+			for ( int j = 0; j < detectors.Length; j++ )
 			{
-				if ( detectors[ i ].propertyToDetect.propertyName == properties[ j ].property.propertyName )
-					properties[ j ].value = detectors[ i ].propertyValue;
-				if ( sources[ i ].sourceOf.propertyName == properties[ j ].property.propertyName )
+				if ( detectors[ j ].propertyToDetect.propertyName == properties[ i ].property.propertyName )
 				{
-					properties[ j ].value = detectors[ i ].propertyValue;
-					properties[ j ].value += sources[ i ].valueAtCentre;
+					detector = true;
+					properties[ i ].value = detectors[ j ].propertyValue;
 				}
 			}
+			for ( int j = 0; j < sources.Count; j++ )
+			{
+				if ( sources[ j ].sourceOf.propertyName == properties[ i ].property.propertyName )
+				{
+					if ( detector )
+						properties[ i ].value += sources[ j ].valueAtCentre;
+					else
+						properties[ i ].value = sources[ j ].valueAtCentre;
+				}
+
+			}
+
+
 		}
 	}
 
