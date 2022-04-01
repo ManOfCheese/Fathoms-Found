@@ -7,8 +7,10 @@ using UnityEditor;
 public class AddSourceModifierEditor : ObjModifierEditor
 {
     public SerializedProperty
-        logicObject_Prop,
-        becomeSourceOf_Prop,
+        sourcePrefab_Prop,
+        parentUnderObject_Prop,
+        sourceOf_Prop,
+        radius_Prop,
         valueAtCentre_Prop,
         fallOff_Prop;
 
@@ -16,8 +18,10 @@ public class AddSourceModifierEditor : ObjModifierEditor
     {
         base.OnEnable();
         // Setup the SerializedProperties
-        logicObject_Prop = serializedObject.FindProperty( "logicObject" );
-        becomeSourceOf_Prop = serializedObject.FindProperty( "becomeSourceOf" );
+        sourcePrefab_Prop = serializedObject.FindProperty( "sourcePrefab" );
+        parentUnderObject_Prop = serializedObject.FindProperty( "parentUnderObject" );
+        sourceOf_Prop = serializedObject.FindProperty( "sourceOf" );
+        radius_Prop = serializedObject.FindProperty( "radius" );
         valueAtCentre_Prop = serializedObject.FindProperty( "valueAtCentre" );
         fallOff_Prop = serializedObject.FindProperty( "fallOff" );
     }
@@ -28,8 +32,10 @@ public class AddSourceModifierEditor : ObjModifierEditor
 
         EditorGUILayout.Space( 10 );
         EditorGUILayout.LabelField( "Add Source Settings", EditorStyles.boldLabel );
-        EditorGUILayout.PropertyField( logicObject_Prop, new GUIContent( "Logic Object" ) );
-        EditorGUILayout.PropertyField( becomeSourceOf_Prop, new GUIContent( "Become Source Of" ) );
+        EditorGUILayout.PropertyField( sourcePrefab_Prop, new GUIContent( "Source Prefab" ) );
+        EditorGUILayout.PropertyField( parentUnderObject_Prop, new GUIContent( "Parent Under Object" ) );
+        EditorGUILayout.PropertyField( sourceOf_Prop, new GUIContent( "Source Of" ) );
+        EditorGUILayout.PropertyField( radius_Prop, new GUIContent( "Radius" ) );
         EditorGUILayout.PropertyField( valueAtCentre_Prop, new GUIContent( "Value At Centre" ) );
         EditorGUILayout.PropertyField( fallOff_Prop, new GUIContent( "Fall Off" ) );
 
