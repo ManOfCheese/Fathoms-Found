@@ -37,11 +37,13 @@ public class ObjModifier : MonoBehaviour
 
 	[HideInInspector] public bool canUseSpeed;
 
-	[HideInInspector] protected Fader fader;
-	[HideInInspector] protected AudioInfo[] audioInfos;
+	protected Object obj;
+	protected Fader fader;
+	protected AudioInfo[] audioInfos;
 		 
 	private void Awake()
 	{
+		obj = GetComponentInParent<Object>();
 		fader = GetComponent<Fader>();
 		if ( fader == null )
 			fader = gameObject.AddComponent<Fader>();

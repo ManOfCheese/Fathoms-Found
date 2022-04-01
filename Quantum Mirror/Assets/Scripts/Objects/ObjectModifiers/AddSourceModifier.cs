@@ -23,6 +23,7 @@ public class AddSourceModifier : ObjModifier
 			sourceObject = Instantiate( sourcePrefab, parentUnderObject.transform.position, parentUnderObject.transform.rotation, parentUnderObject.transform.parent );
 			sourceObject.GetComponent<SphereCollider>().radius = radius;
 			Source source = sourceObject.GetComponent<Source>();
+			obj.sources.Add( source );
 			source.sourceOf = sourceOf;
 			source.valueAtCentre = valueAtCentre;
 			source.fallOff = fallOff;
@@ -37,7 +38,10 @@ public class AddSourceModifier : ObjModifier
 		base.OnThresholdUncross();
 
 		if ( removeSourceWhenUnderThreshold )
+		{
+			obj.sources.Remove( sourceObject.GetComponent<Source>() );
 			Destroy( sourceObject );
+		}
 	}
 
 }

@@ -9,10 +9,15 @@ public class Object : MonoBehaviour
 
     [HideInInspector] public List<ObjModifier> modifiers = new List<ObjModifier>();
 	[HideInInspector] public Detector[] detectors;
+	[HideInInspector] public List<Source> sources;
 
 	private void Start()
 	{
 		detectors = GetComponentsInParent<Detector>();
+		Source[] sourcesArray = GetComponentsInChildren<Source>();
+		for ( int i = 0; i < sourcesArray.Length; i++ )
+			sources.Add( sourcesArray[ i ] );
+
 		ObjModifier[] mods = GetComponentsInChildren<ObjModifier>();
 		for ( int i = 0; i < mods.Length; i++ )
 		{
@@ -32,6 +37,11 @@ public class Object : MonoBehaviour
 			{
 				if ( detectors[ i ].propertyToDetect.propertyName == properties[ j ].property.propertyName )
 					properties[ j ].value = detectors[ i ].propertyValue;
+				if ( sources[ i ].sourceOf.propertyName == properties[ j ].property.propertyName )
+				{
+					properties[ j ].value = detectors[ i ].propertyValue;
+					properties[ j ].value += sources[ i ].valueAtCentre;
+				}
 			}
 		}
 	}
