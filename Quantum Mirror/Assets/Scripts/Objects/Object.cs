@@ -8,10 +8,10 @@ public class Object : MonoBehaviour
 	public PropertyInfo[] properties;
 
     [HideInInspector] public List<ObjModifier> modifiers = new List<ObjModifier>();
-	[HideInInspector] public Detector[] detectors;
+	public Detector[] detectors;
 	[HideInInspector] public List<Source> sources;
 
-	private void Start()
+	private void Awake()
 	{
 		detectors = GetComponentsInParent<Detector>();
 		Source[] sourcesArray = GetComponentsInChildren<Source>();
