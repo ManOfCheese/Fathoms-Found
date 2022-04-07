@@ -114,9 +114,7 @@ public class AttentionState : State<AlienManager>
 							_owner.gc.endGesture = false;
 							if ( _owner.gc.standardGesture ) _owner.gc.standardGesture = false;
 							for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
-							{
 								gestureCircle.fingerSprites[ i ].SetActive( false );
-							}
 						}
 						//Set new hand target.
 						else

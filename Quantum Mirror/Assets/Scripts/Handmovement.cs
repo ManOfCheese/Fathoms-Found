@@ -52,7 +52,17 @@ public class Handmovement : MonoBehaviour
 
     public float l = 0f;
 
-    void Update()
+	private void OnEnable()
+	{
+        handPos.onValueChanged += OnChangeCircle;
+	}
+
+	private void OnDisable()
+	{
+        handPos.onValueChanged -= OnChangeCircle;
+    }
+
+	void Update()
     {
         Cursor.visible = false;
 
@@ -148,13 +158,27 @@ public class Handmovement : MonoBehaviour
 		for ( int i = 0; i < subCircles.Length; i++ ) {
             if ( Vector3.Distance( hand.transform.position, subCircles[ i ].transform.position ) < 
                 ( subCircles[ i ].radius * subCircles[ i ].transform.localScale.x ) ) {
-                handPos.Value = i + 1;
+                handPos.Value = i;
                 foundPos = true;
 			}
             if ( i == subCircles.Length - 1 && !foundPos ) {
-                handPos.Value = 0;
+                handPos.Value = -1;
 			}
 		}
+    }
+
+    public void OnChangeCircle( int circle )
+	{
+        for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
+            gestureCircle.fingerSprites[ i ].SetActive( false );
+
+        if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ handPos.Value * ( fingers.Value.Length + 1 ) ].SetActive( true );
+
+        if ( circle >= 0 )
+		{
+            for ( int i = 0; i < fingers.Value.Length; i++ )
+                gestureCircle.fingerSprites[ circle * fingers.Value.Length ].SetActive( fingers.Value[ i ] );
+        }
     }
 
     public void OnLook( InputAction.CallbackContext value )
@@ -221,6 +245,7 @@ public class Handmovement : MonoBehaviour
         else if ( value.canceled )
         {
             grabber.GetComponent<Collider>().enabled = false;
+            confirmGesture.Value = false;
 
             for ( int i = 0; i < Digits.Length; i++ )
                 Digits[ i ].GetComponent<Animator>().SetBool( "FingerOpen", false );
@@ -228,10 +253,8 @@ public class Handmovement : MonoBehaviour
 			for ( int i = 0; i < fingers.Value.Length; i++ )
                 fingers.Value[ i ] = false;
 
-            if ( gameObject.transform.localPosition.z >= 0f ) {
+            if ( gameObject.transform.localPosition.z >= 0f )
                 gameObject.transform.Translate( -punchdestination );
-                confirmGesture.Value = false;
-            }
         }
     }
 
@@ -241,12 +264,14 @@ public class Handmovement : MonoBehaviour
         {
             Digits[0].GetComponent<Animator>().SetBool("FingerOpen", true);
             fingers.Value[ 0 ] = true;
+            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 1 ].SetActive( true );
         }
 
         if ( value.canceled )
         {
             Digits[0].GetComponent<Animator>().SetBool("FingerOpen", false);
             fingers.Value[ 0 ] = false;
+            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 1 ].SetActive( false );
         }
         
     }
@@ -257,12 +282,14 @@ public class Handmovement : MonoBehaviour
         {
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", true);
             fingers.Value[ 1 ] = true;
+            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 2 ].SetActive( true );
         }
 
         if (value.canceled)
         {
             Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
             fingers.Value[ 1 ] = false;
+            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 2 ].SetActive( false );
         }
 
     }
@@ -273,15 +300,17 @@ public class Handmovement : MonoBehaviour
         {
             Digits[2].GetComponent<Animator>().SetBool("FingerOpen", true);
             fingers.Value[ 2 ] = true;
+            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 3 ].SetActive( true );
         }
 
         if (value.canceled)
         {
-            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false);
-            fingers.Value[ 2 ] = false;
+            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false );
+			fingers.Value[ 2 ] = false;
+            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 3 ].SetActive( false );
         }
 
-    }
+	}
 
 }
 
