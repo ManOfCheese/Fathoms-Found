@@ -37,13 +37,14 @@ public class Handmovement : MonoBehaviour
     public Transform IKpoleIdle;
 
     [Header( "Settings" )]
-    public Vector3 punchdestination = new Vector3( 0, 0, 0.08f );
+    public bool disableGestureCircleOnSnap;
     public float handLength;
     public float innerRingSize = 0.25f;
     public float ikPoleLerpSpeed = 0.05f;
     public float snapToRange = 5f;
     public LayerMask snapToMask;
     public LayerMask gestureMask;
+    public Vector3 punchdestination = new Vector3( 0, 0, 0.08f );
 
     [Header( "Read Only" )]
     [SerializeField, ReadOnly] private Vector2 lookVector;
@@ -76,7 +77,8 @@ public class Handmovement : MonoBehaviour
             //If we find a snap plane.
             if ( Physics.Raycast( ray, out hitData, snapToRange, snapToMask ) )
             {
-                gestureCircle.gameObject.SetActive( false );
+                if ( disableGestureCircleOnSnap )
+                    gestureCircle.gameObject.SetActive( false );
                 mouseWorldPos = hitData.point;
                 Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild( 0 ).gameObject.transform.position;
                 IKpoleNew = planeIKpole;
