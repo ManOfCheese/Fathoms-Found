@@ -13,27 +13,22 @@ public class grabber : MonoBehaviour
 
     public void Update ()
     {
+
     }
 
     public void OnUseHand( InputAction.CallbackContext value )
     {
-        
         if ( value.performed && isHolding == false )
-        {
             drop = true;
-            
-        }
 
-        if (value.performed && isHolding == true )
-        {           
+        if (value.performed && isHolding == true )         
             drop = false;
-        }
     }
 
     private void OnTriggerEnter(Collider collision)
     {       
 
-            if (collision.CompareTag("Sample") && drop == true && inSlot == false)
+            if ( collision.CompareTag( "Sample" ) && drop == true && inSlot == false )
             {
                 snapPlane = collision.gameObject.transform.GetChild(0).gameObject;
 
@@ -42,15 +37,13 @@ public class grabber : MonoBehaviour
                 snapPlane.SetActive(true);
                 collision.gameObject.transform.SetParent(null);
                 collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                foreach (Transform trans in collision.gameObject.GetComponentsInChildren<Transform>(true))
-                {
+                foreach ( Transform trans in collision.gameObject.GetComponentsInChildren<Transform>( true ) )
                     trans.gameObject.layer = 0;
-                }
                 snapPlane.layer = 9;
                 isHolding = true;
             }
 
-            if (collision.CompareTag("Sample") && drop == false && inSlot == false)
+            if ( collision.CompareTag( "Sample" ) && drop == false && inSlot == false )
             {
                 snapPlane = collision.gameObject.transform.GetChild(0).gameObject;
 
@@ -59,10 +52,8 @@ public class grabber : MonoBehaviour
                 collision.gameObject.transform.SetParent(gameObject.transform);
                 collision.gameObject.transform.localPosition = Vector3.zero;
                 collision.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                foreach (Transform trans in collision.gameObject.GetComponentsInChildren<Transform>(true))
-                {
+                foreach ( Transform trans in collision.gameObject.GetComponentsInChildren<Transform>( true ) )
                     trans.gameObject.layer = 3;
-                }
 
                 snapPlane.layer = 9;
 

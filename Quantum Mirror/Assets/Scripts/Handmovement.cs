@@ -12,55 +12,47 @@ public class Handmovement : MonoBehaviour
     public float scrollSensitivity;
     public bool rotateHand;
 
-    [Header("References")]
-    public BoolArrayValue fingers;
+    [Header("Variables")]
     public IntValue handPos;
+    public BoolArrayValue fingers;
     public BoolValue isInGestureMode;
     public BoolValue confirmGesture;
-    public GameObject handEntryPos;
 
-    public GameObject cursor;
-
-    public GameObject center;
-    public GameObject idle;
-    public GameObject hand;
-    public GameObject grabber;
-    public GameObject handmodel;
+    [Header( "References" )]
+    public Animator[] fingerAnimators;
+    public Animator Draweranim;
     public GameObject armModeUI;
     public GameObject camModeUI;
-    public JackOfController controller;
-    public GameObject IKpole;
-    public GameObject IKpoleIdle;
-    public Animator Draweranim;
-    public LayerMask layerMask;
-
-    public GameObject[] lights;
-    public GameObject[] Digits;
+    public GameObject grabber;
     public GestureCircle gestureCircle;
-    public SphereCollider[] subCircles;
+    public JackOfController controller;
+    public Transform worldSpaceCursor;
+    public Transform hand;
+    public Transform handmodel;
+    public Transform IKpole;
 
-    [Header("Read Only")]
-    [ReadOnly] public bool gestureMode;
-    [ReadOnly] public int fingermode = 0;
-    [ReadOnly] public Vector2 lookVector;
-    [ReadOnly] public Vector3 punchdestination = new Vector3(0, 0, 0.08f);
-    [ReadOnly] public Vector3 mousePos;
-    [ReadOnly] public Vector3 mouseWorldPos;
-    [ReadOnly] public Collider planeCollider;
-    [ReadOnly] public RaycastHit hitData;
-    [ReadOnly] public Vector3 IKpoleNew;
+    [Header( "Default Positions" )]
+    public Transform center;
+    public Transform idle;
+    public Transform IKpoleIdle;
 
-    public float l = 0f;
+    [Header( "Settings" )]
+    public Vector3 punchdestination = new Vector3( 0, 0, 0.08f );
+    public float handLength;
+    public float innerRingSize = 0.25f;
+    public float ikPoleLerpSpeed = 0.05f;
+    public float snapToRange = 5f;
+    public LayerMask snapToMask;
+    public LayerMask gestureMask;
 
-	private void OnEnable()
-	{
-        handPos.onValueChanged += OnChangeCircle;
-	}
+    [Header( "Read Only" )]
+    [SerializeField, ReadOnly] private Vector2 lookVector;
+    [SerializeField, ReadOnly] private Vector3 mousePos;
+    [SerializeField, ReadOnly] private Vector3 mouseWorldPos;
+    [SerializeField, ReadOnly] private Vector3 IKpoleNew;
 
-	private void OnDisable()
-	{
-        handPos.onValueChanged -= OnChangeCircle;
-    }
+    private RaycastHit hitData;
+    private float p = 0f;
 
 	void Update()
     {
@@ -68,12 +60,11 @@ public class Handmovement : MonoBehaviour
 
         //The new arm controls based on the actual mouse position
 
-        Vector3 handStartPos = hand.transform.position;
+        Vector3 handStartPos = hand.position;
 
-        hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.4f);
+        hand.position = Vector3.Lerp( handStartPos, worldSpaceCursor.transform.position, 0.4f );
 
-
-        if ( gestureMode == true )
+        if ( isInGestureMode.Value == true )
         {
             Cursor.lockState = CursorLockMode.None;
 
@@ -82,102 +73,71 @@ public class Handmovement : MonoBehaviour
             mousePos = Mouse.current.position.ReadValue();
             Ray ray = Camera.main.ScreenPointToRay( mousePos );
 
-            if ( Physics.Raycast( ray, out hitData, 5, layerMask ) )
+            //If we find a snap plane.
+            if ( Physics.Raycast( ray, out hitData, snapToRange, snapToMask ) )
             {
-
+                gestureCircle.gameObject.SetActive( false );
                 mouseWorldPos = hitData.point;
-                Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild(0).gameObject.transform.position;
+                Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild( 0 ).gameObject.transform.position;
                 IKpoleNew = planeIKpole;
 
-                if (hitData.collider.gameObject.name == "DrawerContactPlane")
-                {
-                    Draweranim.SetBool("isinInventory", true);
-                }
+                if ( hitData.collider.gameObject.name == "DrawerContactPlane" )
+                    Draweranim.SetBool( "isinInventory", true );
                 
-                
-                if (l < 1)
-                    l += 0.05f;
+                if ( p < 1 )
+                    p += ikPoleLerpSpeed;
 
-                handmodel.transform.rotation = hitData.collider.gameObject.transform.rotation;
+                handmodel.rotation = hitData.collider.gameObject.transform.rotation;
             }
-
             else 
             {
                 Draweranim.SetBool("isinInventory", false);
 
                 mouseWorldPos = Camera.main.ScreenToWorldPoint( new Vector3(Mouse.current.position.ReadValue().x, 
-                    Mouse.current.position.ReadValue().y, gestureCircle.transform.localPosition.z) );
+                    Mouse.current.position.ReadValue().y, gestureCircle.transform.localPosition.z ) );
 
-                if (l > 0)
-                    l -= 0.05f;
+                if ( p > 0f )
+                    p -= ikPoleLerpSpeed;
 
-                handmodel.transform.rotation = gestureCircle.transform.rotation;
+                handmodel.rotation = gestureCircle.transform.rotation;
             }
 
-            IKpole.transform.position = Vector3.Lerp(IKpoleIdle.transform.position, IKpoleNew, l);
+            IKpole.position = Vector3.Lerp( IKpoleIdle.position, IKpoleNew, p );
 
-            cursor.transform.position = mouseWorldPos;
+            worldSpaceCursor.transform.position = mouseWorldPos + ( hand.transform.forward * -handLength );
 
-            float distance = Vector3.Distance(center.transform.position, hand.transform.position);
+            float distance = Vector3.Distance( center.position, hand.position );
 
             if ( rotateHand )
             { 
-            //Hand rotates outward from the gesture circle
-            Vector3 relativepos = handmodel.transform.InverseTransformPoint( center.transform.position );
-            relativepos.y = 0;
+                //Hand rotates outward from the gesture circle
+                Vector3 relativepos = handmodel.InverseTransformPoint( center.position );
+                relativepos.y = 0f;
 
-            Vector3 targetPostition = handmodel.transform.TransformPoint( relativepos );
+                Vector3 targetPosition = handmodel.TransformPoint( relativepos );
 
-            //if in outside ring, lerp to face hand outward
-            if (distance > 0.25)
-                handmodel.transform.LookAt(targetPostition, handmodel.transform.up);
-            else
-                handmodel.transform.localRotation = Quaternion.Euler(90,0,0);
+                //if in outside ring, lerp to face hand outward
+                if ( distance > innerRingSize )
+                    handmodel.LookAt( targetPosition, handmodel.up );
+                else
+                    handmodel.localRotation = Quaternion.Euler( 90f, 0f, 0f );
             }
 
             armModeUI.SetActive( true );
             camModeUI.SetActive( false );
             gestureCircle.gameObject.SetActive( true );
-         
         }
         else
         {
-            cursor.transform.position = idle.transform.position;
+            worldSpaceCursor.transform.position = idle.position;
             armModeUI.SetActive( false );
             camModeUI.SetActive( true );
             gestureCircle.gameObject.SetActive( false );
-            handmodel.transform.rotation = gestureCircle.transform.rotation;
+            handmodel.rotation = gestureCircle.transform.rotation;
             Draweranim.SetBool( "isinInventory", false );
 
-            IKpoleNew = IKpoleIdle.transform.localPosition;
+            IKpoleNew = IKpoleIdle.localPosition;
             Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        //Check in which area of the gesture circle the hand is.
-        bool foundPos = false;
-		for ( int i = 0; i < subCircles.Length; i++ ) {
-            if ( Vector3.Distance( hand.transform.position, subCircles[ i ].transform.position ) < 
-                ( subCircles[ i ].radius * subCircles[ i ].transform.localScale.x ) ) {
-                handPos.Value = i;
-                foundPos = true;
-			}
-            if ( i == subCircles.Length - 1 && !foundPos ) {
-                handPos.Value = -1;
-			}
-		}
-    }
-
-    public void OnChangeCircle( int circle )
-	{
-        for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
-            gestureCircle.fingerSprites[ i ].SetActive( false );
-
-        if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ handPos.Value * ( fingers.Value.Length + 1 ) ].SetActive( true );
-
-        if ( circle >= 0 )
-		{
-            for ( int i = 0; i < fingers.Value.Length; i++ )
-                gestureCircle.fingerSprites[ circle * fingers.Value.Length ].SetActive( fingers.Value[ i ] );
         }
     }
 
@@ -211,20 +171,16 @@ public class Handmovement : MonoBehaviour
 	{
         if ( value.performed )
 		{
-            if ( !gestureMode )
+            if ( !isInGestureMode.Value )
 			{
-                gestureMode = true;
                 isInGestureMode.Value = true;
                 //Mouse.current.WarpCursorPosition(handEntryPos.transform.position);
                 controller.ChangeSensitivity( gestureModeLookSensitivity );
             }
 			else
 			{
-                gestureMode = false;
                 isInGestureMode.Value = false;
                 controller.ChangeSensitivity( controller.startSensitivity );
-                for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
-                    gestureCircle.fingerSprites[ i ].SetActive( false );
             }
         }
     }
@@ -235,10 +191,10 @@ public class Handmovement : MonoBehaviour
         {
             grabber.GetComponent<Collider>().enabled = true;
 
-			for ( int i = 0; i < Digits.Length; i++ )
-                Digits[ i ].GetComponent<Animator>().SetBool( "FingerOpen", true );
+			for ( int i = 0; i < fingerAnimators.Length; i++ )
+                fingerAnimators[ i ].GetComponent<Animator>().SetBool( "FingerOpen", true );
             if ( gameObject.transform.localPosition.z < 0.4f ) {
-                cursor.transform.Translate( punchdestination );
+                worldSpaceCursor.transform.Translate( punchdestination );
                 confirmGesture.Value = true;
             }
         }
@@ -247,8 +203,8 @@ public class Handmovement : MonoBehaviour
             grabber.GetComponent<Collider>().enabled = false;
             confirmGesture.Value = false;
 
-            for ( int i = 0; i < Digits.Length; i++ )
-                Digits[ i ].GetComponent<Animator>().SetBool( "FingerOpen", false );
+            for ( int i = 0; i < fingerAnimators.Length; i++ )
+                fingerAnimators[ i ].GetComponent<Animator>().SetBool( "FingerOpen", false );
 
 			for ( int i = 0; i < fingers.Value.Length; i++ )
                 fingers.Value[ i ] = false;
@@ -258,59 +214,49 @@ public class Handmovement : MonoBehaviour
         }
     }
 
-    public void OnFinger1(InputAction.CallbackContext value)
+    public void OnFinger1( InputAction.CallbackContext value )
     {
         if ( value.performed )
         {
-            Digits[0].GetComponent<Animator>().SetBool("FingerOpen", true);
+            fingerAnimators[ 0 ].SetBool( "FingerOpen", true );
             fingers.Value[ 0 ] = true;
-            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 1 ].SetActive( true );
         }
-
         if ( value.canceled )
         {
-            Digits[0].GetComponent<Animator>().SetBool("FingerOpen", false);
+            fingerAnimators[ 0 ].SetBool( "FingerOpen", false );
             fingers.Value[ 0 ] = false;
-            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 1 ].SetActive( false );
         }
         
     }
 
-    public void OnFinger2(InputAction.CallbackContext value)
+    public void OnFinger2( InputAction.CallbackContext value )
     {
-        if (value.performed)
+        if ( value.performed )
         {
-            Digits[1].GetComponent<Animator>().SetBool("FingerOpen", true);
+            fingerAnimators[ 1 ].SetBool( "FingerOpen", true );
             fingers.Value[ 1 ] = true;
-            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 2 ].SetActive( true );
         }
-
         if (value.canceled)
         {
-            Digits[1].GetComponent<Animator>().SetBool("FingerOpen", false);
+            fingerAnimators[ 1 ].SetBool( "FingerOpen", false );
             fingers.Value[ 1 ] = false;
-            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 2 ].SetActive( false );
         }
 
     }
 
-    public void OnFinger3(InputAction.CallbackContext value)
+    public void OnFinger3( InputAction.CallbackContext value )
     {
         if (value.performed)
         {
-            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", true);
+            fingerAnimators[ 2 ].SetBool( "FingerOpen", true );
             fingers.Value[ 2 ] = true;
-            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 3 ].SetActive( true );
         }
-
         if (value.canceled)
         {
-            Digits[2].GetComponent<Animator>().SetBool("FingerOpen", false );
+            fingerAnimators[ 2 ].SetBool( "FingerOpen", false );
 			fingers.Value[ 2 ] = false;
-            if ( handPos.Value >= 0 ) gestureCircle.fingerSprites[ ( handPos.Value - 1 ) * ( fingers.Value.Length + 1 ) + 3 ].SetActive( false );
         }
 
 	}
-
 }
 

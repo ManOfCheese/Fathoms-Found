@@ -113,8 +113,11 @@ public class AttentionState : State<AlienManager>
 							_owner.gc.gestureHandIndex = -1;
 							_owner.gc.endGesture = false;
 							if ( _owner.gc.standardGesture ) _owner.gc.standardGesture = false;
-							for ( int i = 0; i < gestureCircle.fingerSprites.Length; i++ )
-								gestureCircle.fingerSprites[ i ].SetActive( false );
+							for ( int i = 0; i < gestureCircle.subCircles.Length; i++ )
+							{
+								for ( int j = 0; j < gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
+									gestureCircle.subCircles[ i ].fingerSprites[ j ].SetActive( false );
+							}
 						}
 						//Set new hand target.
 						else
@@ -129,10 +132,9 @@ public class AttentionState : State<AlienManager>
 							if ( _owner.gc.wordIndex >= 0 )
 							{
 								Gesture gesture = gestures[ _owner.gc.wordIndex ];
-								gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 ].SetActive( true );
-								gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 1 ].SetActive( gesture.fingers[ 0 ] );
-								gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 2 ].SetActive( gesture.fingers[ 1 ] );
-								gestureCircle.fingerSprites[ ( gesture.circle - 1 ) * 4 + 3 ].SetActive( gesture.fingers[ 2 ] );
+								gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ 0 ].SetActive( true );
+								for ( int i = 0; i < gesture.fingers.Length; i++ )
+									gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ i + 1 ].SetActive( gesture.fingers[ 0 ] );
 							}
 
 							_owner.gc.wordIndex++;
