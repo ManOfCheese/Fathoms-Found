@@ -8,11 +8,12 @@ public class SubCircle : MonoBehaviour
 	[Header( "References" )]
 	public IntValue handPos;
 	public BoolArrayValue fingers;
-	public BoolValue showSpritesInCircle;
+	public BoolValue isInGestureMode;
 	public GameObject[] fingerSprites;
 
 	[Header( "Settings" )]
 	public bool isCentreCircle;
+	public bool showSpritesInCircle;
 	public int circleNumber;
 	public string clawTag;
 
@@ -26,7 +27,7 @@ public class SubCircle : MonoBehaviour
 	{
 		if ( other.tag == clawTag )
 		{
-			if ( showSpritesInCircle.Value )
+			if ( showSpritesInCircle && isInGestureMode.Value )
 			{
 				fingerSprites[ 0 ].SetActive( true );
 				if ( !isCentreCircle )
@@ -42,7 +43,7 @@ public class SubCircle : MonoBehaviour
 	{
 		if ( other.gameObject.tag == clawTag )
 		{
-			if ( showSpritesInCircle.Value )
+			if ( showSpritesInCircle )
 			{
 				for ( int i = 0; i < fingerSprites.Length; i++ )
 					fingerSprites[ i ].SetActive( false );
