@@ -59,8 +59,9 @@ public class Handmovement : MonoBehaviour
         //The new arm controls based on the actual mouse position
 
         Vector3 handStartPos = hand.transform.position;
+        Quaternion handStartRot = hand.transform.rotation;
 
-        hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.4f);
+        hand.transform.position = Vector3.Lerp(handStartPos, cursor.transform.position, 0.6f);
 
 
         if ( gestureMode == true )
@@ -75,7 +76,7 @@ public class Handmovement : MonoBehaviour
             if ( Physics.Raycast( ray, out hitData, 5, layerMask ) )
             {
 
-                mouseWorldPos = hitData.point;
+                mouseWorldPos = Vector3.Lerp(handStartPos, hitData.point, 0.6f);
                 Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild(0).gameObject.transform.position;
                 IKpoleNew = planeIKpole;
 
@@ -88,7 +89,7 @@ public class Handmovement : MonoBehaviour
                 if (l < 1)
                     l += 0.05f;
 
-                handmodel.transform.rotation = hitData.collider.gameObject.transform.rotation;
+                handmodel.transform.rotation = Quaternion.Lerp(handStartRot, hitData.collider.gameObject.transform.rotation, 0.4f);
             }
 
             else 
