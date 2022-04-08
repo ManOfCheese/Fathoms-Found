@@ -93,6 +93,7 @@ public class Handmovement : MonoBehaviour
             }
             else 
             {
+                gestureCircle.gameObject.SetActive( true );
                 Draweranim.SetBool("isinInventory", false);
 
                 mouseWorldPos = Camera.main.ScreenToWorldPoint( new Vector3(Mouse.current.position.ReadValue().x, 
@@ -125,9 +126,10 @@ public class Handmovement : MonoBehaviour
                     handmodel.localRotation = Quaternion.Euler( 90f, 0f, 0f );
             }
 
+            if ( !disableGestureCircleOnSnap)
+                gestureCircle.gameObject.SetActive( true );
             armModeUI.SetActive( true );
             camModeUI.SetActive( false );
-            gestureCircle.gameObject.SetActive( true );
         }
         else
         {
