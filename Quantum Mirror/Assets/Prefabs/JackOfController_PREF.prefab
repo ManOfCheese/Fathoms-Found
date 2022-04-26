@@ -910,22 +910,6 @@ MonoBehaviour:
     m_ActionId: 729bf6b2-1b39-4816-a353-ad5dab18d0bf
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2057163490480272315}
-        m_TargetAssemblyTypeName: ItemGrabber, Assembly-CSharp
-        m_MethodName: OnDrop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 1e0dbe23-1811-435c-add7-63a7049ef205
-    m_ActionName: Player/Drop/Cancel[/Keyboard/q]
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: b7762dba-0859-44d9-95f2-5ed56a0fdadb
     m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
@@ -965,38 +949,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 73e0e83c-43e8-428b-9045-6ca0390c41be
     m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 885228637}
-        m_TargetAssemblyTypeName: Handmovement, Assembly-CSharp
-        m_MethodName: OnArticaluteFingers
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 698ea8f5-ce38-41fc-a91d-2b0b78dd8f65
-    m_ActionName: Player/ToggleFingers[/Mouse/scroll/y]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 885228637}
-        m_TargetAssemblyTypeName: Handmovement, Assembly-CSharp
-        m_MethodName: OnSwitchFingerMode
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: af57c42d-3e49-47d7-b3f0-804e564627cd
-    m_ActionName: Player/SwitchModes[/Mouse/middleButton]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 885228637}
@@ -1153,6 +1105,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 72616e3e-151e-4fed-8882-387d216e0c03
     m_ActionName: Player/CycleGraph[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2474273147600859362}
+        m_TargetAssemblyTypeName: SampleTool, Assembly-CSharp
+        m_MethodName: Sample
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 69d652af-87f1-45d8-878f-b2240fb977dd
+    m_ActionName: Player/Sample[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1531,15 +1499,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b8e64daff29cdd4383ab31388624280, type: 3}
---- !u!1 &5691289652181008240 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6492768507793100768, guid: 5b8e64daff29cdd4383ab31388624280,
-    type: 3}
-  m_PrefabInstance: {fileID: 1504614893918302352}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5932447077425775731 stripped
+--- !u!4 &182677836171706121 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5095047175357314275, guid: 5b8e64daff29cdd4383ab31388624280,
+  m_CorrespondingSourceObject: {fileID: 1614672133443211161, guid: 5b8e64daff29cdd4383ab31388624280,
     type: 3}
   m_PrefabInstance: {fileID: 1504614893918302352}
   m_PrefabAsset: {fileID: 0}
@@ -1549,21 +1511,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1504614893918302352}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &182677836171706121 stripped
+--- !u!4 &5932447077425775731 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1614672133443211161, guid: 5b8e64daff29cdd4383ab31388624280,
+  m_CorrespondingSourceObject: {fileID: 5095047175357314275, guid: 5b8e64daff29cdd4383ab31388624280,
     type: 3}
   m_PrefabInstance: {fileID: 1504614893918302352}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &182677836171706126 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1614672133443211166, guid: 5b8e64daff29cdd4383ab31388624280,
-    type: 3}
-  m_PrefabInstance: {fileID: 1504614893918302352}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &585097552 stripped
+--- !u!1 &5691289652181008240 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1504614893336973760, guid: 5b8e64daff29cdd4383ab31388624280,
+  m_CorrespondingSourceObject: {fileID: 6492768507793100768, guid: 5b8e64daff29cdd4383ab31388624280,
     type: 3}
   m_PrefabInstance: {fileID: 1504614893918302352}
   m_PrefabAsset: {fileID: 0}
@@ -1579,3 +1535,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a738d58a5558ae4bbb5e16506822aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &585097552 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1504614893336973760, guid: 5b8e64daff29cdd4383ab31388624280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1504614893918302352}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2474273147600859362 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3942643190465183858, guid: 5b8e64daff29cdd4383ab31388624280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1504614893918302352}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdd5a662a2948b4bbf3f8c0256ce261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!20 &182677836171706126 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1614672133443211166, guid: 5b8e64daff29cdd4383ab31388624280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1504614893918302352}
+  m_PrefabAsset: {fileID: 0}
