@@ -364,6 +364,7 @@ Transform:
   - {fileID: 1504614893167359180}
   - {fileID: 1614672133443211161}
   - {fileID: 6096438774857011139}
+  - {fileID: 3342331290142271434}
   m_Father: {fileID: 5095047175357314275}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1695,11 +1696,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1001 &1504614893597969024
+=======
+--- !u!1001 &14115223583890164
+>>>>>>> develop2
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+<<<<<<< HEAD
     m_TransformParent: {fileID: 252325837240661162}
     m_Modifications:
     - target: {fileID: 5629398994233276922, guid: b5d3b20a059624348b8570dfa6c1b333,
@@ -1769,6 +1775,77 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5629398994233276922, guid: b5d3b20a059624348b8570dfa6c1b333,
     type: 3}
   m_PrefabInstance: {fileID: 1504614893597969024}
+=======
+    m_TransformParent: {fileID: 9173847468857751062}
+    m_Modifications:
+    - target: {fileID: 628753199173282733, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_Name
+      value: SampleTool
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb01b564e97f1f4469023f083bbca9fd, type: 3}
+--- !u!4 &3342331290142271434 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3337304904589835582, guid: fb01b564e97f1f4469023f083bbca9fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 14115223583890164}
+>>>>>>> develop2
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4170674774911783566
 PrefabInstance:
@@ -1958,6 +2035,11 @@ PrefabInstance:
       propertyPath: Draweranim
       value: 
       objectReference: {fileID: 1469276806415168429}
+    - target: {fileID: 8706991455412890503, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
+        type: 3}
+      propertyPath: disableGestureCircleOnSnap
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4edf0ff43ba23f84281cfa5c31155c5e, type: 3}
 --- !u!4 &1504614893167359180 stripped

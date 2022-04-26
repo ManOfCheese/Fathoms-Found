@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &628753199173282733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3337304904589835582}
+  - component: {fileID: 3928599778873498246}
+  m_Layer: 0
+  m_Name: SampleTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3337304904589835582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628753199173282733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1500634353979902773}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3928599778873498246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628753199173282733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdd5a662a2948b4bbf3f8c0256ce261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastFrom: {fileID: 0}
+  sensor: {fileID: 1500634353979902772}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2033
+  sensorRange: 10
+--- !u!1 &1500634353979902772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1500634353979902773}
+  - component: {fileID: 1500634353979902774}
+  - component: {fileID: 1500634353979902768}
+  - component: {fileID: 1500634353979902775}
+  m_Layer: 0
+  m_Name: Sensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1500634353979902773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500634353979902772}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.000014662743, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3337304904589835582}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1500634353979902774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500634353979902772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e216fc86e4c4ce40959478f735d7b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyToDetect: {fileID: 11400000, guid: b2c485ad7ff01724eba263e754af514a, type: 2}
+  variableObjectToUpdate: {fileID: 11400000, guid: 030fa65236a16b5439fc95ad30f0b776,
+    type: 2}
+  propertyValue: 0
+  sources: []
+--- !u!114 &1500634353979902768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500634353979902772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e216fc86e4c4ce40959478f735d7b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyToDetect: {fileID: 11400000, guid: 2f83b93a2d44ae2469ab0c65587673b5, type: 2}
+  variableObjectToUpdate: {fileID: 11400000, guid: 35a64263ce61fb648bab038141fa4c14,
+    type: 2}
+  propertyValue: 0
+  sources: []
+--- !u!114 &1500634353979902775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500634353979902772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e216fc86e4c4ce40959478f735d7b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertyToDetect: {fileID: 11400000, guid: c566f4f03313f564abc184c62170172e, type: 2}
+  variableObjectToUpdate: {fileID: 11400000, guid: 38ef9a2f39b926146b32a3746b691765,
+    type: 2}
+  propertyValue: 0
+  sources: []
