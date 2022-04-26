@@ -7,6 +7,8 @@ public class Detector : MonoBehaviour
 
 	[Header( "References" )]
 	public Property propertyToDetect;
+	[Tooltip( "If not empty this detector will save it's propertyValue into this variable object." )]
+	public FloatValue variableObjectToUpdate;
 
 	[Header( "Runtime" )]
     [ReadOnly] public float propertyValue;
@@ -24,6 +26,8 @@ public class Detector : MonoBehaviour
 			float oxygenLevel = sources[ i ].valueAtCentre * sources[ i ].fallOff.Evaluate( perc );
 			propertyValue += oxygenLevel;
 		}
+		if ( variableObjectToUpdate != null )
+			variableObjectToUpdate.Value = propertyValue;
 	}
 
 }
