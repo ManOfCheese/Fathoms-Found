@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1549482319}
-  m_IndirectSpecularColor: {r: 0.37029523, g: 0.36555907, b: 0.33333653, a: 1}
+  m_IndirectSpecularColor: {r: 0.37029475, g: 0.3655589, b: 0.33333525, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -391,18 +391,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5553df80bb988d4c899797954c9b6e5, type: 3}
---- !u!1 &274516138 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6819209360444481505, guid: c5553df80bb988d4c899797954c9b6e5,
-    type: 3}
-  m_PrefabInstance: {fileID: 274516137}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &275060982 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 182677836171706124, guid: 7802ded82b4fa404389541507f4cca5b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1128853673}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &314485894
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1054,6 +1042,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GestureDoor_PREF
+      objectReference: {fileID: 0}
+    - target: {fileID: 8295398465718956721, guid: e2178a27763d4a346bf37430cc49ba3c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8982806226774995713, guid: e2178a27763d4a346bf37430cc49ba3c,
         type: 3}
@@ -2525,14 +2518,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 563971202, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 885228637, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
-      propertyPath: reticle
-      value: 
-      objectReference: {fileID: 274516138}
     - target: {fileID: 885228637, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
       propertyPath: armModeUI
       value: 
@@ -2541,23 +2526,6 @@ PrefabInstance:
       propertyPath: camModeUI
       value: 
       objectReference: {fileID: 530056754}
-    - target: {fileID: 885228637, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
-      propertyPath: disableGestureCircleOnSnap
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1184822713, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
-      propertyPath: propertiestoDetect.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1184822713, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
-      propertyPath: propertiestoDetect.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1184822713, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
-      propertyPath: propertiestoDetect.Array.data[0].property
-      value: 
-      objectReference: {fileID: 11400000, guid: c566f4f03313f564abc184c62170172e,
-        type: 2}
     - target: {fileID: 182677836375504984, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
       propertyPath: m_RootOrder
@@ -2618,11 +2586,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: JackOfController_PREF
       objectReference: {fileID: 0}
-    - target: {fileID: 539340889154544425, guid: 7802ded82b4fa404389541507f4cca5b,
+    - target: {fileID: 1925226608084046422, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 275060982}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7802ded82b4fa404389541507f4cca5b, type: 3}
 --- !u!1 &1229005358
@@ -4157,6 +4125,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 075e810390dfe6b438e96d094ed25b13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -145470847626970340, guid: 075e810390dfe6b438e96d094ed25b13,
         type: 3}
