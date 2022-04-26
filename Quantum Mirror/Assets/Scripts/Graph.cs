@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class Graph : MonoBehaviour
 {
 
 	[Header( "Settings" )]
+	public Text propertyText;
 	public RectTransform graphContainer;
 	public GameObject graphPoint;
 	public GameObject graphLine;
@@ -15,10 +17,7 @@ public class Graph : MonoBehaviour
     public float measureInterval;
 	public float minValue;
 	public float maxValue;
-
-	[Header( "Defaults" )]
-	public Vector2 defaultPointPos;
-	public Vector2 defaultLinePos;
+	public float scrollTolerance;
 
 	private int propertyIndex;
 	private float timeStamp;
@@ -31,6 +30,7 @@ public class Graph : MonoBehaviour
 	private void Awake()
 	{
 		propertyIndex = 0;
+		propertyText.text = properties[ propertyIndex ].displayName;
 		timeStamp = Time.time;
 		graphPointRT = graphPoint.GetComponent<RectTransform>();
 
@@ -71,22 +71,31 @@ public class Graph : MonoBehaviour
 		}
 	}
 
-	public void OnNextProperty()
+	public void CycleProperty( InputAction.CallbackContext value )
 	{
-		for ( int i = 0; i < points.Length; i++ )
-			points[ i ].anchoredPosition = new Vector3( ( graphPointRT.sizeDelta.x / 2f ) + ( i * pointDistance ), 0f, 0f );
-		for ( int i = 0; i < lines.Length; i++ )
-			lines[ i ] = UpdateLinePos( lines[ i ], points[ i ], points[ i + 1 ] );
-		propertyIndex++;
-	}
+		int oldIndex = propertyIndex;
 
-	public void OnPreviousProperty()
-	{
-		for ( int i = 0; i < points.Length; i++ )
-			points[ i ].anchoredPosition = new Vector3( ( graphPointRT.sizeDelta.x / 2f ) + ( i * pointDistance ), 0f, 0f );
-		for ( int i = 0; i < lines.Length; i++ )
-			lines[ i ] = UpdateLinePos( lines[ i ], points[ i ], points[ i + 1 ] );
-		propertyIndex--;
+		if ( value.ReadValue<float>() > scrollTolerance )
+		{
+			propertyIndex++;
+			propertyIndex = Mathf.Clamp( propertyIndex, 0, properties.Length - 1 );
+		}
+		else if ( value.ReadValue<float>() < -scrollTolerance )
+		{
+			propertyIndex--;
+			propertyIndex = Mathf.Clamp( propertyIndex, 0, properties.Length - 1 );
+		}
+
+		if ( oldIndex != propertyIndex )
+		{
+			for ( int i = 0; i < valuesOverTime.Length; i++ )
+				valuesOverTime[ i ] = 0f;
+			for ( int i = 0; i < points.Length; i++ )
+				points[ i ].anchoredPosition = new Vector3( ( graphPointRT.sizeDelta.x / 2f ) + ( i * pointDistance ), 0f, 0f );
+			for ( int i = 0; i < lines.Length; i++ )
+				lines[ i ] = UpdateLinePos( lines[ i ], points[ i ], points[ i + 1 ] );
+			propertyText.text = properties[ propertyIndex ].displayName;
+		}
 	}
 
 	private RectTransform UpdateLinePos( RectTransform line, RectTransform point, RectTransform nextPoint )
