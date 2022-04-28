@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReplaceModifier : ObjModifier
+public class ReplaceModifier : Modifier
 {
 
 	public GameObject topObject; 

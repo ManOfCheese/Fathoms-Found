@@ -8,7 +8,7 @@ public enum ThresholdLogic
 	LessThan
 }
 
-public class ObjModifier : MonoBehaviour
+public class Modifier : MonoBehaviour
 {
 
 	[Header( "Generic - References" )]
@@ -71,7 +71,7 @@ public class ObjModifier : MonoBehaviour
 
 	public virtual void OnStart( Object obj )
 	{
-		for ( int i = 0; i < obj.detectors.Length; i++ )
+		for ( int i = 0; i < obj.detectors.Count; i++ )
 		{
 			if ( obj.detectors[ i ].propertyToDetect.propertyName == property.propertyName )
 				detector = obj.detectors[ i ];

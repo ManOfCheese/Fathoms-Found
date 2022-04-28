@@ -24,9 +24,9 @@ public class GenericSensor : MonoBehaviour
 			{
                 Object obj = hit.transform.GetComponentInChildren<Object>();
                 string propertiesText = "";
-				for ( int i = 0; i < obj.properties.Length; i++ )
+				for ( int i = 0; i < obj.currentValues.Count; i++ )
 				{
-                    propertiesText += obj.properties[ i ].property.propertyName + " = " + obj.properties[ i ].value + "\n";
+                    propertiesText += obj.currentValues[ i ].property.propertyName + " = " + obj.currentValues[ i ].value + "\n";
 				}
                 sensorText.text = propertiesText;
 			}

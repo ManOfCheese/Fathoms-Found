@@ -10,7 +10,7 @@ public enum AnimParameterType
     Int
 }
 
-public class AnimationModifier : ObjModifier
+public class AnimationModifier : Modifier
 {
 
     [Header( "References" )]

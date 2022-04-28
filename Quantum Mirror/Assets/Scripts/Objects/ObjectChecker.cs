@@ -34,19 +34,19 @@ public class ObjectChecker : MonoBehaviour
 			for ( int i = 0; i < propertyRequirements.Length; i++ )
 			{
 				propertyFound = false;
-				for ( int j = 0; j < obj.properties.Length; j++ )
+				for ( int j = 0; j < obj.currentValues.Count; j++ )
 				{
-					if ( obj.properties[ j ].property.propertyName == propertyRequirements[ i ].propertyName )
+					if ( obj.currentValues[ j ].property.propertyName == propertyRequirements[ i ].propertyName )
 					{
 						propertyFound = true;
 						switch ( logicExpressions[ i ].thresholdLogic )
 						{
 							case ThresholdLogic.LessThan:
-								if ( obj.properties[ j ].value <= logicExpressions[ i ].thresholdValue )
+								if ( obj.currentValues[ j ].value <= logicExpressions[ i ].thresholdValue )
 									requirementsMet[ i ] = true;
 								break;
 							case ThresholdLogic.MoreThan:
-								if ( obj.properties[ j ].value >= logicExpressions[ i ].thresholdValue )
+								if ( obj.currentValues[ j ].value >= logicExpressions[ i ].thresholdValue )
 									requirementsMet[ i ] = true;
 								break;
 							default:
