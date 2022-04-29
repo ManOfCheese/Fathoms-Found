@@ -9,6 +9,7 @@ public class Object : MonoBehaviour
 
 	[Header( "References" )]
 	public Properties_Set allProperties;
+	public GameObject objectVisuals;
 	public GameObject detectorPrefab;
 	public GameObject sourcePrefab;
 	public List<GameObject> modifierPrefabs;
