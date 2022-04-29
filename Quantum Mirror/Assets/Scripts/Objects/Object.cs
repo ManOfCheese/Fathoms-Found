@@ -14,6 +14,7 @@ public class Object : MonoBehaviour
 	public List<GameObject> modifierPrefabs;
 
 	[Header( "Settings" )]
+	public AnimationCurve defaultCurve;
 	public PropertyInfo[] baseValues;
 	public SourceInfo[] sourceSettings;
 
@@ -25,7 +26,7 @@ public class Object : MonoBehaviour
 	private bool updateProperties;
 	private Dictionary<Detector, PropertyInfo> propertyInfoByDetector;
 	private Dictionary<Source, PropertyInfo> propertyInfoBySource;
-	private List<Property> nonInherentProperties;
+	private List<Property> sourceProperties;
 	private GameObject detectorContainer;
 	private GameObject sourceContainer;
 	private GameObject modifierContainer;
@@ -50,13 +51,17 @@ public class Object : MonoBehaviour
 			if ( !allProperties.Items[ i ].isInherent )
 			{
 				index++;
-
 				detectors.Add( Instantiate( detectorPrefab, detectorContainer.transform ).GetComponent<Detector>() );
 				detectors[ index ].propertyToDetect = allProperties.Items[ i ];
-
-				sources.Add( Instantiate( sourcePrefab, sourceContainer.transform ).GetComponent<Source>() );
-				sources[ index ].sourceOf = allProperties.Items[ i ];
 			}
+		}
+
+		for ( int i = 0; i < sourceSettings.Length; i++ )
+		{
+			sources.Add( Instantiate( sourcePrefab, sourceContainer.transform ).GetComponent<Source>() );
+			sources[ i ].sourceOf = sourceSettings[ i ].property;
+			sources[ i ].valueAtCentre = sourceSettings[ i ].valueAtCentre;
+			sources[ i ].fallOff = sourceSettings[ i ].fallOff;
 		}
 
 		//Initialize Dictionaries
@@ -111,26 +116,54 @@ public class Object : MonoBehaviour
 	private void OnValidate()
 	{
 		if ( allProperties == null ) { return; }
-		
-		baseValues = new PropertyInfo[ allProperties.Items.Count ];
-		for ( int i = 0; i < baseValues.Length; i++ )
+
+		if ( baseValues == null )
 		{
-			baseValues[ i ] = new PropertyInfo( allProperties.Items[ i ] );
+			baseValues = new PropertyInfo[ allProperties.Items.Count ];
+			for ( int i = 0; i < baseValues.Length; i++ )
+				baseValues[ i ] = new PropertyInfo( allProperties.Items[ i ] );
 		}
-		
-		nonInherentProperties = new List<Property>();
-		nonInherentProperties.Clear();
-		for ( int i = 0; i < allProperties.Items.Count; i++ )
+		else
 		{
-			if ( !allProperties.Items[ i ].isInherent )
-				nonInherentProperties.Add( allProperties.Items[ i ] );
+			PropertyInfo[] newValues = new PropertyInfo[ allProperties.Items.Count ];
+			for ( int i = 0; i < newValues.Length; i++ )
+				newValues[ i ] = new PropertyInfo( allProperties.Items[ i ] );
+
+			for ( int i = 0; i < newValues.Length; i++ )
+			{
+				for ( int j = 0; j < baseValues.Length; j++ )
+				{
+					if ( newValues[ i ].property.propertyName == baseValues[ j ].property.propertyName )
+						newValues[ i ].value = baseValues[ j ].value;
+				}
+			}
+			baseValues = newValues;
 		}
 
-		sourceSettings = new SourceInfo[ nonInherentProperties.Count ];
-		for ( int i = 0; i < sourceSettings.Length; i++ )
+		sourceProperties = new List<Property>();
+		sourceProperties.Clear();
+		for ( int i = 0; i < baseValues.Length; i++ )
 		{
-			sourceSettings[ i ] = new SourceInfo( nonInherentProperties[ i ].propertyName );
-			sourceSettings[ i ].property = nonInherentProperties[ i ].propertyName;
+			if ( !baseValues[ i ].property.isInherent && baseValues[ i ].value > 0 )
+			{
+				sourceProperties.Add( allProperties.Items[ i ] );
+			}
+		}
+
+		if ( sourceSettings.Length != sourceProperties.Count )
+		{
+			sourceSettings = new SourceInfo[ sourceProperties.Count ];
+			for ( int i = 0; i < sourceSettings.Length; i++ )
+			{
+				sourceSettings[ i ] = new SourceInfo( sourceProperties[ i ] );
+				sourceSettings[ i ].property = sourceProperties[ i ];
+				for ( int j = 0; j < baseValues.Length; j++ )
+				{
+					if ( baseValues[ j ].property.propertyName == sourceProperties[ i ].propertyName )
+						sourceSettings[ i ].valueAtCentre = baseValues[ j ].value;
+				}
+				sourceSettings[ i ].fallOff = defaultCurve;
+			}
 		}
 	}
 
@@ -157,12 +190,12 @@ public class PropertyInfo
 [System.Serializable]
 public class SourceInfo
 {
-	public SourceInfo( string _property )
+	public SourceInfo( Property _property )
 	{
 		property = _property;
 	}
 
-	[ReadOnly] public string property;
-	public float valueAtCentre;
+	[ReadOnly] public Property property;
+	[ReadOnly] public float valueAtCentre;
 	public AnimationCurve fallOff;
 }
