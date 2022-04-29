@@ -42,18 +42,23 @@ public class SampleTool : MonoBehaviour
 	{
 		if ( value.performed && objectInRay != null )
 		{
-			if ( sampleBall != null )
-				Destroy( sampleBall );
 			sampleBall = Instantiate( sampleBallPrefab, ballTransform.position, ballTransform.rotation, ballTransform.transform );
-			Transform sample = Instantiate( objectInRay, sampleBall.transform.position, sampleBall.transform.rotation, sampleBall.transform ).transform;
-			
-			if ( sample.GetComponent<MeshRenderer>() && sampleBall.GetComponent<MeshRenderer>() )
+			Transform sample = Instantiate( objectInRay.objectVisuals, sampleBall.transform.position, sampleBall.transform.rotation, sampleBall.transform ).transform;
+			sampleBall.gameObject.layer = 3;
+			sample.gameObject.layer = 3;
+			for ( int i = 0; i < sample.transform.childCount; i++ )
 			{
-				MeshRenderer sampleCollider = sample.GetComponent<MeshRenderer>();
+				sample.transform.GetChild( i ).gameObject.layer = 3;
+			}
+
+			if ( sample.GetComponentInChildren<MeshRenderer>() && sampleBall.GetComponent<MeshRenderer>() )
+			{
+				MeshRenderer sampleCollider = sample.GetComponentInChildren<MeshRenderer>();
 				MeshRenderer ballCollider = sampleBall.GetComponent<MeshRenderer>();
 				sample.transform.localScale *=
 					Mathf.Max( ballCollider.bounds.size.x, ballCollider.bounds.size.y, ballCollider.bounds.size.z ) /
 					Mathf.Max( sampleCollider.bounds.size.x, sampleCollider.bounds.size.y, sampleCollider.bounds.size.z ) * scaleModifier;
+				sampleBall = null;
 			}
 		}
 	}

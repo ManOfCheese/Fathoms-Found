@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8287754054724182036}
-  - component: {fileID: 8287754054724182040}
-  - component: {fileID: 8287754054724182041}
   - component: {fileID: 8287754054724182042}
+  - component: {fileID: 9087733837990663496}
   m_Layer: 0
   m_Name: Rock_Logic
   m_TagString: Untagged
@@ -36,67 +35,6 @@ Transform:
   m_Father: {fileID: 8287754056417679985}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8287754054724182040
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8287754054724182037}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.86
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8287754054724182041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8287754054724182037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ec29447f84daaa47bdf50f504018616, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sourceOf: {fileID: 11400000, guid: 2f83b93a2d44ae2469ab0c65587673b5, type: 2}
-  valueAtCentre: 10
-  fallOff:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.1323967
-      value: 0.999115
-      inSlope: -0.8001118
-      outSlope: -0.8001118
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.4683503
-      value: 0.51845026
-      inSlope: -1.9098557
-      outSlope: -1.9098557
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.63812256
-      value: 0.0058059692
-      inSlope: -3.0195997
-      outSlope: -3.0195997
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  sphereCollider: {fileID: 0}
 --- !u!114 &8287754054724182042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wa: 0
   allProperties: {fileID: 11400000, guid: bb97f000cbe8be74da610ccefe973d61, type: 2}
+  objectVisuals: {fileID: 10671246102553220}
   detectorPrefab: {fileID: 5098773359148546037, guid: de835504295e19443bd96bb26306b08d,
     type: 3}
   sourcePrefab: {fileID: 2511488556975214814, guid: 687922ed4fb157d40a88751554080bc9,
@@ -175,6 +114,19 @@ MonoBehaviour:
   modifiers: []
   detectors: []
   sources: []
+--- !u!135 &9087733837990663496
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287754054724182037}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.96
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8287754054846223096
 GameObject:
   m_ObjectHideFlags: 0
