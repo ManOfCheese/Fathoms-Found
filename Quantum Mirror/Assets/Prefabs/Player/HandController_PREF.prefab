@@ -657,7 +657,7 @@ MonoBehaviour:
   idle: {fileID: 4119043783825668307}
   IKpoleIdle: {fileID: 8491051102440666775}
   disableGestureCircleOnSnap: 1
-  handLength: 0.3
+  handLength: -0.2
   innerRingSize: 0.25
   ikPoleLerpSpeed: 0.05
   snapToRange: 5
@@ -679,6 +679,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8706991455412890502}
     m_Modifications:
+    - target: {fileID: 1288968163858283153, guid: 3adcd069849e30b499e10f6742167d99,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.36933
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288968163858283153, guid: 3adcd069849e30b499e10f6742167d99,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.36933
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288968163858283153, guid: 3adcd069849e30b499e10f6742167d99,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.36933
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288968163858283153, guid: 3adcd069849e30b499e10f6742167d99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1288968163858283153, guid: 3adcd069849e30b499e10f6742167d99,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.808
+      objectReference: {fileID: 0}
     - target: {fileID: 2585922711855564220, guid: 3adcd069849e30b499e10f6742167d99,
         type: 3}
       propertyPath: m_RootOrder
@@ -744,7 +769,8 @@ PrefabInstance:
       propertyPath: targetTransform
       value: 
       objectReference: {fileID: 3982309261782420091}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4262892918066754629, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
 --- !u!4 &7519776565596466995 stripped
 Transform:
@@ -770,18 +796,48 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 5456278008130906767}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7654605526091465237 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2414502087318022298, guid: 3adcd069849e30b499e10f6742167d99,
-    type: 3}
-  m_PrefabInstance: {fileID: 5456278008130906767}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4346315475530184142 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8640614472302026561, guid: 3adcd069849e30b499e10f6742167d99,
     type: 3}
   m_PrefabInstance: {fileID: 5456278008130906767}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7654605526091465237 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2414502087318022298, guid: 3adcd069849e30b499e10f6742167d99,
+    type: 3}
+  m_PrefabInstance: {fileID: 5456278008130906767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &918083650
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654605526091465237}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &918083646
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654605526091465237}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.50000036
+  m_Height: 11.01
+  m_Direction: 1
+  m_Center: {x: 0.00000001116786, y: -3.07, z: 0.000000046936222}
 --- !u!1001 &7082199219066702245
 PrefabInstance:
   m_ObjectHideFlags: 0
