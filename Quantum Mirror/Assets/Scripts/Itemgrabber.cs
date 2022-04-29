@@ -29,7 +29,7 @@ public class Itemgrabber : MonoBehaviour
 
     public void OnUseHand(InputAction.CallbackContext value)
     {
-        //when I click, look for a colliding sample and grab it
+        //when I click, look for a colliding sample slot and grab the sample in it
         if ( value.performed )
         {
             if ( selectedSlot != null && selectedSlot.childCount != 0 )
@@ -37,6 +37,7 @@ public class Itemgrabber : MonoBehaviour
                 Debug.Log("Grab!");
 
                 currentSample = selectedSlot.GetChild(0);
+                Debug.Log(currentSample);
                 currentSample.transform.SetParent(gameObject.transform);
                 currentSample.transform.localPosition = Vector3.zero;
             }
