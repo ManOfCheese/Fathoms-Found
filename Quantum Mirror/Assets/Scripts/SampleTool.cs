@@ -19,7 +19,7 @@ public class SampleTool : MonoBehaviour
 	public LayerMask layerMask;
 	public float sensorRange;
 
-	private GameObject objectInRay;
+	private Object objectInRay;
 	private GameObject sampleBall;
 
 	private void Update()
@@ -28,7 +28,8 @@ public class SampleTool : MonoBehaviour
 		if ( Physics.Raycast( raycastFrom.position, raycastFrom.forward, out hit, sensorRange, layerMask ) )
 		{
 			sensor.transform.position = hit.point;
-			objectInRay = hit.transform.gameObject;
+			if ( hit.transform.gameObject.GetComponent<Object>() != null )
+				objectInRay = hit.transform.gameObject.GetComponent<Object>();
 		}
 		else
 		{

@@ -14,8 +14,8 @@ public class ObjectProperty : MonoBehaviour
     public Property property;
 
     public Detector detector;
-    public List<ObjModifier> lowValueModifiers = new List<ObjModifier>();
-    public List<ObjModifier> highValueModifiers = new List<ObjModifier>();
+    public List<Modifier> lowValueModifiers = new List<Modifier>();
+    public List<Modifier> highValueModifiers = new List<Modifier>();
 	public float startValue;
     public float changeIfUnderThisValue;
     public float changeIfOverThisValue;

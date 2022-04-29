@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorShiftModifier : ObjModifier
+public class ColorShiftModifier : Modifier
 {
 
 	[Header( "References" )]

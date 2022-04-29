@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor( typeof( ObjModifier ) ), CanEditMultipleObjects]
+[CustomEditor( typeof( Modifier ) ), CanEditMultipleObjects]
 public class ObjModifierEditor : Editor
 {
     public SerializedProperty
