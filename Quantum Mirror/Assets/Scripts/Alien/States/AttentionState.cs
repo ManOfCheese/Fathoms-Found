@@ -76,9 +76,9 @@ public class AttentionState : State<AlienManager>
 			if ( _owner.gc.standardGesture )
 			{
 				gestures = new List<Gesture>();
-				for ( int i = 0; i < _owner.standardResponse.words.Count; i++ )
+				for ( int i = 0; i < _owner.gc.standardResponse.words.Count; i++ )
 				{
-					gestures.Add( _owner.standardResponse.words[ i ] );
+					gestures.Add( _owner.gc.standardResponse.words[ i ] );
 				}
 			}
 			else
@@ -156,36 +156,6 @@ public class AttentionState : State<AlienManager>
 					else
 						hand.transform.position = Vector3.MoveTowards( hand.transform.position, _owner.gc.handTarget, speed );
 				}
-			}
-		}
-
-		if ( _owner.gc.pointing )
-		{
-			AlienIKHandler hand = _owner.gc.hands[ _owner.gc.pointHandIndex ];
-
-			if ( _owner.gc.waiting )
-			{
-				if ( Time.time - _owner.gc.pointHoldTimeStamp > _owner.gc.holdPointFor )
-					_owner.gc.waiting = false;
-			}
-			else
-			{
-				float speed = _owner.gc.pointSpeed * Time.deltaTime;
-				if ( speed > Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) )
-				{
-					hand.transform.position = _owner.gc.handTarget;
-
-					if ( _owner.gc.handTarget != _owner.gc.idleHandTargets[ _owner.gc.pointHandIndex ].position )
-					{
-						_owner.gc.pointHoldTimeStamp = Time.time;
-						_owner.gc.waiting = true;
-						_owner.gc.handTarget = _owner.gc.idleHandTargets[ _owner.gc.pointHandIndex ].position;
-					}
-					else
-						_owner.gc.pointing = false;
-				}
-				else
-					hand.transform.position = Vector3.MoveTowards( hand.transform.position, _owner.gc.handTarget, speed );
 			}
 		}
 	}

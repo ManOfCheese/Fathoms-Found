@@ -34,41 +34,40 @@ public class AlienMovementController : MonoBehaviour
     [Tooltip( "How often in seconds should the alien switch destination" )]
     public float changeDestinationTime;
     [Tooltip( "How close in units should the alien be to it's destination to consider it reached, this is from center to center." )]
-    public float destinationReachedWindow;
+    public float tolerance;
 
-    //None mode
+    [Header( "None Settings" )]
     [Tooltip( "What is the minimum distance in units between the current position and the new destination." )]
     public float minDistance;
     [Tooltip( "What is the maximum distance in units between the current position and the new destination." )]
     public float maxDistance;
 
-    //Torus mode
+    [Header( "Torus Settings" )]
     public Transform torusCenter;
     [Tooltip( "What is the inner radius in units of the torus." )]
     public float torusInnerRadius;
     [Tooltip( "What is the outer radius in units of the torus." )]
     public float torusOuterRadius;
 
-    //Circle mode
+    [Header( "Circle Settings" )]
     public Transform circleCenter;
     [Tooltip( "What is the radius in units of the circle." )]
     public float circleRadius;
 
     [Header( "Runtime" )]
     [ReadOnly] public float bodyHeight;
-    [ReadOnly] public Vector3 destination;
 
     [HideInInspector] public float idleDestinationTimestamp;
 
 	private void Awake()
 	{
+        agent = GetComponentInParent<NavMeshAgent>();
+        
         agent.speed = speed;
         agent.destination = transform.position;
 
 		for ( int i = 0; i < hands.Length; i++ )
-		{
             hands[ i ].speed = speed;
-		}
 	}
 
 	private void OnValidate()
@@ -77,62 +76,55 @@ public class AlienMovementController : MonoBehaviour
             agent.speed = speed;
 
         for ( int i = 0; i < hands.Length; i++ )
-        {
             hands[ i ].speed = speed;
-        }
     }
 
-	public void EvaluateMovement( bool isFirstDestination )
-	{
-        switch ( movementMode )
-        {
-            case MovementMode.Static:
-                break;
-            case MovementMode.PointToPoint:
-                if ( CheckDestinationReached() || isFirstDestination )
-                {
-                    SetDestination( CheckWanderShape() );
-                }
-                break;
-            case MovementMode.Timed:
-                if ( Time.time - idleDestinationTimestamp > changeDestinationTime || isFirstDestination )
-                {
-                    SetDestination( CheckWanderShape() );
-                    idleDestinationTimestamp = Time.time;
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    public Vector3 CheckWanderShape()
+    public void Wander()
 	{
         switch ( movementShape )
         {
             case MovementShape.Torus:
-                return GetRandomPos( torusCenter.transform.position, torusInnerRadius, torusOuterRadius );
+                agent.destination = GetRandomPos( torusCenter.transform.position, torusInnerRadius, torusOuterRadius );
+                break;
             case MovementShape.Circle:
-                return GetRandomPos( circleCenter.transform.position, 0f, circleRadius );
+                if ( circleCenter != null )
+                    agent.destination = GetRandomPos( circleCenter.transform.position, 0f, circleRadius );
+                else
+                    agent.destination = GetRandomPos( Vector3.zero, 0f, circleRadius );
+                break;
             case MovementShape.None:
-                return GetRandomPos( transform.position, minDistance, maxDistance );
+                agent.destination = GetRandomPos( transform.position, minDistance, maxDistance );
+                break;
             default:
-                return GetRandomPos( transform.position, minDistance, maxDistance );
+                agent.destination = GetRandomPos( transform.position, minDistance, maxDistance );
+                break;
         }
     }
 
-    public void SetDestination( Vector3 _destination )
+    public TheKiwiCoder.Node.State EvaluateWander()
     {
-        destination = _destination;
-        agent.destination = _destination;
-    }
-
-    public bool CheckDestinationReached()
-    {
-        if ( Vector3.Distance( destination, transform.position ) < destinationReachedWindow )
-            return true;
-        else
-            return false;
+        switch ( movementMode )
+        {
+            case MovementMode.Static:
+                return TheKiwiCoder.Node.State.Success;
+            case MovementMode.PointToPoint:
+                if ( agent.remainingDistance < tolerance )
+                    return TheKiwiCoder.Node.State.Success;
+                else if ( agent.pathStatus == NavMeshPathStatus.PathInvalid )
+                    return TheKiwiCoder.Node.State.Failure;
+                else
+                    return TheKiwiCoder.Node.State.Running;
+            case MovementMode.Timed:
+                if ( Time.time - idleDestinationTimestamp > changeDestinationTime )
+                {
+                    idleDestinationTimestamp = Time.time;
+                    return TheKiwiCoder.Node.State.Success;
+                }
+                else
+                    return TheKiwiCoder.Node.State.Running;
+            default:
+                return TheKiwiCoder.Node.State.Success;
+        }
     }
 
     public Vector3 GetRandomPos( Vector3 center, float min, float max )
@@ -146,7 +138,7 @@ public class AlienMovementController : MonoBehaviour
     }
 
     public Vector3 RandomizeDirection( Vector2 randomTarget )
-	{
+    {
         int invertX = Random.Range( 0, 2 );
         int invertY = Random.Range( 0, 2 );
 
@@ -164,9 +156,14 @@ public class AlienMovementController : MonoBehaviour
         return finalDestination;
     }
 
+    public void MoveToObjectOfType()
+	{
+
+	}
+
 	private void OnDrawGizmos()
 	{
-        Gizmos.DrawSphere( destination, 2 );
+        Gizmos.DrawSphere( agent.destination, 2 );
         if ( circleCenter )
             Gizmos.DrawWireSphere( circleCenter.transform.position, circleRadius );
         if ( torusCenter ) {

@@ -12,26 +12,26 @@ public class MoveToPosition : ActionNode
     public float tolerance = 1.0f;
 
     protected override void OnStart() {
-        context.agent.stoppingDistance = stoppingDistance;
-        context.agent.speed = speed;
-        context.agent.destination = blackboard.moveToPosition;
-        context.agent.updateRotation = updateRotation;
-        context.agent.acceleration = acceleration;
+        context.moveController.agent.stoppingDistance = stoppingDistance;
+        context.moveController.agent.speed = speed;
+        context.moveController.agent.updateRotation = updateRotation;
+        context.moveController.agent.acceleration = acceleration;
+        context.moveController.agent.destination = blackboard.moveToPosition;
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        if (context.agent.pathPending) {
+        if ( context.moveController.agent.pathPending ) {
             return State.Running;
         }
 
-        if (context.agent.remainingDistance < tolerance) {
+        if ( context.moveController.agent.remainingDistance < tolerance ) {
             return State.Success;
         }
 
-        if (context.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathInvalid) {
+        if ( context.moveController.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathInvalid ) {
             return State.Failure;
         }
 

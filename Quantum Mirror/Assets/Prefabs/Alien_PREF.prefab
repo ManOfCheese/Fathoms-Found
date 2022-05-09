@@ -3067,7 +3067,6 @@ MonoBehaviour:
   player: {fileID: 0}
   moveTarget: {fileID: 0}
   pointTarget: {fileID: 0}
-  standardResponse: {fileID: 11400000, guid: dd1b939303eef8b409044a9bdcb6983c, type: 2}
   interactDistance: 0
   attentionDistance: 50
   interestDuration: 0
@@ -3116,6 +3115,7 @@ MonoBehaviour:
   gestureLibrary: {fileID: 11400000, guid: c7ad4e18ea75b2e4eb55456a27815fcd, type: 2}
   responses: {fileID: 11400000, guid: e76663091c58e594eb686e0b880ea171, type: 2}
   actionResponses: {fileID: 11400000, guid: abb5d4c739eb37340afd75387af0adcc, type: 2}
+  standardResponse: {fileID: 0}
   holdStart: 0
   gestureSpeed: 5
   holdGestureFor: 3
@@ -3135,6 +3135,7 @@ MonoBehaviour:
   pointHandIndex: -1
   sentenceIndex: 0
   wordIndex: 0
+  respondGCode: 
   preGestureHandPos: {x: 0, y: 0, z: 0}
   repositionedLegs: 
   playerGestures: []
@@ -3153,7 +3154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a6e4e6c54d79f488eb4cc6b28f61be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 2101344780168200542}
   hands:
   - {fileID: 3212807522618574264}
   - {fileID: 8580479925270609438}
