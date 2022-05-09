@@ -7,5 +7,6 @@ public class Property : PersistentSetElement
 {
 
     public string propertyName;
+    public bool isInherent;
 
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddComponentModifier : ObjModifier
+public class AddComponentModifier : Modifier
 {
 
 	public GameObject component;

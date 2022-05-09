@@ -33,33 +33,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Drop/Cancel",
-                    "type": "Button",
-                    "id": "1e0dbe23-1811-435c-add7-63a7049ef205",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ArticulateFingers",
-                    "type": "Value",
-                    "id": "698ea8f5-ce38-41fc-a91d-2b0b78dd8f65",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SwitchFingerMode",
-                    "type": "Button",
-                    "id": "af57c42d-3e49-47d7-b3f0-804e564627cd",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "UseHand",
                     "type": "Button",
                     "id": "60149ca1-1936-4e1f-8b1a-a17c434b137a",
@@ -126,6 +99,24 @@
                     "name": "Finger3",
                     "type": "Button",
                     "id": "ed6489e6-ab09-449e-9402-5f1297ef4aed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CycleGraph",
+                    "type": "PassThrough",
+                    "id": "72616e3e-151e-4fed-8882-387d216e0c03",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sample",
+                    "type": "Button",
+                    "id": "69d652af-87f1-45d8-878f-b2240fb977dd",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -289,83 +280,6 @@
                 },
                 {
                     "name": "",
-                    "id": "02cba0c6-871d-4fa4-9433-21fdec67b067",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Drop/Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f563d01a-d330-4d30-bb41-22752ba24622",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick;Gamepad",
-                    "action": "Drop/Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8e3ab841-e6dd-41b1-a8d4-88eaa1e4d931",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "ArticulateFingers",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "ad5ed70f-92ba-4578-a81f-48c104f81e9a",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ArticulateFingers",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "836bfadc-0127-4150-aacd-06ee42dcd21b",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ArticulateFingers",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "4070328b-03c1-4419-9d68-54d280ff1cc5",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ArticulateFingers",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "3fe32e1d-2e4f-4c3a-8d6f-bf59907744b4",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "SwitchFingerMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1ed5272e-ab0f-43af-9b76-d2865ace9a97",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -399,8 +313,8 @@
                 },
                 {
                     "name": "",
-                    "id": "96c82e3e-3d99-4ec6-bacd-04f4bb3435ee",
-                    "path": "<Mouse>/rightButton",
+                    "id": "ac39f781-d9c9-4313-a7ea-e193bae89757",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -410,8 +324,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ac39f781-d9c9-4313-a7ea-e193bae89757",
-                    "path": "<Gamepad>/buttonNorth",
+                    "id": "26150d79-d3d2-4158-b517-05dd88261db9",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -570,6 +484,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4300e6e4-6645-433e-8515-10c48cc03590",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "CycleGraph",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f16d0709-423b-40c2-98fc-3ab84a534f06",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Sample",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

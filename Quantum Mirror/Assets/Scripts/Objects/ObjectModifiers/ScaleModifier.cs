@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScaleModifier : ObjModifier
+public class ScaleModifier : Modifier
 {
 
     public Transform objTransform;
