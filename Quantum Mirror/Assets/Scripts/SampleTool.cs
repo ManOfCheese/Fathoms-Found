@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class SampleTool : MonoBehaviour
 {
 
+	public BoolValue isInGestureMode;
+
 	[Header( "Sampler  Settings" )]
 	public GameObject sampleTool;
 	public Transform ballTransform;
@@ -40,7 +42,7 @@ public class SampleTool : MonoBehaviour
 
 	public void Sample( InputAction.CallbackContext value )
 	{
-		if ( value.performed && objectInRay != null )
+		if ( value.performed && objectInRay != null && !isInGestureMode.Value )
 		{
 			sampleBall = Instantiate( sampleBallPrefab, ballTransform.position, ballTransform.rotation, ballTransform.transform );
 			Transform sample = Instantiate( objectInRay.objectVisuals, sampleBall.transform.position, sampleBall.transform.rotation, sampleBall.transform ).transform;
