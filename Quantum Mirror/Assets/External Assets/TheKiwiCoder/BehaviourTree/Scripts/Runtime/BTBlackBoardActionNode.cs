@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class #SCRIPTNAME# : BTActionNode
+public class BTBlackBoardActionNode : BTNode
 {
+
+    public Blackboard targetBlackboard;
+    public Blackboard.BlackboardValueType valueType;
+    public string key;
+
     protected override void OnStart() {
     }
 

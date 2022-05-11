@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class #SCRIPTNAME# : BTActionNode
+public class BTMakeGesture : BTActionNode
 {
     protected override void OnStart() {
+        context.gestureController.SetGesture();
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        return State.Success;
+        return context.gestureController.Gesture();
     }
 }

@@ -16,12 +16,11 @@ namespace TheKiwiCoder {
         }
 
         protected override void RegisterCallbacksOnTarget() {
-            target.RegisterCallback<MouseDownEvent>(OnMouseDown);
+            target.RegisterCallback<MouseDownEvent>( OnMouseDown );
         }
 
         protected override void UnregisterCallbacksFromTarget() {
-
-            target.UnregisterCallback<MouseDownEvent>(OnMouseDown);
+            target.UnregisterCallback<MouseDownEvent>( OnMouseDown );
         }
 
         private void OnMouseDown(MouseDownEvent evt) {
@@ -30,9 +29,8 @@ namespace TheKiwiCoder {
                 return;
 
             double duration = EditorApplication.timeSinceStartup - time;
-            if (duration < doubleClickDuration) {
+            if ( duration < doubleClickDuration )
                 SelectChildren(evt);
-            }
 
             time = EditorApplication.timeSinceStartup;
         }
@@ -40,24 +38,25 @@ namespace TheKiwiCoder {
         void SelectChildren(MouseDownEvent evt) {
 
             var graphView = target as BehaviourTreeView;
-            if (graphView == null)
+            if ( graphView == null )
                 return;
 
-            if (!CanStopManipulation(evt))
+            if ( !CanStopManipulation( evt ) )
                 return;
 
             NodeView clickedElement = evt.target as NodeView;
-            if (clickedElement == null) {
+            if ( clickedElement == null ) 
+            {
                 var ve = evt.target as VisualElement;
                 clickedElement = ve.GetFirstAncestorOfType<NodeView>();
-                if (clickedElement == null)
+                if ( clickedElement == null )
                     return;
             }
 
             // Add children to selection so the root element can be moved
-            BehaviourTree.Traverse(clickedElement.node, node => {
-                var view = graphView.FindNodeView(node);
-                graphView.AddToSelection(view);
+            BehaviourTree.Traverse( clickedElement.node, node => {
+                var view = graphView.FindNodeView( node );
+                graphView.AddToSelection( view );
             });
         }
     }

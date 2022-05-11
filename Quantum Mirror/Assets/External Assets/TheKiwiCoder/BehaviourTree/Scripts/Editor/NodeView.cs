@@ -11,14 +11,14 @@ namespace TheKiwiCoder {
 
     public class NodeView : UnityEditor.Experimental.GraphView.Node {
         public Action<NodeView> OnNodeSelected;
-        public Node node;
+        public BTNode node;
         public Port input;
         public Port output;
 
-        public NodeView(Node node) : base(AssetDatabase.GetAssetPath(BehaviourTreeSettings.GetOrCreateSettings().nodeXml)) {
+        public NodeView( BTNode node ) : base( AssetDatabase.GetAssetPath( BehaviourTreeSettings.GetOrCreateSettings().nodeXml ) ) {
             this.node = node;
             this.node.name = node.GetType().Name;
-            this.title = node.name.Replace("(Clone)", "").Replace("Node", "");
+            this.title = node.name.Replace( "(Clone)", "" ).Replace( "Node", "" );
             this.viewDataKey = node.guid;
 
             style.left = node.position.x;
@@ -31,102 +31,109 @@ namespace TheKiwiCoder {
         }
 
         private void SetupDataBinding() {
-            Label descriptionLabel = this.Q<Label>("description");
+            Label descriptionLabel = this.Q<Label>( "description" );
             descriptionLabel.bindingPath = "description";
-            descriptionLabel.Bind(new SerializedObject(node));
+            descriptionLabel.Bind( new SerializedObject( node ) );
         }
 
         private void SetupClasses() {
-            if (node is ActionNode) {
-                AddToClassList("action");
-            } else if (node is CompositeNode) {
-                AddToClassList("composite");
-            } else if (node is DecoratorNode) {
-                AddToClassList("decorator");
-            } else if (node is RootNode) {
-                AddToClassList("root");
-            }
+            if ( node is BTActionNode )
+                AddToClassList( "action" );
+            else if ( node is BTBlackBoardActionNode )
+                AddToClassList( "blackbaord" );           
+            else if ( node is BTCompositeNode )
+                AddToClassList( "composite" );
+            else if ( node is BTDecoratorNode )
+                AddToClassList( "decorator" );
+            else if ( node is BTRootNode )
+                AddToClassList( "root");
         }
 
         private void CreateInputPorts() {
-            if (node is ActionNode) {
-                input = new NodePort(Direction.Input, Port.Capacity.Single);
-            } else if (node is CompositeNode) {
-                input = new NodePort(Direction.Input, Port.Capacity.Single);
-            } else if (node is DecoratorNode) {
-                input = new NodePort(Direction.Input, Port.Capacity.Single);
-            } else if (node is RootNode) {
+            if ( node is BTActionNode )
+                input = new NodePort( Direction.Input, Port.Capacity.Single );
+            else if ( node is BTBlackBoardActionNode )
+                input = new NodePort( Direction.Input, Port.Capacity.Single );
+            else if ( node is BTCompositeNode )
+                input = new NodePort( Direction.Input, Port.Capacity.Single );
+            else if ( node is BTDecoratorNode )
+                input = new NodePort( Direction.Input, Port.Capacity.Single );
+            else if ( node is BTRootNode ) {
 
             }
 
-            if (input != null) {
+            if ( input != null ) {
                 input.portName = "";
                 input.style.flexDirection = FlexDirection.Column;
-                inputContainer.Add(input);
+                inputContainer.Add( input );
             }
         }
 
         private void CreateOutputPorts() {
-            if (node is ActionNode) {
+            if (node is BTActionNode )
+			{
 
-            } else if (node is CompositeNode) {
-                output = new NodePort(Direction.Output, Port.Capacity.Multi);
-            } else if (node is DecoratorNode) {
-                output = new NodePort(Direction.Output, Port.Capacity.Single);
-            } else if (node is RootNode) {
-                output = new NodePort(Direction.Output, Port.Capacity.Single);
-            }
+			}
+            else if ( node is BTBlackBoardActionNode )
+			{
 
-            if (output != null) {
+			}
+            else if ( node is BTCompositeNode )
+                output = new NodePort( Direction.Output, Port.Capacity.Multi );
+            else if ( node is BTDecoratorNode )
+                output = new NodePort( Direction.Output, Port.Capacity.Single );
+            else if ( node is BTRootNode )
+                output = new NodePort( Direction.Output, Port.Capacity.Single );
+
+            if ( output != null ) {
                 output.portName = "";
                 output.style.flexDirection = FlexDirection.ColumnReverse;
-                outputContainer.Add(output);
+                outputContainer.Add( output );
             }
         }
 
-        public override void SetPosition(Rect newPos) {
-            base.SetPosition(newPos);
-            Undo.RecordObject(node, "Behaviour Tree (Set Position");
+        public override void SetPosition( Rect newPos ) {
+            base.SetPosition( newPos );
+            Undo.RecordObject( node, "Behaviour Tree (Set Position" );
             node.position.x = newPos.xMin;
             node.position.y = newPos.yMin;
-            EditorUtility.SetDirty(node);
+            EditorUtility.SetDirty( node );
         }
 
         public override void OnSelected() {
             base.OnSelected();
-            if (OnNodeSelected != null) {
-                OnNodeSelected.Invoke(this);
+            if ( OnNodeSelected != null ) {
+                OnNodeSelected.Invoke( this );
             }
         }
 
         public void SortChildren() {
-            if (node is CompositeNode composite) {
-                composite.children.Sort(SortByHorizontalPosition);
+            if ( node is BTCompositeNode composite ) {
+                composite.children.Sort( SortByHorizontalPosition );
             }
         }
 
-        private int SortByHorizontalPosition(Node left, Node right) {
+        private int SortByHorizontalPosition( BTNode left, BTNode right ) {
             return left.position.x < right.position.x ? -1 : 1;
         }
 
         public void UpdateState() {
 
-            RemoveFromClassList("running");
-            RemoveFromClassList("failure");
-            RemoveFromClassList("success");
+            RemoveFromClassList( "running" );
+            RemoveFromClassList( "failure" );
+            RemoveFromClassList( "success" );
 
-            if (Application.isPlaying) {
-                switch (node.state) {
-                    case Node.State.Running:
-                        if (node.started) {
-                            AddToClassList("running");
-                        }
+            if ( Application.isPlaying ) {
+                switch ( node.state ) {
+                    case BTNode.State.Running:
+                        if (node.started)
+                            AddToClassList( "running" );
                         break;
-                    case Node.State.Failure:
-                        AddToClassList("failure");
+                    case BTNode.State.Failure:
+                        AddToClassList( "failure" );
                         break;
-                    case Node.State.Success:
-                        AddToClassList("success");
+                    case BTNode.State.Success:
+                        AddToClassList( "success" );
                         break;
                 }
             }

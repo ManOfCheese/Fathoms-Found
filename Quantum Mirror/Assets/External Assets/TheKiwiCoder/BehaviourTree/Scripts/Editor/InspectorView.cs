@@ -14,18 +14,18 @@ namespace TheKiwiCoder {
 
         }
 
-        internal void UpdateSelection(NodeView nodeView) {
+        internal void UpdateSelection( NodeView nodeView ) {
             Clear();
 
-            UnityEngine.Object.DestroyImmediate(editor);
+            UnityEngine.Object.DestroyImmediate( editor );
 
-            editor = Editor.CreateEditor(nodeView.node);
-            IMGUIContainer container = new IMGUIContainer(() => {
-                if (editor && editor.target) {
+            editor = Editor.CreateEditor( nodeView.node );
+            IMGUIContainer container = new IMGUIContainer( () => {
+                if ( editor && editor.target ) {
                     editor.OnInspectorGUI();
                 }
-            });
-            Add(container);
+            } );
+            Add( container );
         }
     }
 }

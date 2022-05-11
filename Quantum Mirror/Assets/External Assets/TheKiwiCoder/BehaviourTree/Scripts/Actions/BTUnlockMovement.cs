@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class #SCRIPTNAME# : BTActionNode
+public class BTUnlockMovement : BTActionNode
 {
     protected override void OnStart() {
+        context.moveController.agent.isStopped = false;
     }
 
     protected override void OnStop() {

@@ -104,7 +104,7 @@ public class AlienGestureController : MonoBehaviour
 		return targetObjects.Items[ closestObjectIndex ].transform;
 	}
 
-	public TheKiwiCoder.Node.State Point()
+	public TheKiwiCoder.BTNode.State Point()
 	{
 		AlienIKHandler hand = hands[ pointHandIndex ];
 
@@ -127,12 +127,12 @@ public class AlienGestureController : MonoBehaviour
 					handTarget = idleHandTargets[ pointHandIndex ].position;
 				}
 				else
-					return TheKiwiCoder.Node.State.Success;
+					return TheKiwiCoder.BTNode.State.Success;
 			}
 			else
 				hand.transform.position = Vector3.MoveTowards( hand.transform.position, handTarget, speed );
 		}
-		return TheKiwiCoder.Node.State.Running;
+		return TheKiwiCoder.BTNode.State.Running;
 	}
 
 	public void SetGesture()
@@ -182,7 +182,7 @@ public class AlienGestureController : MonoBehaviour
 		preGestureHandPos = hands[ gestureHandIndex ].transform.position;
 	}
 
-	public TheKiwiCoder.Node.State Gesture()
+	public TheKiwiCoder.BTNode.State Gesture()
 	{
 		GestureCircle gestureCircle = gestureCircles[ gestureHandIndex ];
 		AlienIKHandler hand = hands[ gestureHandIndex ];
@@ -233,7 +233,7 @@ public class AlienGestureController : MonoBehaviour
 							for ( int j = 0; j < gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
 								gestureCircle.subCircles[ i ].fingerSprites[ j ].SetActive( false );
 						}
-						return TheKiwiCoder.Node.State.Success;
+						return TheKiwiCoder.BTNode.State.Success;
 					}
 					//Set new hand target.
 					else
@@ -273,7 +273,7 @@ public class AlienGestureController : MonoBehaviour
 					hand.transform.position = Vector3.MoveTowards( hand.transform.position, handTarget, speed );
 			}
 		}
-		return TheKiwiCoder.Node.State.Running;
+		return TheKiwiCoder.BTNode.State.Running;
 	}
 
 	public void OnSentence( List<int> sentenceCode ) {

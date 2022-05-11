@@ -101,29 +101,29 @@ public class AlienMovementController : MonoBehaviour
         }
     }
 
-    public TheKiwiCoder.Node.State EvaluateWander()
+    public TheKiwiCoder.BTNode.State EvaluateWander()
     {
         switch ( movementMode )
         {
             case MovementMode.Static:
-                return TheKiwiCoder.Node.State.Success;
+                return TheKiwiCoder.BTNode.State.Success;
             case MovementMode.PointToPoint:
                 if ( agent.remainingDistance < tolerance )
-                    return TheKiwiCoder.Node.State.Success;
+                    return TheKiwiCoder.BTNode.State.Success;
                 else if ( agent.pathStatus == NavMeshPathStatus.PathInvalid )
-                    return TheKiwiCoder.Node.State.Failure;
+                    return TheKiwiCoder.BTNode.State.Failure;
                 else
-                    return TheKiwiCoder.Node.State.Running;
+                    return TheKiwiCoder.BTNode.State.Running;
             case MovementMode.Timed:
                 if ( Time.time - idleDestinationTimestamp > changeDestinationTime )
                 {
                     idleDestinationTimestamp = Time.time;
-                    return TheKiwiCoder.Node.State.Success;
+                    return TheKiwiCoder.BTNode.State.Success;
                 }
                 else
-                    return TheKiwiCoder.Node.State.Running;
+                    return TheKiwiCoder.BTNode.State.Running;
             default:
-                return TheKiwiCoder.Node.State.Success;
+                return TheKiwiCoder.BTNode.State.Success;
         }
     }
 
