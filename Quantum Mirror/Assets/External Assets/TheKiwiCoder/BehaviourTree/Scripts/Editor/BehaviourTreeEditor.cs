@@ -23,7 +23,7 @@ namespace TheKiwiCoder {
         BehaviourTreeSettings settings;
 
         SerializedObject treeObject;
-        SerializedProperty blackboardManagerProperty;
+        SerializedProperty blackboardProperty;
 
         [MenuItem( "TheKiwiCoder/BehaviourTreeEditor ..." )]
         public static void OpenWindow() {
@@ -78,9 +78,10 @@ namespace TheKiwiCoder {
             // Blackboard view
             blackboardView = root.Q<IMGUIContainer>();
             blackboardView.onGUIHandler = () => {
-                if ( treeObject != null && treeObject.targetObject != null ) {
+                if ( treeObject != null && treeObject.targetObject != null )
+                {
                     treeObject.Update();
-                    EditorGUILayout.PropertyField( blackboardManagerProperty );
+                    EditorGUILayout.PropertyField( blackboardProperty );
                     treeObject.ApplyModifiedProperties();
                 }
             };
@@ -103,7 +104,7 @@ namespace TheKiwiCoder {
             createNewTreeButton = root.Q<Button>( "CreateButton" );
             createNewTreeButton.clicked += () => CreateNewTree( treeNameField.value );
 
-            if (tree == null)
+            if ( tree == null )
                 OnSelectionChange();
             else
                 SelectTree( tree );
@@ -118,8 +119,8 @@ namespace TheKiwiCoder {
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
         }
 
-        private void OnPlayModeStateChanged(PlayModeStateChange obj) {
-            switch (obj) {
+        private void OnPlayModeStateChanged( PlayModeStateChange obj ) {
+            switch ( obj ) {
                 case PlayModeStateChange.EnteredEditMode:
                     OnSelectionChange();
                     break;
@@ -136,7 +137,7 @@ namespace TheKiwiCoder {
         private void OnSelectionChange() {
             EditorApplication.delayCall += () => {
                 BehaviourTree tree = Selection.activeObject as BehaviourTree;
-                if (!tree) {
+                if ( !tree ) {
                     if (Selection.activeGameObject) {
                         BehaviourTreeRunner runner = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>();
                         if (runner) {
@@ -145,7 +146,7 @@ namespace TheKiwiCoder {
                     }
                 }
 
-                SelectTree(tree);
+                SelectTree( tree );
             };
         }
 
@@ -165,7 +166,7 @@ namespace TheKiwiCoder {
                 treeView.PopulateView( tree );
             
             treeObject = new SerializedObject( tree );
-            blackboardManagerProperty = treeObject.FindProperty( "blackboardManager" );
+            blackboardProperty = treeObject.FindProperty( "blackboard" );
 
             EditorApplication.delayCall += () => {
                 treeView.FrameAll();

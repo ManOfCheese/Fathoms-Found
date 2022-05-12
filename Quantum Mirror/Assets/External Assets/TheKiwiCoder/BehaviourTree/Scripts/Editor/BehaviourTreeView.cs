@@ -65,13 +65,6 @@ namespace TheKiwiCoder {
             DeleteElements( graphElements.ToList() );
             graphViewChanged += OnGraphViewChanged;
 
-            if ( tree.blackboardManager == null )
-            {
-                tree.blackboardManager = tree.CreateBlackboardManager( typeof( BlackboardManager ) ) as BlackboardManager;
-                EditorUtility.SetDirty( tree );
-                AssetDatabase.SaveAssets();
-            }
-
             if ( tree.rootNode == null ) 
             {
                 tree.rootNode = tree.CreateNode( typeof( BTRootNode ) ) as BTRootNode;

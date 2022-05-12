@@ -15,27 +15,28 @@ namespace TheKiwiCoder {
         void Start() {
             context = CreateBehaviourTreeContext();
             tree = tree.Clone();
-            tree.Bind(context);
+            tree.BindBlackboard();
+            tree.BindContext( context );
         }
 
         // Update is called once per frame
         void Update() {
-            if (tree) {
+            if ( tree ) {
                 tree.Update();
             }
         }
 
         Context CreateBehaviourTreeContext() {
-            return Context.CreateFromGameObject(gameObject);
+            return Context.CreateFromGameObject( gameObject );
         }
 
         private void OnDrawGizmosSelected() {
-            if (!tree) {
+            if ( !tree ) {
                 return;
             }
 
-            BehaviourTree.Traverse(tree.rootNode, (n) => {
-                if (n.drawGizmos) {
+            BehaviourTree.Traverse( tree.rootNode, ( n ) => {
+                if ( n.drawGizmos ) {
                     n.OnDrawGizmos();
                 }
             });

@@ -14,7 +14,7 @@ public class BTMoveToPosition : BTBlackBoardActionNode
     protected override void OnStart() {
         context.moveController.agent.stoppingDistance = stoppingDistance;
         context.moveController.agent.speed = speed;
-        context.moveController.agent.destination = targetBlackboard.GetData( "MoveToPosition", targetBlackboard.vector3s, new Vector3() );
+        context.moveController.agent.destination = blackboard.GetData( "MoveToPosition", blackboard.vector3s, new Vector3() );
         context.moveController.agent.updateRotation = updateRotation;
         context.moveController.agent.acceleration = acceleration;
     }

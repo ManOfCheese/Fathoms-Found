@@ -20,7 +20,6 @@ public class BTRepeatFor : BTDecoratorNode
 
     protected override State OnUpdate()
     {
-        Debug.Log( Time.time - startTime + " - " + duration );
         if ( Time.time - startTime < duration )
             return State.Running;
         else

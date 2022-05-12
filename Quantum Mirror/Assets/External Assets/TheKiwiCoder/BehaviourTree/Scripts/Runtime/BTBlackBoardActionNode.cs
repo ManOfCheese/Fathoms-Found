@@ -6,7 +6,6 @@ using TheKiwiCoder;
 public class BTBlackBoardActionNode : BTNode
 {
 
-    public Blackboard targetBlackboard;
     public Blackboard.BlackboardValueType valueType;
     public string key;
 

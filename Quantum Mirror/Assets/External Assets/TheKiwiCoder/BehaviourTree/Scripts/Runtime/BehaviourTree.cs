@@ -7,14 +7,21 @@ using UnityEditor;
 
 
 namespace TheKiwiCoder {
-    [CreateAssetMenu()]
     public class BehaviourTree : ScriptableObject {
         public BTNode rootNode;
         public BTNode.State treeState = BTNode.State.Running;
         public List<BTNode> nodes = new List<BTNode>();
-        public BlackboardManager blackboardManager;
+        public Blackboard blackboard;
 
-        public BTNode.State Update() {
+		//private void OnValidate()
+		//{
+  //          if ( rootNode != null )
+		//	{
+  //              BindBlackboard();
+  //          }
+		//}
+
+		public BTNode.State Update() {
             if ( rootNode.state == BTNode.State.Running )
                 treeState = rootNode.Update();
             return treeState;
@@ -54,10 +61,16 @@ namespace TheKiwiCoder {
             return tree;
         }
 
-        public void Bind( Context context ) {
+        public void BindContext( Context context ) {
             Traverse( rootNode, node => {
                 node.context = context;
-                node.bbManager = blackboardManager;
+            } );
+        }
+
+        public void BindBlackboard()
+        {
+            Traverse( rootNode, node => {
+                node.blackboard = blackboard;
             } );
         }
 
@@ -69,46 +82,18 @@ namespace TheKiwiCoder {
             BTNode node = ScriptableObject.CreateInstance( type ) as BTNode;
             node.name = type.Name;
             node.guid = GUID.Generate().ToString();
-            node.bbManager = blackboardManager;
+            node.blackboard = blackboard;
 
-            Undo.RecordObject(this, "Behaviour Tree (CreateNode)");
+            Undo.RecordObject( this, "Behaviour Tree (CreateNode)" );
             nodes.Add( node );
 
-            if (!Application.isPlaying)
+            if ( !Application.isPlaying )
                 AssetDatabase.AddObjectToAsset( node, this );
 
             Undo.RegisterCreatedObjectUndo( node, "Behaviour Tree (CreateNode)" );
 
             AssetDatabase.SaveAssets();
             return node;
-        }
-
-        public BlackboardManager CreateBlackboardManager( System.Type type )
-		{
-            BlackboardManager blackboardManager = ScriptableObject.CreateInstance( type ) as BlackboardManager;
-            blackboardManager.name = type.Name;
-
-            if ( !Application.isPlaying )
-                AssetDatabase.AddObjectToAsset( blackboardManager, this );
-
-            Undo.RegisterCreatedObjectUndo( blackboardManager, "Behaviour Tree (CreateBlackBoardManager)" );
-
-            AssetDatabase.SaveAssets();
-            return blackboardManager;
-        }
-
-        public Blackboard CreateBlackboard( System.Type type )
-        {
-            Blackboard blackboard = ScriptableObject.CreateInstance( type ) as Blackboard;
-            blackboard.name = type.Name;
-
-            if ( !Application.isPlaying )
-                AssetDatabase.AddObjectToAsset( blackboard, this );
-
-            Undo.RegisterCreatedObjectUndo( blackboard, "Behaviour Tree (CreateBlackBoard)" );
-
-            AssetDatabase.SaveAssets();
-            return blackboard;
         }
 
         public void DeleteNode( BTNode node ) {

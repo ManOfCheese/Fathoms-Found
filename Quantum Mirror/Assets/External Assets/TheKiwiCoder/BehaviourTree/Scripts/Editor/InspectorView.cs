@@ -21,9 +21,8 @@ namespace TheKiwiCoder {
 
             editor = Editor.CreateEditor( nodeView.node );
             IMGUIContainer container = new IMGUIContainer( () => {
-                if ( editor && editor.target ) {
+                if ( editor && editor.target )
                     editor.OnInspectorGUI();
-                }
             } );
             Add( container );
         }

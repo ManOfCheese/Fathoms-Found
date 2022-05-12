@@ -27,7 +27,7 @@ public class BTIsLookingAt : BTDecoratorNode
         {
             if ( hit.transform.GetComponentInChildren<AlienManager>() == agent )
             {
-                Debug.Log( "bingpot" );
+                Debug.Log( hit.collider.gameObject.name );
                 return child.Update();
             }
         }
