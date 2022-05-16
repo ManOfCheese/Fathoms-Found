@@ -7,7 +7,7 @@ public class AlienGestureController : MonoBehaviour
 {
 
 	[Header( "References" )]
-    public AlienIKHandler[] hands;
+    public HandInfo[] hands;
 	public GestureCircle[] gestureCircles;
 	public Transform[] idleHandTargets;
 	public GestureListener gestureListener;
@@ -106,7 +106,7 @@ public class AlienGestureController : MonoBehaviour
 
 	public TheKiwiCoder.BTNode.State Point()
 	{
-		AlienIKHandler hand = hands[ pointHandIndex ];
+		AlienIKHandler hand = hands[ pointHandIndex ].ikHandler;
 
 		if ( waiting )
 		{
@@ -179,13 +179,13 @@ public class AlienGestureController : MonoBehaviour
 		wordIndex = -1;
 		startGesture = true;
 		waiting = false;
-		preGestureHandPos = hands[ gestureHandIndex ].transform.position;
+		preGestureHandPos = hands[ gestureHandIndex ].ikHandler.transform.position;
 	}
 
 	public TheKiwiCoder.BTNode.State Gesture()
 	{
 		GestureCircle gestureCircle = gestureCircles[ gestureHandIndex ];
-		AlienIKHandler hand = hands[ gestureHandIndex ];
+		AlienIKHandler hand = hands[ gestureHandIndex ].ikHandler;
 
 		List<Gesture> gestures;
 		if ( standardGesture )
@@ -285,4 +285,11 @@ public class AlienGestureController : MonoBehaviour
 	private void OnDrawGizmos() {
 		Gizmos.DrawCube( handTarget, Vector3.one );
 	}
+}
+
+[System.Serializable]
+public class HandInfo
+{
+	public AlienIKHandler ikHandler;
+	public Animator[] fingerAnimators;
 }
