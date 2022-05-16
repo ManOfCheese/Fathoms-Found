@@ -25,6 +25,7 @@ public class Object : MonoBehaviour
 	[HideInInspector] public List<Source> sources;
 
 	private bool updateProperties;
+	private bool updateModifiers;
 	private Dictionary<Detector, PropertyInfo> propertyInfoByDetector;
 	private Dictionary<Source, PropertyInfo> propertyInfoBySource;
 	private List<Property> sourceProperties;
@@ -94,15 +95,13 @@ public class Object : MonoBehaviour
 		}
 	}
 
-	public void UpdateProperties( bool _updateProperties )
-	{
-		updateProperties = _updateProperties;
-	}
-
 	private void Update()
 	{
-		for ( int i = 0; i < modifiers.Count; i++ )
-			modifiers[ i ].UpdateProperty();
+		if ( updateModifiers )
+		{
+			for ( int i = 0; i < modifiers.Count; i++ )
+				modifiers[ i ].UpdateProperty();
+		}
 
 		//Update values.
 		if ( updateProperties )
@@ -112,6 +111,26 @@ public class Object : MonoBehaviour
 			for ( int i = 0; i < sources.Count; i++ )
 				propertyInfoBySource[ sources[ i ] ].value += sources[ i ].valueAtCentre;
 		}
+	}
+
+	public void Seal()
+	{
+		for ( int i = 0; i < sources.Count; i++ )
+			sources[ i ].gameObject.SetActive( false );
+		for ( int i = 0; i < detectors.Count; i++ )
+			detectors[ i ].enabled = false;
+		updateModifiers = false;
+		updateProperties = false;
+	}
+
+	public void Unseal()
+	{
+		for ( int i = 0; i < sources.Count; i++ )
+			sources[ i ].gameObject.SetActive( true );
+		for ( int i = 0; i < detectors.Count; i++ )
+			detectors[ i ].enabled = true;
+		updateModifiers = true;
+		updateProperties = true;
 	}
 
 	private void OnValidate()
