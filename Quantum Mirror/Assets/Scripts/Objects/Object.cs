@@ -9,7 +9,7 @@ public class Object : MonoBehaviour
 
 	[Header( "References" )]
 	public Properties_Set allProperties;
-	public GameObject objectVisuals;
+	public MeshRenderer meshRenderer;
 	public GameObject detectorPrefab;
 	public GameObject sourcePrefab;
 	public List<GameObject> modifierPrefabs;
@@ -64,6 +64,10 @@ public class Object : MonoBehaviour
 			sources[ i ].sourceOf = sourceSettings[ i ].property;
 			sources[ i ].valueAtCentre = sourceSettings[ i ].valueAtCentre;
 			sources[ i ].fallOff = sourceSettings[ i ].fallOff;
+			SphereCollider sphereCollider = sources[ i ].gameObject.AddComponent<SphereCollider>();
+			sources[ i ].sphereCollider = sphereCollider;
+			sphereCollider.isTrigger = true;
+			sphereCollider.radius = sourceSettings[ i ].radius;
 		}
 
 		//Initialize Dictionaries
@@ -165,9 +169,7 @@ public class Object : MonoBehaviour
 		for ( int i = 0; i < baseValues.Length; i++ )
 		{
 			if ( !baseValues[ i ].property.isInherent && baseValues[ i ].value > 0 )
-			{
 				sourceProperties.Add( allProperties.Items[ i ] );
-			}
 		}
 
 		if ( sourceSettings.Length != sourceProperties.Count )
@@ -177,12 +179,15 @@ public class Object : MonoBehaviour
 			{
 				sourceSettings[ i ] = new SourceInfo( sourceProperties[ i ] );
 				sourceSettings[ i ].property = sourceProperties[ i ];
-				for ( int j = 0; j < baseValues.Length; j++ )
-				{
-					if ( baseValues[ j ].property.propertyName == sourceProperties[ i ].propertyName )
-						sourceSettings[ i ].valueAtCentre = baseValues[ j ].value;
-				}
 				sourceSettings[ i ].fallOff = defaultCurve;
+			}
+		}
+		for ( int i = 0; i < sourceSettings.Length; i++ )
+		{
+			for ( int j = 0; j < baseValues.Length; j++ )
+			{
+				if ( baseValues[ j ].property.propertyName == sourceProperties[ i ].propertyName )
+					sourceSettings[ i ].valueAtCentre = baseValues[ j ].value;
 			}
 		}
 	}
@@ -218,4 +223,5 @@ public class SourceInfo
 	[ReadOnly] public Property property;
 	[ReadOnly] public float valueAtCentre;
 	public AnimationCurve fallOff;
+	public float radius;
 }

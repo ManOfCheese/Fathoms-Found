@@ -25,8 +25,8 @@ public class SampleTool : MonoBehaviour
 	public LayerMask layerMask;
 	public float sensorRange;
 
-	[ReadOnly] private Object objectInRay;
-	[ReadOnly] private Object sampleInGun;
+	[ReadOnly] public GameObject objectInRay;
+	[ReadOnly] public Object sampleInGun;
 
 	private void OnEnable()
 	{
@@ -44,11 +44,15 @@ public class SampleTool : MonoBehaviour
 	private void Update()
 	{
 		RaycastHit hit;
+		Debug.DrawRay( raycastFrom.position, raycastFrom.forward * sensorRange, Color.red );
 		if ( Physics.Raycast( raycastFrom.position, raycastFrom.forward, out hit, sensorRange, layerMask ) )
 		{
 			sensor.transform.position = hit.point;
+			//Debug.Log( hit.transform.gameObject.name );
 			if ( hit.transform.gameObject.GetComponent<Object>() != null )
-				objectInRay = hit.transform.gameObject.GetComponent<Object>();
+				objectInRay = hit.transform.parent.gameObject;
+			else
+				objectInRay = null;
 		}
 		else
 		{
@@ -62,27 +66,27 @@ public class SampleTool : MonoBehaviour
 		if ( value.performed && objectInRay != null && !isInGestureMode.Value && sampleSlot.sampleInSlot == null )
 		{
 			sampleSlot.sampleInSlot = Instantiate( sampleBallPrefab, sampleSlot.transform.position, sampleSlot.transform.rotation, sampleSlot.transform );
-			Transform sample = Instantiate( objectInRay.transform.parent, sampleSlot.sampleInSlot.transform.position, sampleSlot.sampleInSlot.transform.rotation, 
+			Transform sample = Instantiate( objectInRay, sampleSlot.sampleInSlot.transform.position, sampleSlot.sampleInSlot.transform.rotation, 
 				sampleSlot.sampleInSlot.transform ).transform;
 			sampleInGun = sample.GetComponentInChildren<Object>();
 			sampleInGun.Seal();
 
-			sampleInGun.gameObject.layer = 3;
+			Destroy( sampleInGun.GetComponent<Rigidbody>() );
+			Collider[] sampleColliders = sampleInGun.GetComponents<Collider>();
+			for ( int i = 0; i < sampleColliders.Length; i++ )
+				Destroy( sampleColliders[ i ] );
+
 			sample.gameObject.layer = 3;
 			for ( int i = 0; i < sample.transform.childCount; i++ )
 				sample.transform.GetChild( i ).gameObject.layer = 3;
 
-			if ( sample.GetComponentInChildren<MeshRenderer>() && sampleInGun.GetComponent<MeshRenderer>() )
-			{
-				MeshRenderer sampleCollider = sample.GetComponentInChildren<MeshRenderer>();
-				MeshRenderer ballCollider = sampleInGun.GetComponent<MeshRenderer>();
-				sample.transform.localScale *=
-					Mathf.Max( ballCollider.bounds.size.x, ballCollider.bounds.size.y, ballCollider.bounds.size.z ) /
-					Mathf.Max( sampleCollider.bounds.size.x, sampleCollider.bounds.size.y, sampleCollider.bounds.size.z ) * scaleModifier;
-			}
+			MeshRenderer ballCollider = sampleSlot.sampleInSlot.GetComponent<MeshRenderer>();
+			sampleInGun.meshRenderer.gameObject.transform.localScale *=
+				Mathf.Max( ballCollider.bounds.size.x, ballCollider.bounds.size.y, ballCollider.bounds.size.z ) /
+				Mathf.Max( sampleInGun.meshRenderer.bounds.size.x, sampleInGun.meshRenderer.bounds.size.y, sampleInGun.meshRenderer.bounds.size.z ) * scaleModifier;
 
 			if ( !duplicateSample )
-				Destroy( objectInRay.transform.parent.gameObject );
+				Destroy( objectInRay.gameObject );
 		}
 	}
 
@@ -102,6 +106,7 @@ public class SampleTool : MonoBehaviour
 
 			sampleSlot.OnItemRemoved( sampleSlot.sampleInSlot );
 			sampleSlot.sampleInSlot = null;
+			sampleInGun = null;
 		}
 	}
 
