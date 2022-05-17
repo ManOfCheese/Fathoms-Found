@@ -138,6 +138,11 @@ public class SampleTool : MonoBehaviour
 				sucking = true;
 			}
 		}
+		else if ( sampleSlot.sampleInSlot != null )
+		{
+			toolAnimator.SetTrigger( "Error" );
+		}
+
 		if ( value.canceled )
 		{
 			tractorBeam.SetActive( false );
