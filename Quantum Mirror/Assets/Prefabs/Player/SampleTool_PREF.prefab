@@ -195,7 +195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdd5a662a2948b4bbf3f8c0256ce261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toolAnimator: {fileID: 1295390356505421288}
   isInGestureMode: {fileID: 11400000, guid: a467da39a7702f242b30b3ac345142d1, type: 2}
+  tractorBeam: {fileID: 4399648486358928703}
   sampleBallPrefab: {fileID: 5747062680300440071, guid: 06c3f833b05d99a48a5e4399bda5f55f,
     type: 3}
   sampleTool: {fileID: 628753199173282733}
@@ -204,7 +206,7 @@ MonoBehaviour:
   duplicateSample: 1
   sampleDuration: 1
   scaleModifier: 0.75
-  ejectionStrength: 10
+  ejaculationStrength: 10
   raycastFrom: {fileID: 0}
   sensor: {fileID: 1500634353979902772}
   layerMask:
@@ -255,6 +257,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SampleMakerTool_PREF
       objectReference: {fileID: 0}
+    - target: {fileID: 575146553727790267, guid: a41248e0465c26d4a95d4fc5feadde56,
+        type: 3}
+      propertyPath: sampleTool
+      value: 
+      objectReference: {fileID: 257710049602760774}
     - target: {fileID: 1006767070149542764, guid: a41248e0465c26d4a95d4fc5feadde56,
         type: 3}
       propertyPath: m_RootOrder
@@ -315,6 +322,18 @@ PrefabInstance:
 --- !u!4 &3436469533011374842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1006767070149542764, guid: a41248e0465c26d4a95d4fc5feadde56,
+    type: 3}
+  m_PrefabInstance: {fileID: 2470237064546447766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1295390356505421288 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3725089525093078142, guid: a41248e0465c26d4a95d4fc5feadde56,
+    type: 3}
+  m_PrefabInstance: {fileID: 2470237064546447766}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4399648486358928703 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2253694793408920745, guid: a41248e0465c26d4a95d4fc5feadde56,
     type: 3}
   m_PrefabInstance: {fileID: 2470237064546447766}
   m_PrefabAsset: {fileID: 0}
