@@ -34,7 +34,7 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public bool repositioning;
 	[ReadOnly] public bool pointing = false;
 	[ReadOnly] public bool gesturing = false;
-	[ReadOnly] public bool waiting = false;
+	[ReadOnly] public bool holdingGesture = false;
 	[ReadOnly] public bool startGesture = false;
 	[ReadOnly] public bool endGesture = false;
 	[ReadOnly] public bool standardGesture = false;
@@ -108,10 +108,10 @@ public class AlienGestureController : MonoBehaviour
 	{
 		AlienIKHandler hand = hands[ pointHandIndex ].ikHandler;
 
-		if ( waiting )
+		if ( holdingGesture )
 		{
 			if ( Time.time - pointHoldTimeStamp > holdPointFor )
-				waiting = false;
+				holdingGesture = false;
 		}
 		else
 		{
@@ -123,7 +123,7 @@ public class AlienGestureController : MonoBehaviour
 				if ( handTarget != idleHandTargets[ pointHandIndex ].position )
 				{
 					pointHoldTimeStamp = Time.time;
-					waiting = true;
+					holdingGesture = true;
 					handTarget = idleHandTargets[ pointHandIndex ].position;
 				}
 				else
@@ -178,7 +178,7 @@ public class AlienGestureController : MonoBehaviour
 		gesturing = true;
 		wordIndex = -1;
 		startGesture = true;
-		waiting = false;
+		holdingGesture = false;
 		preGestureHandPos = hands[ gestureHandIndex ].ikHandler.transform.position;
 	}
 
@@ -186,24 +186,27 @@ public class AlienGestureController : MonoBehaviour
 	{
 		GestureCircle gestureCircle = gestureCircles[ gestureHandIndex ];
 		AlienIKHandler hand = hands[ gestureHandIndex ].ikHandler;
+		Animator[] fingerAnimators = hands[ gestureHandIndex ].fingerAnimators;
 
 		List<Gesture> gestures;
 		if ( standardGesture )
 		{
 			gestures = new List<Gesture>();
 			for ( int i = 0; i < standardResponse.words.Count; i++ )
-			{
 				gestures.Add( standardResponse.words[ i ] );
-			}
 		}
 		else
 			gestures = responses.Items[ sentenceIndex ].words;
 
 		//Hold Gesture
-		if ( waiting )
+		if ( holdingGesture )
 		{
 			if ( Time.time - gestureHoldTimeStamp > holdGestureFor )
-				waiting = false;
+			{
+				holdingGesture = false;
+				for ( int i = 0; i < fingerAnimators.Length; i++ )
+					fingerAnimators[ i ].SetBool( "FingerOpen", false );
+			}
 		}
 		else
 		{
@@ -224,7 +227,7 @@ public class AlienGestureController : MonoBehaviour
 					{
 						gesturing = false;
 						gestureCircle.gameObject.SetActive( false );
-						waiting = false;
+						holdingGesture = false;
 						gestureHandIndex = -1;
 						endGesture = false;
 						if ( standardGesture ) standardGesture = false;
@@ -241,8 +244,14 @@ public class AlienGestureController : MonoBehaviour
 						hand.transform.position = handTarget;
 						if ( holdStart || wordIndex >= 0 && !holdStart )
 						{
+							for ( int i = 0; i < fingerAnimators.Length; i++ )
+							{
+								if ( gestures[ wordIndex ].fingers[ i ] )
+									fingerAnimators[ i ].SetBool( "FingerOpen", true );
+							}
+
 							gestureHoldTimeStamp = Time.time;
-							waiting = true;
+							holdingGesture = true;
 						}
 
 						if ( wordIndex >= 0 )

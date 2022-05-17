@@ -85,10 +85,10 @@ public class AttentionState : State<AlienManager>
 				gestures = _owner.gc.responses.Items[ _owner.gc.sentenceIndex ].words;
 
 			//Hold Gesture
-			if ( _owner.gc.waiting )
+			if ( _owner.gc.holdingGesture )
 			{
 				if ( Time.time - _owner.gc.gestureHoldTimeStamp > _owner.gc.holdGestureFor )
-					_owner.gc.waiting = false;
+					_owner.gc.holdingGesture = false;
 			}
 			else
 			{
@@ -109,7 +109,7 @@ public class AttentionState : State<AlienManager>
 						{
 							_owner.gc.gesturing = false;
 							gestureCircle.gameObject.SetActive( false );
-							_owner.gc.waiting = false;
+							_owner.gc.holdingGesture = false;
 							_owner.gc.gestureHandIndex = -1;
 							_owner.gc.endGesture = false;
 							if ( _owner.gc.standardGesture ) _owner.gc.standardGesture = false;
@@ -126,7 +126,7 @@ public class AttentionState : State<AlienManager>
 							if ( _owner.gc.holdStart || _owner.gc.wordIndex >= 0 && !_owner.gc.holdStart )
 							{
 								_owner.gc.gestureHoldTimeStamp = Time.time;
-								_owner.gc.waiting = true;
+								_owner.gc.holdingGesture = true;
 							}
 
 							if ( _owner.gc.wordIndex >= 0 )
@@ -167,7 +167,7 @@ public class AttentionState : State<AlienManager>
 		for ( int i = 0; i < _owner.gc.gestureCircles.Length; i++ )
 			_owner.gc.gestureCircles[ i ].gameObject.SetActive( false );
 		_owner.gc.gesturing = false;
-		_owner.gc.waiting = false;
+		_owner.gc.holdingGesture = false;
 		_owner.gc.gestureHandIndex = -1;
 		_owner.gc.repositioning = false;
 		_owner.gc.endGesture = false;
