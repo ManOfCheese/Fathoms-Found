@@ -244,6 +244,7 @@ public class AlienGestureController : MonoBehaviour
 						hand.transform.position = handTarget;
 						if ( holdStart || wordIndex >= 0 && !holdStart )
 						{
+							hand.transform.LookAt( hand.transform.position + gestureCircle.transform.forward );
 							for ( int i = 0; i < fingerAnimators.Length; i++ )
 							{
 								if ( gestures[ wordIndex ].fingers[ i ] )
