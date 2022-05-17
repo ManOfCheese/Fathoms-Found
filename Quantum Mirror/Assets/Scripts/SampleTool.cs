@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SampleTool : MonoBehaviour
 {
 
 	[Header( "References" )]
+	public Animator toolAnimator;
 	public BoolValue isInGestureMode;
+	public GameObject tractorBeam;
 	public GameObject sampleBallPrefab;
 	public GameObject sampleTool;
+	public RawImage reticle;
 	public SampleSlot sampleSlot;
 	public Transform shootFrom;
 
@@ -17,7 +21,8 @@ public class SampleTool : MonoBehaviour
 	public bool duplicateSample;
 	public float sampleDuration;
 	public float scaleModifier;
-	public float ejectionStrength;
+	public float ejaculationStrength;
+	public Color reticleColor;
 
 	[Header( "Sensor Settings" )]
 	public Transform raycastFrom;
@@ -27,6 +32,15 @@ public class SampleTool : MonoBehaviour
 
 	[ReadOnly] public GameObject objectInRay;
 	[ReadOnly] public Object sampleInGun;
+
+	private float startSuckingTimeStamp = 0f;
+	private bool sucking;
+	private Color reticleStartColor;
+
+	private void Awake()
+	{
+		reticleStartColor = reticle.color;
+	}
 
 	private void OnEnable()
 	{
@@ -59,14 +73,11 @@ public class SampleTool : MonoBehaviour
 			sensor.transform.position = raycastFrom.transform.position + ( raycastFrom.forward * sensorRange );
 			objectInRay = null;
 		}
-	}
 
-	public void Sample( InputAction.CallbackContext value )
-	{
-		if ( value.performed && objectInRay != null && !isInGestureMode.Value && sampleSlot.sampleInSlot == null )
+		if ( sucking && startSuckingTimeStamp != 0f && Time.time - startSuckingTimeStamp >= sampleDuration )
 		{
 			sampleSlot.sampleInSlot = Instantiate( sampleBallPrefab, sampleSlot.transform.position, sampleSlot.transform.rotation, sampleSlot.transform );
-			Transform sample = Instantiate( objectInRay, sampleSlot.sampleInSlot.transform.position, sampleSlot.sampleInSlot.transform.rotation, 
+			Transform sample = Instantiate( objectInRay, sampleSlot.sampleInSlot.transform.position, sampleSlot.sampleInSlot.transform.rotation,
 				sampleSlot.sampleInSlot.transform ).transform;
 			sampleInGun = sample.GetComponentInChildren<Object>();
 			sampleInGun.Seal();
@@ -87,27 +98,59 @@ public class SampleTool : MonoBehaviour
 
 			if ( !duplicateSample )
 				Destroy( objectInRay.gameObject );
+
+			sucking = false;
+			startSuckingTimeStamp = 0f;
+		}
+
+		if ( objectInRay != null )
+			reticle.color = reticleColor;
+		else
+			reticle.color = reticleStartColor;
+	}
+
+	public void Eject()
+	{
+		GameObject sample = sampleSlot.sampleInSlot;
+		sample.transform.SetParent( null );
+		Rigidbody sampleRB = sampleSlot.sampleInSlot.GetComponent<Rigidbody>();
+		sampleRB.isKinematic = false;
+		sampleRB.useGravity = true;
+		sample.transform.position = shootFrom.position;
+		sampleRB.AddForce( shootFrom.transform.forward * ejaculationStrength, ForceMode.Impulse );
+		sample.GetComponent<Collider>().enabled = true;
+		sampleInGun.Unseal();
+
+		sampleSlot.OnItemRemoved( sampleSlot.sampleInSlot );
+		sampleSlot.sampleInSlot = null;
+		sampleInGun = null;
+	}
+
+	public void Sample( InputAction.CallbackContext value )
+	{
+		if ( value.performed && !isInGestureMode.Value && sampleSlot.sampleInSlot == null )
+		{
+			tractorBeam.SetActive( true );
+			toolAnimator.SetBool( "Suck", true );
+			if ( objectInRay != null )
+			{
+				startSuckingTimeStamp = Time.time;
+				sucking = true;
+			}
+		}
+		if ( value.canceled )
+		{
+			tractorBeam.SetActive( false );
+			toolAnimator.SetBool( "Suck", false );
+			startSuckingTimeStamp = 0f;
+			sucking = false;
 		}
 	}
 
-	public void Eject( InputAction.CallbackContext value )
+	public void StartEject( InputAction.CallbackContext value )
 	{
 		if ( value.performed && !isInGestureMode.Value && sampleSlot.sampleInSlot != null )
-		{
-			GameObject sample = sampleSlot.sampleInSlot;
-			sample.transform.SetParent( null );
-			Rigidbody sampleRB = sampleSlot.sampleInSlot.GetComponent<Rigidbody>();
-			sampleRB.isKinematic = false;
-			sampleRB.useGravity = true;
-			sample.transform.position = shootFrom.position;
-			sampleRB.AddForce( shootFrom.transform.forward * ejectionStrength, ForceMode.Impulse );
-			sample.GetComponent<Collider>().enabled = true;
-			sampleInGun.Unseal();
-
-			sampleSlot.OnItemRemoved( sampleSlot.sampleInSlot );
-			sampleSlot.sampleInSlot = null;
-			sampleInGun = null;
-		}
+			toolAnimator.SetTrigger( "Eject" );
 	}
 
 	public void OnItemSlotted( GameObject _object )

@@ -465,6 +465,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fdd5a662a2948b4bbf3f8c0256ce261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &359310824 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6581101224840131424, guid: c5553df80bb988d4c899797954c9b6e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 274516137}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &365857617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,17 +1904,17 @@ PrefabInstance:
     - target: {fileID: 182677836375504984, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 131.82
+      value: 36.1
       objectReference: {fileID: 0}
     - target: {fileID: 182677836375504984, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 292.39
+      value: 294.5
       objectReference: {fileID: 0}
     - target: {fileID: 182677836375504984, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 473.87
+      value: 462.4
       objectReference: {fileID: 0}
     - target: {fileID: 182677836375504984, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
@@ -1992,7 +2004,7 @@ PrefabInstance:
     - target: {fileID: 182677836590286791, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Eject
+      value: StartEject
       objectReference: {fileID: 0}
     - target: {fileID: 182677836590286791, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
@@ -2091,18 +2103,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1675553543961532962, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
+      propertyPath: reticle
+      value: 
+      objectReference: {fileID: 359310824}
+    - target: {fileID: 1675553543961532962, guid: 7802ded82b4fa404389541507f4cca5b,
+        type: 3}
       propertyPath: ballTransform
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1675553543961532962, guid: 7802ded82b4fa404389541507f4cca5b,
-        type: 3}
-      propertyPath: scaleModifier
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1675553543961532962, guid: 7802ded82b4fa404389541507f4cca5b,
-        type: 3}
-      propertyPath: duplicateSample
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1848028442380317835, guid: 7802ded82b4fa404389541507f4cca5b,
         type: 3}
