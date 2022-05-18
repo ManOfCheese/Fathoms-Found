@@ -49,7 +49,7 @@ MonoBehaviour:
   interactOnExit: 0
   gestureListener: {fileID: 0}
   door: {fileID: 8295398465718956722}
-  passwordGesture: {fileID: 11400000, guid: e7ff94e125a681a49871057cbcc6cb44, type: 2}
+  passwordGesture: {fileID: 11400000, guid: fef91361144f2c84996fda86b63f6d3b, type: 2}
 --- !u!135 &8295398465263577862
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -223,6 +223,11 @@ MonoBehaviour:
   interactOnExit: 0
   doors: {fileID: 11400000, guid: 02b681cf64a2f2e4e8b2fe0648da4610, type: 2}
   animator: {fileID: 8295398465718956723}
+  animParameterName: Open
+  animParamType: 1
+  boolParamValue: 0
+  intParamValue: 0
+  floatParamValue: 0
 --- !u!95 &8295398465718956723
 Animator:
   serializedVersion: 3
