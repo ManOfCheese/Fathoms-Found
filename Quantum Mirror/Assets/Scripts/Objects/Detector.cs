@@ -21,6 +21,11 @@ public class Detector : MonoBehaviour
 
 		for ( int i = 0; i < sources.Count; i++ )
 		{
+			if ( sources[i] == null )
+			{
+				sources.RemoveAt( i );
+				continue;
+			}
 			float dist = Vector3.Distance( sources[ i ].transform.position, transform.position );
 			float perc = dist / sources[ i ].sphereCollider.bounds.extents.y;
 			float oxygenLevel = sources[ i ].valueAtCentre * sources[ i ].fallOff.Evaluate( perc );

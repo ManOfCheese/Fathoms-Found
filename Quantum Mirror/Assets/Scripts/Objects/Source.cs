@@ -20,8 +20,13 @@ public class Source : MonoBehaviour
 	{
 		if ( other.gameObject.GetComponentInChildren<Detector>() )
 		{
-			if ( sourceOf == other.gameObject.GetComponentInChildren<Detector>().propertyToDetect )
-				other.gameObject.GetComponentInChildren<Detector>().sources.Add( this );
+			Detector[] detectors = other.gameObject.GetComponentsInChildren<Detector>();
+
+			for ( int i = 0; i < detectors.Length; i++ )
+			{
+				if ( sourceOf == detectors[ i ].propertyToDetect )
+					detectors[ i ].sources.Add( this );
+			}
 		}
 	}
 
@@ -29,8 +34,13 @@ public class Source : MonoBehaviour
 	{
 		if ( other.gameObject.GetComponentInChildren<Detector>() )
 		{
-			if ( sourceOf == other.gameObject.GetComponentInChildren<Detector>().propertyToDetect )
-				other.gameObject.GetComponentInChildren<Detector>().sources.Remove( this );
+			Detector[] detectors = other.gameObject.GetComponentsInChildren<Detector>();
+
+			for ( int i = 0; i < detectors.Length; i++ )
+			{
+				if ( sourceOf == detectors[ i ].propertyToDetect )
+					detectors[ i ].sources.Remove( this );
+			}
 		}
 	}
 }

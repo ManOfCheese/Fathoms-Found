@@ -9,7 +9,7 @@ public class Object : MonoBehaviour
 
 	[Header( "References" )]
 	public Properties_Set allProperties;
-	public GameObject objectVisuals;
+	public MeshRenderer meshRenderer;
 	public GameObject detectorPrefab;
 	public GameObject sourcePrefab;
 	public List<GameObject> modifierPrefabs;
@@ -25,6 +25,7 @@ public class Object : MonoBehaviour
 	[HideInInspector] public List<Source> sources;
 
 	private bool updateProperties;
+	private bool updateModifiers;
 	private Dictionary<Detector, PropertyInfo> propertyInfoByDetector;
 	private Dictionary<Source, PropertyInfo> propertyInfoBySource;
 	private List<Property> sourceProperties;
@@ -63,6 +64,10 @@ public class Object : MonoBehaviour
 			sources[ i ].sourceOf = sourceSettings[ i ].property;
 			sources[ i ].valueAtCentre = sourceSettings[ i ].valueAtCentre;
 			sources[ i ].fallOff = sourceSettings[ i ].fallOff;
+			SphereCollider sphereCollider = sources[ i ].gameObject.AddComponent<SphereCollider>();
+			sources[ i ].sphereCollider = sphereCollider;
+			sphereCollider.isTrigger = true;
+			sphereCollider.radius = sourceSettings[ i ].radius;
 		}
 
 		//Initialize Dictionaries
@@ -94,15 +99,13 @@ public class Object : MonoBehaviour
 		}
 	}
 
-	public void UpdateProperties( bool _updateProperties )
-	{
-		updateProperties = _updateProperties;
-	}
-
 	private void Update()
 	{
-		for ( int i = 0; i < modifiers.Count; i++ )
-			modifiers[ i ].UpdateProperty();
+		if ( updateModifiers )
+		{
+			for ( int i = 0; i < modifiers.Count; i++ )
+				modifiers[ i ].UpdateProperty();
+		}
 
 		//Update values.
 		if ( updateProperties )
@@ -112,6 +115,26 @@ public class Object : MonoBehaviour
 			for ( int i = 0; i < sources.Count; i++ )
 				propertyInfoBySource[ sources[ i ] ].value += sources[ i ].valueAtCentre;
 		}
+	}
+
+	public void Seal()
+	{
+		for ( int i = 0; i < sources.Count; i++ )
+			sources[ i ].gameObject.SetActive( false );
+		for ( int i = 0; i < detectors.Count; i++ )
+			detectors[ i ].enabled = false;
+		updateModifiers = false;
+		updateProperties = false;
+	}
+
+	public void Unseal()
+	{
+		for ( int i = 0; i < sources.Count; i++ )
+			sources[ i ].gameObject.SetActive( true );
+		for ( int i = 0; i < detectors.Count; i++ )
+			detectors[ i ].enabled = true;
+		updateModifiers = true;
+		updateProperties = true;
 	}
 
 	private void OnValidate()
@@ -146,9 +169,7 @@ public class Object : MonoBehaviour
 		for ( int i = 0; i < baseValues.Length; i++ )
 		{
 			if ( !baseValues[ i ].property.isInherent && baseValues[ i ].value > 0 )
-			{
 				sourceProperties.Add( allProperties.Items[ i ] );
-			}
 		}
 
 		if ( sourceSettings.Length != sourceProperties.Count )
@@ -158,12 +179,15 @@ public class Object : MonoBehaviour
 			{
 				sourceSettings[ i ] = new SourceInfo( sourceProperties[ i ] );
 				sourceSettings[ i ].property = sourceProperties[ i ];
-				for ( int j = 0; j < baseValues.Length; j++ )
-				{
-					if ( baseValues[ j ].property.propertyName == sourceProperties[ i ].propertyName )
-						sourceSettings[ i ].valueAtCentre = baseValues[ j ].value;
-				}
 				sourceSettings[ i ].fallOff = defaultCurve;
+			}
+		}
+		for ( int i = 0; i < sourceSettings.Length; i++ )
+		{
+			for ( int j = 0; j < baseValues.Length; j++ )
+			{
+				if ( baseValues[ j ].property.propertyName == sourceProperties[ i ].propertyName )
+					sourceSettings[ i ].valueAtCentre = baseValues[ j ].value;
 			}
 		}
 	}
@@ -199,4 +223,5 @@ public class SourceInfo
 	[ReadOnly] public Property property;
 	[ReadOnly] public float valueAtCentre;
 	public AnimationCurve fallOff;
+	public float radius;
 }

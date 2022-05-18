@@ -41,7 +41,7 @@ public class InterestState : State<AlienManager>
 
 	public override void UpdateState( AlienManager _owner )
 	{
-		if ( Vector3.Distance( _owner.mc.agent.destination, _owner.transform.position ) < _owner.mc.destinationReachedWindow )
+		if ( _owner.mc.agent.remainingDistance == _owner.mc.tolerance )
 		{
 			_owner.interest = true;
 			_owner.interestTimeStamp = Time.time;

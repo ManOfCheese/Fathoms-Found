@@ -36,12 +36,12 @@ public class WanderState : State<AlienManager>
 
 	public override void EnterState( AlienManager _owner )
 	{
-		_owner.mc.EvaluateMovement( true );
+		//_owner.mc.EvaluateMovement( true );
 	}
 
 	public override void UpdateState( AlienManager _owner )
 	{
-		_owner.mc.EvaluateMovement( false );
+		//_owner.mc.EvaluateMovement( false );
 		_owner.TryDoor();
 	}
 
