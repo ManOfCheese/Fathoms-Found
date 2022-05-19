@@ -26,10 +26,7 @@ public class BTIsLookingAt : BTDecoratorNode
         if ( Physics.Raycast( other.transform.position, other.transform.forward, out hit, range ) )
         {
             if ( hit.transform.GetComponentInChildren<AlienManager>() == agent )
-            {
-                Debug.Log( hit.collider.gameObject.name );
                 return child.Update();
-            }
         }
         return State.Failure;
     }
