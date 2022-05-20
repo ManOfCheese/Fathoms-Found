@@ -13,13 +13,13 @@ public class GestureDoor : InteractableObject
 
 	private void Start()
 	{
-		passwordGestureCode = Gestures.GestureLogic.SequenceToString( passwordGesture );
+		passwordGestureCode = Gestures.GestureLogic.GestureSequenceToGCode( passwordGesture );
 	}
 
 	public override void Interact( Interactor interactor )
 	{
 		base.Interact( interactor );
-		if ( Gestures.GestureLogic.CodeToString( gestureListener.playerSentence ) == passwordGestureCode )
+		if ( Gestures.GestureLogic.CodeListToGCode( gestureListener.playerSentence ) == passwordGestureCode )
 			door.Open();
 	}
 
