@@ -61,7 +61,7 @@ public class GestureListener : MonoBehaviour
 					words.Add( word );
 
 				words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
-				playerSentence = Gestures.GestureLogic.WordListToCode( words );
+				playerSentence = Gestures.GestureLogic.GestureListToCodeList( words );
 			}
 			else if ( handPos.Value == 0 )
 			{

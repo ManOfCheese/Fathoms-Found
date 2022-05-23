@@ -20,7 +20,6 @@ public class Interactor : MonoBehaviour {
     [ReadOnly] public InteractableObject interactableObject;
     [ReadOnly] public PickUpObject pickUpObject;
     [ReadOnly] public PickUpObject objectInHand;
-    [ReadOnly] public List<NPC> NPCsInRange;
 
     public delegate void EmptyVoidAction();
     public static event EmptyVoidAction LookAtNPC;
@@ -105,39 +104,4 @@ public class Interactor : MonoBehaviour {
             objectInHand = null;
         }
 	}
-
-	private void OnTriggerEnter( Collider other ) 
-    {
-		if ( other.GetComponent<NPC>() ) 
-        {
-            NPC npc = other.GetComponent<NPC>();
-            LookAtNPC += npc.OnLookAtNPC;
-            LookAway += npc.OnLookAway;
-            DropObject += npc.OnDropObject;
-            PickUpObject += npc.OnPickUpObject;
-            UseObject += npc.OnUseObject;
-            NPCsInRange.Add( npc );
-            if ( objectInHand != null ) 
-                PickUpObject?.Invoke( objectInHand.objectType );
-			//else 
-            //   npc.Alert();
-		}
-	}
-
-	private void OnTriggerExit( Collider other ) 
-    {
-        if ( other.GetComponent<NPC>() ) 
-        {
-            NPC npc = other.GetComponent<NPC>();
-            if ( objectInHand != null ) 
-                DropObject?.Invoke( objectInHand.objectType );
-            LookAtNPC -= npc.OnLookAtNPC;
-            LookAway -= npc.OnLookAway;
-            DropObject -= npc.OnDropObject;
-            PickUpObject -= npc.OnPickUpObject;
-            UseObject -= npc.OnUseObject;
-            NPCsInRange.Remove( npc );
-            //npc.Idle();
-        }
-    }
 }

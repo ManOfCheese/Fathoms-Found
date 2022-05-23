@@ -116,7 +116,7 @@ public class AttentionState : State<AlienManager>
 							for ( int i = 0; i < gestureCircle.subCircles.Length; i++ )
 							{
 								for ( int j = 0; j < gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
-									gestureCircle.subCircles[ i ].fingerSprites[ j ].SetActive( false );
+									gestureCircle.subCircles[ i ].fingerSprites[ j ].gameObject.SetActive( false );
 							}
 						}
 						//Set new hand target.
@@ -132,9 +132,9 @@ public class AttentionState : State<AlienManager>
 							if ( _owner.gc.wordIndex >= 0 )
 							{
 								Gesture gesture = gestures[ _owner.gc.wordIndex ];
-								gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ 0 ].SetActive( true );
+								gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ 0 ].gameObject.SetActive( true );
 								for ( int i = 0; i < gesture.fingers.Length; i++ )
-									gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ i + 1 ].SetActive( gesture.fingers[ 0 ] );
+									gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ i + 1 ].gameObject.SetActive( gesture.fingers[ 0 ] );
 							}
 
 							_owner.gc.wordIndex++;
