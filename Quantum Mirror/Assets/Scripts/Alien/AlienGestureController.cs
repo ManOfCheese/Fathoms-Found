@@ -13,7 +13,6 @@ public class AlienGestureController : MonoBehaviour
 	public GestureListener gestureListener;
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
-	public Action_Set actionResponses;
 
 	[Header( "Settings" )]
 	public GestureSequence standardResponse;
@@ -154,14 +153,9 @@ public class AlienGestureController : MonoBehaviour
 		}
 
 		Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
-		if ( sentenceFound )
+		if ( sentenceFound && responses.Items[ sentenceIndex ] != null )
 		{
-			if ( responses.Items[ sentenceIndex ] != null )
-			{
-				ResetGestureSettings();
-			}
-			else if ( actionResponses.Items[ sentenceIndex ] != null )
-				actionResponses.Items[ sentenceIndex ].ExecuteAction( alienManager );
+			ResetGestureSettings();
 		}
 		else
 		{
@@ -240,7 +234,7 @@ public class AlienGestureController : MonoBehaviour
 						for ( int i = 0; i < gestureCircle.subCircles.Length; i++ )
 						{
 							for ( int j = 0; j < gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
-								gestureCircle.subCircles[ i ].fingerSprites[ j ].SetActive( false );
+								gestureCircle.subCircles[ i ].fingerSprites[ j ].enabled = false;
 						}
 						return TheKiwiCoder.BTNode.State.Success;
 					}
@@ -262,9 +256,10 @@ public class AlienGestureController : MonoBehaviour
 							}
 
 							//Turn on the finger sprites.
-							gestureCircle.subCircles[ gestures[ wordIndex ].circle - 1 ].fingerSprites[ 0 ].SetActive( true );
-							for ( int i = 0; i < gestures[ wordIndex ].fingers.Length; i++ )
-								gestureCircle.subCircles[ gestures[ wordIndex ].circle - 1 ].fingerSprites[ i + 1 ].SetActive( gestures[ wordIndex ].fingers[ i ] );
+							Gesture gesture = gestures[ wordIndex ];
+							gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ 0 ].enabled = true;
+							for ( int i = 0; i < gesture.fingers.Length; i++ )
+								gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ i + 1 ].gameObject.SetActive( gesture.fingers[ i ] );
 
 							gestureHoldTimeStamp = Time.time;
 							holdingGesture = true;

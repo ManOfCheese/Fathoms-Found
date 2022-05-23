@@ -14,6 +14,7 @@ namespace TheKiwiCoder {
         public Transform transform;
         public Animator animator;
         public Rigidbody physics;
+        public Agent agent;
         public AlienMovementController moveController;
         public AlienGestureController gestureController;
         public SphereCollider sphereCollider;
@@ -29,6 +30,7 @@ namespace TheKiwiCoder {
             context.transform = gameObject.transform;
             context.animator = gameObject.GetComponent<Animator>();
             context.physics = gameObject.GetComponent<Rigidbody>();
+            context.agent = gameObject.GetComponent<Agent>();
             context.moveController = gameObject.GetComponent<AlienMovementController>();
             context.gestureController = gameObject.GetComponent<AlienGestureController>();
             context.sphereCollider = gameObject.GetComponent<SphereCollider>();

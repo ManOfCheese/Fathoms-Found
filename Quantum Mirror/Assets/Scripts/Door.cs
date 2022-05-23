@@ -10,7 +10,7 @@ public enum AnimParamType
 	Int
 }
 
-public class Door : InteractableObject
+public class Door : MonoBehaviour
 {
 
 	public RunTimeSet<Door> doors;

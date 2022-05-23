@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7707943941578302567}
-  - component: {fileID: 8279591413359104740}
-  - component: {fileID: 6631466249666290064}
   - component: {fileID: 8832606383396092789}
+  - component: {fileID: 8279591413359104740}
   - component: {fileID: 1846182080200237624}
+  - component: {fileID: 6631466249666290064}
   - component: {fileID: 7398785477953055235}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flower_Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,32 +38,6 @@ Transform:
   m_Father: {fileID: 8992820227155165728}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8279591413359104740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268927704160407330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b565bb4bd6a9e45b492bcbd7268d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  set: {fileID: 11400000, guid: 1911c7bbd51f572459586033e0fd38b9, type: 2}
---- !u!135 &6631466249666290064
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268927704160407330}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 8
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8832606383396092789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +109,19 @@ MonoBehaviour:
   modifiers: []
   detectors: []
   sources: []
+--- !u!114 &8279591413359104740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268927704160407330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9b565bb4bd6a9e45b492bcbd7268d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  set: {fileID: 11400000, guid: 1911c7bbd51f572459586033e0fd38b9, type: 2}
 --- !u!136 &1846182080200237624
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -149,6 +136,19 @@ CapsuleCollider:
   m_Height: 2.36
   m_Direction: 1
   m_Center: {x: 0, y: 1.79, z: 0}
+--- !u!135 &6631466249666290064
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268927704160407330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 8
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7398785477953055235
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1616,7 +1616,7 @@ GameObject:
   - component: {fileID: 3296189376604079005}
   - component: {fileID: 1978743482119982208}
   - component: {fileID: 9093951651700684153}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flower_Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2541,7 +2541,7 @@ GameObject:
   - component: {fileID: 3425693929404017632}
   - component: {fileID: 1167002508525121784}
   - component: {fileID: 8473957200750377146}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flower_Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
