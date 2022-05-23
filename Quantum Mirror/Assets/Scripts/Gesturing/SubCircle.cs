@@ -18,8 +18,6 @@ public class SubCircle : MonoBehaviour
 	public bool showSpritesInCircle;
 	public int circleNumber;
 
-	[ReadOnly] Gesture word;
-
 	private void OnEnable()
 	{
 		confirmGesture.onValueChanged += OnConfirmGesture;
@@ -64,7 +62,10 @@ public class SubCircle : MonoBehaviour
 			{
 				if ( word.circle == gestureCircle.words[ i ].circle )
 				{
-					gestureCircle.words[ i ] = word;
+					if ( word.fingers[ 0 ] == false && word.fingers[ 1 ] == false && word.fingers[ 2 ] == false )
+						gestureCircle.words.RemoveAt( i );
+					else
+						gestureCircle.words[ i ] = word;
 					replacedWord = true;
 				}
 			}
@@ -94,6 +95,8 @@ public class SubCircle : MonoBehaviour
 			}
 			if ( anyFingerOpen )
 				fingerSprites[ 0 ].enabled = true;
+			else
+				fingerSprites[ 0 ].enabled = false;
 		}
 	}
 }

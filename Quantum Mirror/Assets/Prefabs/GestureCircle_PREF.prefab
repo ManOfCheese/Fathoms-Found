@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6a1bc6181909544992d6dab06006f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUsingGestureCircle: {fileID: 11400000, guid: 4ba02a5f834cb064385f4e62191b6c99,
+    type: 2}
   subCircles:
   - {fileID: 1585868074712036155}
   - {fileID: 1759351297269293265}
@@ -140,9 +142,9 @@ MonoBehaviour:
   passwordActions: []
   usePartialConfirmation: {fileID: 11400000, guid: f9b40e06d60efd141b8ea1f5f7158327,
     type: 2}
-  confirmationAction:
-    m_PersistentCalls:
-      m_Calls: []
+  confirmOnWord: {fileID: 11400000, guid: 01aeb9cd45a27ac4f8d4ea75f4541d8e, type: 2}
+  standardColor: {r: 0, g: 0, b: 0, a: 0}
+  confirmationColor: {r: 0, g: 0, b: 0, a: 0}
   playerClawSprite:
   - {fileID: -7993393167444325032, guid: 167183b57d7e4644981f2542734f39dd, type: 3}
   - {fileID: -8067737765959882686, guid: 167183b57d7e4644981f2542734f39dd, type: 3}
@@ -169,8 +171,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 7.3, y: 1.11, z: 7.3}
-  m_Center: {x: 0, y: 0, z: 0.16}
+  m_Size: {x: 7.3, y: 1, z: 7.3}
+  m_Center: {x: 0, y: -0.15, z: 0.16}
 --- !u!1 &1917535301168014077
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,11 +815,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5929184936670876239, guid: 32c85a068e1f1c541b32b29ec0c5eff1,
-        type: 3}
-      propertyPath: m_Radius
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32c85a068e1f1c541b32b29ec0c5eff1, type: 3}
 --- !u!114 &1759351297269293265 stripped
@@ -1111,11 +1108,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929184936670876239, guid: 32c85a068e1f1c541b32b29ec0c5eff1,
-        type: 3}
-      propertyPath: m_Radius
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32c85a068e1f1c541b32b29ec0c5eff1, type: 3}

@@ -7,21 +7,24 @@ public class GestureCircle : MonoBehaviour
 {
 
 	[Header( "References" )]
+	public BoolValue isUsingGestureCircle;
 	public SubCircle[] subCircles;
+	public BoolValue usePartialConfirmation;
+	public BoolValue confirmOnWord;
 
 	[Header( "Settings" )]
-	public List<PasswordAction> passwordActions;
-	[Space( 10 )]
-	public BoolValue usePartialConfirmation;
-	public UnityEvent confirmationAction;
-
-	public Sprite[] playerClawSprite;
-	public Sprite[] alienClawSprite;
 	public string playerClawTag;
 	public string alienClawTag;
+	public Color standardColor;
+	public Color confirmationColor;
+	[Space( 10 )]
+	public List<PasswordAction> passwordActions;
+	public Sprite[] playerClawSprite;
+	public Sprite[] alienClawSprite;
 
 	[ReadOnly] public List<Gesture> words = new List<Gesture>();
 	[ReadOnly] public string sentence;
+	[ReadOnly] public bool clawInCircle;
 
 	public delegate void OnWord( Gesture word );
 	public OnWord onWord;
@@ -29,7 +32,6 @@ public class GestureCircle : MonoBehaviour
 	public delegate void OnSentence( List<Gesture> sentenceCode );
 	public OnSentence onSentence;
 
-	public bool clawInCircle;
 	private GameObject lastClawInCircle;
 
 	private void Awake()
@@ -56,19 +58,22 @@ public class GestureCircle : MonoBehaviour
 		{
 			if ( lastClawInCircle != other.gameObject && lastClawInCircle != null )
 			{
-				lastClawInCircle = other.gameObject;
 				for ( int i = 0; i < subCircles.Length; i++ )
 				{
 					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length - 1; j++ )
 						subCircles[ i ].fingerSprites[ j + 1 ].enabled = false;
 					subCircles[ i ].fingerSprites[ 0 ].enabled = false;
-					Debug.Log( "Don't touch my fingies" );
+
+					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
+						subCircles[ i ].fingerSprites[ j ].color = standardColor;
 				}
 			}
+			lastClawInCircle = other.gameObject;
 
 			if ( other.gameObject.tag == playerClawTag )
 			{
 				clawInCircle = true;
+				isUsingGestureCircle.Value = true;
 				for ( int i = 0; i < subCircles.Length; i++ )
 				{
 					if ( !subCircles[ i ].isCentreCircle )
@@ -95,32 +100,51 @@ public class GestureCircle : MonoBehaviour
 	private void OnTriggerExit( Collider other )
 	{
 		if ( other.gameObject.tag == playerClawTag )
+		{
+			isUsingGestureCircle.Value = false;
 			clawInCircle = false;
+		}
 	}
 
 	public void ConfirmWord( Gesture word )
 	{
-		if ( usePartialConfirmation )
+		if ( usePartialConfirmation && confirmOnWord.Value )
 		{
-			for ( int i = 0; i < passwordActions.Count; i++ )
-			{
-				for ( int j = 0; j < passwordActions[ i ].sentence.words.Count; j++ )
-				{
-					if ( passwordActions[ i ].sentence.words[ j ].circle == word.circle &&
-						passwordActions[ i ].sentence.words[ j ].fingers[ 0 ] == word.fingers[ 0 ] &&
-						passwordActions[ i ].sentence.words[ j ].fingers[ 1 ] == word.fingers[ 1 ] &&
-						passwordActions[ i ].sentence.words[ j ].fingers[ 2 ] == word.fingers[ 2 ] )
-					{
-						confirmationAction?.Invoke();
-					}
-				}
-			}
+			PartialConfirmation( word );
 		}
 	}
 
 	public void ConfirmSentence( List<Gesture> sentence )
 	{
+		for ( int i = 0; i < passwordActions.Count; i++ )
+		{
+			if ( Gestures.GestureLogic.GestureListToGCode( sentence ) == Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
+				passwordActions[ i ].action?.Invoke();
+		}
+		if ( usePartialConfirmation && !confirmOnWord.Value )
+		{
+			for ( int i = 0; i < sentence.Count; i++ )
+				PartialConfirmation( sentence[ i ] );
+		}
+	}
 
+	public void PartialConfirmation( Gesture word )
+	{
+		for ( int i = 0; i < passwordActions.Count; i++ )
+		{
+			for ( int j = 0; j < passwordActions[ i ].sentence.words.Count; j++ )
+			{
+				if ( passwordActions[ i ].useForPartialConfirmation &&
+					passwordActions[ i ].sentence.words[ j ].circle == word.circle &&
+					passwordActions[ i ].sentence.words[ j ].fingers[ 0 ] == word.fingers[ 0 ] &&
+					passwordActions[ i ].sentence.words[ j ].fingers[ 1 ] == word.fingers[ 1 ] &&
+					passwordActions[ i ].sentence.words[ j ].fingers[ 2 ] == word.fingers[ 2 ] )
+				{
+					for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+						subCircles[ word.circle ].fingerSprites[ k ].color = confirmationColor;
+				}
+			}
+		}
 	}
 
 }
@@ -130,5 +154,5 @@ public class PasswordAction
 {
 	public bool useForPartialConfirmation;
 	public GestureSequence sentence;
-	public UnityEvent<List<int>> action;
+	public UnityEvent action;
 }
