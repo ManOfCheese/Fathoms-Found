@@ -60,14 +60,23 @@ public class SubCircle : MonoBehaviour
 			bool replacedWord = false;
 			for ( int i = 0; i < gestureCircle.words.Count; i++ )
 			{
-				if ( word.circle == gestureCircle.words[ i ].circle )
+				if ( word.fingers[ 0 ] == false && word.fingers[ 1 ] == false && word.fingers[ 2 ] == false )
 				{
-					if ( word.fingers[ 0 ] == false && word.fingers[ 1 ] == false && word.fingers[ 2 ] == false )
+					if ( word.circle == gestureCircle.words[ i ].circle )
+					{
 						gestureCircle.words.RemoveAt( i );
-					else
-						gestureCircle.words[ i ] = word;
-					replacedWord = true;
+						replacedWord = true;
+					}
 				}
+				else
+				{
+					if ( word.circle == gestureCircle.words[ i ].circle )
+					{
+						gestureCircle.words[ i ] = word;
+						replacedWord = true;
+					}
+				}
+
 			}
 			if ( !replacedWord )
 				gestureCircle.words.Add( word );
