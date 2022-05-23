@@ -21,9 +21,11 @@ public class Handmovement : MonoBehaviour
     [Header( "References" )]
     public Animator[] fingerAnimators;
     public Animator Draweranim;
+    public Animator Armanim;
     public GameObject armModeUI;
     public GameObject camModeUI;
     public GameObject grabber;
+    public GameObject armIK;
     public GestureCircle gestureCircle;
     public JackOfController controller;
     public Transform worldSpaceCursor;
@@ -68,6 +70,8 @@ public class Handmovement : MonoBehaviour
         if ( isInGestureMode.Value == true )
         {
             Cursor.lockState = CursorLockMode.None;
+            armIK.SetActive(true);
+            Armanim.SetBool("Retract", false);
 
             //Raycast looking for snapping planes            
 
@@ -133,6 +137,9 @@ public class Handmovement : MonoBehaviour
         }
         else
         {
+            armIK.SetActive( false );
+            Armanim.SetBool("Retract", true);
+
             worldSpaceCursor.transform.position = idle.position;
             armModeUI.SetActive( false );
             camModeUI.SetActive( true );
