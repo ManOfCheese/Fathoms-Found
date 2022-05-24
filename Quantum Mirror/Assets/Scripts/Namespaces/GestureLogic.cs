@@ -6,7 +6,7 @@ namespace Gestures
 {
 	public class GestureLogic : MonoBehaviour
 	{
-		public static List<int> SequenceToCode( GestureSequence gestureSequence )
+		public static List<int> GestureSequenceToCodeList( GestureSequence gestureSequence )
 		{
 			List<int> gestureCode = new List<int>();
 
@@ -23,29 +23,46 @@ namespace Gestures
 			return gestureCode;
 		}
 
-		public static string SequenceToString( GestureSequence gestureSequence )
+		public static string GestureSequenceToGCode( GestureSequence gestureSequence )
 		{
-			return CodeToString( SequenceToCode( gestureSequence ) );
+			return CodeListToGCode( GestureSequenceToCodeList( gestureSequence ) );
 		}
 
-		public static List<int> WordListToCode( List<Gesture> gestureSequence )
+		public static List<int> GestureListToCodeList( List<Gesture> gestureList )
 		{
 			List<int> gestureCode = new List<int>();
 
-			gestureCode.Add( gestureSequence.Count );
-			for ( int i = 0; i < gestureSequence.Count; i++ )
-				gestureCode.Add( gestureSequence[ i ].circle );
+			gestureCode.Add( gestureList.Count );
+			for ( int i = 0; i < gestureList.Count; i++ )
+				gestureCode.Add( gestureList[ i ].circle );
 
-			for ( int i = 0; i < gestureSequence.Count; i++ )
+			for ( int i = 0; i < gestureList.Count; i++ )
 			{
-				for ( int j = 0; j < gestureSequence[ i ].fingers.Length; j++ )
-					gestureCode.Add( gestureSequence[ i ].fingers[ j ] ? 1 : 0 );
+				for ( int j = 0; j < gestureList[ i ].fingers.Length; j++ )
+					gestureCode.Add( gestureList[ i ].fingers[ j ] ? 1 : 0 );
 			}
 
 			return gestureCode;
 		}
 
-		public static string CodeToString( List<int> code ) 
+		public static string GestureListToGCode( List<Gesture> gestureList )
+		{
+			string gCode = "";
+
+			gCode += gestureList.Count;
+			for ( int i = 0; i < gestureList.Count; i++ )
+				gCode += gestureList[ i ].circle;
+
+			for ( int i = 0; i < gestureList.Count; i++ )
+			{
+				for ( int j = 0; j < gestureList[ i ].fingers.Length; j++ )
+					gCode += gestureList[ i ].fingers[ j ] ? 1 : 0;
+			}
+
+			return gCode;
+		}
+
+		public static string CodeListToGCode( List<int> code ) 
 		{
 			string stringCode = "";
 			for ( int i = 0; i < code.Count; i++ )
