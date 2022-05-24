@@ -26,10 +26,10 @@ public class GestureCircle : MonoBehaviour
 	[ReadOnly] public string sentence;
 	[ReadOnly] public bool clawInCircle;
 
-	public delegate void OnWord( Gesture word );
+	public delegate void OnWord( GestureCircle gestureCircle, Gesture word );
 	public OnWord onWord;
 
-	public delegate void OnSentence( List<Gesture> sentenceCode );
+	public delegate void OnSentence( GestureCircle gestureCircle, List<Gesture> sentenceCode );
 	public OnSentence onSentence;
 
 	private GameObject lastClawInCircle;
@@ -106,7 +106,7 @@ public class GestureCircle : MonoBehaviour
 		}
 	}
 
-	public void ConfirmWord( Gesture word )
+	public void ConfirmWord( GestureCircle gestureCircle, Gesture word )
 	{
 		if ( usePartialConfirmation && confirmOnWord.Value )
 		{
@@ -114,7 +114,7 @@ public class GestureCircle : MonoBehaviour
 		}
 	}
 
-	public void ConfirmSentence( List<Gesture> sentence )
+	public void ConfirmSentence( GestureCircle gestureCircle, List<Gesture> sentence )
 	{
 		for ( int i = 0; i < passwordActions.Count; i++ )
 		{

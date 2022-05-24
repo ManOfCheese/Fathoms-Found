@@ -10,8 +10,9 @@ public class TremorSource : MonoBehaviour
 	public FloatValue tremorFallOff;
 
 	[Header( "Settings" )]
-	public float tremorIntensity;
 	public bool tremorOnCollision;
+	public float tremorIntensity;
+	public string tremorTag;
 
     [HideInInspector] public List<AlienManager> alienListeners;
 

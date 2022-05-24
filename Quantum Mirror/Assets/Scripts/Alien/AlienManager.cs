@@ -27,6 +27,7 @@ public class AlienManager : MonoBehaviour
     [HideInInspector] public AlienGestureController gc;
     [HideInInspector] public AlienMovementController mc;
     public TremorInfo tremorSource;
+    public GestureCircle gestureMadeAt;
 
     private void Awake()
     {
@@ -66,6 +67,16 @@ public class AlienManager : MonoBehaviour
             tremorSource.position = position;
         }
     }
+
+    public void OnWord( GestureCircle gestureCircle, Gesture word )
+	{
+
+	}
+
+    public void OnSentence( GestureCircle gestureCircle, List<Gesture> sentence )
+	{
+
+	}
 }
 
 [System.Serializable]
