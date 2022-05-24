@@ -73,28 +73,31 @@ public class Graph : MonoBehaviour
 
 	public void CycleProperty( InputAction.CallbackContext value )
 	{
-		int oldIndex = propertyIndex;
+		if ( this.gameObject.activeSelf )
+		{
+			int oldIndex = propertyIndex;
 
-		if ( value.ReadValue<float>() > scrollTolerance )
-		{
-			propertyIndex++;
-			propertyIndex = Mathf.Clamp( propertyIndex, 0, properties.Length - 1 );
-		}
-		else if ( value.ReadValue<float>() < -scrollTolerance )
-		{
-			propertyIndex--;
-			propertyIndex = Mathf.Clamp( propertyIndex, 0, properties.Length - 1 );
-		}
+			if ( value.ReadValue<float>() > scrollTolerance )
+			{
+				propertyIndex++;
+				propertyIndex = Mathf.Clamp( propertyIndex, 0, properties.Length - 1 );
+			}
+			else if ( value.ReadValue<float>() < -scrollTolerance )
+			{
+				propertyIndex--;
+				propertyIndex = Mathf.Clamp( propertyIndex, 0, properties.Length - 1 );
+			}
 
-		if ( oldIndex != propertyIndex )
-		{
-			for ( int i = 0; i < valuesOverTime.Length; i++ )
-				valuesOverTime[ i ] = 0f;
-			for ( int i = 0; i < points.Length; i++ )
-				points[ i ].anchoredPosition = new Vector3( ( graphPointRT.sizeDelta.x / 2f ) + ( i * pointDistance ), 0f, 0f );
-			for ( int i = 0; i < lines.Length; i++ )
-				lines[ i ] = UpdateLinePos( lines[ i ], points[ i ], points[ i + 1 ] );
-			propertyText.text = properties[ propertyIndex ].displayName;
+			if ( oldIndex != propertyIndex )
+			{
+				for ( int i = 0; i < valuesOverTime.Length; i++ )
+					valuesOverTime[ i ] = 0f;
+				for ( int i = 0; i < points.Length; i++ )
+					points[ i ].anchoredPosition = new Vector3( ( graphPointRT.sizeDelta.x / 2f ) + ( i * pointDistance ), 0f, 0f );
+				for ( int i = 0; i < lines.Length; i++ )
+					lines[ i ] = UpdateLinePos( lines[ i ], points[ i ], points[ i + 1 ] );
+				propertyText.text = properties[ propertyIndex ].displayName;
+			}
 		}
 	}
 

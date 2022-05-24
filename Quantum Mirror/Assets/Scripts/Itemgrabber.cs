@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class Itemgrabber : MonoBehaviour
 {
 
+    public BoolValue isUsingGestureCircle;
     public SampleSlot selectedSlot;
     public GameObject currentSample;
 
