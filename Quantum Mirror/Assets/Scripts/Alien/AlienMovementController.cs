@@ -163,7 +163,8 @@ public class AlienMovementController : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-        Gizmos.DrawSphere( agent.destination, 2 );
+        if ( agent != null )
+            Gizmos.DrawSphere( agent.destination, 2 );
         if ( circleCenter )
             Gizmos.DrawWireSphere( circleCenter.transform.position, circleRadius );
         if ( torusCenter ) {

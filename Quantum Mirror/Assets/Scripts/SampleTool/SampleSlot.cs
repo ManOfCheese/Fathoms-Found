@@ -25,7 +25,7 @@ public class SampleSlot : MonoBehaviour
 
     public void OnItemRemoved( GameObject _object )
     {
-        itemSlotted?.Invoke( _object );
+        itemRemoved?.Invoke( _object );
         sampleInSlot = null;
     }
 
