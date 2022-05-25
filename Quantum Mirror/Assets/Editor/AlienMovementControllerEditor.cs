@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof( AlienMovementController ) ), CanEditMultipleObjects]
+//[CustomEditor(typeof( AlienMovementController ) ), CanEditMultipleObjects]
 public class AlienMovementControllerEditor : Editor
 {
     public SerializedProperty
@@ -11,7 +11,7 @@ public class AlienMovementControllerEditor : Editor
          movementShape_Prop,
          speed_Prop,
          changeDestinationTime_Prop,
-         destinationReachedWindow_prop,
+         tolerance_Prop,
          minDistance_Prop,
          maxDistance_Prop,
          torusCenter_Prop,
@@ -22,13 +22,12 @@ public class AlienMovementControllerEditor : Editor
 
     void OnEnable() {
         // Setup the SerializedProperties
-        agent_Prop = serializedObject.FindProperty( "agent" );
         hands_Prop = serializedObject.FindProperty( "hands" );
         movementMode_Prop = serializedObject.FindProperty( "movementMode" );
         movementShape_Prop = serializedObject.FindProperty( "movementShape" );
         speed_Prop = serializedObject.FindProperty( "speed" );
         changeDestinationTime_Prop = serializedObject.FindProperty( "changeDestinationTime" );
-        destinationReachedWindow_prop = serializedObject.FindProperty( "destinationReachedWindow" );
+        tolerance_Prop = serializedObject.FindProperty( "tolerance" );
         minDistance_Prop = serializedObject.FindProperty( "minDistance" );
         maxDistance_Prop = serializedObject.FindProperty( "maxDistance" );
         torusCenter_Prop = serializedObject.FindProperty( "torusCenter" );
@@ -41,7 +40,6 @@ public class AlienMovementControllerEditor : Editor
     public override void OnInspectorGUI() {
         serializedObject.Update();
 
-        EditorGUILayout.PropertyField( agent_Prop, new GUIContent( "agent" ) );
         EditorGUILayout.PropertyField( hands_Prop, new GUIContent( "hands" ) );
 
         EditorGUILayout.PropertyField( movementMode_Prop );
@@ -60,7 +58,7 @@ public class AlienMovementControllerEditor : Editor
             case MovementMode.Timed:
                 EditorGUILayout.PropertyField( speed_Prop, new GUIContent( "speed" ) );
                 EditorGUILayout.PropertyField( changeDestinationTime_Prop, new GUIContent( "changeDestinationTime" ) );
-                EditorGUILayout.PropertyField( destinationReachedWindow_prop, new GUIContent( "destinationReachedWindow" ) );
+                EditorGUILayout.PropertyField( tolerance_Prop, new GUIContent( "tolerance" ) );
                 DisplayWanderShape();
                 break;
 

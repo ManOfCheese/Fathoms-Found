@@ -11,19 +11,23 @@ public class Handmovement : MonoBehaviour
     public float handSensitivity;
     public float scrollSensitivity;
     public bool rotateHand;
+    public bool resetHandOnConfirm;
 
     [Header("Variables")]
     public IntValue handPos;
     public BoolArrayValue fingers;
     public BoolValue isInGestureMode;
     public BoolValue confirmGesture;
+    public BoolValue isUsingGestureCircle;
 
     [Header( "References" )]
     public Animator[] fingerAnimators;
     public Animator Draweranim;
+    public Animator Armanim;
     public GameObject armModeUI;
     public GameObject camModeUI;
     public GameObject grabber;
+    public GameObject armIK;
     public GestureCircle gestureCircle;
     public JackOfController controller;
     public Transform worldSpaceCursor;
@@ -68,6 +72,8 @@ public class Handmovement : MonoBehaviour
         if ( isInGestureMode.Value == true )
         {
             Cursor.lockState = CursorLockMode.None;
+            armIK.SetActive(true);
+            Armanim.SetBool("Retract", false);
 
             //Raycast looking for snapping planes            
 
@@ -133,6 +139,9 @@ public class Handmovement : MonoBehaviour
         }
         else
         {
+            armIK.SetActive( false );
+            Armanim.SetBool("Retract", true);
+
             worldSpaceCursor.transform.position = idle.position;
             armModeUI.SetActive( false );
             camModeUI.SetActive( true );
@@ -193,25 +202,35 @@ public class Handmovement : MonoBehaviour
     {
         if ( value.performed )
         {
-            grabber.GetComponent<Collider>().enabled = true;
+            //grabber.GetComponent<Collider>().enabled = true;
 
-			for ( int i = 0; i < fingerAnimators.Length; i++ )
-                fingerAnimators[ i ].GetComponent<Animator>().SetBool( "FingerOpen", true );
+			if ( resetHandOnConfirm )
+			{
+                for ( int i = 0; i < fingerAnimators.Length; i++ )
+                    fingerAnimators[ i ].SetBool( "FingerOpen", true );
+            }
+
             if ( gameObject.transform.localPosition.z < 0.4f ) {
                 worldSpaceCursor.transform.Translate( punchdestination );
-                confirmGesture.Value = true;
+
+                if ( isUsingGestureCircle.Value )
+                    confirmGesture.Value = true;
             }
         }
         else if ( value.canceled )
         {
-            grabber.GetComponent<Collider>().enabled = false;
-            confirmGesture.Value = false;
+            //grabber.GetComponent<Collider>().enabled = false;
 
-            for ( int i = 0; i < fingerAnimators.Length; i++ )
-                fingerAnimators[ i ].GetComponent<Animator>().SetBool( "FingerOpen", false );
+            if ( isUsingGestureCircle.Value )
+                confirmGesture.Value = false;
 
-			for ( int i = 0; i < fingers.Value.Length; i++ )
-                fingers.Value[ i ] = false;
+            if ( resetHandOnConfirm )
+            {
+                for ( int i = 0; i < fingerAnimators.Length; i++ )
+                    fingerAnimators[ i ].SetBool( "FingerOpen", false );
+                for ( int i = 0; i < fingers.Value.Length; i++ )
+                    fingers.Value[ i ] = false;
+            }
 
             if ( gameObject.transform.localPosition.z >= 0f )
                 gameObject.transform.Translate( -punchdestination );

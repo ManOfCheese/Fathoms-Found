@@ -11,7 +11,6 @@ public class AlienManager : MonoBehaviour
     public Transform player;
     public Transform moveTarget;
     public Transform pointTarget;
-    public GestureSequence standardResponse;
 
     [Header( "Settings" )]
     [Tooltip( "From how far away can the alien interact with objects." )]
@@ -50,22 +49,22 @@ public class AlienManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-        currentState = stateMachine.CurrentState.stateName;
-        stateMachine.Update();
+  //      currentState = stateMachine.CurrentState.stateName;
+  //      stateMachine.Update();
 
-        if ( Vector3.Distance( transform.position, player.position ) < attentionDistance ) 
-        {
-            if ( ( !lookAtForAttention || lookAtForAttention && looking ) && stateMachine.CurrentState != AttentionState.Instance &&
-                ( stateMachine.CurrentState != InterestState.Instance || interest ) ) 
-            {
-                stateMachine.ChangeState( AttentionState.Instance );
-			}
-		}
-        else if ( stateMachine.CurrentState == AttentionState.Instance && stateMachine.CurrentState != InterestState.Instance && 
-            !gc.gesturing && !gc.repositioning ) 
-        {
-            stateMachine.ChangeState( WanderState.Instance );
-        }
+  //      if ( Vector3.Distance( transform.position, player.position ) < attentionDistance ) 
+  //      {
+  //          if ( ( !lookAtForAttention || lookAtForAttention && looking ) && stateMachine.CurrentState != AttentionState.Instance &&
+  //              ( stateMachine.CurrentState != InterestState.Instance || interest ) ) 
+  //          {
+  //              stateMachine.ChangeState( AttentionState.Instance );
+		//	}
+		//}
+  //      else if ( stateMachine.CurrentState == AttentionState.Instance && stateMachine.CurrentState != InterestState.Instance && 
+  //          !gc.gesturing && !gc.repositioning ) 
+  //      {
+  //          stateMachine.ChangeState( WanderState.Instance );
+  //      }
     }
 
     public void OnLookAt() {
