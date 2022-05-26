@@ -26,7 +26,7 @@ public class AlienManager : MonoBehaviour
 
     [HideInInspector] public AlienGestureController gc;
     [HideInInspector] public AlienMovementController mc;
-    public TremorInfo tremorSource;
+    public TremorInfo lastHeardTremor;
     public GestureCircle gestureMadeAt;
 
     private void Awake()
@@ -38,12 +38,12 @@ public class AlienManager : MonoBehaviour
 
 	private void Update()
 	{
-        if ( tremorSource == null ) { return; }
-        if ( Time.time - tremorSource.timeStamp > interactDistance )
+        if ( lastHeardTremor == null ) { return; }
+        if ( Time.time - lastHeardTremor.timeStamp > interestDuration )
 		{
-            tremorSource.intensity = 0f;
-            tremorSource.timeStamp = 0f;
-            tremorSource.position = Vector3.zero;
+            lastHeardTremor.intensity = 0f;
+            lastHeardTremor.timeStamp = 0f;
+            lastHeardTremor.position = Vector3.zero;
         }
 	}
 
@@ -60,11 +60,11 @@ public class AlienManager : MonoBehaviour
 
     public void OnTremor( Vector3 position, float intensity )
 	{
-        if ( !focused && intensity > tremorSource.intensity ) 
+        if ( !focused ) 
         {
-            tremorSource.intensity = intensity;
-            tremorSource.timeStamp = Time.time;
-            tremorSource.position = position;
+            lastHeardTremor.intensity = intensity;
+            lastHeardTremor.timeStamp = Time.time;
+            lastHeardTremor.position = position;
         }
     }
 

@@ -31,10 +31,10 @@ namespace TheKiwiCoder {
             List<BTNode> children = new List<BTNode>();
 
             if ( parent is BTDecoratorNode decorator && decorator.child != null )
-                children.Add(decorator.child);
+                children.Add( decorator.child );
 
             if ( parent is BTRootNode rootNode && rootNode.child != null )
-                children.Add(rootNode.child);
+                children.Add( rootNode.child );
 
             if ( parent is BTCompositeNode composite )
                 return composite.children;

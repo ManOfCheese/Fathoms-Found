@@ -17,17 +17,17 @@ namespace TheKiwiCoder {
         }
 
         protected override State OnUpdate() {
-            switch (child.Update()) {
+            switch ( child.Update() ) {
                 case State.Running:
                     break;
                 case State.Failure:
-                    if (restartOnFailure) {
+                    if ( restartOnFailure ) {
                         return State.Running;
                     } else {
                         return State.Failure;
                     }
                 case State.Success:
-                    if (restartOnSuccess) {
+                    if ( restartOnSuccess ) {
                         return State.Running;
                     } else {
                         return State.Success;

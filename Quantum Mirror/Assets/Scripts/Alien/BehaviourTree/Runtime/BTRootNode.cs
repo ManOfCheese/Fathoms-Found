@@ -20,7 +20,7 @@ namespace TheKiwiCoder {
         }
 
         public override BTNode Clone() {
-            BTRootNode node = Instantiate(this);
+            BTRootNode node = Instantiate( this );
             node.child = child.Clone();
             return node;
         }

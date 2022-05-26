@@ -62,8 +62,11 @@ public class TremorSource : MonoBehaviour
 
 	public void Tremor()
 	{
+		Debug.Log( "Tremor" );
+		
 		for ( int i = 0; i < alienListeners.Count; i++ )
 		{
+			if ( tremorFallOff.Value == 0 ) tremorFallOff.Value = 1;
 			alienListeners[ i ].OnTremor( this.transform.position, sphereCollider.radius /
 				( Vector3.Distance( this.transform.position, alienListeners[ i ].transform.position ) * tremorFallOff.Value ) );
 		}

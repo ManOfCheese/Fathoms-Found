@@ -5,23 +5,17 @@ using TheKiwiCoder;
 
 public class BTWander : BTActionNode
 {
-    public float speed = 5;
-    public float stoppingDistance = 0.1f;
-    public bool updateRotation = true;
-    public float acceleration = 40.0f;
-    public float tolerance = 1.0f;
+    
     public MovementMode movementMode = MovementMode.PointToPoint;
     public MovementShape movementShape = MovementShape.Circle;
 
     protected override void OnStart()
     {
-        context.moveController.agent.stoppingDistance = stoppingDistance;
-        context.moveController.agent.speed = speed;
-        context.moveController.agent.updateRotation = updateRotation;
-        context.moveController.agent.acceleration = acceleration;
         context.moveController.movementMode = movementMode;
         context.moveController.movementShape = movementShape;
-        context.moveController.Wander();
+        blackboard.AddData( "moveToPosition", blackboard.vector3s, context.moveController.Wander() );
+        AlienBlackboard alienBlackboard = blackboard as AlienBlackboard;
+        alienBlackboard.moveToPosition = blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() );
     }
 
     protected override void OnStop()
@@ -30,6 +24,7 @@ public class BTWander : BTActionNode
 
     protected override State OnUpdate()
     {
+        Debug.Log( "Updating Node " + this.name );
         return context.moveController.EvaluateWander();
     }
 }

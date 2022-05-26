@@ -22,14 +22,14 @@ namespace TheKiwiCoder {
 
         public State Update() {
 
-            if (!started) {
+            if ( !started ) {
                 OnStart();
                 started = true;
             }
 
             state = OnUpdate();
 
-            if (state != State.Running) {
+            if ( state != State.Running ) {
                 OnStop();
                 started = false;
             }
@@ -42,7 +42,7 @@ namespace TheKiwiCoder {
         }
 
         public void Abort() {
-            BehaviourTree.Traverse(this, (node) => {
+            BehaviourTree.Traverse( this, ( node ) => {
                 node.started = false;
                 node.state = State.Running;
                 node.OnStop();
