@@ -24,7 +24,6 @@ public class BTWander : BTActionNode
 
     protected override State OnUpdate()
     {
-        Debug.Log( "Updating Node " + this.name );
         return context.moveController.EvaluateWander();
     }
 }

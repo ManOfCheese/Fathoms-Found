@@ -40,7 +40,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 1a89a5cd83fa2614f9b164ba58434933
-  position: {x: -176, y: 355}
+  position: {x: -166, y: 476}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -66,6 +66,26 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: 6019695646697679199}
+--- !u!114 &-2860768864358176065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135c3176911cac742998d66e26fca732, type: 3}
+  m_Name: BTCheckGestureSignals
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 51b0dd2c7de238f4aa3f76c171b0feeb
+  position: {x: -361, y: 356}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +108,39 @@ MonoBehaviour:
   - {fileID: 6122437085925100848}
   - {fileID: -8824443648951160817}
   - {fileID: 6107880680317165473}
+  - {fileID: -2860768864358176065}
+  - {fileID: 758574502363765413}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+--- !u!114 &758574502363765413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7daed486543bf459ff67d0c639f116, type: 3}
+  m_Name: BTCheckBBValue
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b6c9ec353996ff743b78a1b9e18647af
+  position: {x: -167, y: 356}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: -6428903480517252585}
+  valueType: 1
+  key: gestureSignalDetected
+  gameObjectValue: {fileID: 0}
+  boolValue: 0
+  intValue: 0
+  stringValue: 
+  floatValue: 0
+  vector3Value: {x: 0, y: 0, z: 0}
+  vector2Value: {x: 0, y: 0}
 --- !u!114 &5251336742596673480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +162,8 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   children:
-  - {fileID: -6428903480517252585}
+  - {fileID: -2860768864358176065}
+  - {fileID: 758574502363765413}
   - {fileID: 6122437085925100848}
   - {fileID: -8824443648951160817}
 --- !u!114 &6019695646697679199

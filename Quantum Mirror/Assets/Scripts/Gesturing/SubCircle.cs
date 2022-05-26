@@ -87,7 +87,7 @@ public class SubCircle : MonoBehaviour
 		}
 		else
 		{
-			gestureCircle.onSentence?.Invoke( gestureCircle, gestureCircle.words );
+			gestureCircle.onSentence?.Invoke( gestureCircle );
 		}
 	}
 

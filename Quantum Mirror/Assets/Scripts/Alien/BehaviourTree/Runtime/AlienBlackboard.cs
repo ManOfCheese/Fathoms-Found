@@ -14,12 +14,14 @@ namespace TheKiwiCoder
 
 		public bool waitingForGesture = false;
 		public bool tremorDetected;
+		public bool gestureSignalDetected;
 		public Vector3 moveToPosition = Vector3.zero;
 
 		private void OnEnable()
 		{
 			AddData( "waitingForGesture", bools, waitingForGesture );
 			AddData( "tremorDetected", bools, tremorDetected );
+			AddData( "gestureSignalDetected", bools, tremorDetected );
 			AddData( "moveToPosition", vector3s, moveToPosition );
 		}
 
@@ -27,6 +29,7 @@ namespace TheKiwiCoder
 		{
 			RemoveData( "waitingForGesture", bools, waitingForGesture );
 			RemoveData( "tremorDetected", bools, tremorDetected );
+			RemoveData( "gestureSignalDetected", bools, tremorDetected );
 			RemoveData( "moveToPosition", vector3s, moveToPosition );
 		}
 	}

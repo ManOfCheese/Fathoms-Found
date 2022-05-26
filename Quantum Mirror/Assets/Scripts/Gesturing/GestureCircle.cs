@@ -7,6 +7,8 @@ public class GestureCircle : MonoBehaviour
 {
 
 	[Header( "References" )]
+	[Tooltip( "Where the alien will stand to use the gesture circle" )]
+	public Transform gesturePosition;
 	public BoolValue isUsingGestureCircle;
 	public SubCircle[] subCircles;
 	public BoolValue usePartialConfirmation;
@@ -29,7 +31,7 @@ public class GestureCircle : MonoBehaviour
 	public delegate void OnWord( GestureCircle gestureCircle, Gesture word );
 	public OnWord onWord;
 
-	public delegate void OnSentence( GestureCircle gestureCircle, List<Gesture> sentenceCode );
+	public delegate void OnSentence( GestureCircle gestureCircle );
 	public OnSentence onSentence;
 
 	private GameObject lastClawInCircle;
@@ -114,17 +116,17 @@ public class GestureCircle : MonoBehaviour
 		}
 	}
 
-	public void ConfirmSentence( GestureCircle gestureCircle, List<Gesture> sentence )
+	public void ConfirmSentence( GestureCircle gestureCircle )
 	{
 		for ( int i = 0; i < passwordActions.Count; i++ )
 		{
-			if ( Gestures.GestureLogic.GestureListToGCode( sentence ) == Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
+			if ( Gestures.GestureLogic.GestureListToGCode( words ) == Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
 				passwordActions[ i ].action?.Invoke();
 		}
 		if ( usePartialConfirmation && !confirmOnWord.Value )
 		{
-			for ( int i = 0; i < sentence.Count; i++ )
-				PartialConfirmation( sentence[ i ] );
+			for ( int i = 0; i < words.Count; i++ )
+				PartialConfirmation( words[ i ] );
 		}
 	}
 

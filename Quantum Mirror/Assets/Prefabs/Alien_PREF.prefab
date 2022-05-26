@@ -2236,7 +2236,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  interestModifier: 0.5
+  tremorInterestDuration: 3
+  gestureInterestDuration: 3
   interactDistance: 0
   attentionDistance: 50
   doorToOpen: {fileID: 0}
@@ -2244,8 +2245,16 @@ MonoBehaviour:
   interestTimeStamp: 0
   interest: 0
   looking: 0
+  focused: 0
   gc: {fileID: 0}
   mc: {fileID: 0}
+  lastHeardTremor:
+    intensity: 0
+    timeStamp: 0
+    position: {x: 0, y: 0, z: 0}
+  gestureSignal:
+    gestureCircle: {fileID: 0}
+    timeStamp: 0
 --- !u!114 &7223040693863163904
 MonoBehaviour:
   m_ObjectHideFlags: 0

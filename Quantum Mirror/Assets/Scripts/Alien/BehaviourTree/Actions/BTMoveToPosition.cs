@@ -25,8 +25,6 @@ public class BTMoveToPosition : BTActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log( "Updating Node " + this.name );
-
         if ( context.moveController.agent.destination != blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() ) )
             context.moveController.agent.destination = blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() );
 

@@ -342,7 +342,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 913063826635201662}
   - {fileID: 8712450454834863635}
   - {fileID: 781623080527045723}
   m_Father: {fileID: 0}
@@ -444,36 +443,6 @@ CapsuleCollider:
   m_Height: 2.0000014
   m_Direction: 1
   m_Center: {x: -0.00027240918, y: -0.00022035622, z: -0.0002205247}
---- !u!1 &7488056131560091285
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 913063826635201662}
-  m_Layer: 0
-  m_Name: CommsPanel_Logic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &913063826635201662
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7488056131560091285}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6946272530978588507}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7739370073236480306
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +476,7 @@ Transform:
   - {fileID: 3941576392632061714}
   - {fileID: 5716504980909040001}
   m_Father: {fileID: 6946272530978588507}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1172226999617512757
 PrefabInstance:
@@ -539,7 +508,7 @@ PrefabInstance:
     - target: {fileID: 1917535300446142830, guid: 2a4294f67a327cb498c2eace3c5b34a8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1917535300446142830, guid: 2a4294f67a327cb498c2eace3c5b34a8,
         type: 3}
@@ -736,7 +705,13 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8703314539456645144, guid: 2a4294f67a327cb498c2eace3c5b34a8,
+        type: 3}
+      propertyPath: gesturePosition
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9215549679305015770, guid: 2a4294f67a327cb498c2eace3c5b34a8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2a4294f67a327cb498c2eace3c5b34a8, type: 3}
 --- !u!4 &781623080527045723 stripped
 Transform:

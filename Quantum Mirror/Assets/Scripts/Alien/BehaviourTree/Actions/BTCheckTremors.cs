@@ -12,7 +12,6 @@ public class BTCheckTremors : BTActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log( "Updating Node " + this.name );
         if ( context.manager.lastHeardTremor.position != Vector3.zero )
 		{
             blackboard.AddData( "moveToPosition", blackboard.vector3s, context.manager.lastHeardTremor.position );

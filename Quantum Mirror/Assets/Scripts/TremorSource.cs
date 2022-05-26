@@ -62,8 +62,6 @@ public class TremorSource : MonoBehaviour
 
 	public void Tremor()
 	{
-		Debug.Log( "Tremor" );
-		
 		for ( int i = 0; i < alienListeners.Count; i++ )
 		{
 			if ( tremorFallOff.Value == 0 ) tremorFallOff.Value = 1;
