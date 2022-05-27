@@ -7,10 +7,15 @@ using StateMachine;
 public class AlienManager : MonoBehaviour
 {
 
+    [Header( "References" )]
+    public RunTimeSet<GestureCircle> gestureCircles;
+    public RunTimeSet<Door> doors;
+
     [Header( "Settings" )]
     public Transform player;
-    [Tooltip( "Modifies how quickly an alien loses interest in a sound, a higher value means it loses interest faster." )]
+    [Tooltip( "How long does an alien investigate a tremor before moving on." )]
     public float tremorInterestDuration;
+    [Tooltip( "How long does an alien investigate a gesture before moving on." )]
     public float gestureInterestDuration;
     [Tooltip( "From how far away can the alien interact with objects." )]
     public float interactDistance;
@@ -23,12 +28,12 @@ public class AlienManager : MonoBehaviour
     [ReadOnly] public float interestTimeStamp;
     [ReadOnly] public bool interest;
     [ReadOnly] public bool looking;
-    [ReadOnly] public bool focused;
+    [ReadOnly] public TremorInfo lastHeardTremor;
+    [ReadOnly] public GestureSignal gestureSignal;
+    [ReadOnly] public GestureCircle gestureCircle;
 
     [HideInInspector] public AlienGestureController gc;
     [HideInInspector] public AlienMovementController mc;
-    public TremorInfo lastHeardTremor;
-    public GestureSignal gestureSignal;
 
     private void Awake()
     {
@@ -54,6 +59,36 @@ public class AlienManager : MonoBehaviour
         }
 	}
 
+    public TheKiwiCoder.BTNode.State FindGestureCircle()
+	{
+        GestureCircle closestCircle = null;
+        for ( int i = 0; i < gestureCircles.Items.Count; i++ )
+        {
+            float shortestDistance = 0f;
+
+            float dist = Vector3.Distance( gestureCircles.Items[ i ].transform.position, this.transform.position );
+            if ( closestCircle == null )
+            {
+                if ( dist < interactDistance )
+                {
+                    closestCircle = gestureCircles.Items[ i ];
+                    shortestDistance = dist;
+                }
+            }
+            else if ( Vector3.Distance( gestureCircles.Items[ i ].transform.position, this.transform.position ) < shortestDistance )
+            {
+                closestCircle = gestureCircles.Items[ i ];
+                shortestDistance = dist;
+            }
+        }
+        gestureCircle = closestCircle;
+
+        if ( gestureCircle != null )
+            return TheKiwiCoder.BTNode.State.Success;
+        else
+            return TheKiwiCoder.BTNode.State.Failure;
+    }
+
 	public void TryDoor()
 	{
         if ( doorToOpen != null && Vector3.Distance( doorToOpen.transform.position, transform.position ) < interactDistance )
@@ -65,26 +100,23 @@ public class AlienManager : MonoBehaviour
         }
 	}
 
-    public void OnTremor( Vector3 position, float intensity )
+    public void OnTremor( Vector3 _position, float _intensity )
 	{
-        if ( !focused ) 
-        {
-            lastHeardTremor.intensity = intensity;
-            lastHeardTremor.timeStamp = Time.time;
-            lastHeardTremor.position = position;
-        }
+        lastHeardTremor.intensity = _intensity;
+        lastHeardTremor.timeStamp = Time.time;
+        lastHeardTremor.position = _position;
     }
 
-    public void OnWord( GestureCircle gestureCircle, Gesture word )
+    public void OnWord( GestureCircle _gestureCircle, Gesture _word )
 	{
 
 	}
 
-    public void OnSentence( GestureCircle gestureCircle )
+    public void OnSentence( GestureCircle _gestureCircle )
 	{
-        gestureSignal.gestureCircle = gestureCircle;
+        gestureSignal.gestureCircle = _gestureCircle;
         gestureSignal.timeStamp = Time.time;
-        gc.gestureCircle = gestureCircle;
+        this.gestureCircle = _gestureCircle;
     }
 }
 

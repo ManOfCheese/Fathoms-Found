@@ -10,7 +10,7 @@ public class BTCheckGesture : BTDecoratorNode
     private string playerGesture;
 
     protected override void OnStart() {
-        playerGesture = context.gestureController.respondGCode;
+        playerGesture = context.manager.gestureCircle.sentence;
     }
 
     protected override void OnStop() {

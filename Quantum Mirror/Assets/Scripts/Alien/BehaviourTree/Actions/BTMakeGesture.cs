@@ -21,13 +21,16 @@ public class BTMakeGesture : BTActionNode
         context.gestureController.gestureHandIndex = -1;
         context.gestureController.repositioning = false;
         context.gestureController.endGesture = false;
+        context.manager.gestureCircle = null;
 
         for ( int i = 0; i < context.gestureController.hands.Length; i++ )
             context.gestureController.hands[ i ].ikHandler.enabled = true;
-
     }
 
     protected override State OnUpdate() {
-        return context.gestureController.Gesture();
+        if ( context.manager.gestureCircle != null )
+            return context.gestureController.Gesture();
+        else
+            return State.Failure;
     }
 }

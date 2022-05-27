@@ -8,7 +8,6 @@ public class AlienGestureController : MonoBehaviour
 
 	[Header( "References" )]
     public HandInfo[] hands;
-	public GestureCircle gestureCircle;
 	public Transform[] idleHandTargets;
 	public GestureListener gestureListener;
 	public GestureSequence_Set gestureLibrary;
@@ -43,7 +42,6 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public int pointHandIndex = -1;
 	[ReadOnly] public int sentenceIndex = 0;
 	[ReadOnly] public int wordIndex = 0;
-	[ReadOnly] public string respondGCode;
 	[ReadOnly] public Vector3 preGestureHandPos;
 
 	[HideInInspector] public List<int> repositionedLegs = new List<int>();
@@ -54,14 +52,6 @@ public class AlienGestureController : MonoBehaviour
 
 	[HideInInspector] public Vector3 handTarget;
 
-	private void OnEnable() {
-		gestureListener.onSentence += OnSentence;
-	}
-
-	private void OnDisable() {
-		gestureListener.onSentence += OnSentence;
-	}
-
 	public int FindClosestHand( Transform respondTo )
 	{
 		int closestHand = 0;
@@ -69,7 +59,7 @@ public class AlienGestureController : MonoBehaviour
 
 		for ( int i = 0; i < hands.Length; i++ )
 		{
-			float dist = Vector3.Distance( gestureCircle.transform.position, hands[ i ].handTransform.position );
+			float dist = Vector3.Distance( alienManager.gestureCircle.transform.position, hands[ i ].handTransform.position );
 			if ( dist < shortestDist || i == 0 )
 			{
 				closestHand = i;
@@ -143,7 +133,7 @@ public class AlienGestureController : MonoBehaviour
 			//Check if the gesture codes match.
 			for ( int j = 0; j < gestureLibrary.Items[ i ].gestureCode.Length; j++ )
 			{
-				if ( gestureLibrary.Items[ i ].gCode == respondGCode )
+				if ( gestureLibrary.Items[ i ].gCode == alienManager.gestureCircle.sentence )
 				{
 					sentenceIndex = i;
 					sentenceFound = true;
@@ -152,7 +142,7 @@ public class AlienGestureController : MonoBehaviour
 			}
 		}
 
-		Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + respondGCode + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
+		Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + alienManager.gestureCircle.sentence + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
 		if ( sentenceFound && responses.Items[ sentenceIndex ] != null )
 		{
 			ResetGestureSettings();
@@ -179,6 +169,7 @@ public class AlienGestureController : MonoBehaviour
 	public TheKiwiCoder.BTNode.State Gesture()
 	{
 		HandInfo hand = hands[ gestureHandIndex ];
+		GestureCircle gestureCircle = alienManager.gestureCircle;
 		Animator[] fingerAnimators = hands[ gestureHandIndex ].fingerAnimators;
 		Debug.DrawLine( hand.handTransform.transform.position, hand.handTransform.transform.position + gestureCircle.transform.up * 5f );
 
@@ -206,9 +197,13 @@ public class AlienGestureController : MonoBehaviour
 		{
 			if ( startGesture )
 			{
-				gestureCircle.gameObject.SetActive( true );
-				handTarget = gestureCircle.transform.position;
+				handTarget = alienManager.gestureCircle.transform.position;
 				startGesture = false;
+
+				gestureCircle.Clear();
+				if ( gestureCircle.twoWayCircle )
+					gestureCircle.otherCircle.Clear();
+
 				for ( int i = 0; i < fingerAnimators.Length; i++ )
 				{
 					if ( fingerAnimators[ i ].GetBool( "FingerOpen" ) )
@@ -225,16 +220,10 @@ public class AlienGestureController : MonoBehaviour
 					if ( endGesture )
 					{
 						gesturing = false;
-						gestureCircle.gameObject.SetActive( false );
 						holdingGesture = false;
 						gestureHandIndex = -1;
 						endGesture = false;
 						if ( standardGesture ) standardGesture = false;
-						for ( int i = 0; i < gestureCircle.subCircles.Length; i++ )
-						{
-							for ( int j = 0; j < gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
-								gestureCircle.subCircles[ i ].fingerSprites[ j ].enabled = false;
-						}
 						return TheKiwiCoder.BTNode.State.Success;
 					}
 					//Set new hand target.
@@ -248,17 +237,12 @@ public class AlienGestureController : MonoBehaviour
 							for ( int i = 0; i < fingerAnimators.Length; i++ )
 							{
 								if ( gestures[ wordIndex ].fingers[ i ] && !fingerAnimators[ i ].GetBool( "FingerOpen" ) )
-								{
-									Debug.Log( "Fingy" );
 									fingerAnimators[ i ].SetBool( "FingerOpen", true );
-								}
 							}
 
-							//Turn on the finger sprites.
+							//Input the gesture into the circle.
 							Gesture gesture = gestures[ wordIndex ];
-							gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ 0 ].enabled = true;
-							for ( int i = 0; i < gesture.fingers.Length; i++ )
-								gestureCircle.subCircles[ gesture.circle - 1 ].fingerSprites[ i + 1 ].gameObject.SetActive( gesture.fingers[ i ] );
+							gestureCircle.subCircles[ gesture.circle ].ConfirmGestureTwoWay( gestures[ wordIndex ].circle, gestures[ wordIndex ].fingers );
 
 							gestureHoldTimeStamp = Time.time;
 							holdingGesture = true;
@@ -274,7 +258,7 @@ public class AlienGestureController : MonoBehaviour
 						//Set target as the next word in the sentence.
 						else
 						{
-							handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle - 1 ].transform.position;
+							handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position;
 							//Debug.Log( Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
 						}
 					}
@@ -285,12 +269,6 @@ public class AlienGestureController : MonoBehaviour
 			}
 		}
 		return TheKiwiCoder.BTNode.State.Running;
-	}
-
-	public void OnSentence( List<int> sentenceCode ) {
-		respondGCode = "";
-		for ( int i = 0; i < sentenceCode.Count; i++ )
-			respondGCode += sentenceCode[ i ];
 	}
 
 	private void OnDrawGizmos() {

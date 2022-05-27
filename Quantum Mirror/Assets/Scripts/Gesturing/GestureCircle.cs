@@ -7,14 +7,17 @@ public class GestureCircle : MonoBehaviour
 {
 
 	[Header( "References" )]
+	public RunTimeSet<GestureCircle> set;
 	[Tooltip( "Where the alien will stand to use the gesture circle" )]
 	public Transform gesturePosition;
 	public BoolValue isUsingGestureCircle;
-	public SubCircle[] subCircles;
 	public BoolValue usePartialConfirmation;
 	public BoolValue confirmOnWord;
+	public SubCircle[] subCircles;
 
 	[Header( "Settings" )]
+	public bool twoWayCircle;
+	public GestureCircle otherCircle;
 	public string playerClawTag;
 	public string alienClawTag;
 	public Color standardColor;
@@ -44,14 +47,26 @@ public class GestureCircle : MonoBehaviour
 
 	private void OnEnable()
 	{
-		onSentence += ConfirmSentence;
+		set.Add( this );
 		onWord += ConfirmWord;
+		onSentence += ConfirmSentence;
+		if ( twoWayCircle )
+		{
+			otherCircle.onWord += ConfirmWord;
+			otherCircle.onSentence += ConfirmSentence;
+		}
 	}
 
 	private void OnDisable()
 	{
+		set.Remove( this );
 		onSentence -= ConfirmSentence;
 		onWord -= ConfirmWord;
+		if ( twoWayCircle )
+		{
+			otherCircle.onWord -= ConfirmWord;
+			otherCircle.onSentence -= ConfirmSentence;
+		}
 	}
 
 	private void OnTriggerEnter( Collider other )
@@ -110,6 +125,10 @@ public class GestureCircle : MonoBehaviour
 
 	public void ConfirmWord( GestureCircle gestureCircle, Gesture word )
 	{
+		if ( gestureCircle != this )
+		{
+			subCircles[ word.circle ].ShowGestureSprites( word );
+		}
 		if ( usePartialConfirmation && confirmOnWord.Value )
 		{
 			PartialConfirmation( word );
@@ -128,6 +147,14 @@ public class GestureCircle : MonoBehaviour
 			for ( int i = 0; i < words.Count; i++ )
 				PartialConfirmation( words[ i ] );
 		}
+	}
+
+	public void Clear()
+	{
+		words.Clear();
+		sentence = "";
+		for ( int i = 0; i < subCircles.Length; i++ )
+			subCircles[ i ].ShowGestureSprites( new Gesture( 0, new bool[ 3 ] { false, false, false } ) );
 	}
 
 	public void PartialConfirmation( Gesture word )

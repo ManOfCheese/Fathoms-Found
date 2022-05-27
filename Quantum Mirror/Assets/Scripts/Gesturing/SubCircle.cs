@@ -20,12 +20,12 @@ public class SubCircle : MonoBehaviour
 
 	private void OnEnable()
 	{
-		confirmGesture.onValueChanged += OnConfirmGesture;
+		confirmGesture.onValueChanged += OnPlayerGesture;
 	}
 
 	private void OnDisable()
 	{
-		confirmGesture.onValueChanged -= OnConfirmGesture;
+		confirmGesture.onValueChanged -= OnPlayerGesture;
 	}
 
 	private void OnTriggerEnter( Collider other )
@@ -43,51 +43,58 @@ public class SubCircle : MonoBehaviour
 		}
 	}
 
-	public void OnConfirmGesture( bool confirmGesture )
+	public void OnPlayerGesture( bool confirmGesture )
 	{
 		if ( confirmGesture && handPos.Value == circleNumber && gestureCircle.clawInCircle )
-			ConfirmGesture();
+			ConfirmGestureTwoWay( handPos.Value, fingers.Value );
 	}
 
-	public void ConfirmGesture()
+	public void ConfirmGestureTwoWay( int _circleNumber, bool[] _fingers )
+	{
+		ConfirmGesture( gestureCircle, _circleNumber, _fingers );
+		if ( gestureCircle.twoWayCircle )
+			ConfirmGesture( gestureCircle.otherCircle, _circleNumber, _fingers );
+	}
+
+	public void ConfirmGesture( GestureCircle _gestureCircle, int _circleNumber, bool[] _fingers )
 	{
 		if ( circleNumber != 0 )
 		{
-			Gesture word = new Gesture( circleNumber, fingers.Value );
+			Gesture word = new Gesture( _circleNumber, _fingers );
 			ShowGestureSprites( word );
 
 			//Check if a word was already submitted in this circle.
 			bool replacedWord = false;
-			for ( int i = 0; i < gestureCircle.words.Count; i++ )
+			for ( int i = 0; i < _gestureCircle.words.Count; i++ )
 			{
 				if ( word.fingers[ 0 ] == false && word.fingers[ 1 ] == false && word.fingers[ 2 ] == false )
 				{
-					if ( word.circle == gestureCircle.words[ i ].circle )
+					if ( word.circle == _gestureCircle.words[ i ].circle )
 					{
-						gestureCircle.words.RemoveAt( i );
+						_gestureCircle.words.RemoveAt( i );
 						replacedWord = true;
 					}
 				}
 				else
 				{
-					if ( word.circle == gestureCircle.words[ i ].circle )
+					if ( word.circle == _gestureCircle.words[ i ].circle )
 					{
-						gestureCircle.words[ i ] = word;
+						_gestureCircle.words[ i ] = word;
 						replacedWord = true;
 					}
 				}
 
 			}
 			if ( !replacedWord )
-				gestureCircle.words.Add( word );
+				_gestureCircle.words.Add( word );
 
-			gestureCircle.words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
-			gestureCircle.sentence = Gestures.GestureLogic.GestureListToGCode( gestureCircle.words );
-			gestureCircle.onWord?.Invoke( gestureCircle, word );
+			_gestureCircle.words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
+			_gestureCircle.sentence = Gestures.GestureLogic.GestureListToGCode( _gestureCircle.words );
+			_gestureCircle.onWord?.Invoke( _gestureCircle, word );
 		}
 		else
 		{
-			gestureCircle.onSentence?.Invoke( gestureCircle );
+			_gestureCircle.onSentence?.Invoke( _gestureCircle );
 		}
 	}
 
