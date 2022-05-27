@@ -8,7 +8,7 @@ public class AlienGestureController : MonoBehaviour
 
 	[Header( "References" )]
     public HandInfo[] hands;
-	public GestureCircle[] gestureCircles;
+	public GestureCircle gestureCircle;
 	public Transform[] idleHandTargets;
 	public GestureListener gestureListener;
 	public GestureSequence_Set gestureLibrary;
@@ -67,9 +67,9 @@ public class AlienGestureController : MonoBehaviour
 		int closestHand = 0;
 		float shortestDist = 0f;
 
-		for ( int i = 0; i < gestureCircles.Length; i++ )
+		for ( int i = 0; i < hands.Length; i++ )
 		{
-			float dist = Vector3.Distance( respondTo.position, gestureCircles[ i ].transform.position );
+			float dist = Vector3.Distance( gestureCircle.transform.position, hands[ i ].handTransform.position );
 			if ( dist < shortestDist || i == 0 )
 			{
 				closestHand = i;
@@ -178,7 +178,6 @@ public class AlienGestureController : MonoBehaviour
 
 	public TheKiwiCoder.BTNode.State Gesture()
 	{
-		GestureCircle gestureCircle = gestureCircles[ gestureHandIndex ];
 		HandInfo hand = hands[ gestureHandIndex ];
 		Animator[] fingerAnimators = hands[ gestureHandIndex ].fingerAnimators;
 		Debug.DrawLine( hand.handTransform.transform.position, hand.handTransform.transform.position + gestureCircle.transform.up * 5f );

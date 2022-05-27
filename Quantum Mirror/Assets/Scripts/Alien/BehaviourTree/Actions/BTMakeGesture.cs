@@ -24,8 +24,6 @@ public class BTMakeGesture : BTActionNode
 
         for ( int i = 0; i < context.gestureController.hands.Length; i++ )
             context.gestureController.hands[ i ].ikHandler.enabled = true;
-        for ( int i = 0; i < context.gestureController.gestureCircles.Length; i++ )
-            context.gestureController.gestureCircles[ i ].gameObject.SetActive( false );
 
     }
 

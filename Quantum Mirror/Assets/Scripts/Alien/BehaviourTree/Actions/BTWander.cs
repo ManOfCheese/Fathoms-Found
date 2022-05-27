@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class BTWander : BTActionNode
+public class BTWander : BTMoveToPosition
 {
-    
+
+    public bool interruptable = false;
     public MovementMode movementMode = MovementMode.PointToPoint;
     public MovementShape movementShape = MovementShape.Circle;
 
@@ -13,9 +14,9 @@ public class BTWander : BTActionNode
     {
         context.moveController.movementMode = movementMode;
         context.moveController.movementShape = movementShape;
-        blackboard.AddData( "moveToPosition", blackboard.vector3s, context.moveController.Wander() );
-        AlienBlackboard alienBlackboard = blackboard as AlienBlackboard;
-        alienBlackboard.moveToPosition = blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() );
+        if ( context.moveController.agent.remainingDistance < tolerance )
+            blackboard.AddData( "moveToPosition", blackboard.vector3s, context.moveController.Wander() );
+        base.OnStart();
     }
 
     protected override void OnStop()
@@ -24,6 +25,13 @@ public class BTWander : BTActionNode
 
     protected override State OnUpdate()
     {
-        return context.moveController.EvaluateWander();
+        State state = context.moveController.EvaluateWander();
+
+        if ( interruptable )
+		{
+            if ( state == State.Running )
+                state = State.Success;
+		}
+        return state;
     }
 }

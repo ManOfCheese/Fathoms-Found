@@ -19,12 +19,12 @@ namespace TheKiwiCoder {
 
         protected override State OnUpdate() {
             bool stillRunning = false;
+            int failureCount = 0;
             for ( int i = 0; i < childrenLeftToExecute.Count(); ++i ) {
                 if ( childrenLeftToExecute[ i ] == State.Running ) {
                     var status = children[ i ].Update();
                     if ( status == State.Failure ) {
-                        AbortRunningChildren();
-                        return State.Failure;
+                        failureCount++;
                     }
 
                     if ( status == State.Running ) {
@@ -35,7 +35,10 @@ namespace TheKiwiCoder {
                 }
             }
 
-            return stillRunning ? State.Running : State.Success;
+            if ( failureCount == children.Count )
+                return State.Failure;
+            else
+                return stillRunning ? State.Running : State.Success;
         }
 
         void AbortRunningChildren() {

@@ -84,6 +84,7 @@ public class AlienManager : MonoBehaviour
 	{
         gestureSignal.gestureCircle = gestureCircle;
         gestureSignal.timeStamp = Time.time;
+        gc.gestureCircle = gestureCircle;
     }
 }
 
