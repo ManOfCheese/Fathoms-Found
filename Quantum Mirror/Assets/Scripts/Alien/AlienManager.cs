@@ -9,7 +9,7 @@ public class AlienManager : MonoBehaviour
 
     [Header( "References" )]
     public RunTimeSet<GestureCircle> gestureCircles;
-    public RunTimeSet<Door> doors;
+    public RunTimeSet<GestureCircle> doorPanels;
 
     [Header( "Settings" )]
     public Transform player;
