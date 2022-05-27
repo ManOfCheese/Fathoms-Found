@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1250596882468145249
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1244216823922404658}
-  m_Layer: 0
-  m_Name: GesturePosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1244216823922404658
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250596882468145249}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 283345772186054177}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4532692486084650716
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,8 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1244216823922404658}
+  m_Children: []
   m_Father: {fileID: 6250950801287602861}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97,6 +66,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1073501342165288697, guid: 75a3af34bb13f0242befcac83a39f450,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6946272530978588506, guid: 75a3af34bb13f0242befcac83a39f450,
         type: 3}
       propertyPath: m_Name
@@ -161,7 +135,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gesturePosition
       value: 
-      objectReference: {fileID: 1244216823922404658}
+      objectReference: {fileID: 4052148376065696527}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75a3af34bb13f0242befcac83a39f450, type: 3}
 --- !u!4 &6250950801287602861 stripped
@@ -182,3 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6a1bc6181909544992d6dab06006f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &4052148376065696527 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1073501342165288697, guid: 75a3af34bb13f0242befcac83a39f450,
+    type: 3}
+  m_PrefabInstance: {fileID: 3952410818602640886}
+  m_PrefabAsset: {fileID: 0}
