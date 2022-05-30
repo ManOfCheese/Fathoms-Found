@@ -124,7 +124,7 @@ public class AlienGestureController : MonoBehaviour
 		return TheKiwiCoder.BTNode.State.Running;
 	}
 
-	public void SetGesture()
+	public void FindGesture()
 	{
 		//Find the player's sentence in the library and save the id.
 		bool sentenceFound = false;
@@ -154,6 +154,13 @@ public class AlienGestureController : MonoBehaviour
 		}
 	}
 
+	public void SetGesture( GestureSequence sentence )
+	{
+		responses.Items.Add( sentence );
+		sentenceIndex = responses.Items.Count - 1;
+		ResetGestureSettings();
+	}
+
 	private void ResetGestureSettings()
 	{
 		int closestHand = FindClosestHand( alienManager.player );
@@ -181,7 +188,14 @@ public class AlienGestureController : MonoBehaviour
 				gestures.Add( standardResponse.words[ i ] );
 		}
 		else
-			gestures = responses.Items[ sentenceIndex ].words;
+		{
+			gestures = new List<Gesture>();
+			for ( int i = 0; i < responses.Items[ sentenceIndex ].words.Count; i++ )
+			{
+				gestures.Add( responses.Items[ sentenceIndex ].words[ i ] );
+			}
+		}
+		gestures.Add( new Gesture( 0, new bool[ 3 ] { false, false, false } ) );
 
 		//Hold Gesture
 		if ( holdingGesture )

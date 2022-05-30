@@ -5,8 +5,14 @@ using TheKiwiCoder;
 
 public class BTMakeGesture : BTActionNode
 {
+
+    public GestureSequence sentence;
+
     protected override void OnStart() {
-        context.gestureController.SetGesture();
+        if ( sentence == null )
+            context.gestureController.FindGesture();
+        else
+            context.gestureController.SetGesture( sentence );
         context.moveController.agent.destination = context.moveController.agent.transform.position;
         context.gestureController.repositioning = true;
         context.gestureController.repositionedLegs.Clear();

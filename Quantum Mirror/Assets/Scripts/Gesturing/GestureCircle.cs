@@ -27,7 +27,7 @@ public class GestureCircle : MonoBehaviour
 	public Sprite[] playerClawSprite;
 	public Sprite[] alienClawSprite;
 
-	[ReadOnly] public List<Gesture> words = new List<Gesture>();
+	public List<Gesture> words = new List<Gesture>();
 	[ReadOnly] public string sentence;
 	[ReadOnly] public bool clawInCircle;
 
@@ -139,6 +139,7 @@ public class GestureCircle : MonoBehaviour
 	{
 		for ( int i = 0; i < passwordActions.Count; i++ )
 		{
+			Debug.Log( Gestures.GestureLogic.GestureListToGCode( words ) + " == " + Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) );
 			if ( Gestures.GestureLogic.GestureListToGCode( words ) == Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
 				passwordActions[ i ].action?.Invoke();
 		}

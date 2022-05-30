@@ -29,7 +29,6 @@ public class BTMoveToObject : BTActionNode
                 closestObject = objects.Items[ i ];
                 closestDist = dist;
             }
-            Debug.Log( closestDist );
         }
         if ( closestObject != null )
             context.moveController.agent.destination = closestObject.transform.position;
