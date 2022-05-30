@@ -93,8 +93,7 @@ public class AlienManager : MonoBehaviour
 	{
         if ( doorToOpen != null && Vector3.Distance( doorToOpen.transform.position, transform.position ) < interactDistance )
 		{
-            Debug.Log( "Open Door" );
-            doorToOpen.Open();
+            doorToOpen.Interact();
             interest = false;
             doorToOpen = null;
         }
