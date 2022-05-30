@@ -18,7 +18,6 @@ public class AlienRun : MonoBehaviour
 
 	private void OnTriggerEnter( Collider other )
 	{
-		Debug.Log( other.gameObject.name );
 		if ( other.tag == "Claw" )
 		{
 			blackboard.AddData( "moveToPosition", blackboard.vector3s, runTo.transform.position );
