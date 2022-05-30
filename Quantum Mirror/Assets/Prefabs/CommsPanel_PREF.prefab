@@ -96,6 +96,36 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3184750361099826558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2490411227531072290}
+  m_Layer: 0
+  m_Name: GesturePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2490411227531072290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3184750361099826558}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6946272530978588507}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4336195737854455546
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +374,7 @@ Transform:
   m_Children:
   - {fileID: 8712450454834863635}
   - {fileID: 781623080527045723}
+  - {fileID: 2490411227531072290}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -545,6 +576,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GestureCircle_PREF
       objectReference: {fileID: 0}
+    - target: {fileID: 8703314539456645144, guid: 2a4294f67a327cb498c2eace3c5b34a8,
+        type: 3}
+      propertyPath: gesturePosition
+      value: 
+      objectReference: {fileID: 2490411227531072290}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a4294f67a327cb498c2eace3c5b34a8, type: 3}
 --- !u!4 &781623080527045723 stripped
