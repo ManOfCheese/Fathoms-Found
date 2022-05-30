@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class BTWander : BTMoveToPosition
+public class BTWander : BTMove
 {
 
     public bool interruptable = false;
@@ -14,7 +14,7 @@ public class BTWander : BTMoveToPosition
     {
         context.moveController.movementMode = movementMode;
         context.moveController.movementShape = movementShape;
-        if ( context.moveController.agent.remainingDistance < tolerance )
+        if ( context.moveController.agent.remainingDistance < context.moveController.tolerance )
             blackboard.AddData( "moveToPosition", blackboard.vector3s, context.moveController.Wander() );
         base.OnStart();
     }

@@ -11,7 +11,6 @@ public class BTMove : BTActionNode
     public float stoppingDistance = 0.1f;
     public bool updateRotation = true;
     public float acceleration = 40.0f;
-    public float tolerance = 1.0f;
 
     protected override void OnStart() {
         if ( overrideAgentSettings )
@@ -32,7 +31,7 @@ public class BTMove : BTActionNode
         {
             return State.Running;
         }
-        else if ( context.moveController.agent.remainingDistance < tolerance )
+        else if ( context.moveController.agent.remainingDistance < context.moveController.tolerance )
         {
             blackboard.AddData( "moveToPosition", blackboard.vector3s, Vector3.zero );
             AlienBlackboard alienBlackboard = blackboard as AlienBlackboard;
