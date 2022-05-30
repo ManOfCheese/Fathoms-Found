@@ -15,6 +15,9 @@ public class Object : MonoBehaviour
 	public List<GameObject> modifierPrefabs;
 
 	[Header( "Settings" )]
+	[Tooltip( "The higher and objects hardness the better the aliens can detect movement through it" )]
+	public float hardness;
+	public AudioClip collisonSound;
 	public AnimationCurve defaultCurve;
 	public PropertyInfo[] baseValues;
 	public SourceInfo[] sourceSettings;

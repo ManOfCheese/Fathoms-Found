@@ -99,7 +99,7 @@ public class Handmovement : MonoBehaviour
             }
             else 
             {
-                gestureCircle.gameObject.SetActive( true );
+                //gestureCircle.gameObject.SetActive( true );
                 Draweranim.SetBool("isinInventory", false);
 
                 mouseWorldPos = Camera.main.ScreenToWorldPoint( new Vector3(Mouse.current.position.ReadValue().x, 
