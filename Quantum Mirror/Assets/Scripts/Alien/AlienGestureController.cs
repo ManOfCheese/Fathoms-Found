@@ -9,7 +9,6 @@ public class AlienGestureController : MonoBehaviour
 	[Header( "References" )]
     public HandInfo[] hands;
 	public Transform[] idleHandTargets;
-	public GestureListener gestureListener;
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
 
