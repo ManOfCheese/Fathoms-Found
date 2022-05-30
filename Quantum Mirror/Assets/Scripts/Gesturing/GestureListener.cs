@@ -42,7 +42,7 @@ public class GestureListener : MonoBehaviour
 	{
 		if ( confirmGesture )
 		{
-			if ( handPos.Value != 0 )
+			if ( handPos.Value != 0 && handPos.Value > -1f )
 			{
 				Gesture word = new Gesture( handPos.Value, fingers.Value );
 				onWord?.Invoke( word );
@@ -63,7 +63,7 @@ public class GestureListener : MonoBehaviour
 				words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
 				playerSentence = Gestures.GestureLogic.GestureListToCodeList( words );
 			}
-			else
+			else if ( handPos.Value == 0 )
 			{
 				onSentence?.Invoke( playerSentence );
 			}

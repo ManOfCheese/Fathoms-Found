@@ -611,6 +611,7 @@ MonoBehaviour:
   handSensitivity: 2.5
   scrollSensitivity: 0.5
   rotateHand: 0
+  resetHandOnConfirm: 0
   handPos: {fileID: 11400000, guid: bd41c8a38e1f66d4180a46d6f65344af, type: 2}
   fingers: {fileID: 11400000, guid: 9a373f8d0f773414fa550858fe659b04, type: 2}
   isInGestureMode: {fileID: 11400000, guid: a467da39a7702f242b30b3ac345142d1, type: 2}
@@ -622,9 +623,11 @@ MonoBehaviour:
   - {fileID: 5724585682982019221}
   - {fileID: 4346315476466515005}
   Draweranim: {fileID: 0}
+  Armanim: {fileID: 8342943930442717946}
   armModeUI: {fileID: 0}
   camModeUI: {fileID: 0}
   grabber: {fileID: 7654605526091465237}
+  armIK: {fileID: 1497868079570923643}
   gestureCircle: {fileID: 0}
   controller: {fileID: 0}
   worldSpaceCursor: {fileID: 3982309261782420091}
@@ -657,6 +660,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8706991455412890502}
     m_Modifications:
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: mainAxis.x
+      value: -0.21581258
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: mainAxis.y
+      value: -0.656903
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: mainAxis.z
+      value: 0.72242874
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: zeroRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: zeroRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: zeroRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: zeroRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: secondaryAxis.x
+      value: 0.3549863
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: secondaryAxis.y
+      value: 0.6364532
+      objectReference: {fileID: 0}
+    - target: {fileID: 918565088, guid: 3adcd069849e30b499e10f6742167d99, type: 3}
+      propertyPath: secondaryAxis.z
+      value: 0.6847715
+      objectReference: {fileID: 0}
     - target: {fileID: 1288968163858283153, guid: 3adcd069849e30b499e10f6742167d99,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -742,6 +785,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2880817622999231857, guid: 3adcd069849e30b499e10f6742167d99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2880817622999231857, guid: 3adcd069849e30b499e10f6742167d99,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2929833097613827846, guid: 3adcd069849e30b499e10f6742167d99,
         type: 3}
       propertyPath: m_Name
@@ -794,6 +847,12 @@ Animator:
 --- !u!1 &7654605526091465237 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2414502087318022298, guid: 3adcd069849e30b499e10f6742167d99,
+    type: 3}
+  m_PrefabInstance: {fileID: 5456278008130906767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1497868079570923643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6877534178453461748, guid: 3adcd069849e30b499e10f6742167d99,
     type: 3}
   m_PrefabInstance: {fileID: 5456278008130906767}
   m_PrefabAsset: {fileID: 0}

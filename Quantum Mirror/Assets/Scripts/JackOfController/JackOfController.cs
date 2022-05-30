@@ -15,10 +15,18 @@ public class JackOfController : MonoBehaviour {
     #region Variables
     public JackOfControllerSystem system;
     public GameObject head;
+    public TremorSource tremorSource;
 
     [Header( "VariableObjects" )]
     public BoolValue inGestureMode;
     public BoolValue legsBroken;
+
+    [Header( "Tremor Settings" )]
+    public float tremorThreshold;
+    public float jumpTremorIntensity;
+    public float landTremorIntensity;
+    public float walkTremorIntesity;
+    public float runTremorIntesity;
 
     [Header( "Camera Settings" )]
     [Tooltip( "When true camera controls will be inverted meaning moving left will move the camera to the right." )]
@@ -90,6 +98,7 @@ public class JackOfController : MonoBehaviour {
     [ReadOnly] public float startSensitivity;
 
     [Header( "Movement Debug" )]
+    [ReadOnly] public bool moving;
     [ReadOnly] public bool sprinting = false;
     [ReadOnly] public float currentSpeed;
     [ReadOnly] public Vector2 rawMoveVector;
@@ -117,12 +126,11 @@ public class JackOfController : MonoBehaviour {
     [HideInInspector] public AirborneState airborneState;
     [HideInInspector] public AudioSource[] audioSources;
     [HideInInspector] public AudioInfo[] audioInfos;
-
-    private bool moving;
     #endregion
 
     private void Awake() {
         system.joc = this;
+        tremorSource = GetComponent<TremorSource>();
     }
 
     #region Input
@@ -181,6 +189,7 @@ public class JackOfController : MonoBehaviour {
         if ( value.started )
         {
             sprinting = true;
+            tremorSource.SetTremorIntesity( runTremorIntesity );
             if ( moving )
 			{
                 tracksFader.Crossfade( tracksGoingSource.source, tracksSprintSource.source, tracksGoingSource.source.volume, 0f, crossFadeDuration );
@@ -190,6 +199,7 @@ public class JackOfController : MonoBehaviour {
         {
             sprinting = false;
             currentSpeed = speed;
+            tremorSource.SetTremorIntesity( walkTremorIntesity );
             if ( moving )
             {
                 tracksFader.Crossfade( tracksSprintSource.source, tracksGoingSource.source, tracksSprintSource.source.volume, 0f, crossFadeDuration );
@@ -221,12 +231,14 @@ public class JackOfController : MonoBehaviour {
 
     public void Walk() 
     {
-        if ( grounded || aerialMovement == AerialMovementSettings.FullMovement ) 
+        if ( ( moving && grounded ) || aerialMovement == AerialMovementSettings.FullMovement ) 
         {
             Vector3 relativeMovementVector = rawMoveVector.x * cc.transform.right + rawMoveVector.y * cc.transform.forward;
             Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y, 
                 relativeMovementVector.z * currentSpeed );
             cc.Move( finalMovementVector * Time.deltaTime );
+            if ( moving && grounded )
+                tremorSource.Tremor();
         }
     }
 
@@ -237,6 +249,11 @@ public class JackOfController : MonoBehaviour {
             jump = false;
             if ( aerialMovement != AerialMovementSettings.FullMovement ) velocityOnJump = cc.velocity;
             jumpCount++;
+
+            float previousTremorIntensity = tremorSource.tremorIntensity;
+            tremorSource.SetTremorIntesity( jumpTremorIntensity );
+            tremorSource.Tremor();
+            tremorSource.SetTremorIntesity( previousTremorIntensity );
         }
         cc.Move( ( velocityOnJump + velocity ) * Time.deltaTime );
     }
@@ -278,6 +295,12 @@ public class JackOfController : MonoBehaviour {
             if ( newGrounded && jom.stateMachine.CurrentState != jom.statesByName[ "GroundedState" ] ) 
             {
                 jom.stateMachine.ChangeState( jom.statesByName[ "GroundedState" ] );
+
+                float previousTremorIntensity = tremorSource.tremorIntensity;
+                tremorSource.SetTremorIntesity( landTremorIntensity );
+                tremorSource.Tremor();
+                tremorSource.SetTremorIntesity( previousTremorIntensity );
+
                 velocityOnJump = Vector3.zero;
                 jumpCount = 0;
             }
@@ -296,7 +319,7 @@ public class JackOfController : MonoBehaviour {
             {
                 if ( sprintSpeed != 0f )
                     currentSpeed = sprintSpeed;
-                else
+				else
                     currentSpeed = speed * relativeSprintSpeed;
             }
         }

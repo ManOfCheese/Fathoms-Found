@@ -119,7 +119,8 @@ public class SampleTool : MonoBehaviour
 		sample.transform.position = shootFrom.position;
 		sampleRB.AddForce( shootFrom.transform.forward * ejaculationStrength, ForceMode.Impulse );
 		sample.GetComponent<Collider>().enabled = true;
-		sampleInGun.Unseal();
+		if ( sampleInGun != null )
+			sampleInGun.Unseal();
 
 		sampleSlot.OnItemRemoved( sampleSlot.sampleInSlot );
 		sampleSlot.sampleInSlot = null;

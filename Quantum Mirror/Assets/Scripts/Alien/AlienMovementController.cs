@@ -79,25 +79,21 @@ public class AlienMovementController : MonoBehaviour
             hands[ i ].speed = speed;
     }
 
-    public void Wander()
+    public Vector3 Wander()
 	{
         switch ( movementShape )
         {
             case MovementShape.Torus:
-                agent.destination = GetRandomPos( torusCenter.transform.position, torusInnerRadius, torusOuterRadius );
-                break;
+                return GetRandomPos( torusCenter.transform.position, torusInnerRadius, torusOuterRadius );
             case MovementShape.Circle:
                 if ( circleCenter != null )
-                    agent.destination = GetRandomPos( circleCenter.transform.position, 0f, circleRadius );
+                    return GetRandomPos( circleCenter.transform.position, 0f, circleRadius );
                 else
-                    agent.destination = GetRandomPos( Vector3.zero, 0f, circleRadius );
-                break;
+                    return GetRandomPos( Vector3.zero, 0f, circleRadius );
             case MovementShape.None:
-                agent.destination = GetRandomPos( transform.position, minDistance, maxDistance );
-                break;
+                return GetRandomPos( transform.position, minDistance, maxDistance );
             default:
-                agent.destination = GetRandomPos( transform.position, minDistance, maxDistance );
-                break;
+                return GetRandomPos( transform.position, minDistance, maxDistance );
         }
     }
 
@@ -120,8 +116,7 @@ public class AlienMovementController : MonoBehaviour
                     idleDestinationTimestamp = Time.time;
                     return TheKiwiCoder.BTNode.State.Success;
                 }
-                else
-                    return TheKiwiCoder.BTNode.State.Running;
+                return TheKiwiCoder.BTNode.State.Running;
             default:
                 return TheKiwiCoder.BTNode.State.Success;
         }
@@ -163,7 +158,8 @@ public class AlienMovementController : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-        Gizmos.DrawSphere( agent.destination, 2 );
+        if ( agent != null )
+            Gizmos.DrawSphere( agent.destination, 2 );
         if ( circleCenter )
             Gizmos.DrawWireSphere( circleCenter.transform.position, circleRadius );
         if ( torusCenter ) {

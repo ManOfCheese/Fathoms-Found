@@ -595,11 +595,12 @@ GameObject:
   - component: {fileID: 182677836590286789}
   - component: {fileID: 182677836590286790}
   - component: {fileID: 8969344759124275194}
-  - component: {fileID: 2057163490480272315}
   - component: {fileID: 182677836590286791}
-  - component: {fileID: 258927403}
-  - component: {fileID: 1352502186476281037}
-  m_Layer: 0
+  - component: {fileID: 2281517349653620675}
+  - component: {fileID: 2939271538451137771}
+  - component: {fileID: 3843858138697118720}
+  - component: {fileID: 6862255328875580019}
+  m_Layer: 11
   m_Name: JackOfController_Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,8 +678,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   system: {fileID: 11400000, guid: 4d2e3da3703b28c4690ced6f20283731, type: 2}
   head: {fileID: 5691289652181008240}
+  tremorSource: {fileID: 0}
   inGestureMode: {fileID: 11400000, guid: a467da39a7702f242b30b3ac345142d1, type: 2}
   legsBroken: {fileID: 11400000, guid: a9091dbbb705f4a4cab8f38cbebfdf8e, type: 2}
+  jumpTremorIntensity: 30
+  landTremorIntensity: 30
+  walkTremorIntesity: 10
+  runTremorIntesity: 20
   inverted: 0
   sensitivity: 0.4
   xRotationLimitsUp: -90
@@ -798,31 +804,6 @@ MonoBehaviour:
   headBobSpeed: 16
   headBobIntensity: 0.02
   currentHeadBobSpeed: 0
---- !u!114 &2057163490480272315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182677836590286795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8191b137079d8041a73ab68842ea635, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactRange: 3
-  interactMask:
-    serializedVersion: 2
-    m_Bits: 64
-  anim: {fileID: 0}
-  handPosition: {fileID: 0}
-  cam: {fileID: 182677836171706124}
-  approachPlayer: {fileID: 11400000, guid: dc7f3c6940d58c1459fb35697d4ca0ea, type: 2}
-  runAway: {fileID: 11400000, guid: f280229ba88f38f45b808340b0297085, type: 2}
-  interactableObject: {fileID: 0}
-  pickUpObject: {fileID: 0}
-  objectInHand: {fileID: 0}
-  NPCsInRange: []
 --- !u!114 &182677836590286791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,7 +876,7 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2057163490480272315}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ItemGrabber, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0
@@ -1121,25 +1102,62 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 69d652af-87f1-45d8-878f-b2240fb977dd
     m_ActionName: Player/Sample[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fed96f6d-9b3c-40e1-9d4b-ff78036c6285
+    m_ActionName: Player/Eject[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!135 &258927403
-SphereCollider:
+--- !u!65 &2281517349653620675
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182677836590286795}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &1352502186476281037
+  m_Size: {x: 2.45, y: 4.15, z: 2.45}
+  m_Center: {x: 0, y: 0.75, z: -0.59}
+--- !u!54 &2939271538451137771
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182677836590286795}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3843858138697118720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182677836590286795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f2397682624f14583c5996029484aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 6862255328875580019}
+  tremorFallOff: {fileID: 11400000, guid: 3d107e5873dd0db4589825b552710764, type: 2}
+  tremorIntensity: 10
+  tremorOnCollision: 0
+  alienListeners: []
+--- !u!135 &6862255328875580019
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1147,7 +1165,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182677836590286795}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 10
@@ -1774,30 +1792,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b8e64daff29cdd4383ab31388624280, type: 3}
---- !u!114 &1675553543961532962 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 261688527010032306, guid: 5b8e64daff29cdd4383ab31388624280,
-    type: 3}
-  m_PrefabInstance: {fileID: 1504614893918302352}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fdd5a662a2948b4bbf3f8c0256ce261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!20 &182677836171706126 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1614672133443211166, guid: 5b8e64daff29cdd4383ab31388624280,
-    type: 3}
-  m_PrefabInstance: {fileID: 1504614893918302352}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &182677836171706124 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1614672133443211164, guid: 5b8e64daff29cdd4383ab31388624280,
-    type: 3}
-  m_PrefabInstance: {fileID: 1504614893918302352}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1768042591480229152 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 894015209452314032, guid: 5b8e64daff29cdd4383ab31388624280,
@@ -1846,6 +1840,24 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1504614893918302352}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1675553543961532962 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 261688527010032306, guid: 5b8e64daff29cdd4383ab31388624280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1504614893918302352}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fdd5a662a2948b4bbf3f8c0256ce261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!20 &182677836171706126 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1614672133443211166, guid: 5b8e64daff29cdd4383ab31388624280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1504614893918302352}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1533130020240416310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1858,7 +1870,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6a1bc6181909544992d6dab06006f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUsingGestureCircle: {fileID: 0}
   subCircles: []
+  usePartialConfirmation: {fileID: 0}
+  confirmOnWord: {fileID: 0}
+  playerClawTag: 
+  alienClawTag: 
+  standardColor: {r: 0, g: 0, b: 0, a: 0}
+  confirmationColor: {r: 0, g: 0, b: 0, a: 0}
+  passwordActions: []
+  playerClawSprite: []
+  alienClawSprite: []
+  words: []
+  sentence: 
+  clawInCircle: 0
 --- !u!54 &918083650
 Rigidbody:
   m_ObjectHideFlags: 0
