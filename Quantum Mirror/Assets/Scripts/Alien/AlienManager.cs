@@ -8,6 +8,7 @@ public class AlienManager : MonoBehaviour
 {
 
     [Header( "References" )]
+    public BoolValue paused;
     public RunTimeSet<GestureCircle> gestureCircles;
     public RunTimeSet<GestureCircle> doorPanels;
 
@@ -44,6 +45,8 @@ public class AlienManager : MonoBehaviour
 
 	private void Update()
 	{
+        if ( paused.Value ) { return; }
+
         if ( Time.time - gestureSignal.timeStamp > tremorInterestDuration )
         {
             gestureSignal.gestureCircle = null;
