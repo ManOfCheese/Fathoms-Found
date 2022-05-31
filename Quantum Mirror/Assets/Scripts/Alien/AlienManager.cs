@@ -20,15 +20,8 @@ public class AlienManager : MonoBehaviour
     public float gestureInterestDuration;
     [Tooltip( "From how far away can the alien interact with objects." )]
     public float interactDistance;
-    [Tooltip( "From how far away in units should the player be able to get the alien's attention by looking at it." )]
-    public float attentionDistance;
 
     [Header( "Runtime" )]
-    [ReadOnly] public Door doorToOpen;
-    [ReadOnly] public string currentState;
-    [ReadOnly] public float interestTimeStamp;
-    [ReadOnly] public bool interest;
-    [ReadOnly] public bool looking;
     [ReadOnly] public TremorInfo lastHeardTremor;
     [ReadOnly] public GestureSignal gestureSignal;
     [ReadOnly] public GestureCircle gestureCircle;
