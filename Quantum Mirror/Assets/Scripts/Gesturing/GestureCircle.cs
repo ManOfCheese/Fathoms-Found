@@ -18,6 +18,7 @@ public class GestureCircle : MonoBehaviour
 	[Header( "Settings" )]
 	public bool twoWayCircle;
 	public GestureCircle otherCircle;
+	public GestureSequence presetSentence;
 	public string playerClawTag;
 	public string alienClawTag;
 	public Color standardColor;
@@ -43,6 +44,21 @@ public class GestureCircle : MonoBehaviour
 	{
 		for ( int i = 0; i < subCircles.Length; i++ )
 			subCircles[ i ].gestureCircle = this;
+
+		if ( presetSentence != null )
+		{
+			for ( int i = 0; i < presetSentence.words.Count; i++ )
+				words.Add( presetSentence.words[ i ] );
+			sentence = Gestures.GestureLogic.GestureSequenceToGCode( presetSentence );
+			for ( int i = 0; i < subCircles.Length; i++ )
+			{
+				for ( int j = 0; j < presetSentence.words.Count; j++ )
+				{
+					if ( i == presetSentence.words[ j ].circle )
+						subCircles[ i ].ShowGestureSprites( presetSentence.words[ j ] );
+				}
+			}
+		}
 	}
 
 	private void OnEnable()
