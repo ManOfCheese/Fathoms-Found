@@ -607,12 +607,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a738d58a5558ae4bbb5e16506822aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gestureModeLookSensitivity: 0.0005
-  handSensitivity: 2.5
-  scrollSensitivity: 0.5
-  rotateHand: 0
   resetHandOnConfirm: 0
-  handPos: {fileID: 11400000, guid: bd41c8a38e1f66d4180a46d6f65344af, type: 2}
+  disableGestureCircleOnSnap: 1
+  gestureModeLookSensitivity: 0.0005
+  handLength: -0.2
+  ikPoleLerpSpeed: 0.05
+  snapToRange: 5
+  snapToMask:
+    serializedVersion: 2
+    m_Bits: 0
+  gestureMask:
+    serializedVersion: 2
+    m_Bits: 0
+  punchdestination: {x: 0, y: 0, z: 0.08}
   fingers: {fileID: 11400000, guid: 9a373f8d0f773414fa550858fe659b04, type: 2}
   isInGestureMode: {fileID: 11400000, guid: a467da39a7702f242b30b3ac345142d1, type: 2}
   confirmGesture: {fileID: 11400000, guid: f20411167f4cb274199e74e4da662ead, type: 2}
@@ -626,9 +633,8 @@ MonoBehaviour:
   Armanim: {fileID: 8342943930442717946}
   armModeUI: {fileID: 0}
   camModeUI: {fileID: 0}
-  grabber: {fileID: 7654605526091465237}
   armIK: {fileID: 1497868079570923643}
-  gestureCircle: {fileID: 0}
+  gestureCircle: {fileID: 8574808032108049851}
   controller: {fileID: 0}
   worldSpaceCursor: {fileID: 3982309261782420091}
   hand: {fileID: 1391210273209566880}
@@ -637,18 +643,6 @@ MonoBehaviour:
   center: {fileID: 9073051333870063542}
   idle: {fileID: 4119043783825668307}
   IKpoleIdle: {fileID: 8491051102440666775}
-  disableGestureCircleOnSnap: 1
-  handLength: -0.2
-  innerRingSize: 0.25
-  ikPoleLerpSpeed: 0.05
-  snapToRange: 5
-  snapToMask:
-    serializedVersion: 2
-    m_Bits: 512
-  gestureMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  punchdestination: {x: 0, y: 0, z: 0.08}
   lookVector: {x: 0, y: 0}
   mousePos: {x: 0, y: 0, z: 0}
   mouseWorldPos: {x: 0, y: 0, z: 0}

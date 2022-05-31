@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using StateMachine;
+using TheKiwiCoder;
 
 public class AlienManager : MonoBehaviour
 {
 
     [Header( "References" )]
+    public BoolValue paused;
     public RunTimeSet<GestureCircle> gestureCircles;
     public RunTimeSet<GestureCircle> doorPanels;
 
@@ -19,15 +20,8 @@ public class AlienManager : MonoBehaviour
     public float gestureInterestDuration;
     [Tooltip( "From how far away can the alien interact with objects." )]
     public float interactDistance;
-    [Tooltip( "From how far away in units should the player be able to get the alien's attention by looking at it." )]
-    public float attentionDistance;
 
     [Header( "Runtime" )]
-    [ReadOnly] public Door doorToOpen;
-    [ReadOnly] public string currentState;
-    [ReadOnly] public float interestTimeStamp;
-    [ReadOnly] public bool interest;
-    [ReadOnly] public bool looking;
     [ReadOnly] public TremorInfo lastHeardTremor;
     [ReadOnly] public GestureSignal gestureSignal;
     [ReadOnly] public GestureCircle gestureCircle;
@@ -44,6 +38,8 @@ public class AlienManager : MonoBehaviour
 
 	private void Update()
 	{
+        if ( paused.Value ) { return; }
+
         if ( Time.time - gestureSignal.timeStamp > tremorInterestDuration )
         {
             gestureSignal.gestureCircle = null;

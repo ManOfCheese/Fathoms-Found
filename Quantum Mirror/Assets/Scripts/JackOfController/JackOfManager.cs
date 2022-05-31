@@ -6,6 +6,7 @@ using StateMachine;
 public class JackOfManager : MonoBehaviour {
 
 	public JackOfManagerSystem system;
+	public BoolValue paused;
 	[Space( 10 )]
 	public ComponentSystem[] systemInitOrder;
 	public ComponentSystem[] systemUpdateOrder;
@@ -34,10 +35,14 @@ public class JackOfManager : MonoBehaviour {
 	}
 
 	private void Update() {
-		for ( int i = 0; i < systemUpdateOrder.Length; i++ ) {
-			systemUpdateOrder[ i ].OnUpdate();
+		if ( !paused.Value )
+		{
+			for ( int i = 0; i < systemUpdateOrder.Length; i++ )
+			{
+				systemUpdateOrder[ i ].OnUpdate();
+			}
+			currentState = stateMachine.CurrentState.stateName;
 		}
-		currentState = stateMachine.CurrentState.stateName;
 	}
 
 }

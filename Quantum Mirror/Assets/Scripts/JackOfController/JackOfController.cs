@@ -18,6 +18,7 @@ public class JackOfController : MonoBehaviour {
     public TremorSource tremorSource;
 
     [Header( "VariableObjects" )]
+    public BoolValue paused;
     public BoolValue inGestureMode;
     public BoolValue legsBroken;
 
@@ -133,6 +134,21 @@ public class JackOfController : MonoBehaviour {
         tremorSource = GetComponent<TremorSource>();
     }
 
+	private void OnEnable()
+	{
+        paused.onValueChanged += OnPause;
+	}
+
+	private void OnDisable()
+	{
+        paused.onValueChanged -= OnPause;
+    }
+
+	public void OnPause( bool pause ) 
+    { 
+        rawMoveVector = Vector3.zero;
+    }
+
     #region Input
     public void ChangeSensitivity( float newSensitivity )
     {
@@ -141,6 +157,7 @@ public class JackOfController : MonoBehaviour {
 
     public void OnLook( InputAction.CallbackContext value ) 
     {
+        if ( paused.Value ) { return; }
         if ( !inGestureMode.Value )
 		{
             Vector2 mouseLook = value.ReadValue<Vector2>();
@@ -156,6 +173,8 @@ public class JackOfController : MonoBehaviour {
 
     public void OnMove( InputAction.CallbackContext value ) 
     {
+        if ( paused.Value ) { return; }
+        
         if ( !legsBroken.Value )
             rawMoveVector = value.ReadValue<Vector2>();
 
@@ -186,6 +205,8 @@ public class JackOfController : MonoBehaviour {
 
     public void OnSprint( InputAction.CallbackContext value ) 
     {
+        if ( paused.Value ) { return; }
+
         if ( value.started )
         {
             sprinting = true;
@@ -209,6 +230,7 @@ public class JackOfController : MonoBehaviour {
 
     public void OnJump( InputAction.CallbackContext value ) 
     {
+        if ( paused.Value ) { return; }
         if ( value.performed && ( grounded || jumpCount < jumps ) ) jump = true;
     }
 	#endregion
@@ -231,10 +253,10 @@ public class JackOfController : MonoBehaviour {
 
     public void Walk() 
     {
-        if ( ( moving && grounded ) || aerialMovement == AerialMovementSettings.FullMovement ) 
+        if ( ( moving && grounded ) || aerialMovement == AerialMovementSettings.FullMovement )
         {
             Vector3 relativeMovementVector = rawMoveVector.x * cc.transform.right + rawMoveVector.y * cc.transform.forward;
-            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y, 
+            Vector3 finalMovementVector = new Vector3( relativeMovementVector.x * currentSpeed, velocity.y,
                 relativeMovementVector.z * currentSpeed );
             cc.Move( finalMovementVector * Time.deltaTime );
             if ( moving && grounded )
@@ -244,7 +266,8 @@ public class JackOfController : MonoBehaviour {
 
     public void Jump() 
     {
-        if ( jump && ( grounded || jumpCount < jumps ) ) {
+        if ( jump && ( grounded || jumpCount < jumps ) )
+        {
             velocity.y = Mathf.Sqrt( jumpHeight * -2 * gravity );
             jump = false;
             if ( aerialMovement != AerialMovementSettings.FullMovement ) velocityOnJump = cc.velocity;
@@ -260,7 +283,7 @@ public class JackOfController : MonoBehaviour {
 
     public void LookMove() 
     {
-        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement ) 
+        if ( aerialMovement == AerialMovementSettings.FullCameraMovement || aerialMovement == AerialMovementSettings.LimitedCameraMovement )
         {
             Vector3 camVector = new Vector3( cam.transform.forward.x, 0f, cam.transform.forward.z );
 

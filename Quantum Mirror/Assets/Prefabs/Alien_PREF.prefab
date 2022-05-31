@@ -2235,6 +2235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfef79b773ffe0a40ba693bc4f09573d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paused: {fileID: 11400000, guid: 1d3ff793ef347e847a253a1a67443359, type: 2}
+  gestureCircles: {fileID: 11400000, guid: b3af5f0ee8db85047a4cdc7d91c85db7, type: 2}
+  doorPanels: {fileID: 0}
   player: {fileID: 0}
   tremorInterestDuration: 3
   gestureInterestDuration: 3
@@ -2245,9 +2248,6 @@ MonoBehaviour:
   interestTimeStamp: 0
   interest: 0
   looking: 0
-  focused: 0
-  gc: {fileID: 0}
-  mc: {fileID: 0}
   lastHeardTremor:
     intensity: 0
     timeStamp: 0
@@ -2255,6 +2255,9 @@ MonoBehaviour:
   gestureSignal:
     gestureCircle: {fileID: 0}
     timeStamp: 0
+  gestureCircle: {fileID: 0}
+  gc: {fileID: 0}
+  mc: {fileID: 0}
 --- !u!114 &7223040693863163904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2304,13 +2307,6 @@ MonoBehaviour:
     - {fileID: 5926951261547313626}
     - {fileID: 8093911295106388564}
     - {fileID: 352543918696262580}
-  gestureCircles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   idleHandTargets:
   - {fileID: 7143136651404266858}
   - {fileID: 4419709333017376715}
@@ -2318,7 +2314,6 @@ MonoBehaviour:
   - {fileID: 3964272598288802831}
   - {fileID: 4663398601983397297}
   - {fileID: 5562524808917088814}
-  gestureListener: {fileID: 0}
   gestureLibrary: {fileID: 11400000, guid: c7ad4e18ea75b2e4eb55456a27815fcd, type: 2}
   responses: {fileID: 11400000, guid: e76663091c58e594eb686e0b880ea171, type: 2}
   standardResponse: {fileID: 11400000, guid: d53d0b3a99681234db9c8a5cf18bff68, type: 2}
@@ -2328,12 +2323,7 @@ MonoBehaviour:
   pointSpeed: 5
   maxPointDistance: 5
   holdPointFor: 3
-  repositioning: 0
-  pointing: 0
-  gesturing: 0
-  holdingGesture: 0
-  startGesture: 0
-  endGesture: 0
+  gestureState: 0
   standardGesture: 0
   gestureHoldTimeStamp: 0
   pointHoldTimeStamp: 0
@@ -2341,13 +2331,11 @@ MonoBehaviour:
   pointHandIndex: -1
   sentenceIndex: 0
   wordIndex: 0
-  respondGCode: 
   preGestureHandPos: {x: 0, y: 0, z: 0}
-  repositionedLegs: 
+  handTarget: {x: 0, y: 0, z: 0}
+  alienManager: {fileID: 0}
   playerGestures: []
   respondTo: 
-  alienManager: {fileID: 0}
-  handTarget: {x: 0, y: 0, z: 0}
 --- !u!114 &6278649203793106860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2360,7 +2348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78a6e4e6c54d79f488eb4cc6b28f61be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
   hands:
   - {fileID: 3212807522618574264}
   - {fileID: 8580479925270609438}
@@ -2370,9 +2357,9 @@ MonoBehaviour:
   - {fileID: 1427232768790329277}
   movementMode: 1
   movementShape: 1
-  speed: 5
-  changeDestinationTime: 10
   tolerance: 3
+  changeDestinationTime: 10
+  speed: 5
   minDistance: 30
   maxDistance: 40
   torusCenter: {fileID: 0}
@@ -2380,8 +2367,7 @@ MonoBehaviour:
   torusOuterRadius: 60
   circleCenter: {fileID: 0}
   circleRadius: 50
-  bodyHeight: 0
-  idleDestinationTimestamp: 0
+  agent: {fileID: 0}
 --- !u!114 &1241479347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2395,6 +2381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tree: {fileID: 11400000, guid: 5490d78473e4e4d4794a9fd9df61c276, type: 2}
+  paused: {fileID: 11400000, guid: 1d3ff793ef347e847a253a1a67443359, type: 2}
 --- !u!136 &3912059940971807930
 CapsuleCollider:
   m_ObjectHideFlags: 0
