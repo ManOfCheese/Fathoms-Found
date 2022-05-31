@@ -7,6 +7,7 @@ namespace TheKiwiCoder {
 
         // The main behaviour tree asset
         public BehaviourTree tree;
+        public BoolValue paused;
 
         // Storage container object to hold game object subsystems
         Context context;
@@ -21,6 +22,7 @@ namespace TheKiwiCoder {
 
         // Update is called once per frame
         void Update() {
+            if ( paused.Value ) { return; }
             if ( tree ) {
                 tree.Update();
             }

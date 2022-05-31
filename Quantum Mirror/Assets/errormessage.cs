@@ -2,23 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class errormessage : MonoBehaviour
+public class ErrorMessage : MonoBehaviour
 {
     public Animator Errorpopup;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter( Collision collision )
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if ( collision.gameObject.CompareTag( "Player" ) )
         {
             Debug.Log("STOP");
-            Errorpopup.SetBool("Warning", true);
+            Errorpopup.SetBool( "Warning", true );
         }
            
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit( Collision collision )
     {
-        if (collision.gameObject.CompareTag("Player"))
-            Errorpopup.SetBool("Warning", false);
+        if ( collision.gameObject.CompareTag( "Player" ) )
+            Errorpopup.SetBool( "Warning", false );
     }
 
 }
