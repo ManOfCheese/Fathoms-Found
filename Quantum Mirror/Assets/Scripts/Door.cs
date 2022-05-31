@@ -10,7 +10,7 @@ public enum AnimParamType
 	Int
 }
 
-public class Door : MonoBehaviour
+public class Door : Interactable
 {
 
 	public RunTimeSet<Door> doors;
@@ -26,7 +26,7 @@ public class Door : MonoBehaviour
 		doors.Add( this );
 	}
 
-	public void Open()
+	public override void Interact()
 	{
 		switch ( animParamType )
 		{

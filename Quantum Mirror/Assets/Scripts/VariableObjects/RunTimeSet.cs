@@ -22,7 +22,6 @@ public class RunTimeSet<T> : ScriptableObject {
 
 	public void Remove( T item ) {
 		Items.Remove( item );
-        Debug.Log( "Removed: " + item );
         if ( OnRemoved != null ) {
 			OnRemoved.Invoke( item );
 		}

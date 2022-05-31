@@ -89,17 +89,6 @@ public class AlienManager : MonoBehaviour
             return TheKiwiCoder.BTNode.State.Failure;
     }
 
-	public void TryDoor()
-	{
-        if ( doorToOpen != null && Vector3.Distance( doorToOpen.transform.position, transform.position ) < interactDistance )
-		{
-            Debug.Log( "Open Door" );
-            doorToOpen.Open();
-            interest = false;
-            doorToOpen = null;
-        }
-	}
-
     public void OnTremor( Vector3 _position, float _intensity )
 	{
         lastHeardTremor.intensity = _intensity;

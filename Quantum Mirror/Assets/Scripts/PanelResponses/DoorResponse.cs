@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class DoorResponse : MonoBehaviour
 {
+    public bool startOpen;
     public bool isOpen = false;
     private Animator animator;
 
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        if ( startOpen )
+            OpenDoor();
     }
 
     public void Open() 
     {
 
-        if (isOpen == true)
+        if ( isOpen == true )
         {
-            animator.SetTrigger("Error");
+            animator.SetTrigger( "Error" );
         }
 
-        if (isOpen == false)
+        if ( isOpen == false )
         {
-            animator.SetBool("Open", true);
+            animator.SetBool(  "Open", true );
             isOpen = true;
         }
  
@@ -30,14 +33,14 @@ public class DoorResponse : MonoBehaviour
 
     public void Close()
     {
-        if (isOpen == false)
+        if ( isOpen == false )
         {
-            animator.SetTrigger("Error");
+            animator.SetTrigger( "Error" );
         }
 
-        if (isOpen == true)
+        if ( isOpen == true )
         {
-            animator.SetBool("Open", false);
+            animator.SetBool( "Open", false );
             isOpen = false;
         }
     }
