@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class DoorResponse : MonoBehaviour
 {
+    public bool startOpen;
     public bool isOpen = false;
     private Animator animator;
 
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        if ( !isOpen )
+        if ( startOpen )
             OpenDoor();
-        else
-            CloseDoor();
     }
 
     public void OpenDoor() 
