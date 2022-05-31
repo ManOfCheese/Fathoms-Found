@@ -10,19 +10,23 @@ public class DoorResponse : MonoBehaviour
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        if ( !isOpen )
+            OpenDoor();
+        else
+            CloseDoor();
     }
 
     public void OpenDoor() 
     {
 
-        if (isOpen == true)
+        if ( isOpen == true )
         {
-            animator.SetTrigger("Error");
+            animator.SetTrigger( "Error" );
         }
 
-        if (isOpen == false)
+        if ( isOpen == false )
         {
-            animator.SetBool("Open", true);
+            animator.SetBool(  "Open", true );
             isOpen = true;
         }
  
@@ -30,14 +34,14 @@ public class DoorResponse : MonoBehaviour
 
     public void CloseDoor()
     {
-        if (isOpen == false)
+        if ( isOpen == false )
         {
-            animator.SetTrigger("Error");
+            animator.SetTrigger( "Error" );
         }
 
-        if (isOpen == true)
+        if ( isOpen == true )
         {
-            animator.SetBool("Open", false);
+            animator.SetBool( "Open", false );
             isOpen = false;
         }
     }

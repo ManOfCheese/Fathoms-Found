@@ -83,8 +83,6 @@ public class Handmovement : MonoBehaviour
             //If we find a snap plane.
             if ( Physics.Raycast( ray, out hitData, snapToRange, snapToMask ) )
             {
-                if ( disableGestureCircleOnSnap )
-                    gestureCircle.gameObject.SetActive( false );
                 mouseWorldPos = hitData.point;
                 Vector3 planeIKpole = hitData.collider.gameObject.transform.GetChild( 0 ).gameObject.transform.position;
                 IKpoleNew = planeIKpole;
