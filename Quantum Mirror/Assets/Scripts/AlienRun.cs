@@ -31,7 +31,7 @@ public class AlienRun : MonoBehaviour
 		if ( triggerTimeStamp != 0f ){
 			if ( Time.time - triggerTimeStamp > doorCloseDelay && !doorClosed )
 			{
-				doorToClose.CloseDoor();
+				doorToClose.Close();
 				doorClosed = true;
 			}
 			if ( Time.time - triggerTimeStamp > alienDissappearDelay )

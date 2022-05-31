@@ -12,7 +12,7 @@ public class DoorResponse : MonoBehaviour
     {
         animator = gameObject.GetComponent<Animator>();
         if ( startOpen )
-            OpenDoor();
+            Open();
     }
 
     public void Open() 
