@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b88364c44cd15884f93406f166511969, type: 3}
-  m_Name: OpenPlant 1
+  m_Name: OpenPlant
   m_EditorClassIdentifier: 
-  sentenceName: 
-  meaning: 
-  words: []
-  gCode: 
+  sentenceName: OpenPlant
+  meaning: Open Plant
+  words:
+  - circle: 3
+    fingers: 010101
+  - circle: 5
+    fingers: 000001
+  gCode: 235111001
   gestureCode: 
-  fingerCount: 0
+  fingerCount: 3
