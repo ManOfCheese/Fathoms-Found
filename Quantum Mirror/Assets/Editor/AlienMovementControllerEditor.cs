@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-//[CustomEditor(typeof( AlienMovementController ) ), CanEditMultipleObjects]
+[CustomEditor(typeof( AlienMovementController ) ), CanEditMultipleObjects]
 public class AlienMovementControllerEditor : Editor
 {
     public SerializedProperty
@@ -52,16 +52,15 @@ public class AlienMovementControllerEditor : Editor
 
             case MovementMode.PointToPoint:
                 EditorGUILayout.PropertyField( speed_Prop, new GUIContent( "speed" ) );
+                EditorGUILayout.PropertyField( tolerance_Prop, new GUIContent( "tolerance" ) );
                 DisplayWanderShape();
                 break;
 
             case MovementMode.Timed:
                 EditorGUILayout.PropertyField( speed_Prop, new GUIContent( "speed" ) );
                 EditorGUILayout.PropertyField( changeDestinationTime_Prop, new GUIContent( "changeDestinationTime" ) );
-                EditorGUILayout.PropertyField( tolerance_Prop, new GUIContent( "tolerance" ) );
                 DisplayWanderShape();
                 break;
-
         }
 
         serializedObject.ApplyModifiedProperties();

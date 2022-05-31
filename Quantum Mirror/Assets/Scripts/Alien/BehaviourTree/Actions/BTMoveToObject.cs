@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class BTMoveToObject : BTActionNode
+public class BTMoveToObject : BTMove
 {
 
     public RunTimeSet<Transform> objects;
-    public float speed = 5;
-    public float stoppingDistance = 0.1f;
-    public bool updateRotation = true;
-    public float acceleration = 40.0f;
-    public float tolerance = 1.0f;
 
     protected override void OnStart() {
         Transform closestObject = null;
@@ -31,29 +26,15 @@ public class BTMoveToObject : BTActionNode
             }
         }
         if ( closestObject != null )
-            context.moveController.agent.destination = closestObject.transform.position;
+            blackboard.AddData( "moveToPosition", blackboard.vector3s, closestObject.transform.position );
+
+        base.OnStart();
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        if ( context.moveController.agent.pathPending )
-        {
-            return State.Running;
-        }
-        else if ( context.moveController.agent.remainingDistance < tolerance )
-        {
-            blackboard.AddData( "moveToPosition", blackboard.vector3s, Vector3.zero );
-            AlienBlackboard alienBlackboard = blackboard as AlienBlackboard;
-            alienBlackboard.moveToPosition = blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() );
-            return State.Success;
-        }
-        else if ( context.moveController.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathInvalid )
-        {
-            return State.Failure;
-        }
-
-        return State.Running;
+        return base.OnUpdate();
     }
 }
