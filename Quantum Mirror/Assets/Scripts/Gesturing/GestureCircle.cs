@@ -43,6 +43,11 @@ public class GestureCircle : MonoBehaviour
 	private void Awake()
 	{
 		for ( int i = 0; i < subCircles.Length; i++ )
+		{
+			for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
+				subCircles[ i ].fingerSprites[ j ].color = standardColor;
+		}
+		for ( int i = 0; i < subCircles.Length; i++ )
 			subCircles[ i ].gestureCircle = this;
 
 		if ( presetSentence != null )
