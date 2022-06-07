@@ -50,6 +50,11 @@ public class Handmovement : MonoBehaviour
     private RaycastHit hitData;
     private float p = 0f;
 
+	private void Awake()
+	{
+        OnGestureModeChange( isInGestureMode.Value );
+	}
+
 	private void OnEnable()
 	{
         isInGestureMode.onValueChanged += OnGestureModeChange;
