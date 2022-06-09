@@ -6,7 +6,10 @@ public class DoorResponse : MonoBehaviour
 {
     public bool startOpen;
     public bool isOpen = false;
+    
     private Animator animator;
+    public Animator mainwire;
+    public Animator circlewire;
 
     void Start()
     {
