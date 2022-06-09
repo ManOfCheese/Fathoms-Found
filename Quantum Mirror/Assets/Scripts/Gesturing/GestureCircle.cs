@@ -18,6 +18,7 @@ public class GestureCircle : MonoBehaviour
 	[Header( "Settings" )]
 	public bool twoWayCircle;
 	public GestureCircle otherCircle;
+	public GestureSequence presetSentence;
 	public string playerClawTag;
 	public string alienClawTag;
 	public Color standardColor;
@@ -27,22 +28,43 @@ public class GestureCircle : MonoBehaviour
 	public Sprite[] playerClawSprite;
 	public Sprite[] alienClawSprite;
 
-	[ReadOnly] public List<Gesture> words = new List<Gesture>();
+	public List<Gesture> words = new List<Gesture>();
 	[ReadOnly] public string sentence;
 	[ReadOnly] public bool clawInCircle;
 
-	public delegate void OnWord( GestureCircle gestureCircle, Gesture word );
+	public delegate void OnWord( int senderID, GestureCircle gestureCircle, Gesture word );
 	public OnWord onWord;
 
-	public delegate void OnSentence( GestureCircle gestureCircle );
+	public delegate void OnSentence( int senderID, GestureCircle gestureCircle );
 	public OnSentence onSentence;
 
 	private GameObject lastClawInCircle;
+	private PasswordAction activePassword;
 
 	private void Awake()
 	{
 		for ( int i = 0; i < subCircles.Length; i++ )
+		{
+			for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
+				subCircles[ i ].fingerSprites[ j ].color = standardColor;
+		}
+		for ( int i = 0; i < subCircles.Length; i++ )
 			subCircles[ i ].gestureCircle = this;
+
+		if ( presetSentence != null )
+		{
+			for ( int i = 0; i < presetSentence.words.Count; i++ )
+				words.Add( presetSentence.words[ i ] );
+			sentence = Sam.Gesturing.GestureSequenceToGCode( presetSentence );
+			for ( int i = 0; i < subCircles.Length; i++ )
+			{
+				for ( int j = 0; j < presetSentence.words.Count; j++ )
+				{
+					if ( i == presetSentence.words[ j ].circle )
+						subCircles[ i ].ShowGestureSprites( presetSentence.words[ j ] );
+				}
+			}
+		}
 	}
 
 	private void OnEnable()
@@ -123,8 +145,17 @@ public class GestureCircle : MonoBehaviour
 		}
 	}
 
-	public void ConfirmWord( GestureCircle gestureCircle, Gesture word )
+	public void ConfirmWord( int senderID, GestureCircle gestureCircle, Gesture word )
 	{
+		if ( activePassword != null )
+		{
+			if ( Sam.Gesturing.GestureListToGCode( words ) != Sam.Gesturing.GestureSequenceToGCode( activePassword.sentence ) )
+			{
+				activePassword.onRemoved?.Invoke();
+				activePassword = null;
+			}
+		}
+
 		if ( gestureCircle != this )
 		{
 			subCircles[ word.circle ].ShowGestureSprites( word );
@@ -135,12 +166,25 @@ public class GestureCircle : MonoBehaviour
 		}
 	}
 
-	public void ConfirmSentence( GestureCircle gestureCircle )
+	public void ConfirmSentence( int senderID, GestureCircle gestureCircle )
 	{
+		if ( activePassword != null )
+		{
+			if ( Sam.Gesturing.GestureListToGCode( words ) != Sam.Gesturing.GestureSequenceToGCode( activePassword.sentence ) )
+			{
+				activePassword.onRemoved?.Invoke();
+				activePassword = null;
+			}
+		}
+		
 		for ( int i = 0; i < passwordActions.Count; i++ )
 		{
-			if ( Gestures.GestureLogic.GestureListToGCode( words ) == Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
-				passwordActions[ i ].action?.Invoke();
+			Debug.Log( Sam.Gesturing.GestureListToGCode( words ) + " == " + Sam.Gesturing.GestureSequenceToGCode( passwordActions[ i ].sentence ) );
+			if ( Sam.Gesturing.GestureListToGCode( words ) == Sam.Gesturing.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
+			{
+				passwordActions[ i ].onInput?.Invoke();
+				activePassword = passwordActions[ i ];
+			}
 		}
 		if ( usePartialConfirmation && !confirmOnWord.Value )
 		{
@@ -183,5 +227,6 @@ public class PasswordAction
 {
 	public bool useForPartialConfirmation;
 	public GestureSequence sentence;
-	public UnityEvent action;
+	public UnityEvent onInput;
+	public UnityEvent onRemoved;
 }

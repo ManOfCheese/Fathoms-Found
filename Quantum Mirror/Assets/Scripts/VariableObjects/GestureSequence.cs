@@ -21,7 +21,7 @@ public class GestureSequence : PersistentSetElement
 			fingerCount = words[ 0 ].fingers.Length;
 
 		//Create gCode;
-		gCode = Gestures.GestureLogic.GestureListToGCode( words );
+		gCode = Sam.Gesturing.GestureListToGCode( words );
 	}
 
 }

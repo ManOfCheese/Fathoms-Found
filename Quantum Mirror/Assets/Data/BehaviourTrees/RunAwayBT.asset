@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: RunAwayBT
+  m_EditorClassIdentifier: 
+  rootNode: {fileID: 467079785212581918}
+  treeState: 0
+  nodes:
+  - {fileID: 467079785212581918}
+  - {fileID: 7237878114561886859}
+  - {fileID: 1291626732271492254}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+--- !u!114 &467079785212581918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262550ed7a20b7a4ba83b309b06fdb1e, type: 3}
+  m_Name: BTRootNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 7a58654651bcb184b863379f547bc4eb
+  position: {x: 0, y: 0}
+  blackboard: {fileID: 0}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: 7237878114561886859}
+--- !u!114 &1291626732271492254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4489e3e257543504c8fc9f891246af6c, type: 3}
+  m_Name: BTMoveToPosition
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 2ef9d3a2fa61d444699065582acb89ee
+  position: {x: 0, y: 243}
+  blackboard: {fileID: 0}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  overrideAgentSettings: 0
+  speed: 5
+  stoppingDistance: 0.1
+  updateRotation: 1
+  acceleration: 40
+--- !u!114 &7237878114561886859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: BTRepeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f9a52d762b4bfa441b939d15872d3f37
+  position: {x: 0, y: 119}
+  blackboard: {fileID: 0}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: 1291626732271492254}
+  restartOnSuccess: 1
+  restartOnFailure: 0

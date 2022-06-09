@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AlienGestureController : MonoBehaviour
+public enum GestureState
+{
+	Repositioning,
+	Pointing,
+	Gesturing,
+	HoldingGesture,
+	StartGesture,
+	EndGesture,
+	Ended
+}
+
+public class AlienGestureController : GestureSender
 {
 
 	[Header( "References" )]
     public HandInfo[] hands;
 	public Transform[] idleHandTargets;
-	public GestureListener gestureListener;
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
 
@@ -17,6 +27,8 @@ public class AlienGestureController : MonoBehaviour
 	public GestureSequence standardResponse;
 	[Tooltip( "Should the alien hold at the centre of the circle before starting with the gestures?" )]
 	public bool holdStart;
+	public bool defaultFingerPos = true;
+	public float gestureDistance;
 	[Tooltip( "How fast in units per second should the alien gestures." )]
 	public float gestureSpeed = 1f;
 	[Tooltip( "How long should the alien hold a gestures before moving on to the next one." )]
@@ -29,12 +41,7 @@ public class AlienGestureController : MonoBehaviour
 	public float holdPointFor = 3f;
 
 	[Header( "Runtime" )]
-	[ReadOnly] public bool repositioning;
-	[ReadOnly] public bool pointing = false;
-	[ReadOnly] public bool gesturing = false;
-	[ReadOnly] public bool holdingGesture = false;
-	[ReadOnly] public bool startGesture = false;
-	[ReadOnly] public bool endGesture = false;
+	[ReadOnly] public GestureState gestureState;
 	[ReadOnly] public bool standardGesture = false;
 	[ReadOnly] public float gestureHoldTimeStamp = 0f;
 	[ReadOnly] public float pointHoldTimeStamp = 0f;
@@ -42,15 +49,14 @@ public class AlienGestureController : MonoBehaviour
 	[ReadOnly] public int pointHandIndex = -1;
 	[ReadOnly] public int sentenceIndex = 0;
 	[ReadOnly] public int wordIndex = 0;
+	[Space( 10 )]
 	[ReadOnly] public Vector3 preGestureHandPos;
-
-	[HideInInspector] public List<int> repositionedLegs = new List<int>();
-	[HideInInspector] public List<Gesture> playerGestures = new List<Gesture>();
-	[HideInInspector] public List<int> respondTo = new List<int>();
+	[Space( 10 )]
+	[ReadOnly] public Vector3 handTarget;
 
 	[HideInInspector] public AlienManager alienManager;
-
-	[HideInInspector] public Vector3 handTarget;
+	[HideInInspector] public List<Gesture> playerGestures = new List<Gesture>();
+	[HideInInspector] public List<int> respondTo = new List<int>();
 
 	public int FindClosestHand( Transform respondTo )
 	{
@@ -97,12 +103,12 @@ public class AlienGestureController : MonoBehaviour
 	{
 		AlienIKHandler hand = hands[ pointHandIndex ].ikHandler;
 
-		if ( holdingGesture )
+		if ( gestureState == GestureState.HoldingGesture )
 		{
 			if ( Time.time - pointHoldTimeStamp > holdPointFor )
-				holdingGesture = false;
+				gestureState = GestureState.Gesturing;
 		}
-		else
+		else if ( gestureState == GestureState.Gesturing )
 		{
 			float speed = pointSpeed * Time.deltaTime;
 			if ( speed > Vector3.Distance( hand.transform.position, handTarget ) )
@@ -112,7 +118,7 @@ public class AlienGestureController : MonoBehaviour
 				if ( handTarget != idleHandTargets[ pointHandIndex ].position )
 				{
 					pointHoldTimeStamp = Time.time;
-					holdingGesture = true;
+					gestureState = GestureState.HoldingGesture;
 					handTarget = idleHandTargets[ pointHandIndex ].position;
 				}
 				else
@@ -124,7 +130,7 @@ public class AlienGestureController : MonoBehaviour
 		return TheKiwiCoder.BTNode.State.Running;
 	}
 
-	public void SetGesture()
+	public void FindGesture()
 	{
 		//Find the player's sentence in the library and save the id.
 		bool sentenceFound = false;
@@ -143,71 +149,80 @@ public class AlienGestureController : MonoBehaviour
 		}
 
 		Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + alienManager.gestureCircle.sentence + " = " + gestureLibrary.Items[ sentenceIndex ].gCode + " )" );
-		if ( sentenceFound && responses.Items[ sentenceIndex ] != null )
-		{
-			ResetGestureSettings();
-		}
-		else
-		{
-			ResetGestureSettings();
+		if ( !sentenceFound )
 			standardGesture = true;
-		}
 	}
 
-	private void ResetGestureSettings()
+	public void ResetGestureSettings()
 	{
 		int closestHand = FindClosestHand( alienManager.player );
 
 		gestureHandIndex = closestHand;
-		gesturing = true;
-		wordIndex = -1;
-		startGesture = true;
-		holdingGesture = false;
+		wordIndex = 0;
+		gestureState = GestureState.StartGesture;
 		preGestureHandPos = hands[ gestureHandIndex ].ikHandler.transform.position;
 	}
 
-	public TheKiwiCoder.BTNode.State Gesture()
+	public TheKiwiCoder.BTNode.State Gesture( GestureSequence sentence, bool clearcircle, bool startAtCentre, bool endAtCentre, bool inputGesture )
 	{
 		HandInfo hand = hands[ gestureHandIndex ];
 		GestureCircle gestureCircle = alienManager.gestureCircle;
-		Animator[] fingerAnimators = hands[ gestureHandIndex ].fingerAnimators;
+		Animator[] fingerAnimators = hands[ gestureHandIndex ].ikHandler.fingerAnimators;
 		Debug.DrawLine( hand.handTransform.transform.position, hand.handTransform.transform.position + gestureCircle.transform.up * 5f );
 
-		List<Gesture> gestures;
+		List<Gesture> gestures = new List<Gesture>();
+		if ( startAtCentre )
+			gestures.Add( new Gesture( 0, new bool[ 3 ] { false, false, false } ) );
+
 		if ( standardGesture )
 		{
-			gestures = new List<Gesture>();
 			for ( int i = 0; i < standardResponse.words.Count; i++ )
 				gestures.Add( standardResponse.words[ i ] );
 		}
-		else
-			gestures = responses.Items[ sentenceIndex ].words;
+		else if ( sentence != null )
+		{
+			for ( int i = 0; i < sentence.words.Count; i++ )
+				gestures.Add( sentence.words[ i ] );
+		}
+		else if ( sentenceIndex < responses.Items.Count - 1 )
+		{
+			for ( int i = 0; i < responses.Items[ sentenceIndex ].words.Count; i++ )
+				gestures.Add( responses.Items[ sentenceIndex ].words[ i ] );
+		}
+		else if ( gestures.Count == 0 && !endAtCentre )
+			endAtCentre = true;
+
+		if ( endAtCentre)
+			gestures.Add( new Gesture( 0, new bool[ 3 ] { false, false, false } ) );
 
 		//Hold Gesture
-		if ( holdingGesture )
+		if ( gestureState == GestureState.HoldingGesture )
 		{
 			if ( Time.time - gestureHoldTimeStamp > holdGestureFor )
 			{
-				holdingGesture = false;
+				gestureState = GestureState.Gesturing;
 				for ( int i = 0; i < fingerAnimators.Length; i++ )
 					fingerAnimators[ i ].SetBool( "FingerOpen", false );
 			}
 		}
 		else
 		{
-			if ( startGesture )
+			if ( gestureState == GestureState.StartGesture )
 			{
-				handTarget = alienManager.gestureCircle.transform.position;
-				startGesture = false;
+				handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position + ( gestureCircle.transform.up * gestureDistance );
+				gestureState = GestureState.Gesturing;
 
-				gestureCircle.Clear();
-				if ( gestureCircle.twoWayCircle )
-					gestureCircle.otherCircle.Clear();
+				if ( clearcircle )
+				{
+					gestureCircle.Clear();
+					if ( gestureCircle.twoWayCircle )
+						gestureCircle.otherCircle.Clear();
+				}
 
 				for ( int i = 0; i < fingerAnimators.Length; i++ )
 				{
-					if ( fingerAnimators[ i ].GetBool( "FingerOpen" ) )
-						fingerAnimators[ i ].SetBool( "FingerOpen", false );
+					if ( fingerAnimators[ i ].GetBool( "FingerOpen" ) == defaultFingerPos )
+						fingerAnimators[ i ].SetBool( "FingerOpen", !defaultFingerPos );
 				}
 			}
 			//Check if we have reached our new hand target.
@@ -217,23 +232,21 @@ public class AlienGestureController : MonoBehaviour
 				//Debug.Log( speed + " > " + Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
 				if ( speed > Vector3.Distance( hand.ikHandler.transform.position, handTarget ) )
 				{
-					if ( endGesture )
+					if ( gestureState == GestureState.EndGesture )
 					{
-						gesturing = false;
-						holdingGesture = false;
 						gestureHandIndex = -1;
-						endGesture = false;
 						if ( standardGesture ) standardGesture = false;
+						gestureState = GestureState.Ended;
 						return TheKiwiCoder.BTNode.State.Success;
 					}
 					//Set new hand target.
-					else
+					else if ( gestureState == GestureState.Gesturing )
 					{
 						hand.ikHandler.transform.position = handTarget;
 						if ( holdStart || wordIndex >= 0 && !holdStart )
 						{
 							//Manipulate hand to make the gesture.
-							hand.handTransform.transform.LookAt( hand.handTransform.transform.position + -gestureCircle.transform.up );
+							hand.handTransform.transform.LookAt( hand.handTransform.transform.position + gestureCircle.transform.up );
 							for ( int i = 0; i < fingerAnimators.Length; i++ )
 							{
 								if ( gestures[ wordIndex ].fingers[ i ] && !fingerAnimators[ i ].GetBool( "FingerOpen" ) )
@@ -241,26 +254,24 @@ public class AlienGestureController : MonoBehaviour
 							}
 
 							//Input the gesture into the circle.
-							Gesture gesture = gestures[ wordIndex ];
-							gestureCircle.subCircles[ gesture.circle ].ConfirmGestureTwoWay( gestures[ wordIndex ].circle, gestures[ wordIndex ].fingers );
+							if ( inputGesture )
+								gestureCircle.subCircles[ gestures[ wordIndex ].circle ].ConfirmGestureTwoWay( ID, gestures[ wordIndex ].circle, gestures[ wordIndex ].fingers );
 
 							gestureHoldTimeStamp = Time.time;
-							holdingGesture = true;
+							if ( holdGestureFor > 0f ) 
+								gestureState = GestureState.HoldingGesture;
 						}
 
 						wordIndex++;
 						//Set target as our start position.
 						if ( wordIndex > gestures.Count - 1 )
 						{
-							handTarget = idleHandTargets[ gestureHandIndex ].position;
-							endGesture = true;
+							handTarget = idleHandTargets[ gestureHandIndex ].position + ( gestureCircle.transform.up * gestureDistance );
+							gestureState = GestureState.EndGesture;
 						}
 						//Set target as the next word in the sentence.
 						else
-						{
-							handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position;
-							//Debug.Log( Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
-						}
+							handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position + ( gestureCircle.transform.up * gestureDistance );
 					}
 				}
 				//Move towards hand target.
@@ -281,5 +292,4 @@ public class HandInfo
 {
 	public Transform handTransform;
 	public AlienIKHandler ikHandler;
-	public Animator[] fingerAnimators;
 }

@@ -20,7 +20,8 @@ public class SampleTool : MonoBehaviour
 	[Header( "Sampler  Settings" )]
 	public bool duplicateSample;
 	public float sampleDuration;
-	public float scaleModifier;
+	public float sampleInBallScaleModifier;
+	public float sampleInRayScaleModifier;
 	public float ejaculationStrength;
 	public Color reticleColor;
 
@@ -33,6 +34,9 @@ public class SampleTool : MonoBehaviour
 	[ReadOnly] public GameObject objectInRay;
 	[ReadOnly] public Object sampleInGun;
 
+	private GameObject samplingObject;
+	private Vector3 lerpFrom;
+	private Vector3 lerpTo;
 	private float startSuckingTimeStamp = 0f;
 	private bool sucking;
 	private Color reticleStartColor;
@@ -65,8 +69,6 @@ public class SampleTool : MonoBehaviour
 			//Debug.Log( hit.transform.gameObject.name );
 			if ( hit.transform.gameObject.GetComponent<Object>() != null )
 				objectInRay = hit.transform.parent.gameObject;
-			else
-				objectInRay = null;
 		}
 		else
 		{
@@ -74,8 +76,21 @@ public class SampleTool : MonoBehaviour
 			objectInRay = null;
 		}
 
+
+		//Move the sample along the path of the tractor beam.
+		if ( samplingObject != null && startSuckingTimeStamp != 0f && Time.time - startSuckingTimeStamp < sampleDuration )
+		{
+			Debug.Log( ( Time.time - startSuckingTimeStamp ) / sampleDuration );
+			float totalDistance = Vector3.Distance( objectInRay.transform.position, this.transform.position );
+			float distanceLeft = Vector3.Distance( samplingObject.transform.position, this.transform.position );
+			float timeLeft = sampleDuration - ( Time.time - startSuckingTimeStamp );
+
+			samplingObject.transform.position += ( this.transform.position - samplingObject.transform.position ).normalized * ( distanceLeft / timeLeft * Time.deltaTime ); 
+		}
+
 		if ( sucking && startSuckingTimeStamp != 0f && Time.time - startSuckingTimeStamp >= sampleDuration )
 		{
+			Destroy( samplingObject );
 			sampleSlot.sampleInSlot = Instantiate( sampleBallPrefab, sampleSlot.transform.position, sampleSlot.transform.rotation, sampleSlot.transform );
 			Transform sample = Instantiate( objectInRay, sampleSlot.sampleInSlot.transform.position, sampleSlot.sampleInSlot.transform.rotation,
 				sampleSlot.sampleInSlot.transform ).transform;
@@ -94,7 +109,7 @@ public class SampleTool : MonoBehaviour
 			MeshRenderer ballCollider = sampleSlot.sampleInSlot.GetComponent<MeshRenderer>();
 			sampleInGun.meshRenderer.gameObject.transform.localScale *=
 				Mathf.Max( ballCollider.bounds.size.x, ballCollider.bounds.size.y, ballCollider.bounds.size.z ) /
-				Mathf.Max( sampleInGun.meshRenderer.bounds.size.x, sampleInGun.meshRenderer.bounds.size.y, sampleInGun.meshRenderer.bounds.size.z ) * scaleModifier;
+				Mathf.Max( sampleInGun.meshRenderer.bounds.size.x, sampleInGun.meshRenderer.bounds.size.y, sampleInGun.meshRenderer.bounds.size.z ) * sampleInBallScaleModifier;
 
 			if ( !duplicateSample )
 				Destroy( objectInRay.gameObject );
@@ -135,6 +150,13 @@ public class SampleTool : MonoBehaviour
 			toolAnimator.SetBool( "Suck", true );
 			if ( objectInRay != null )
 			{
+				samplingObject = Instantiate( objectInRay, objectInRay.transform.position, objectInRay.transform.rotation );
+				MeshRenderer samplingRenderer = samplingObject.GetComponentInChildren<MeshRenderer>();
+				float biggestDimension = Mathf.Max( samplingRenderer.bounds.size.x, samplingRenderer.bounds.size.y, samplingRenderer.bounds.size.z );
+				samplingObject.transform.localScale = Vector3.one / biggestDimension * sampleInRayScaleModifier;
+				samplingObject.layer = 3;
+				lerpFrom = objectInRay.transform.position;
+				lerpTo = this.transform.position;
 				startSuckingTimeStamp = Time.time;
 				sucking = true;
 			}
@@ -148,6 +170,7 @@ public class SampleTool : MonoBehaviour
 		{
 			tractorBeam.SetActive( false );
 			toolAnimator.SetBool( "Suck", false );
+			Destroy( samplingObject );
 			startSuckingTimeStamp = 0f;
 			sucking = false;
 		}

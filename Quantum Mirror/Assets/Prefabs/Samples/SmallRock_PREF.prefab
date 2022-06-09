@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8287754054724182042}
   - component: {fileID: 6629413494993927766}
   - component: {fileID: 19151283652267105}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rock_Logic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,6 +56,8 @@ MonoBehaviour:
   sourcePrefab: {fileID: 2511488556975214814, guid: 687922ed4fb157d40a88751554080bc9,
     type: 3}
   modifierPrefabs: []
+  hardness: 0
+  collisonSound: {fileID: 0}
   defaultCurve:
     serializedVersion: 2
     m_Curve: []
@@ -77,7 +79,7 @@ MonoBehaviour:
     value: 0
   sourceSettings:
   - property: {fileID: 11400000, guid: 2f83b93a2d44ae2469ab0c65587673b5, type: 2}
-    valueAtCentre: 1
+    valueAtCentre: 10
     fallOff:
       serializedVersion: 2
       m_Curve:

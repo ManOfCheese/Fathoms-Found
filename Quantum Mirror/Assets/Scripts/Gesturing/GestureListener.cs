@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Gestures;
+using Sam;
 
 public class GestureListener : MonoBehaviour
 {
@@ -61,7 +61,7 @@ public class GestureListener : MonoBehaviour
 					words.Add( word );
 
 				words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
-				playerSentence = Gestures.GestureLogic.GestureListToCodeList( words );
+				playerSentence = Sam.Gesturing.GestureListToCodeList( words );
 			}
 			else if ( handPos.Value == 0 )
 			{
