@@ -7,14 +7,10 @@ public class BTWander : BTMove
 {
 
     public bool interruptable = false;
-    public MovementMode movementMode = MovementMode.PointToPoint;
-    public MovementShape movementShape = MovementShape.Circle;
 
     protected override void OnStart()
     {
-        context.moveController.movementMode = movementMode;
-        context.moveController.movementShape = movementShape;
-        if ( context.moveController.agent.remainingDistance < context.moveController.tolerance )
+        if ( context.moveController.agent.remainingDistance < context.moveController.tolerance && context.moveController.movementMode != MovementMode.Static )
             blackboard.AddData( "moveToPosition", blackboard.vector3s, context.moveController.Wander() );
         base.OnStart();
     }
@@ -25,13 +21,21 @@ public class BTWander : BTMove
 
     protected override State OnUpdate()
     {
-        State state = context.moveController.EvaluateWander();
-
-        if ( interruptable )
+        if ( context.moveController.movementMode != MovementMode.Static )
 		{
-            if ( state == State.Running )
-                state = State.Success;
-		}
-        return state;
+            State state = context.moveController.EvaluateWander();
+
+            if ( interruptable )
+            {
+                if ( state == State.Running )
+                    state = State.Success;
+            }
+            return state;
+        }
+		else
+		{
+            context.moveController.agent.destination = context.moveController.transform.position;
+            return State.Failure;
+        }
     }
 }
