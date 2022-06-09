@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gestures
+namespace Sam
 {
-	public class GestureLogic : MonoBehaviour
+	public class Gesturing : MonoBehaviour
 	{
 		public static List<int> GestureSequenceToCodeList( GestureSequence gestureSequence )
 		{

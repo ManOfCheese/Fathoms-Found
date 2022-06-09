@@ -39,6 +39,7 @@ public class GestureCircle : MonoBehaviour
 	public OnSentence onSentence;
 
 	private GameObject lastClawInCircle;
+	private PasswordAction activePassword;
 
 	private void Awake()
 	{
@@ -54,7 +55,7 @@ public class GestureCircle : MonoBehaviour
 		{
 			for ( int i = 0; i < presetSentence.words.Count; i++ )
 				words.Add( presetSentence.words[ i ] );
-			sentence = Gestures.GestureLogic.GestureSequenceToGCode( presetSentence );
+			sentence = Sam.Gesturing.GestureSequenceToGCode( presetSentence );
 			for ( int i = 0; i < subCircles.Length; i++ )
 			{
 				for ( int j = 0; j < presetSentence.words.Count; j++ )
@@ -146,6 +147,15 @@ public class GestureCircle : MonoBehaviour
 
 	public void ConfirmWord( GestureCircle gestureCircle, Gesture word )
 	{
+		if ( activePassword != null )
+		{
+			if ( Sam.Gesturing.GestureListToGCode( words ) != Sam.Gesturing.GestureSequenceToGCode( activePassword.sentence ) )
+			{
+				activePassword.onRemoved?.Invoke();
+				activePassword = null;
+			}
+		}
+
 		if ( gestureCircle != this )
 		{
 			subCircles[ word.circle ].ShowGestureSprites( word );
@@ -158,11 +168,23 @@ public class GestureCircle : MonoBehaviour
 
 	public void ConfirmSentence( GestureCircle gestureCircle )
 	{
+		if ( activePassword != null )
+		{
+			if ( Sam.Gesturing.GestureListToGCode( words ) != Sam.Gesturing.GestureSequenceToGCode( activePassword.sentence ) )
+			{
+				activePassword.onRemoved?.Invoke();
+				activePassword = null;
+			}
+		}
+		
 		for ( int i = 0; i < passwordActions.Count; i++ )
 		{
-			Debug.Log( Gestures.GestureLogic.GestureListToGCode( words ) + " == " + Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) );
-			if ( Gestures.GestureLogic.GestureListToGCode( words ) == Gestures.GestureLogic.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
-				passwordActions[ i ].action?.Invoke();
+			Debug.Log( Sam.Gesturing.GestureListToGCode( words ) + " == " + Sam.Gesturing.GestureSequenceToGCode( passwordActions[ i ].sentence ) );
+			if ( Sam.Gesturing.GestureListToGCode( words ) == Sam.Gesturing.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
+			{
+				passwordActions[ i ].onInput?.Invoke();
+				activePassword = passwordActions[ i ];
+			}
 		}
 		if ( usePartialConfirmation && !confirmOnWord.Value )
 		{
@@ -205,5 +227,6 @@ public class PasswordAction
 {
 	public bool useForPartialConfirmation;
 	public GestureSequence sentence;
-	public UnityEvent action;
+	public UnityEvent onInput;
+	public UnityEvent onRemoved;
 }

@@ -247,7 +247,7 @@ public class AlienGestureController : MonoBehaviour
 						if ( holdStart || wordIndex >= 0 && !holdStart )
 						{
 							//Manipulate hand to make the gesture.
-							hand.handTransform.transform.LookAt( hand.handTransform.transform.position + -gestureCircle.transform.up );
+							hand.handTransform.transform.LookAt( hand.handTransform.transform.position + gestureCircle.transform.up );
 							for ( int i = 0; i < fingerAnimators.Length; i++ )
 							{
 								if ( gestures[ wordIndex ].fingers[ i ] && !fingerAnimators[ i ].GetBool( "FingerOpen" ) )

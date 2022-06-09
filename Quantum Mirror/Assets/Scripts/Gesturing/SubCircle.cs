@@ -89,7 +89,7 @@ public class SubCircle : MonoBehaviour
 				_gestureCircle.words.Add( word );
 
 			_gestureCircle.words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
-			_gestureCircle.sentence = Gestures.GestureLogic.GestureListToGCode( _gestureCircle.words );
+			_gestureCircle.sentence = Sam.Gesturing.GestureListToGCode( _gestureCircle.words );
 			_gestureCircle.onWord?.Invoke( _gestureCircle, word );
 		}
 		else
