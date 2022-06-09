@@ -10,7 +10,8 @@ public class BTCheckGesture : BTDecoratorNode
     private string playerGesture;
 
     protected override void OnStart() {
-        playerGesture = context.manager.gestureCircle.sentence;
+        if ( context.manager.gestureCircle != null )
+            playerGesture = context.manager.gestureCircle.sentence;
     }
 
     protected override void OnStop() {
@@ -20,9 +21,7 @@ public class BTCheckGesture : BTDecoratorNode
     protected override State OnUpdate()
 	{
 		if ( gCode == playerGesture )
-		{
             return child.Update();
-		}
         return State.Failure;
     }
 }

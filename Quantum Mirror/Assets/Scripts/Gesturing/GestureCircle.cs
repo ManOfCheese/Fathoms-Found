@@ -32,10 +32,10 @@ public class GestureCircle : MonoBehaviour
 	[ReadOnly] public string sentence;
 	[ReadOnly] public bool clawInCircle;
 
-	public delegate void OnWord( GestureCircle gestureCircle, Gesture word );
+	public delegate void OnWord( int senderID, GestureCircle gestureCircle, Gesture word );
 	public OnWord onWord;
 
-	public delegate void OnSentence( GestureCircle gestureCircle );
+	public delegate void OnSentence( int senderID, GestureCircle gestureCircle );
 	public OnSentence onSentence;
 
 	private GameObject lastClawInCircle;
@@ -145,7 +145,7 @@ public class GestureCircle : MonoBehaviour
 		}
 	}
 
-	public void ConfirmWord( GestureCircle gestureCircle, Gesture word )
+	public void ConfirmWord( int senderID, GestureCircle gestureCircle, Gesture word )
 	{
 		if ( activePassword != null )
 		{
@@ -166,7 +166,7 @@ public class GestureCircle : MonoBehaviour
 		}
 	}
 
-	public void ConfirmSentence( GestureCircle gestureCircle )
+	public void ConfirmSentence( int senderID, GestureCircle gestureCircle )
 	{
 		if ( activePassword != null )
 		{

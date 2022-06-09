@@ -43,20 +43,20 @@ public class SubCircle : MonoBehaviour
 		}
 	}
 
-	public void OnPlayerGesture( bool confirmGesture )
+	public void OnPlayerGesture( bool _confirmGesture )
 	{
-		if ( confirmGesture && handPos.Value == circleNumber && gestureCircle.clawInCircle )
-			ConfirmGestureTwoWay( handPos.Value, fingers.Value );
+		if ( _confirmGesture && handPos.Value == circleNumber && gestureCircle.clawInCircle )
+			ConfirmGestureTwoWay( 0, handPos.Value, fingers.Value );
 	}
 
-	public void ConfirmGestureTwoWay( int _circleNumber, bool[] _fingers )
+	public void ConfirmGestureTwoWay( int _senderID, int _circleNumber, bool[] _fingers )
 	{
-		ConfirmGesture( gestureCircle, _circleNumber, _fingers );
+		ConfirmGesture( _senderID, gestureCircle, _circleNumber, _fingers );
 		if ( gestureCircle.twoWayCircle )
-			ConfirmGesture( gestureCircle.otherCircle, _circleNumber, _fingers );
+			ConfirmGesture( _senderID, gestureCircle.otherCircle, _circleNumber, _fingers );
 	}
 
-	public void ConfirmGesture( GestureCircle _gestureCircle, int _circleNumber, bool[] _fingers )
+	public void ConfirmGesture( int _senderID, GestureCircle _gestureCircle, int _circleNumber, bool[] _fingers )
 	{
 		if ( circleNumber != 0 )
 		{
@@ -90,11 +90,11 @@ public class SubCircle : MonoBehaviour
 
 			_gestureCircle.words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
 			_gestureCircle.sentence = Sam.Gesturing.GestureListToGCode( _gestureCircle.words );
-			_gestureCircle.onWord?.Invoke( _gestureCircle, word );
+			_gestureCircle.onWord?.Invoke( _senderID, _gestureCircle, word );
 		}
 		else
 		{
-			_gestureCircle.onSentence?.Invoke( _gestureCircle );
+			_gestureCircle.onSentence?.Invoke( _senderID, _gestureCircle );
 		}
 	}
 

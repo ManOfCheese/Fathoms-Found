@@ -92,16 +92,19 @@ public class AlienManager : MonoBehaviour
         lastHeardTremor.position = _position;
     }
 
-    public void OnWord( GestureCircle _gestureCircle, Gesture _word )
+    public void OnWord( int _senderID, GestureCircle _gestureCircle, Gesture _word )
 	{
 
 	}
 
-    public void OnSentence( GestureCircle _gestureCircle )
+    public void OnSentence( int _senderID, GestureCircle _gestureCircle )
 	{
-        gestureSignal.gestureCircle = _gestureCircle;
-        gestureSignal.timeStamp = Time.time;
-        this.gestureCircle = _gestureCircle;
+        if ( _senderID != gc.ID )
+		{
+            gestureSignal.gestureCircle = _gestureCircle;
+            gestureSignal.timeStamp = Time.time;
+            this.gestureCircle = _gestureCircle;
+        }
     }
 }
 
