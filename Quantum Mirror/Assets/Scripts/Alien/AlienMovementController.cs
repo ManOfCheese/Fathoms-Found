@@ -64,8 +64,8 @@ public class AlienMovementController : MonoBehaviour
         agent.speed = speed;
         agent.destination = transform.position;
 
-		for ( int i = 0; i < hands.Length; i++ )
-            hands[ i ].speed = speed;
+		//for ( int i = 0; i < hands.Length; i++ )
+        //    hands[ i ].speed = speed;
 	}
 
 	private void OnValidate()
@@ -73,8 +73,8 @@ public class AlienMovementController : MonoBehaviour
         if ( agent != null )
             agent.speed = speed;
 
-        for ( int i = 0; i < hands.Length; i++ )
-            hands[ i ].speed = speed;
+        //for ( int i = 0; i < hands.Length; i++ )
+        //    hands[ i ].speed = speed;
     }
 
     public Vector3 Wander()
