@@ -470,7 +470,7 @@ MonoBehaviour:
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
-  stepHeight: 3
+  stepHeight: 2
   stepHeightRandomization: {x: 0.9, y: 1.1}
 --- !u!1 &984740529501799386
 GameObject:
@@ -771,7 +771,7 @@ MonoBehaviour:
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
-  stepHeight: 3
+  stepHeight: 2
   stepHeightRandomization: {x: 0.9, y: 1.1}
 --- !u!1 &1621468065770588204
 GameObject:
@@ -990,7 +990,7 @@ MonoBehaviour:
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
-  stepHeight: 3
+  stepHeight: 2
   stepHeightRandomization: {x: 0.9, y: 1.1}
 --- !u!1 &2300399868923068449
 GameObject:
@@ -1911,7 +1911,7 @@ MonoBehaviour:
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
-  stepHeight: 3
+  stepHeight: 2
   stepHeightRandomization: {x: 0.9, y: 1.1}
 --- !u!1 &4704568400316344573
 GameObject:
@@ -2314,43 +2314,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152d01b9bb85e934d8ae3fc2a44b58c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gestureSenders: {fileID: 0}
+  ID: 0
   hands:
   - handTransform: {fileID: 769439790366982350}
     ikHandler: {fileID: 3212807522618574264}
-    fingerAnimators:
-    - {fileID: 2755495029372139576}
-    - {fileID: 301432851744068534}
-    - {fileID: 8113729749024336470}
   - handTransform: {fileID: 8929653200026750194}
     ikHandler: {fileID: 8580479925270609438}
-    fingerAnimators:
-    - {fileID: 6304024692603941892}
-    - {fileID: 8462262305779933066}
-    - {fileID: 133097086911194730}
   - handTransform: {fileID: 8847989683541717289}
     ikHandler: {fileID: 4709334364615308592}
-    fingerAnimators:
-    - {fileID: 6222491400574306783}
-    - {fileID: 8379265141684150865}
-    - {fileID: 71500018383477681}
   - handTransform: {fileID: 4509939728750821986}
     ikHandler: {fileID: 536645856955449490}
-    fingerAnimators:
-    - {fileID: 1298834398496029332}
-    - {fileID: 3464948943088767258}
-    - {fileID: 4945758434350868730}
   - handTransform: {fileID: 7084799719566842616}
     ikHandler: {fileID: 7400975075281896091}
-    fingerAnimators:
-    - {fileID: 5675281575959667214}
-    - {fileID: 7841115718076008832}
-    - {fileID: 1758119713963831392}
   - handTransform: {fileID: 9137847133756457260}
     ikHandler: {fileID: 1427232768790329277}
-    fingerAnimators:
-    - {fileID: 5926951261547313626}
-    - {fileID: 8093911295106388564}
-    - {fileID: 352543918696262580}
   idleHandTargets:
   - {fileID: 7143136651404266858}
   - {fileID: 4419709333017376715}
@@ -2362,6 +2340,8 @@ MonoBehaviour:
   responses: {fileID: 11400000, guid: e76663091c58e594eb686e0b880ea171, type: 2}
   standardResponse: {fileID: 11400000, guid: d53d0b3a99681234db9c8a5cf18bff68, type: 2}
   holdStart: 0
+  defaultFingerPos: 1
+  gestureDistance: 0
   gestureSpeed: 5
   holdGestureFor: 3
   pointSpeed: 5
@@ -3311,7 +3291,7 @@ MonoBehaviour:
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
-  stepHeight: 3
+  stepHeight: 2
   stepHeightRandomization: {x: 0.9, y: 1.1}
 --- !u!1 &7283418230222412088
 GameObject:
@@ -3407,7 +3387,7 @@ MonoBehaviour:
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
-  stepHeight: 3
+  stepHeight: 2
   stepHeightRandomization: {x: 0.9, y: 1.1}
 --- !u!1 &7488988986900432819
 GameObject:

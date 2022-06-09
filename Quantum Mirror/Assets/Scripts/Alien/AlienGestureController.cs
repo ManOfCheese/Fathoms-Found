@@ -28,6 +28,7 @@ public class AlienGestureController : GestureSender
 	[Tooltip( "Should the alien hold at the centre of the circle before starting with the gestures?" )]
 	public bool holdStart;
 	public bool defaultFingerPos = true;
+	public float gestureDistance;
 	[Tooltip( "How fast in units per second should the alien gestures." )]
 	public float gestureSpeed = 1f;
 	[Tooltip( "How long should the alien hold a gestures before moving on to the next one." )]
@@ -208,7 +209,7 @@ public class AlienGestureController : GestureSender
 		{
 			if ( gestureState == GestureState.StartGesture )
 			{
-				handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position;
+				handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position + ( gestureCircle.transform.up * gestureDistance );
 				gestureState = GestureState.Gesturing;
 
 				if ( clearcircle )
@@ -265,12 +266,12 @@ public class AlienGestureController : GestureSender
 						//Set target as our start position.
 						if ( wordIndex > gestures.Count - 1 )
 						{
-							handTarget = idleHandTargets[ gestureHandIndex ].position;
+							handTarget = idleHandTargets[ gestureHandIndex ].position + ( gestureCircle.transform.up * gestureDistance );
 							gestureState = GestureState.EndGesture;
 						}
 						//Set target as the next word in the sentence.
 						else
-							handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position;
+							handTarget = gestureCircle.subCircles[ gestures[ wordIndex ].circle ].transform.position + ( gestureCircle.transform.up * gestureDistance );
 					}
 				}
 				//Move towards hand target.
