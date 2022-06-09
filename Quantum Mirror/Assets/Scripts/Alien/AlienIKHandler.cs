@@ -9,7 +9,6 @@ public class AlienIKHandler : MonoBehaviour
     public NavMeshAgent agent;
     public Animator[] fingerAnimators;
     public Transform hand;
-    public bool debug;
 
     [SerializeField] private LayerMask terrainLayer = default;
     [SerializeField] private Transform body = default;
@@ -75,8 +74,6 @@ public class AlienIKHandler : MonoBehaviour
 
             if ( lerp > closeFingerTreshold && lerp < openFingerTreshold && fingersOpen )
             {
-                if ( debug )
-                    Debug.Log( "Closing " + lerp );
                 for ( int i = 0; i < fingerAnimators.Length; i++ )
                 {
                     fingerAnimators[ i ].speed = openHandSpeed;
@@ -86,8 +83,6 @@ public class AlienIKHandler : MonoBehaviour
             }
             else if ( lerp > openFingerTreshold && !fingersOpen )
             {
-                if ( debug )
-                    Debug.Log( "Opening " + lerp );
                 for ( int i = 0; i < fingerAnimators.Length; i++ )
                 {
                     fingerAnimators[ i ].speed = openHandSpeed;

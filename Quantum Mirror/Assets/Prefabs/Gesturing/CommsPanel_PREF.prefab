@@ -172,6 +172,36 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2546542837910340096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1784305363075328150}
+  m_Layer: 0
+  m_Name: GesturePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1784305363075328150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2546542837910340096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7, y: -7.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6946272530978588507}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2759976779919017694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,6 +1202,7 @@ Transform:
   m_Children:
   - {fileID: 8712450454834863635}
   - {fileID: 781623080527045723}
+  - {fileID: 1784305363075328150}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1818,6 +1849,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b3af5f0ee8db85047a4cdc7d91c85db7,
         type: 2}
+    - target: {fileID: 8703314539456645144, guid: 2a4294f67a327cb498c2eace3c5b34a8,
+        type: 3}
+      propertyPath: gesturePosition
+      value: 
+      objectReference: {fileID: 1784305363075328150}
     - target: {fileID: 8703314539456645144, guid: 2a4294f67a327cb498c2eace3c5b34a8,
         type: 3}
       propertyPath: passwordActions.Array.size
