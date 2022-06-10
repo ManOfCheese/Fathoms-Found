@@ -2289,9 +2289,14 @@ MonoBehaviour:
   gestureCircles: {fileID: 11400000, guid: b3af5f0ee8db85047a4cdc7d91c85db7, type: 2}
   doorPanels: {fileID: 0}
   player: {fileID: 0}
+  alienHeight: {fileID: 0}
   tremorInterestDuration: 3
   gestureInterestDuration: 3
   interactDistance: 0
+  liftHeadDuration: 0
+  lowerHeadDuration: 0
+  attentionHeight: 0
+  alienStartHeight: 0
   lastHeardTremor:
     intensity: 0
     timeStamp: 0
@@ -2645,8 +2650,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5810932874788439199}
   m_LocalRotation: {x: -0.044565223, y: -0.000000028553155, z: -0.2643966, w: 0.96338385}
-  m_LocalPosition: {x: -8.381903e-11, y: 0.005847326, z: -5.5879353e-11}
-  m_LocalScale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+  m_LocalPosition: {x: 0, y: 0.005847326, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2979432301972712745}
   m_Father: {fileID: 6045372395378140472}

@@ -16,7 +16,7 @@ namespace TheKiwiCoder {
         public Rigidbody physics;
         public AlienManager manager;
         public AlienMovementController moveController;
-        public AlienGestureController gestureController;
+        public AlienGestureController gc;
         public SphereCollider sphereCollider;
         public BoxCollider boxCollider;
         public CapsuleCollider capsuleCollider;
@@ -32,7 +32,7 @@ namespace TheKiwiCoder {
             context.physics = gameObject.GetComponent<Rigidbody>();
             context.manager = gameObject.GetComponent<AlienManager>();
             context.moveController = gameObject.GetComponent<AlienMovementController>();
-            context.gestureController = gameObject.GetComponent<AlienGestureController>();
+            context.gc = gameObject.GetComponent<AlienGestureController>();
             context.sphereCollider = gameObject.GetComponent<SphereCollider>();
             context.boxCollider = gameObject.GetComponent<BoxCollider>();
             context.capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
