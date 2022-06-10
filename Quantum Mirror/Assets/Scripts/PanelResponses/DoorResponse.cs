@@ -8,8 +8,8 @@ public class DoorResponse : MonoBehaviour
     public bool isOpen = false;
     
     private Animator animator;
-    public Animator mainwire;
-    public Animator circlewire;
+    public Animator wire;
+    public Animator panel;
 
     void Start()
     {
@@ -28,10 +28,16 @@ public class DoorResponse : MonoBehaviour
 
         if ( isOpen == false )
         {
-            animator.SetBool(  "Open", true );
-            isOpen = true;
+            StartCoroutine(CorrectInput());
         }
- 
+    }
+    IEnumerator CorrectInput()
+    {
+        panel.SetBool( "Active", true );
+        wire.SetBool("Active", true);
+        yield return new WaitForSeconds(4);
+        animator.SetBool( "Open", true );
+        isOpen = true;
     }
 
     public void Close()
@@ -44,6 +50,8 @@ public class DoorResponse : MonoBehaviour
         if ( isOpen == true )
         {
             animator.SetBool( "Open", false );
+            wire.SetBool("Active", false );
+            panel.SetBool("Active", false );
             isOpen = false;
         }
     }
