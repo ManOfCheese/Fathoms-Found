@@ -46,7 +46,7 @@ MonoBehaviour:
   sentence: {fileID: 11400000, guid: 5f630b39e51b1714fb7aae178bc0b092, type: 2}
   gestureSpeed: 5
   holdGestureFor: 0
-  legRepositionSpeed: 1
+  legRepositionSpeed: 3
   clearCircle: 0
   startAtCentre: 0
   endAtCentre: 0
@@ -127,6 +127,54 @@ MonoBehaviour:
   floatValue: 0
   vector3Value: {x: 0, y: 0, z: 0}
   vector2Value: {x: 0, y: 0}
+--- !u!114 &-8593555746553535676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: BTSequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: e4cba3a09924ba04c8d9b52a0bdc18ed
+  position: {x: -1570, y: 914}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: -7270311983719706384}
+  - {fileID: 6903475167740809368}
+  - {fileID: 1136571779694815187}
+  - {fileID: 518104081769836722}
+  - {fileID: 4123926823184492408}
+--- !u!114 &-8311979848903264601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38054742cdf25a498cbfdff3a7a5f23, type: 3}
+  m_Name: BTCheckGesture
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d8eda6b675f0ed144a7d4c0b64b7a0ab
+  position: {x: -1570, y: 813}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: -8593555746553535676}
+  gCode: 13110
 --- !u!114 &-8061413797556022564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +204,59 @@ MonoBehaviour:
   floatValue: 0
   vector3Value: {x: 0, y: 0, z: 0}
   vector2Value: {x: 0, y: 0}
+--- !u!114 &-7677236292952868286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a056d27dc052346b0eebc7b3f23932, type: 3}
+  m_Name: BTPointAtObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f55cc8b7f2e2b76499c0a57edce1db8d
+  position: {x: -2230.6345, y: 1044}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  objects: {fileID: 11400000, guid: 1911c7bbd51f572459586033e0fd38b9, type: 2}
+  pointSpeed: 10
+  holdPointFor: 1
+--- !u!114 &-7270311983719706384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46dde3bb604d7944a1ceb9a506a3a85, type: 3}
+  m_Name: BTMakeGesture
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 7829035e4e8332e448f862026989a725
+  position: {x: -1899, y: 1042}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  sentence: {fileID: 11400000, guid: c962e916ef8a02a448ac9526a2d7c145, type: 2}
+  gestureSpeed: 1
+  holdGestureFor: 1
+  legRepositionSpeed: 1
+  clearCircle: 1
+  startAtCentre: 0
+  endAtCentre: 0
+  returnToIdle: 0
+  inputGesture: 1
+  fingerPosAtCentre: 1
 --- !u!114 &-6805684907183002763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +376,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 15831be2d00f61c4cbb643059ec5a1d6
-  position: {x: 264, y: 1045}
+  position: {x: 264, y: 1044}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -283,13 +384,33 @@ MonoBehaviour:
   sentence: {fileID: 0}
   gestureSpeed: 3
   holdGestureFor: 1
-  legRepositionSpeed: 1
+  legRepositionSpeed: 3
   clearCircle: 1
   startAtCentre: 0
   endAtCentre: 1
   returnToIdle: 1
   inputGesture: 1
   fingerPosAtCentre: 1
+--- !u!114 &-3962255605993218901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ce1d048eaabee47b65972cb29b53a6, type: 3}
+  m_Name: BTExitGestureMode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 473bb278c2475ab4dbac59b81743549a
+  position: {x: -2573.6345, y: 1044}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &-3947258352145073839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,7 +544,7 @@ MonoBehaviour:
   sentence: {fileID: 11400000, guid: e7ff94e125a681a49871057cbcc6cb44, type: 2}
   gestureSpeed: 3
   holdGestureFor: 1
-  legRepositionSpeed: 1
+  legRepositionSpeed: 3
   clearCircle: 1
   startAtCentre: 0
   endAtCentre: 1
@@ -532,7 +653,44 @@ MonoBehaviour:
   - {fileID: -1324413046217771762}
   - {fileID: 6030321955981491680}
   - {fileID: 3645670257502495353}
+  - {fileID: -8311979848903264601}
+  - {fileID: 518104081769836722}
+  - {fileID: 2505912988487962031}
+  - {fileID: -7677236292952868286}
+  - {fileID: 6903475167740809368}
+  - {fileID: -3962255605993218901}
+  - {fileID: 7273949710649817610}
+  - {fileID: 8041494207145230667}
+  - {fileID: 1136571779694815187}
+  - {fileID: 7839935805316637039}
+  - {fileID: -7270311983719706384}
+  - {fileID: -8593555746553535676}
+  - {fileID: 4123926823184492408}
+  - {fileID: 1864109180624617434}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+--- !u!114 &518104081769836722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02a056d27dc052346b0eebc7b3f23932, type: 3}
+  m_Name: BTPointAtObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: e8ca723cbf520e648b3b70ae8fcbaf16
+  position: {x: -1399, y: 1042}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  objects: {fileID: 11400000, guid: 33c154f9e55971a46b5c3fda83012ed3, type: 2}
+  pointSpeed: 10
+  holdPointFor: 1
 --- !u!114 &734924273366472062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +812,26 @@ MonoBehaviour:
   children:
   - {fileID: 8414121819175676279}
   - {fileID: 5823771809123454293}
+--- !u!114 &1136571779694815187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575a35c89bf1602449917009477525a0, type: 3}
+  m_Name: BTForgetGestureCircle
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 905073e433d89e249a13a02e64eef988
+  position: {x: -1581, y: 1044}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &1340306966005004348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,6 +878,8 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   children:
+  - {fileID: 2505912988487962031}
+  - {fileID: -8311979848903264601}
   - {fileID: 3028672028967238464}
   - {fileID: 1340306966005004348}
 --- !u!114 &1547387094584220857
@@ -728,6 +908,35 @@ MonoBehaviour:
   updateRotation: 1
   acceleration: 40
   objects: {fileID: 11400000, guid: 33c154f9e55971a46b5c3fda83012ed3, type: 2}
+--- !u!114 &1864109180624617434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
+  m_Name: BTSetBBValue
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 0f7d314525990a444ab8816d45ce94d9
+  position: {x: -2072, y: 1044}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  valueType: 1
+  key: gestureSignalDetected
+  gameObjectValue: {fileID: 0}
+  boolValue: 0
+  intValue: 0
+  stringValue: 
+  floatValue: 0
+  vector3Value: {x: 0, y: 0, z: 0}
+  vector2Value: {x: 0, y: 0}
 --- !u!114 &2358798011550485074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +960,28 @@ MonoBehaviour:
   children:
   - {fileID: -6428903480517252585}
   - {fileID: 6999145153323897145}
+--- !u!114 &2505912988487962031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38054742cdf25a498cbfdff3a7a5f23, type: 3}
+  m_Name: BTCheckGesture
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3480351b3840e4749a4349897fda8909
+  position: {x: -2404, y: 813}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: 7273949710649817610}
+  gCode: 13001
 --- !u!114 &3028672028967238464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,6 +1074,35 @@ MonoBehaviour:
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
+--- !u!114 &4123926823184492408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
+  m_Name: BTSetBBValue
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: cd1a1f38a6cb4f042917119f3705c7e1
+  position: {x: -1237, y: 1042}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  valueType: 1
+  key: gestureSignalDetected
+  gameObjectValue: {fileID: 0}
+  boolValue: 0
+  intValue: 0
+  stringValue: 
+  floatValue: 0
+  vector3Value: {x: 0, y: 0, z: 0}
+  vector2Value: {x: 0, y: 0}
 --- !u!114 &4917332751034404204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1071,6 +1331,26 @@ MonoBehaviour:
   children:
   - {fileID: 3742642060430743134}
   - {fileID: 1025322506460653393}
+--- !u!114 &6903475167740809368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ce1d048eaabee47b65972cb29b53a6, type: 3}
+  m_Name: BTExitGestureMode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: e7b75520e0a00c14cb3b1a47f9f62b15
+  position: {x: -1739, y: 1042}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &6999145153323897145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,6 +1380,32 @@ MonoBehaviour:
   floatValue: 0
   vector3Value: {x: 0, y: 0, z: 0}
   vector2Value: {x: 0, y: 0}
+--- !u!114 &7273949710649817610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
+  m_Name: BTSequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 13a45c20848c7cb408df6fb806bd5331
+  position: {x: -2404, y: 914}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: 7839935805316637039}
+  - {fileID: -3962255605993218901}
+  - {fileID: 8041494207145230667}
+  - {fileID: -7677236292952868286}
+  - {fileID: 1864109180624617434}
 --- !u!114 &7302005119834466867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1155,6 +1461,56 @@ MonoBehaviour:
   stoppingDistance: 0.1
   updateRotation: 1
   acceleration: 40
+--- !u!114 &7839935805316637039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46dde3bb604d7944a1ceb9a506a3a85, type: 3}
+  m_Name: BTMakeGesture
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d697e61d9788e144ba13bb6f80f4d7c8
+  position: {x: -2740.6345, y: 1044}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  sentence: {fileID: 11400000, guid: c962e916ef8a02a448ac9526a2d7c145, type: 2}
+  gestureSpeed: 1
+  holdGestureFor: 1
+  legRepositionSpeed: 1
+  clearCircle: 1
+  startAtCentre: 0
+  endAtCentre: 0
+  returnToIdle: 0
+  inputGesture: 1
+  fingerPosAtCentre: 1
+--- !u!114 &8041494207145230667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575a35c89bf1602449917009477525a0, type: 3}
+  m_Name: BTForgetGestureCircle
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: c9fbec6be17d28d42bf55ddbae4445ef
+  position: {x: -2412.6345, y: 1044}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &8414121819175676279
 MonoBehaviour:
   m_ObjectHideFlags: 0

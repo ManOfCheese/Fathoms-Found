@@ -72,14 +72,16 @@ public class AlienGestureController : GestureSender
 		alienStartHeight = alienBody.localPosition.y;
 	}
 
-	public int FindClosestHand( Transform respondTo )
+	public int FindClosestHand( Transform respondTo, bool isForPointing )
 	{
 		int closestHand = 0;
 		float shortestDist = 0f;
 
 		for ( int i = 0; i < hands.Length; i++ )
 		{
-			float dist = Vector3.Distance( alienManager.gestureCircle.transform.position, hands[ i ].handTransform.position );
+			if ( isForPointing && i == gestureHandIndex ) { continue; }
+			if ( !isForPointing && i == pointHandIndex ) { continue; }
+			float dist = Vector3.Distance( respondTo.position, hands[ i ].handTransform.position );
 			if ( dist < shortestDist || i == 0 )
 			{
 				closestHand = i;
@@ -116,6 +118,10 @@ public class AlienGestureController : GestureSender
 	public TheKiwiCoder.BTNode.State Point()
 	{
 		AlienIKHandler hand = hands[ pointHandIndex ].ikHandler;
+		for ( int i = 0; i < hand.fingerAnimators.Length; i++ )
+		{
+			hand.fingerAnimators[ i ].SetBool( "FingerOpen", false );
+		}
 
 		if ( gestureState == GestureState.HoldingGesture )
 		{
@@ -194,7 +200,7 @@ public class AlienGestureController : GestureSender
 
 	public void EnterGestureMode()
 	{
-		int closestHand = FindClosestHand( alienManager.player );
+		int closestHand = FindClosestHand( alienManager.gestureCircle.transform, false );
 		gestureHandIndex = closestHand;
 		repositionedHands.Add( gestureHandIndex );
 
@@ -225,13 +231,14 @@ public class AlienGestureController : GestureSender
 			{
 				if ( !repositionedHands.Contains( i ) )
 				{
-					if ( repositionSpeed > Vector3.Distance( hands[ i ].ikHandler.transform.position, idleHandTargets[ i ].position ) )
+					float speed = repositionSpeed * Time.deltaTime;
+					if ( speed > Vector3.Distance( hands[ i ].ikHandler.transform.position, idleHandTargets[ i ].position ) )
 					{
 						hands[ i ].ikHandler.transform.position = idleHandTargets[ i ].position;
 						repositionedHands.Add( i );
 					}
 					else
-						hands[ i ].ikHandler.transform.position = Vector3.MoveTowards( hands[ i ].ikHandler.transform.position, idleHandTargets[ i ].position, repositionSpeed );
+						hands[ i ].ikHandler.transform.position = Vector3.MoveTowards( hands[ i ].ikHandler.transform.position, idleHandTargets[ i ].position, speed );
 				}
 			}
 			if ( repositionedHands.Count >= hands.Length )

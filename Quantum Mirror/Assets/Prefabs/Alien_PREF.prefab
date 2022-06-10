@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4491309341914188893}
   - component: {fileID: 7776217001641398315}
   - component: {fileID: 656980948607129272}
-  - component: {fileID: 6039543493320311603}
-  - component: {fileID: 4106372862315264231}
   m_Layer: 0
   m_Name: AlienCenter
   m_TagString: Untagged
@@ -84,35 +82,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6039543493320311603
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40754318716920298}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.04, y: 0.04, z: 0.001}
-  m_Center: {x: 0, y: 0, z: -0.02}
---- !u!54 &4106372862315264231
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40754318716920298}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &148883620515712276
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +501,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1935985600007639025}
+  - component: {fileID: 8068288455416230180}
   m_Layer: 0
   m_Name: Bone_SE.001
   m_TagString: Untagged
@@ -554,6 +524,20 @@ Transform:
   m_Father: {fileID: 6735981523614367927}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &8068288455416230180
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006760551117516744}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.001
+  m_Height: 0.015
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.007, z: 0}
 --- !u!1 &1038710719128536704
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1346141939646206706}
+  - component: {fileID: 9124224165761737017}
   m_Layer: 0
   m_Name: Bone_NW.001
   m_TagString: Untagged
@@ -891,6 +876,20 @@ Transform:
   m_Father: {fileID: 5084387458504455958}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &9124224165761737017
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459651566253828785}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.001
+  m_Height: 0.015
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.007, z: 0}
 --- !u!1 &1572988453820071948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,6 +1056,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2177264114970218082}
+  - component: {fileID: 2602767149582645887}
   m_Layer: 0
   m_Name: Bone_SW.001
   m_TagString: Untagged
@@ -1079,6 +1079,20 @@ Transform:
   m_Father: {fileID: 6579916420652971157}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2602767149582645887
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808065088205120877}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.001
+  m_Height: 0.015
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.007, z: 0}
 --- !u!1 &1886435018621155460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,8 +2635,8 @@ GameObject:
   - component: {fileID: 7223040693863163904}
   - component: {fileID: 6278649203793106860}
   - component: {fileID: 1241479347}
-  - component: {fileID: 3912059940971807930}
-  - component: {fileID: 6022951705571558545}
+  - component: {fileID: 4492499411471008393}
+  - component: {fileID: 6807723745478791875}
   m_Layer: 11
   m_Name: Alien_Logic
   m_TagString: Untagged
@@ -2660,14 +2674,9 @@ MonoBehaviour:
   gestureCircles: {fileID: 11400000, guid: b3af5f0ee8db85047a4cdc7d91c85db7, type: 2}
   doorPanels: {fileID: 0}
   player: {fileID: 0}
-  alienHeight: {fileID: 0}
   tremorInterestDuration: 3
   gestureInterestDuration: 3
   interactDistance: 0
-  liftHeadDuration: 0
-  lowerHeadDuration: 0
-  attentionHeight: 0
-  alienStartHeight: 0
   lastHeardTremor:
     intensity: 0
     timeStamp: 0
@@ -2690,8 +2699,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 152d01b9bb85e934d8ae3fc2a44b58c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gestureSenders: {fileID: 0}
+  gestureSenders: {fileID: 11400000, guid: 2bdb358792663e1429599cedef35c8fd, type: 2}
   ID: 0
+  alienBody: {fileID: 7623778880233620133}
   hands:
   - handTransform: {fileID: 769439790366982350}
     ikHandler: {fileID: 3212807522618574264}
@@ -2723,6 +2733,9 @@ MonoBehaviour:
   pointSpeed: 5
   maxPointDistance: 5
   holdPointFor: 3
+  gesturesToMake: []
+  gestureCircle: {fileID: 0}
+  fingerAnimators: []
   gestureState: 0
   standardGesture: 0
   gestureHoldTimeStamp: 0
@@ -2736,6 +2749,9 @@ MonoBehaviour:
   alienManager: {fileID: 0}
   playerGestures: []
   respondTo: 
+  hand:
+    handTransform: {fileID: 0}
+    ikHandler: {fileID: 0}
 --- !u!114 &6278649203793106860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2782,21 +2798,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tree: {fileID: 11400000, guid: ffe11d6081b65b94ea67b7c02e0f265a, type: 2}
   paused: {fileID: 11400000, guid: 1d3ff793ef347e847a253a1a67443359, type: 2}
---- !u!136 &3912059940971807930
-CapsuleCollider:
+--- !u!65 &4492499411471008393
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5290256719104210899}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.5
-  m_Height: 5.5
-  m_Direction: 1
-  m_Center: {x: 0, y: -0.41, z: 0}
---- !u!54 &6022951705571558545
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 0.5, z: 1.5}
+  m_Center: {x: 0, y: 0.12, z: -0.02}
+--- !u!54 &6807723745478791875
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2807,7 +2822,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -4003,6 +4018,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4917154177693861782}
+  - component: {fileID: 348980648785193231}
   m_Layer: 0
   m_Name: Bone_S.001
   m_TagString: Untagged
@@ -4025,6 +4041,20 @@ Transform:
   m_Father: {fileID: 8675031676288626128}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &348980648785193231
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7488988986900432819}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.001
+  m_Height: 0.015
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.007, z: 0}
 --- !u!1 &7772248004462250303
 GameObject:
   m_ObjectHideFlags: 0
@@ -4341,6 +4371,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6874472906510847325}
+  - component: {fileID: 5576617686566487795}
   m_Layer: 0
   m_Name: Bone_NE.001
   m_TagString: Untagged
@@ -4363,6 +4394,20 @@ Transform:
   m_Father: {fileID: 6968509762839563458}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5576617686566487795
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477426856775117889}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.001
+  m_Height: 0.015
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.007, z: 0}
 --- !u!1 &8590137316192167994
 GameObject:
   m_ObjectHideFlags: 0
@@ -4588,6 +4633,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5197767873184763224}
+  - component: {fileID: 926811259831835883}
   m_Layer: 0
   m_Name: Bone_N.001
   m_TagString: Untagged
@@ -4610,6 +4656,20 @@ Transform:
   m_Father: {fileID: 1979590327311587132}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &926811259831835883
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8921207440663488909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.001
+  m_Height: 0.015
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.007, z: 0}
 --- !u!1 &9014954259352002268
 GameObject:
   m_ObjectHideFlags: 0
@@ -4652,6 +4712,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hand_N
+      objectReference: {fileID: 0}
+    - target: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 962583465703813942, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -4728,10 +4793,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 226.396
       objectReference: {fileID: 0}
+    - target: {fileID: 1704441292579924146, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 6629147577155150168, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
       value: FingerIK_NRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138277909460947282, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 8785657750189984470, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -4740,9 +4820,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
---- !u!4 &769439790366982350 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+--- !u!95 &8113729749024336470 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 1854074549311574180}
   m_PrefabAsset: {fileID: 0}
@@ -4752,15 +4832,15 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 1854074549311574180}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &301432851744068534 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+--- !u!4 &769439790366982350 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 1854074549311574180}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &8113729749024336470 stripped
+--- !u!95 &301432851744068534 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 1854074549311574180}
   m_PrefabAsset: {fileID: 0}
@@ -4775,6 +4855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hand_S
+      objectReference: {fileID: 0}
+    - target: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 962583465703813942, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -4851,10 +4936,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 177.056
       objectReference: {fileID: 0}
+    - target: {fileID: 1704441292579924146, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 6629147577155150168, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
       value: FingerIK_SRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138277909460947282, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 8785657750189984470, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -4869,9 +4969,9 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 3279150334226878984}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &3464948943088767258 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+--- !u!4 &4509939728750821986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 3279150334226878984}
   m_PrefabAsset: {fileID: 0}
@@ -4881,9 +4981,9 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 3279150334226878984}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4509939728750821986 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+--- !u!95 &3464948943088767258 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 3279150334226878984}
   m_PrefabAsset: {fileID: 0}
@@ -4898,6 +4998,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hand_NE
+      objectReference: {fileID: 0}
+    - target: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 962583465703813942, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -4979,10 +5084,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerNE_Left
       objectReference: {fileID: 0}
+    - target: {fileID: 1704441292579924146, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
       value: FingerNE_Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 6629147577155150168, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -4994,6 +5109,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerNE_Up
       objectReference: {fileID: 0}
+    - target: {fileID: 7138277909460947282, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 8785657750189984470, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
@@ -5001,15 +5121,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
---- !u!95 &6304024692603941892 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7564894902139051160}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8929653200026750194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7564894902139051160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6304024692603941892 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 7564894902139051160}
   m_PrefabAsset: {fileID: 0}
@@ -5036,6 +5156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hand_SE
+      objectReference: {fileID: 0}
+    - target: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 962583465703813942, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -5112,10 +5237,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 226.396
       objectReference: {fileID: 0}
+    - target: {fileID: 1704441292579924146, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 6629147577155150168, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
       value: FingerIK_SERight
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138277909460947282, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 8785657750189984470, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -5124,18 +5264,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
---- !u!95 &8379265141684150865 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7628315114491093315}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &71500018383477681 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7628315114491093315}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8847989683541717289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
@@ -5145,6 +5273,18 @@ Transform:
 --- !u!95 &6222491400574306783 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7628315114491093315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8379265141684150865 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7628315114491093315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &71500018383477681 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 7628315114491093315}
   m_PrefabAsset: {fileID: 0}
@@ -5159,6 +5299,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hand_NW
+      objectReference: {fileID: 0}
+    - target: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 962583465703813942, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -5240,10 +5385,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerNW_Left
       objectReference: {fileID: 0}
+    - target: {fileID: 1704441292579924146, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
       value: FingerNW_Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 6629147577155150168, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -5255,6 +5410,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FingerNW_Up
       objectReference: {fileID: 0}
+    - target: {fileID: 7138277909460947282, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 8785657750189984470, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
@@ -5262,27 +5422,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
---- !u!95 &5926951261547313626 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7910361771671490886}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &352543918696262580 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 7910361771671490886}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &9137847133756457260 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7910361771671490886}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &8093911295106388564 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7910361771671490886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5926951261547313626 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7910361771671490886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9137847133756457260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 7910361771671490886}
   m_PrefabAsset: {fileID: 0}
@@ -5297,6 +5457,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hand_SW
+      objectReference: {fileID: 0}
+    - target: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 962583465703813942, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -5373,10 +5538,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 226.396
       objectReference: {fileID: 0}
+    - target: {fileID: 1704441292579924146, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684828029844863708, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
+      objectReference: {fileID: 0}
     - target: {fileID: 6629147577155150168, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
       propertyPath: m_Name
       value: FingerIK_SWRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138277909460947282, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+        type: 3}
+      propertyPath: m_TagString
+      value: AlienClaw
       objectReference: {fileID: 0}
     - target: {fileID: 8785657750189984470, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
         type: 3}
@@ -5385,6 +5565,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
+--- !u!95 &7841115718076008832 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8161969884947712658}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &5675281575959667214 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
@@ -5400,12 +5586,6 @@ Transform:
 --- !u!95 &1758119713963831392 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 8161969884947712658}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &7841115718076008832 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 8161969884947712658}
   m_PrefabAsset: {fileID: 0}
