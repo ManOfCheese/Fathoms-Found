@@ -9,6 +9,7 @@ public class DoorResponse : MonoBehaviour
     
     private Animator animator;
     public Animator wire;
+    public Animator solution;
     public Animator panel;
 
     void Start()
@@ -35,8 +36,11 @@ public class DoorResponse : MonoBehaviour
     {
         panel.SetBool( "Active", true );
         wire.SetBool("Active", true);
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
+        solution.SetBool("Active", true);
+        yield return new WaitForSeconds(1);
         animator.SetBool( "Open", true );
+        
         isOpen = true;
     }
 
