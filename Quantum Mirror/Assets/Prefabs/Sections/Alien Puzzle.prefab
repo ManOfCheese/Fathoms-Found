@@ -3213,6 +3213,11 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1427232768790329277, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepHeight
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1888229792148119824, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -3290,8 +3295,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2807695365029892727, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
+      propertyPath: alienHeight
+      value: 
+      objectReference: {fileID: 7623778879484027002}
+    - target: {fileID: 2807695365029892727, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: attentionHeight
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807695365029892727, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
       propertyPath: interactDistance
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807695365029892727, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: liftHeadDuration
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807695365029892727, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: lowerHeadDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3106136456687042921, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
@@ -3413,6 +3438,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7223040693863163904, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: alienBody
+      value: 
+      objectReference: {fileID: 7623778879484027002}
+    - target: {fileID: 7223040693863163904, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: gestureSenders
+      value: 
+      objectReference: {fileID: 11400000, guid: 2bdb358792663e1429599cedef35c8fd,
+        type: 2}
+    - target: {fileID: 7223040693863163904, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: gestureDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7623778880233620133, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -3449,6 +3490,12 @@ PrefabInstance:
 --- !u!4 &2328613940956674316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1471554271}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7623778879484027002 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7623778880233620133, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
     type: 3}
   m_PrefabInstance: {fileID: 1471554271}
   m_PrefabAsset: {fileID: 0}
