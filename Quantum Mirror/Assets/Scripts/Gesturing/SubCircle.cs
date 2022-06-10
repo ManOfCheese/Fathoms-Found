@@ -64,6 +64,7 @@ public class SubCircle : MonoBehaviour
 			ShowGestureSprites( word );
 
 			//Check if a word was already submitted in this circle.
+			bool sentenceChanged = false;
 			bool replacedWord = false;
 			for ( int i = 0; i < _gestureCircle.words.Count; i++ )
 			{
@@ -73,6 +74,7 @@ public class SubCircle : MonoBehaviour
 					{
 						_gestureCircle.words.RemoveAt( i );
 						replacedWord = true;
+						sentenceChanged = true;
 					}
 				}
 				else
@@ -81,16 +83,23 @@ public class SubCircle : MonoBehaviour
 					{
 						_gestureCircle.words[ i ] = word;
 						replacedWord = true;
+						sentenceChanged = true;
 					}
 				}
 
 			}
-			if ( !replacedWord )
+			if ( !replacedWord && !( word.fingers[ 0 ] == false && word.fingers[ 1 ] == false && word.fingers[ 2 ] == false ) )
+			{
 				_gestureCircle.words.Add( word );
+				sentenceChanged = true;
+			}
 
-			_gestureCircle.words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
-			_gestureCircle.sentence = Sam.Gesturing.GestureListToGCode( _gestureCircle.words );
-			_gestureCircle.onWord?.Invoke( _senderID, _gestureCircle, word );
+			if ( sentenceChanged )
+			{
+				_gestureCircle.words.Sort( ( g1, g2 ) => g1.circle.CompareTo( g2.circle ) );
+				_gestureCircle.sentence = Sam.Gesturing.GestureListToGCode( _gestureCircle.words );
+				_gestureCircle.onWord?.Invoke( _senderID, _gestureCircle, word );
+			}
 		}
 		else
 		{

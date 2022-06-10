@@ -40,6 +40,8 @@ public class BTMakeGesture : BTActionNode
 			{
 				bool foundGestureToClear = false;
 				
+				if ( i == context.gc.gestureHandIndex ) { continue; }
+
 				for ( int j = 0; j < context.gc.gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
 				{
 					if ( context.gc.gestureCircle.subCircles[ i ].fingerSprites[ j ].enabled == true && !foundGestureToClear )
