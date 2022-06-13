@@ -9,29 +9,36 @@ public class BTMakeGesture : BTActionNode
     public GestureSequence sentence;
     public float gestureSpeed = 1f;
     public float holdGestureFor = 1f;
-    public float legRepositionSpeed = 1f;
     public bool clearCircle;
     public bool startAtCentre;
+	public bool holdStart;
     public bool endAtCentre;
     public bool returnToIdle;
     public bool inputGesture;
     public bool fingerPosAtCentre;
 
     protected override void OnStart() {
-        if ( sentence == null )
-            context.gc.FindGesture();
-        context.moveController.agent.destination = context.moveController.agent.transform.position;
+		for ( int i = 0; i < context.ikManager.allHands.Count; i++ )
+		{
+			if ( context.ikManager.allHands[ i ].stateMachine.CurrentState == context.ikManager.statesByName[ "GestureState" ] )
+			{
+				HandController hand = context.ikManager.allHands[ i ];
 
-        context.gc.gestureSpeed = gestureSpeed;
-        context.gc.holdGestureFor = holdGestureFor;
-        context.gc.preGestureHandPos = context.gc.hands[ context.gc.gestureHandIndex ].ikHandler.transform.position;
-        context.gc.wordIndex = 0;
-		context.gc.hand = context.gc.hands[ context.gc.gestureHandIndex ];
-		context.gc.gestureCircle = context.manager.gestureCircle;
-		context.gc.fingerAnimators = context.gc.hands[ context.gc.gestureHandIndex ].ikHandler.fingerAnimators;
-
-		if ( context.gc.gestureState != GestureState.Repositioning )
-            context.gc.gestureState = GestureState.StartGesture;
+				hand.sentence = sentence;
+				hand.gestureSpeed = gestureSpeed;
+				hand.holdGestureFor = holdGestureFor;
+				hand.clearCircle = clearCircle;
+				hand.startAtCentre = startAtCentre;
+				hand.holdStart = holdStart;
+				hand.endAtCentre = endAtCentre;
+				hand.returnToIdle = returnToIdle;
+				hand.inputGesture = inputGesture;
+				hand.fingerPosAtCentre = fingerPosAtCentre;
+				
+				if ( sentence == null )
+					context.ikManager.FindGesture( hand );
+			}
+		}
 
 		//If circles need to be cleared.
 		if ( clearCircle )
@@ -39,8 +46,6 @@ public class BTMakeGesture : BTActionNode
 			for ( int i = 0; i < context.gc.gestureCircle.subCircles.Length; i++ )
 			{
 				bool foundGestureToClear = false;
-				
-				if ( i == context.gc.gestureHandIndex ) { continue; }
 
 				for ( int j = 0; j < context.gc.gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
 				{

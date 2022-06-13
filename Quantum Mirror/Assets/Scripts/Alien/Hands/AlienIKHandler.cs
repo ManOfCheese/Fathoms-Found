@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class AlienIKHandler : MonoBehaviour
 {
-
     public NavMeshAgent agent;
     public Animator[] fingerAnimators;
     public Transform hand;
@@ -31,20 +30,18 @@ public class AlienIKHandler : MonoBehaviour
 
     private Vector3 footSpacing;
     private Vector3 oldPosition, currentPosition, newPosition;
-    private float lerp;
     private float heightRandomization;
+    private float lerp;
     private bool fingersOpen = true;
 
     private void Awake()
     {
         footSpacing = transform.localPosition;
         currentPosition = newPosition = oldPosition = transform.position;
-        // currentNormal = newNormal = oldNormal = transform.up;
         lerp = 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Walk()
     {
         transform.position = currentPosition;
 
@@ -54,20 +51,18 @@ public class AlienIKHandler : MonoBehaviour
         if ( Physics.Raycast( ray, out RaycastHit info, 10, terrainLayer.value ) )
         {
             if ( Vector3.Distance( newPosition, info.point ) > stepDistance * Random.Range( stepDistRandomization.x, stepDistRandomization.y ) && lerp >= 1 )
-                // && !otherFoot.IsMoving() 
-            {
-                lerp = 0;
-                //int direction = body.InverseTransformPoint( info.point ).z > body.InverseTransformPoint( newPosition ).z ? 1 : -1;
+			{
+                lerp = 0f;
                 Vector3 destinationVector = agent.destination - transform.position;
-                newPosition = info.point + ( new Vector3( destinationVector.x, 0f, destinationVector.z ).normalized 
-                    * ( stepLength * Random.Range( stepLengthRandomization.x, stepLengthRandomization.y ) ) ) 
-                    * Random.Range( randomOffsetRange.x, randomOffsetRange.y ) 
+                newPosition = info.point + ( new Vector3( destinationVector.x, 0f, destinationVector.z ).normalized
+                    * ( stepLength * Random.Range( stepLengthRandomization.x, stepLengthRandomization.y ) ) )
+                    * Random.Range( randomOffsetRange.x, randomOffsetRange.y )
                     + ( new Vector3( 0f, 1f, 0f ) * heightOffset );
                 heightRandomization = Random.Range( stepHeightRandomization.x, stepHeightRandomization.y );
             }
         }
 
-        if ( lerp < 1 )
+        if ( lerp < 1f )
         {
             Vector3 tempPosition = Vector3.Lerp( oldPosition, newPosition, lerp );
             tempPosition.y += Mathf.Sin( lerp * Mathf.PI ) * ( stepHeight * heightRandomization );
@@ -100,11 +95,6 @@ public class AlienIKHandler : MonoBehaviour
             oldPosition = newPosition;
             hand.LookAt( oldPosition + new Vector3( 0f, 1f, 0f ) );
         }
-    }
-
-    public bool IsMoving()
-    {
-        return lerp < 1;
     }
 
 	private void OnDrawGizmos()

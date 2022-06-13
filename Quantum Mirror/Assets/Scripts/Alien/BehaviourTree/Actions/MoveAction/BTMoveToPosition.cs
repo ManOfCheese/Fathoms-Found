@@ -15,8 +15,8 @@ public class BTMoveToPosition : BTMove
     }
 
     protected override State OnUpdate() {
-        if ( context.moveController.agent.destination != blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() ) )
-            context.moveController.agent.destination = blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() );
+        if ( context.mc.agent.destination != blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() ) )
+            context.mc.agent.destination = blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() );
 
         return base.OnUpdate();
     }
@@ -26,6 +26,6 @@ public class BTMoveToPosition : BTMove
 		base.OnDrawGizmos();
 
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere( context.moveController.agent.destination, 10f );
+        Gizmos.DrawSphere( context.mc.agent.destination, 10f );
     }
 }

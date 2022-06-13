@@ -10,8 +10,8 @@ public class BTWander : BTMove
 
     protected override void OnStart()
     {
-        if ( context.moveController.agent.remainingDistance < context.moveController.tolerance && context.moveController.movementMode != MovementMode.Static )
-            blackboard.AddData( "moveToPosition", blackboard.vector3s, context.moveController.Wander() );
+        if ( context.mc.agent.remainingDistance < context.mc.tolerance && context.mc.movementMode != MovementMode.Static )
+            blackboard.AddData( "moveToPosition", blackboard.vector3s, context.mc.Wander() );
         base.OnStart();
     }
 
@@ -21,9 +21,9 @@ public class BTWander : BTMove
 
     protected override State OnUpdate()
     {
-        if ( context.moveController.movementMode != MovementMode.Static )
+        if ( context.mc.movementMode != MovementMode.Static )
 		{
-            State state = context.moveController.EvaluateWander();
+            State state = context.mc.EvaluateWander();
 
             if ( interruptable )
             {
@@ -34,7 +34,7 @@ public class BTWander : BTMove
         }
 		else
 		{
-            context.moveController.agent.destination = context.moveController.transform.position;
+            context.mc.agent.destination = context.mc.transform.position;
             return State.Failure;
         }
     }
