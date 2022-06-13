@@ -59,20 +59,10 @@ public class GesturingState : State<HandController>
 		if ( _o.startAtCentre )
 			_o.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { _o.fingerPosAtCentre, _o.fingerPosAtCentre, _o.fingerPosAtCentre } ) );
 
-		if ( _o.standardGesture )
-		{
-			for ( int i = 0; i < _o.standardResponse.words.Count; i++ )
-				_o.gesturesToMake.Add( _o.standardResponse.words[ i ] );
-		}
-		else if ( _o.sentence != null )
+		if ( _o.sentence != null )
 		{
 			for ( int i = 0; i < _o.sentence.words.Count; i++ )
 				_o.gesturesToMake.Add( _o.sentence.words[ i ] );
-		}
-		else if ( _o.sentenceIndex < _o.responses.Items.Count - 1 )
-		{
-			for ( int i = 0; i < _o.responses.Items[ context.gc.sentenceIndex ].words.Count; i++ )
-				_o.gesturesToMake.Add( _o.responses.Items[ _o.sentenceIndex ].words[ i ] );
 		}
 		else if ( _o.gesturesToMake.Count == 0 && !_o.endAtCentre )
 			_o.endAtCentre = true;
@@ -115,13 +105,8 @@ public class GesturingState : State<HandController>
 				//Debug.Log( speed + " > " + Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
 				if ( speed > Vector3.Distance( _o.handTransform.position, _o.handTarget ) )
 				{
-					if ( _o.moveState == MoveState.Ending )
-					{
-						if ( _o.standardGesture ) _o.standardGesture = false;
-						_o.moveState = MoveState.Ended;
-					}
 					//Set new hand target.
-					else if ( _o.moveState == MoveState.Moving )
+					if ( _o.moveState == MoveState.Moving )
 					{
 						_o.handTransform.position = _o.handTarget;
 						if ( _o.holdStart || _o.wordIndex >= 0 && !_o.holdStart )
@@ -137,7 +122,7 @@ public class GesturingState : State<HandController>
 							//Input the gesture into the circle.
 							if ( _o.inputGesture )
 							{
-								_o.gestureCircle.subCircles[ _o.gesturesToMake[ _o.wordIndex ].circle ].ConfirmGestureTwoWay( _o.ID, _o.gesturesToMake[ _o.wordIndex ].circle,
+								_o.gestureCircle.subCircles[ _o.gesturesToMake[ _o.wordIndex ].circle ].ConfirmGestureTwoWay( _o.ikManager.ID, _o.gesturesToMake[ _o.wordIndex ].circle,
 									_o.gesturesToMake[ _o.wordIndex ].fingers );
 							}
 
@@ -153,7 +138,7 @@ public class GesturingState : State<HandController>
 							if ( _o.returnToIdle )
 								_o.handTarget = _o.idleHandTarget.position + ( _o.gestureCircle.transform.up * _o.gestureDistance );
 
-							_o.moveState = MoveState.Ending;
+							_o.stateMachine.ChangeState( _o.ikManager.statesByName[ "WalkingState" ] );
 						}
 						//Set target as the next word in the sentence.
 						else

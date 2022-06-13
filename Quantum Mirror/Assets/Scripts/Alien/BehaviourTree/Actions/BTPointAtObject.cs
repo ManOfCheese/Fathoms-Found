@@ -15,24 +15,28 @@ public class BTPointAtObject : BTActionNode
     protected override void OnStart() {
         //Find hand and set point targets.
         Transform[] objectsToPointAt = context.ikManager.FindClosestObjectsInList( objects, maxObjects, cutOffDistance );
-        context.ikManager.FindPointHands( objectsToPointAt );
-        Transform obj = context.gc.FindClosestObjectInList( objects );
-        context.gc.handTarget = obj.transform.position;
-        context.gc.pointHandIndex = context.gc.FindClosestHand( obj ).handIndex;
-        context.ikManager.RequestHand( context.gc.pointHandIndex, context.ikManager.pointingHands );
+        
+        if ( context.ikManager.FindPointHands( objectsToPointAt ) )
+		{
+            for ( int i = 0; i < context.ikManager.allHands.Count; i++ )
+            {
+                if ( context.ikManager.allHands[ i ].stateMachine.CurrentState == context.ikManager.statesByName[ "PointingState" ] )
+                {
+                    HandController hand = context.ikManager.allHands[ i ];
 
-        context.gc.gestureState = MoveState.Moving;
-        context.gc.pointSpeed = pointSpeed;
-        context.gc.holdPointFor = holdPointFor;
+                    hand.moveState = MoveState.Starting;
+                    hand.pointSpeed = pointSpeed;
+                    hand.holdPointFor = holdPointFor;
+                }
+            }
+        }
     }
 
     protected override void OnStop() {
-		for ( int i = 0; i < context.ikManager.pointingHands.Count; i++ )
-            context.ikManager.ReleaseHand( context.ikManager.pointingHands[ i ].handIndex, context.ikManager.pointingHands );
-        context.gc.pointHandIndex = -1;
+
     }
 
     protected override State OnUpdate() {
-        return context.gc.Point();
+        return State.Success;
     }
 }

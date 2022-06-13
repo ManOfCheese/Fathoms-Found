@@ -7,8 +7,8 @@ namespace TheKiwiCoder {
         [HideInInspector] public List<BTNode> children = new List<BTNode>();
 
         public override BTNode Clone() {
-            BTCompositeNode node = Instantiate(this);
-            node.children = children.ConvertAll(c => c.Clone());
+            BTCompositeNode node = Instantiate( this );
+            node.children = children.ConvertAll( c => c.Clone() );
             return node;
         }
     }

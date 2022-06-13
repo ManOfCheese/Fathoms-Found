@@ -3,22 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachine;
 using TheKiwiCoder;
+using UnityEngine.AI;
 
 public class AlienIKManager : GestureSender
 {
-
+	[Header( "References" )]
 	public Transform body;
-	public List<HandController> allHands;
-	public State<HandController>[] states;
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
 	public GestureSequence standardResponse;
+	public List<HandController> allHands;
 
+	[Header( "Settings" )]
 	public int maxHandsUseSimultaneously;
+	public bool defaultFingerPos = true;
+
+	[Header( "Gesture Settings" )]
+	public float gestureDistance = 0.1f;
+	public float gestureSpeed = 1f;
+	public float holdGestureFor = 1f;
+
+	[Header( "Point Settings" )]
+	public float pointSpeed = 1f;
+	public float holdPointFor = 3f;
+
+	[Header( "Walk Settings" )]
+	public LayerMask terrainLayer = default;
+	public float heightOffset = default;
+	public float walkSpeed = 1;
+	public float openHandSpeed = 1;
+	public float closeFingerTreshold = 0.2f;
+	public float openFingerTreshold = 0.8f;
+	public Vector2 randomOffsetRange = Vector2.one;
+
+	[Space( 10 )]
+	public float stepDistance = 4;
+	public Vector2 stepDistRandomization = Vector2.zero;
+
+	[Space( 10 )]
+	public float stepLength = 4;
+	public Vector2 stepLengthRandomization = Vector2.zero;
+
+	[Space( 10 )]
+	public float stepHeight = 1;
+	public Vector2 stepHeightRandomization = Vector2.zero;
 
 	[HideInInspector] public int handsAvailable;
 	[HideInInspector] public AlienManager alienManager;
-	[HideInInspector] public Dictionary<string, State<HandController>> statesByName;
+	[HideInInspector] public List<State<HandController>> states = new List<State<HandController>>();
+	[HideInInspector] public Dictionary<string, State<HandController>> statesByName = new Dictionary<string, State<HandController>>();
+	[HideInInspector] public NavMeshAgent agent;
 
 	private bool changingHeight;
 	private bool useSlerp;
@@ -30,12 +64,27 @@ public class AlienIKManager : GestureSender
 	protected override void Awake()
 	{
 		base.Awake();
+		alienManager = GetComponent<AlienManager>();
+		agent = GetComponentInParent<NavMeshAgent>();
 		handsAvailable = maxHandsUseSimultaneously;
-		for ( int i = 0; i < allHands.Count; i++ )
-			allHands[ i ].handIndex = i;
 
-		for ( int i = 0; i < states.Length; i++ )
+		states.Add( GesturingState.Instance );
+		states[ states.Count - 1 ].stateName = "GesturingState";
+		states.Add( PointingState.Instance );
+		states[ states.Count - 1 ].stateName = "PointingState";
+		states.Add( WalkingState.Instance );
+		states[ states.Count - 1 ].stateName = "WalkingState";
+		for ( int i = 0; i < states.Count; i++ )
 			statesByName.Add( states[ i ].stateName, states[ i ] );
+
+		for ( int i = 0; i < allHands.Count; i++ )
+		{
+			allHands[ i ].ikManager = this;
+			allHands[ i ].handIndex = i;
+			allHands[ i ].SyncSettingsWithManager();
+			allHands[ i ].stateMachine = new StateMachine<HandController>( allHands[ i ] );
+			allHands[ i ].stateMachine.ChangeState( statesByName[ "WalkingState" ] );
+		}
 	}
 
 	private void Update()
@@ -64,6 +113,16 @@ public class AlienIKManager : GestureSender
 		}
 	}
 
+	private void OnValidate()
+	{
+		for ( int i = 0; i < allHands.Count; i++ )
+		{
+			if ( allHands[ i ].ikManager == null )
+				allHands[ i ].ikManager = this;
+			allHands[ i ].SyncSettingsWithManager();
+		}
+	}
+
 	public void ChangeAlienHeight( bool _useSlerp, float _speed, float _targetHeight )
 	{
 		if ( !changingHeight )
@@ -77,16 +136,16 @@ public class AlienIKManager : GestureSender
 		}
 	}
 
-	public bool FindGestureHands()
+	public bool FindGestureHands( List<GestureCircle> gestureCircles )
 	{
-		if ( handsAvailable >= 1 )
+		for ( int i = 0; i < Mathf.Min( gestureCircles.Count, handsAvailable ); i++ )
 		{
-			HandController closestHand = FindClosestHand( alienManager.gestureCircle.transform );
+			HandController closestHand = FindClosestHand( gestureCircles[ i ].transform );
 			if ( closestHand != null )
 			{
-				closestHand.gestureCircle = alienManager.gestureCircle;
+				closestHand.gestureCircle = gestureCircles[ i ];
 				closestHand.moveState = MoveState.Starting;
-				closestHand.stateMachine.ChangeState( statesByName[ "GestureState" ] );
+				closestHand.stateMachine.ChangeState( statesByName[ "GesturingState" ] );
 				FindGesture( closestHand );
 				return true;
 			}
@@ -94,21 +153,22 @@ public class AlienIKManager : GestureSender
 		return false;
 	}
 
-	public BTNode.State FindPointHands( Transform[] objectsToPointAt )
+	public bool FindPointHands( Transform[] objectsToPointAt )
 	{
 		int pointingHandCount = 0;
 		for ( int i = 0; i < Mathf.Min( objectsToPointAt.Length, handsAvailable ); i++ )
 		{
 			HandController closestHand = FindClosestHand( objectsToPointAt[ i ] );
+			closestHand.pointAt = objectsToPointAt[ i ];
 			closestHand.moveState = MoveState.Starting;
 			closestHand.stateMachine.ChangeState( statesByName[ "PointingState" ] );
 			pointingHandCount++;
 		}
 
 		if ( pointingHandCount > 0 )
-			return BTNode.State.Success;
+			return true;
 		else
-			return BTNode.State.Failure;
+			return false;
 	}
 
 	public void FindGesture( HandController hand )
@@ -120,16 +180,20 @@ public class AlienIKManager : GestureSender
 			//Check if the gesture codes match.
 			for ( int j = 0; j < gestureLibrary.Items[ i ].gestureCode.Length; j++ )
 			{
-				if ( gestureLibrary.Items[ i ].gCode == alienManager.gestureCircle.sentence )
+				for ( int k = 0; k < alienManager.gestureCircles.Count; k++ )
 				{
-					hand.sentence = responses.Items[ i ];
-					sentenceFound = true;
-					break;
+					if ( gestureLibrary.Items[ i ].gCode == alienManager.gestureCircles[ k ].sentence )
+					{
+						hand.sentence = responses.Items[ i ];
+						sentenceFound = true;
+						break;
+					}
+					Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + alienManager.gestureCircles[ k ].sentence + " = " + 
+						gestureLibrary.Items[ hand.sentenceIndex ].gCode + " )" );
 				}
 			}
 		}
 
-		Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + alienManager.gestureCircle.sentence + " = " + gestureLibrary.Items[ hand.sentenceIndex ].gCode + " )" );
 		if ( !sentenceFound )
 			hand.sentence = standardResponse;
 	}
@@ -141,7 +205,7 @@ public class AlienIKManager : GestureSender
 
 		for ( int i = 0; i < allHands.Count; i++ )
 		{
-			if ( allHands[ i ].stateMachine.CurrentState != statesByName[ "GestureState" ] && 
+			if ( allHands[ i ].stateMachine.CurrentState != statesByName[ "GesturingState" ] && 
 				allHands[ i ].stateMachine.CurrentState != statesByName[ "PointingState" ] )
 			{
 				float dist = Vector3.Distance( _respondTo.position, allHands[ i ].handTransform.position );

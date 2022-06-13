@@ -9,11 +9,10 @@ public class AlienManager : MonoBehaviour
 
     [Header( "References" )]
     public BoolValue paused;
-    public RunTimeSet<GestureCircle> gestureCircles;
-    public RunTimeSet<GestureCircle> doorPanels;
+    public RunTimeSet<GestureCircle> allGestureCircles;
+    public RunTimeSet<Transform> allDoorPanels;
 
     [Header( "Settings" )]
-    public Transform player;
     [Tooltip( "How long does an alien investigate a tremor before moving on." )]
     public float tremorInterestDuration;
     [Tooltip( "How long does an alien investigate a gesture before moving on." )]
@@ -24,7 +23,7 @@ public class AlienManager : MonoBehaviour
     [Header( "Runtime" )]
     [ReadOnly] public TremorInfo lastHeardTremor;
     [ReadOnly] public GestureSignal gestureSignal;
-    [ReadOnly] public GestureCircle gestureCircle;
+    [ReadOnly] public List<GestureCircle> gestureCircles = new List<GestureCircle>();
 
     [HideInInspector] public AlienMovementController mc;
     [HideInInspector] public AlienIKManager ikManager;
@@ -54,28 +53,29 @@ public class AlienManager : MonoBehaviour
         }
 	}
 
-    public TheKiwiCoder.BTNode.State FindGestureCircle()
+    public BTNode.State FindGestureCircle()
 	{
         GestureCircle closestCircle = null;
-        for ( int i = 0; i < gestureCircles.Items.Count; i++ )
+        for ( int i = 0; i < allGestureCircles.Items.Count; i++ )
         {
             float shortestDistance = 0f;
 
-            float dist = Vector3.Distance( gestureCircles.Items[ i ].transform.position, this.transform.position );
-            if ( ( closestCircle == null || Vector3.Distance( gestureCircles.Items[ i ].transform.position, this.transform.position ) < shortestDistance ) &&
+            float dist = Vector3.Distance( allGestureCircles.Items[ i ].transform.position, this.transform.position );
+            if ( ( closestCircle == null || Vector3.Distance( allGestureCircles.Items[ i ].transform.position, this.transform.position ) < shortestDistance ) &&
                 dist < interactDistance )
             {
-                closestCircle = gestureCircles.Items[ i ];
+                closestCircle = allGestureCircles.Items[ i ];
                 shortestDistance = dist;
             }
         }
         if ( closestCircle != null )
 		{
-            gestureCircle = closestCircle;
-            return TheKiwiCoder.BTNode.State.Success;
+            gestureCircles.Clear();
+            gestureCircles.Add( closestCircle );
+            return BTNode.State.Success;
         }
         else
-            return TheKiwiCoder.BTNode.State.Failure;
+            return BTNode.State.Failure;
     }
 
     public void OnTremor( Vector3 _position, float _intensity )
@@ -96,7 +96,8 @@ public class AlienManager : MonoBehaviour
 		{
             gestureSignal.gestureCircle = _gestureCircle;
             gestureSignal.timeStamp = Time.time;
-            this.gestureCircle = _gestureCircle;
+            gestureCircles.Clear();
+            this.gestureCircles.Add( _gestureCircle );
         }
     }
 }

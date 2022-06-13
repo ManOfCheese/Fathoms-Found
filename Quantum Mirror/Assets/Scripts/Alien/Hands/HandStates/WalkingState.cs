@@ -40,7 +40,7 @@ public class WalkingState : State<HandController>
 
 	public override void UpdateState( HandController _o )
 	{
-        _o.handTransform.position = _o.currentPosition;
+        _o.transform.position = _o.currentPosition;
 
         Ray ray = new Ray( _o.ikManager.body.position + _o.footSpacing * 2f, Vector3.down );
         Debug.DrawRay( ray.origin, ray.direction * 10f, Color.white );
@@ -51,11 +51,10 @@ public class WalkingState : State<HandController>
                 _o.lerp >= 1 )
             {
                 _o.lerp = 0f;
-                Vector3 destinationVector = _o.agent.destination - _o.handTransform.position;
-                _o.newPosition = info.point + ( new Vector3( destinationVector.x, 0f, destinationVector.z ).normalized
-                    * ( _o.stepLength * Random.Range( _o.stepLengthRandomization.x, _o.stepLengthRandomization.y ) ) )
-                    * Random.Range( _o.randomOffsetRange.x, _o.randomOffsetRange.y )
-                    + ( new Vector3( 0f, 1f, 0f ) * _o.heightOffset );
+                Vector3 destinationVector = _o.ikManager.agent.destination - _o.transform.position;
+                _o.newPosition = info.point + ( new Vector3( destinationVector.x, 0f, destinationVector.z ).normalized * 
+                    ( _o.stepLength * Random.Range( _o.stepLengthRandomization.x, _o.stepLengthRandomization.y ) ) ) + 
+                    ( new Vector3( 0f, 1f, 0f ) * _o.heightOffset );
                 _o.heightRandomization = Random.Range( _o.stepHeightRandomization.x, _o.stepHeightRandomization.y );
             }
         }
@@ -86,7 +85,7 @@ public class WalkingState : State<HandController>
             _o.handTransform.LookAt( tempPosition + new Vector3( 0f, 1f, 0f ) );
 
             _o.currentPosition = tempPosition;
-            _o.lerp += Time.deltaTime * _o.speed;
+            _o.lerp += Time.deltaTime * _o.walkSpeed;
         }
         else
         {
