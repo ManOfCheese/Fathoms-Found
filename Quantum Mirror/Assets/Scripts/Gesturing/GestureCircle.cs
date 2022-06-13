@@ -164,6 +164,10 @@ public class GestureCircle : MonoBehaviour
 		{
 			PartialConfirmation( word );
 		}
+		else
+		{
+			Deconfirm( word );
+		}
 	}
 
 	public void ConfirmSentence( int senderID, GestureCircle gestureCircle )
@@ -203,18 +207,47 @@ public class GestureCircle : MonoBehaviour
 
 	public void PartialConfirmation( Gesture word )
 	{
+		List<int> circlesConfirmed = new List<int>();
 		for ( int i = 0; i < passwordActions.Count; i++ )
 		{
 			for ( int j = 0; j < passwordActions[ i ].sentence.words.Count; j++ )
 			{
 				if ( passwordActions[ i ].useForPartialConfirmation &&
-					passwordActions[ i ].sentence.words[ j ].circle == word.circle &&
-					passwordActions[ i ].sentence.words[ j ].fingers[ 0 ] == word.fingers[ 0 ] &&
-					passwordActions[ i ].sentence.words[ j ].fingers[ 1 ] == word.fingers[ 1 ] &&
-					passwordActions[ i ].sentence.words[ j ].fingers[ 2 ] == word.fingers[ 2 ] )
+					passwordActions[ i ].sentence.words[ j ].circle == word.circle )
 				{
-					for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
-						subCircles[ word.circle ].fingerSprites[ k ].color = confirmationColor;
+					if ( passwordActions[ i ].sentence.words[ j ].fingers[ 0 ] == word.fingers[ 0 ] &&
+						passwordActions[ i ].sentence.words[ j ].fingers[ 1 ] == word.fingers[ 1 ] &&
+						passwordActions[ i ].sentence.words[ j ].fingers[ 2 ] == word.fingers[ 2 ] )
+					{
+						for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+							subCircles[ word.circle ].fingerSprites[ k ].color = confirmationColor;
+						circlesConfirmed.Add( word.circle );
+					}
+					else if ( !circlesConfirmed.Contains( word.circle ) )
+					{
+						for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+							subCircles[ word.circle ].fingerSprites[ k ].color = standardColor;;
+					}
+				}
+			}
+		}
+	}
+
+	public void Deconfirm( Gesture word )
+	{
+		for ( int i = 0; i < passwordActions.Count; i++ )
+		{
+			for ( int j = 0; j < passwordActions[ i ].sentence.words.Count; j++ )
+			{
+				if ( passwordActions[ i ].sentence.words[ j ].circle == word.circle )
+				{
+					if ( passwordActions[ i ].sentence.words[ j ].fingers[ 0 ] != word.fingers[ 0 ] ||
+						passwordActions[ i ].sentence.words[ j ].fingers[ 1 ] != word.fingers[ 1 ] ||
+						passwordActions[ i ].sentence.words[ j ].fingers[ 2 ] != word.fingers[ 2 ] )
+					{
+						for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+							subCircles[ word.circle ].fingerSprites[ k ].color = standardColor;
+					}
 				}
 			}
 		}

@@ -26,14 +26,13 @@ public class AlienManager : MonoBehaviour
     [ReadOnly] public GestureSignal gestureSignal;
     [ReadOnly] public GestureCircle gestureCircle;
 
-    [HideInInspector] public AlienGestureController gc;
     [HideInInspector] public AlienMovementController mc;
+    [HideInInspector] public AlienIKManager ikManager;
 
     private void Awake()
     {
-        gc = GetComponent<AlienGestureController>();
-        gc.alienManager = this;
         mc = GetComponent<AlienMovementController>();
+        ikManager = GetComponent<AlienIKManager>();
     }
 
 	private void Update()
@@ -63,24 +62,18 @@ public class AlienManager : MonoBehaviour
             float shortestDistance = 0f;
 
             float dist = Vector3.Distance( gestureCircles.Items[ i ].transform.position, this.transform.position );
-            if ( closestCircle == null )
-            {
-                if ( dist < interactDistance )
-                {
-                    closestCircle = gestureCircles.Items[ i ];
-                    shortestDistance = dist;
-                }
-            }
-            else if ( Vector3.Distance( gestureCircles.Items[ i ].transform.position, this.transform.position ) < shortestDistance )
+            if ( ( closestCircle == null || Vector3.Distance( gestureCircles.Items[ i ].transform.position, this.transform.position ) < shortestDistance ) &&
+                dist < interactDistance )
             {
                 closestCircle = gestureCircles.Items[ i ];
                 shortestDistance = dist;
             }
         }
-        gestureCircle = closestCircle;
-
-        if ( gestureCircle != null )
+        if ( closestCircle != null )
+		{
+            gestureCircle = closestCircle;
             return TheKiwiCoder.BTNode.State.Success;
+        }
         else
             return TheKiwiCoder.BTNode.State.Failure;
     }
@@ -99,7 +92,7 @@ public class AlienManager : MonoBehaviour
 
     public void OnSentence( int _senderID, GestureCircle _gestureCircle )
 	{
-        if ( _senderID != gc.ID )
+        if ( _senderID != ikManager.ID )
 		{
             gestureSignal.gestureCircle = _gestureCircle;
             gestureSignal.timeStamp = Time.time;
