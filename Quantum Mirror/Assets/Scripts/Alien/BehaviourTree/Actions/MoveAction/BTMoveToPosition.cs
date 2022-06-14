@@ -11,12 +11,12 @@ public class BTMoveToPosition : BTMove
     }
 
     protected override void OnStop() {
-
+        base.OnStop();
     }
 
     protected override State OnUpdate() {
-        if ( context.mc.agent.destination != blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() ) )
-            context.mc.agent.destination = blackboard.GetData( "moveToPosition", blackboard.vector3s, new Vector3() );
+        if ( context.mc.agent.destination != blackboard.GetData( "moveToPosition", new Vector3() ) )
+            context.mc.agent.destination = blackboard.GetData( "moveToPosition", new Vector3() );
 
         return base.OnUpdate();
     }

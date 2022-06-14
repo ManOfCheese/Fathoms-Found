@@ -199,6 +199,7 @@ public class GestureCircle : MonoBehaviour
 
 	public void Clear()
 	{
+		Debug.Log( "Clear Words" );
 		words.Clear();
 		sentence = "";
 		for ( int i = 0; i < subCircles.Length; i++ )

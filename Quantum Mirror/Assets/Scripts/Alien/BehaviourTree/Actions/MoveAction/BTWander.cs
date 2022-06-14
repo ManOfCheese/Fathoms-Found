@@ -11,7 +11,7 @@ public class BTWander : BTMove
     protected override void OnStart()
     {
         if ( context.mc.agent.remainingDistance < context.mc.tolerance && context.mc.movementMode != MovementMode.Static )
-            blackboard.AddData( "moveToPosition", blackboard.vector3s, context.mc.Wander() );
+            blackboard.AddData( "moveToPosition", context.mc.Wander() );
         base.OnStart();
     }
 

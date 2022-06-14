@@ -168,7 +168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225884749841696546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4847507791305158196}
@@ -421,7 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859942964573440020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 1.2}
+  m_LocalPosition: {x: -1.5, y: 0, z: 0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1888229792148119824}
@@ -484,15 +484,17 @@ MonoBehaviour:
   pointSpeed: 10
   holdPointFor: 3
   currentState: 
-  pointAt: {fileID: 0}
   gesturesToMake: []
   gestureCircle: {fileID: 0}
   moveState: 0
+  pointState: 0
   holdTimeStamp: 0
   sentenceIndex: 0
   wordIndex: 0
   preGestureHandPos: {x: 0, y: 0, z: 0}
   handTarget: {x: 0, y: 0, z: 0}
+  oldLookAtTarget: {x: 0, y: 0, z: 0}
+  newLookAtTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &984740529501799386
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,7 +949,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572988453820071948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1888229792148119824}
@@ -1010,15 +1012,17 @@ MonoBehaviour:
   pointSpeed: 10
   holdPointFor: 3
   currentState: 
-  pointAt: {fileID: 0}
   gesturesToMake: []
   gestureCircle: {fileID: 0}
   moveState: 0
+  pointState: 0
   holdTimeStamp: 0
   sentenceIndex: 0
   wordIndex: 0
   preGestureHandPos: {x: 0, y: 0, z: 0}
   handTarget: {x: 0, y: 0, z: 0}
+  oldLookAtTarget: {x: 0, y: 0, z: 0}
+  newLookAtTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &1621468065770588204
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621468065770588204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8, y: 0, z: 1}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4847507791305158196}
@@ -1295,7 +1299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2247860250205889990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 1.2}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1888229792148119824}
@@ -1358,15 +1362,17 @@ MonoBehaviour:
   pointSpeed: 10
   holdPointFor: 3
   currentState: 
-  pointAt: {fileID: 0}
   gesturesToMake: []
   gestureCircle: {fileID: 0}
   moveState: 0
+  pointState: 0
   holdTimeStamp: 0
   sentenceIndex: 0
   wordIndex: 0
   preGestureHandPos: {x: 0, y: 0, z: 0}
   handTarget: {x: 0, y: 0, z: 0}
+  oldLookAtTarget: {x: 0, y: 0, z: 0}
+  newLookAtTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &2300399868923068449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,7 +2324,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4697793595681354433}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: -1.2}
+  m_LocalPosition: {x: -1.5, y: 0, z: -0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1888229792148119824}
@@ -2381,15 +2387,17 @@ MonoBehaviour:
   pointSpeed: 10
   holdPointFor: 3
   currentState: 
-  pointAt: {fileID: 0}
   gesturesToMake: []
   gestureCircle: {fileID: 0}
   moveState: 0
+  pointState: 0
   holdTimeStamp: 0
   sentenceIndex: 0
   wordIndex: 0
   preGestureHandPos: {x: 0, y: 0, z: 0}
   handTarget: {x: 0, y: 0, z: 0}
+  oldLookAtTarget: {x: 0, y: 0, z: 0}
+  newLookAtTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &4704568400316344573
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,7 +2659,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4926337309869116832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8, y: 0, z: -1}
+  m_LocalPosition: {x: 1.5, y: 0, z: -0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4847507791305158196}
@@ -2844,6 +2852,7 @@ MonoBehaviour:
   gestureDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
+  pointRadius: 2
   pointSpeed: 10
   holdPointFor: 3
   terrainLayer:
@@ -2886,7 +2895,7 @@ MonoBehaviour:
   - {fileID: 0}
   movementMode: 0
   movementShape: 1
-  tolerance: 3
+  tolerance: 1
   changeDestinationTime: 10
   speed: 5
   minDistance: 30
@@ -3117,7 +3126,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5698468976602534643}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.8, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3887,8 +3896,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027942915788318122}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8, y: 0, z: -1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5, y: 0, z: -0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4847507791305158196}
@@ -3986,7 +3995,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7230871379967896684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: -1.2}
+  m_LocalPosition: {x: 1.5, y: 0, z: -0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1888229792148119824}
@@ -4049,15 +4058,17 @@ MonoBehaviour:
   pointSpeed: 10
   holdPointFor: 3
   currentState: 
-  pointAt: {fileID: 0}
   gesturesToMake: []
   gestureCircle: {fileID: 0}
   moveState: 0
+  pointState: 0
   holdTimeStamp: 0
   sentenceIndex: 0
   wordIndex: 0
   preGestureHandPos: {x: 0, y: 0, z: 0}
   handTarget: {x: 0, y: 0, z: 0}
+  oldLookAtTarget: {x: 0, y: 0, z: 0}
+  newLookAtTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &7283418230222412088
 GameObject:
   m_ObjectHideFlags: 0
@@ -4114,7 +4125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7430171088453587531}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.5}
+  m_LocalPosition: {x: 0, y: 0, z: -1.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1888229792148119824}
@@ -4177,15 +4188,17 @@ MonoBehaviour:
   pointSpeed: 10
   holdPointFor: 3
   currentState: 
-  pointAt: {fileID: 0}
   gesturesToMake: []
   gestureCircle: {fileID: 0}
   moveState: 0
+  pointState: 0
   holdTimeStamp: 0
   sentenceIndex: 0
   wordIndex: 0
   preGestureHandPos: {x: 0, y: 0, z: 0}
   handTarget: {x: 0, y: 0, z: 0}
+  oldLookAtTarget: {x: 0, y: 0, z: 0}
+  newLookAtTarget: {x: 0, y: 0, z: 0}
 --- !u!1 &7488988986900432819
 GameObject:
   m_ObjectHideFlags: 0

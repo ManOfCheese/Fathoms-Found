@@ -19,11 +19,13 @@ public class AlienIKManager : GestureSender
 	public bool defaultFingerPos = true;
 
 	[Header( "Gesture Settings" )]
-	public float gestureDistance = 0.1f;
+	public float handToPanelDistance = 0.1f;
+	public float maxGestureDistance = 0.1f;
 	public float gestureSpeed = 1f;
 	public float holdGestureFor = 1f;
 
 	[Header( "Point Settings" )]
+	public float pointRadius = 2f;
 	public float pointSpeed = 1f;
 	public float holdPointFor = 3f;
 
@@ -48,7 +50,8 @@ public class AlienIKManager : GestureSender
 	public float stepHeight = 1;
 	public Vector2 stepHeightRandomization = Vector2.zero;
 
-	[HideInInspector] public int handsAvailable;
+	[ReadOnly] public int handsAvailable;
+
 	[HideInInspector] public AlienManager alienManager;
 	[HideInInspector] public List<State<HandController>> states = new List<State<HandController>>();
 	[HideInInspector] public Dictionary<string, State<HandController>> statesByName = new Dictionary<string, State<HandController>>();
@@ -144,33 +147,36 @@ public class AlienIKManager : GestureSender
 
 	public bool FindGestureHand( GestureCircle _gestureCircle, float _maxDist )
 	{
-		if ( handsAvailable > 0 ) 
+		HandController closestHand = FindClosestHand( _gestureCircle.transform.position, _maxDist );
+		if ( closestHand != null )
 		{
-			HandController closestHand = FindClosestHand( _gestureCircle.transform, _maxDist );
-			if ( closestHand != null )
-			{
-				gestureHand = closestHand;
-				gestureHand.gestureCircle = _gestureCircle;
-				gestureHand.moveState = MoveState.Starting;
-				gestureHand.stateMachine.ChangeState( statesByName[ "GesturingState" ] );
-				FindGesture( gestureHand );
-				return true;
-			}
+			gestureHand = closestHand;
+			gestureHand.gestureCircle = _gestureCircle;
+			gestureHand.moveState = GestureState.Starting;
+			gestureHand.stateMachine.ChangeState( statesByName[ "GesturingState" ] );
+			FindGesture( gestureHand );
+			return true;
 		}
 		return false;
 	}
 
-	public bool FindPointHands( Transform[] _objectsToPointAt, float _maxDist )
+	public bool FindPointHands( Vector3[] _objectsToPointAt, float _maxDist )
 	{
 		int pointingHandCount = 0;
 		for ( int i = 0; i < Mathf.Min( _objectsToPointAt.Length, handsAvailable ); i++ )
 		{
 			HandController closestHand = FindClosestHand( _objectsToPointAt[ i ], _maxDist );
-			closestHand.pointAt = _objectsToPointAt[ i ];
-			closestHand.moveState = MoveState.Starting;
-			closestHand.stateMachine.ChangeState( statesByName[ "PointingState" ] );
-			pointingHandCount++;
+			if ( closestHand != null )
+			{
+				closestHand.handTarget = body.transform.position + ( _objectsToPointAt[ i ] - body.transform.position ).normalized * pointRadius;
+				closestHand.oldLookAtTarget = closestHand.handTransform.position - closestHand.handTransform.forward;
+				closestHand.pointState = PointState.Starting;
+				closestHand.stateMachine.ChangeState( statesByName[ "PointingState" ] );
+				pointingHandCount++;
+			}
 		}
+
+		Debug.Log( pointingHandCount );
 
 		if ( pointingHandCount > 0 )
 			return true;
@@ -193,8 +199,8 @@ public class AlienIKManager : GestureSender
 					sentenceFound = true;
 					break;
 				}
-				Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + alienManager.gestureCircle.sentence + " = " + 
-					gestureLibrary.Items[ hand.sentenceIndex ].gCode + " )" );
+				//Debug.Log( "Known Sentence?: " + sentenceFound + " ( " + alienManager.gestureCircle.sentence + " = " + 
+				//	gestureLibrary.Items[ hand.sentenceIndex ].gCode + " )" );
 			}
 		}
 
@@ -202,33 +208,36 @@ public class AlienIKManager : GestureSender
 			hand.sentence = standardResponse;
 	}
 
-	public HandController FindClosestHand( Transform _respondTo, float _maxDist )
+	public HandController FindClosestHand( Vector3 _respondTo, float _maxDist )
 	{
 		HandController closestHand = null;
 		float shortestDist = 0f;
 
-		for ( int i = 0; i < allHands.Count; i++ )
+		if ( handsAvailable > 0 )
 		{
-			if ( allHands[ i ].stateMachine.CurrentState != statesByName[ "GesturingState" ] && 
-				allHands[ i ].stateMachine.CurrentState != statesByName[ "PointingState" ] )
+			for ( int i = 0; i < allHands.Count; i++ )
 			{
-				float dist = Vector3.Distance( _respondTo.position, allHands[ i ].handTransform.position );
-				if ( ( dist < shortestDist && dist < _maxDist ) || i == 0 )
+				if ( allHands[ i ].stateMachine.CurrentState != statesByName[ "GesturingState" ] &&
+					allHands[ i ].stateMachine.CurrentState != statesByName[ "PointingState" ] )
 				{
-					closestHand = allHands[ i ];
-					shortestDist = dist;
+					float dist = Vector3.Distance( _respondTo, allHands[ i ].idleHandTarget.position + ( new Vector3( 0f, 1f, 0f ) * heightOffset ) );
+					if ( ( dist < shortestDist || i == 0 ) && dist < _maxDist )
+					{
+						closestHand = allHands[ i ];
+						shortestDist = dist;
+					}
 				}
 			}
 		}
 		return closestHand;
 	}
 
-	public Transform[] FindClosestObjectsInList( RunTimeSet<Transform> _targetObjects, int _maxObjects )
+	public Vector3[] FindClosestObjectsInList( List<Vector3> _targetObjects, int _maxObjects )
 	{
 		Dictionary<int, float> closestByDistance = new Dictionary<int, float>();
-		for ( int i = 0; i < _targetObjects.Items.Count; i++ )
+		for ( int i = 0; i < _targetObjects.Count; i++ )
 		{
-			float dist = Vector3.Distance( _targetObjects.Items[ i ].transform.position, body.transform.position );
+			float dist = Vector3.Distance( _targetObjects[ i ], body.transform.position );
 
 			if ( closestByDistance.Count < _maxObjects )
 				closestByDistance.Add( i, dist );
@@ -245,11 +254,9 @@ public class AlienIKManager : GestureSender
 			}
 		}
 
-		List<Transform> closestObjects = new List<Transform>();
+		List<Vector3> closestObjects = new List<Vector3>();
 		foreach ( var item in closestByDistance )
-		{
-			closestObjects.Add( _targetObjects.Items[ item.Key ] );
-		}
+			closestObjects.Add( _targetObjects[ item.Key ] );
 		return closestObjects.ToArray();
 	}
 }

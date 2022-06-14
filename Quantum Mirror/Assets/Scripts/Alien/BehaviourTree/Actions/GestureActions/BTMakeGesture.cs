@@ -24,15 +24,22 @@ public class BTMakeGesture : BTActionNode
 	private bool gestureHandsFound = false;
 
     protected override void OnStart() {
-		if ( context.ikManager.FindGestureHand( context.manager.gestureCircle, maxGestureDistance ) )
+		if ( context.ikManager.FindGestureHand( context.manager.gestureCircle, context.ikManager.maxGestureDistance ) )
 		{
 			HandController hand = context.ikManager.gestureHand;
 
 			hand.sentence = sentence;
 			if ( overrideStandardSettings )
 			{
+				hand.maxGestureDistance = maxGestureDistance;
 				hand.gestureSpeed = gestureSpeed;
 				hand.holdGestureFor = holdGestureFor;
+			}
+			else
+			{
+				hand.maxGestureDistance = context.ikManager.maxGestureDistance;
+				hand.gestureSpeed = context.ikManager.gestureSpeed;
+				hand.holdGestureFor = context.ikManager.holdGestureFor;
 			}
 			hand.clearCircle = clearCircle;
 			hand.startAtCentre = startAtCentre;
@@ -81,7 +88,6 @@ public class BTMakeGesture : BTActionNode
 	}
 
     protected override void OnStop() {
-		context.ikManager.gestureHand = null;
 	}
 
     protected override State OnUpdate() {

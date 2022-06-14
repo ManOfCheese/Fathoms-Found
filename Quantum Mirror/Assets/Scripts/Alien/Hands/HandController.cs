@@ -4,11 +4,18 @@ using UnityEngine;
 using UnityEngine.AI;
 using StateMachine;
 
-public enum MoveState
+public enum GestureState
 {
     Moving,
     Holding,
     Starting
+}
+
+public enum PointState
+{
+    Starting,
+    Holding,
+    Ending
 }
 
 public class HandController : MonoBehaviour
@@ -55,7 +62,8 @@ public class HandController : MonoBehaviour
     [HideInInspector] public bool returnToIdle;
     [HideInInspector] public bool inputGesture;
     [HideInInspector] public bool fingerPosAtCentre;
-    [HideInInspector] public float gestureDistance;
+    [HideInInspector] public float maxGestureDistance;
+    [HideInInspector] public float handToPanelDistance;
     [HideInInspector] public float gestureSpeed = 1f;
     [HideInInspector] public float holdGestureFor = 1f;
 
@@ -65,15 +73,17 @@ public class HandController : MonoBehaviour
 
     [Header( "Runtime" )]
     [ReadOnly] public string currentState;
-    [ReadOnly] public Transform pointAt;
     [ReadOnly] public List<Gesture> gesturesToMake = new List<Gesture>();
     [ReadOnly] public GestureCircle gestureCircle;
-    [ReadOnly] public MoveState moveState;
+    [ReadOnly] public GestureState moveState;
+    [ReadOnly] public PointState pointState;
     [ReadOnly] public float holdTimeStamp = 0f;
     [ReadOnly] public int sentenceIndex = 0;
     [ReadOnly] public int wordIndex = 0;
     [ReadOnly] public Vector3 preGestureHandPos;
     [ReadOnly] public Vector3 handTarget;
+    [ReadOnly] public Vector3 oldLookAtTarget;
+    [ReadOnly] public Vector3 newLookAtTarget;
 
 	private void Awake()
 	{
@@ -97,6 +107,8 @@ public class HandController : MonoBehaviour
         stepLengthRandomization = ikManager.stepDistRandomization;
         stepHeightRandomization = ikManager.stepHeightRandomization;
 
+        maxGestureDistance = ikManager.maxGestureDistance;
+        handToPanelDistance = ikManager.handToPanelDistance;
         gestureSpeed = ikManager.gestureSpeed;
         holdGestureFor = ikManager.holdGestureFor;
 
@@ -119,6 +131,13 @@ public class HandController : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere( currentPosition, 0.5f );
+
+        Gizmos.color = Color.green;
+        if ( handTarget != Vector3.zero )
+		{
+            Gizmos.DrawLine( handTransform.position, handTransform.position + ( handTarget - handTransform.position ) );
+            Gizmos.DrawSphere( handTarget, 1f );
+        }
     }
 
 }

@@ -15,14 +15,14 @@ public class BTCheckGestureSignals : BTActionNode
         if ( context.manager.gestureSignal.gestureCircle != null )
         {
             if ( context.manager.gestureSignal.gestureCircle.twoWayCircle )
-                blackboard.AddData( "moveToPosition", blackboard.vector3s, context.manager.gestureSignal.gestureCircle.otherCircle.gesturePosition.position );
+                blackboard.AddData( "moveToPosition", context.manager.gestureSignal.gestureCircle.otherCircle.gesturePosition.position );
             else
-                blackboard.AddData( "moveToPosition", blackboard.vector3s, context.manager.gestureSignal.gestureCircle.gesturePosition.position );
+                blackboard.AddData( "moveToPosition", context.manager.gestureSignal.gestureCircle.gesturePosition.position );
             return State.Success;
         }
         else
         {
-            blackboard.AddData( "gestureSignalDetected", blackboard.bools, false );
+            blackboard.AddData( "gestureSignalDetected", false );
             return State.Failure;
         }
     }

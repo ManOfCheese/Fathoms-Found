@@ -20,7 +20,7 @@ public class AlienRun : MonoBehaviour
 	{
 		if ( other.tag == "Claw" )
 		{
-			blackboard.AddData( "moveToPosition", blackboard.vector3s, runTo.transform.position );
+			blackboard.AddData( "moveToPosition", runTo.transform.position );
 			btRunner.enabled = true;
 			triggerTimeStamp = Time.time;
 		}

@@ -26,7 +26,7 @@ public class BTMoveToObject : BTMove
             }
         }
         if ( closestObject != null )
-            blackboard.AddData( "moveToPosition", blackboard.vector3s, closestObject.transform.position );
+            blackboard.AddData( "moveToPosition", closestObject.transform.position );
 
         base.OnStart();
     }
