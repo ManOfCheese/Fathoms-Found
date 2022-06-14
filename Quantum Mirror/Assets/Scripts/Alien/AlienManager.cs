@@ -23,7 +23,7 @@ public class AlienManager : MonoBehaviour
     [Header( "Runtime" )]
     [ReadOnly] public TremorInfo lastHeardTremor;
     [ReadOnly] public GestureSignal gestureSignal;
-    [ReadOnly] public List<GestureCircle> gestureCircles = new List<GestureCircle>();
+    [ReadOnly] public GestureCircle gestureCircle;
 
     [HideInInspector] public AlienMovementController mc;
     [HideInInspector] public AlienIKManager ikManager;
@@ -70,8 +70,7 @@ public class AlienManager : MonoBehaviour
         }
         if ( closestCircle != null )
 		{
-            gestureCircles.Clear();
-            gestureCircles.Add( closestCircle );
+            gestureCircle = closestCircle;
             return BTNode.State.Success;
         }
         else
@@ -96,8 +95,7 @@ public class AlienManager : MonoBehaviour
 		{
             gestureSignal.gestureCircle = _gestureCircle;
             gestureSignal.timeStamp = Time.time;
-            gestureCircles.Clear();
-            this.gestureCircles.Add( _gestureCircle );
+            gestureCircle = _gestureCircle;
         }
     }
 }

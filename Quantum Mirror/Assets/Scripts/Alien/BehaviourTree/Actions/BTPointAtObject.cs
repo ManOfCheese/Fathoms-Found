@@ -8,15 +8,18 @@ public class BTPointAtObject : BTActionNode
 
     public RunTimeSet<Transform> objects;
     public int maxObjects;
-    public float cutOffDistance;
+
+    public bool overrideStandardSettings;
     public float pointSpeed;
     public float holdPointFor;
 
+    public float cutOffDistance;
+
     protected override void OnStart() {
         //Find hand and set point targets.
-        Transform[] objectsToPointAt = context.ikManager.FindClosestObjectsInList( objects, maxObjects, cutOffDistance );
+        Transform[] objectsToPointAt = context.ikManager.FindClosestObjectsInList( objects, maxObjects );
         
-        if ( context.ikManager.FindPointHands( objectsToPointAt ) )
+        if ( context.ikManager.FindPointHands( objectsToPointAt, cutOffDistance ) )
 		{
             for ( int i = 0; i < context.ikManager.allHands.Count; i++ )
             {
@@ -25,8 +28,11 @@ public class BTPointAtObject : BTActionNode
                     HandController hand = context.ikManager.allHands[ i ];
 
                     hand.moveState = MoveState.Starting;
-                    hand.pointSpeed = pointSpeed;
-                    hand.holdPointFor = holdPointFor;
+                    if ( overrideStandardSettings )
+                    {
+                        hand.pointSpeed = pointSpeed;
+                        hand.holdPointFor = holdPointFor;
+                    }
                 }
             }
         }

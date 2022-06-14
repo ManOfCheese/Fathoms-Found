@@ -64,7 +64,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 9dab7f3d688a13a4aa1f6d9b46ff2076
-  position: {x: -158.36456, y: 1201.8135}
+  position: {x: -112.99999, y: 1205.0001}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -88,7 +88,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 1e02b7b2f73c01346a0012db7b663515
-  position: {x: -1070, y: 963.64514}
+  position: {x: -1236, y: 962.99994}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -138,7 +138,7 @@ MonoBehaviour:
   drawGizmos: 0
   useSlerp: 0
   speed: 10
-  targetHeight: 0.13
+  targetHeight: 0
 --- !u!114 &-5481787039804270492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 70e70ce93184a5142801f463507fba9e
-  position: {x: 248.63545, y: 1095.8135}
+  position: {x: 187.00005, y: 1096.0002}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -206,14 +206,16 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 435455615d6770e43b783b5556836fd2
-  position: {x: -106.364586, y: 962.8136}
+  position: {x: -112.999985, y: 963.00006}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   sentence: {fileID: 11400000, guid: 5f630b39e51b1714fb7aae178bc0b092, type: 2}
-  gestureSpeed: 1
-  holdGestureFor: 1
+  overrideStandardSettings: 1
+  gestureSpeed: 4
+  holdGestureFor: 0
+  maxGestureDistance: 1
   clearCircle: 0
   startAtCentre: 0
   holdStart: 0
@@ -236,7 +238,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 112d2484d5074b64eacb14aa95eb2957
-  position: {x: -668, y: 731}
+  position: {x: -911.99994, y: 732}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -266,7 +268,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 7fe2201a6f93f184e967d762c906f120
-  position: {x: 163.63553, y: 1223.8135}
+  position: {x: 102.000046, y: 1224.0001}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -307,13 +309,13 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 550d7b2d8d94ab34596bf6f59f6368f1
-  position: {x: -158.36456, y: 1092.8135}
+  position: {x: -112.99999, y: 1096.0002}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   child: {fileID: -8200451706959953837}
-  gCode: 234110111
+  gCode: 235110111
 --- !u!114 &-3915190326079068774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +331,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 730b76e756b81cd4d943bf7730133379
-  position: {x: -425, y: 732}
+  position: {x: -538.99994, y: 732}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -352,19 +354,21 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: f11a416c3e4c45c4f8788054843a8bbc
-  position: {x: 2.6355286, y: 1333.8135}
+  position: {x: 50.99997, y: 1334.0002}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   sentence: {fileID: 11400000, guid: e7ff94e125a681a49871057cbcc6cb44, type: 2}
+  overrideStandardSettings: 0
   gestureSpeed: 3
   holdGestureFor: 1
+  maxGestureDistance: 1
   clearCircle: 1
   startAtCentre: 0
   holdStart: 0
-  endAtCentre: 0
-  returnToIdle: 0
+  endAtCentre: 1
+  returnToIdle: 1
   inputGesture: 1
   fingerPosAtCentre: 1
 --- !u!114 &-3326618293911435667
@@ -435,7 +439,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: aca179a2637ee724e9929bdc41f0569d
-  position: {x: -342, y: 860}
+  position: {x: -455.9999, y: 860.00006}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -464,7 +468,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: f20c21e89537e294cb7b46c95e845c49
-  position: {x: -324.00015, y: 1328.1779}
+  position: {x: -281.00003, y: 1334.0002}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -490,7 +494,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: becad137523bf594eb16b6e9ad28957f
-  position: {x: 381.6356, y: 966.8136}
+  position: {x: 388.30002, y: 963.0001}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -519,7 +523,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 7ea679cd6484c184eb589ad453b37a9e
-  position: {x: -539, y: 605}
+  position: {x: -738.99994, y: 605}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -542,7 +546,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: e1ba0b7cbe04f794f8138358cca562b9
-  position: {x: 539.16473, y: 974.551}
+  position: {x: 891.5802, y: 967}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -567,7 +571,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 06e077a326ad9c94eb08d46a0ff5be3e
-  position: {x: 204.63557, y: 964.8136}
+  position: {x: 208.65, y: 963.0001}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -644,6 +648,7 @@ MonoBehaviour:
   - {fileID: 277210253734526920}
   - {fileID: -7979893617094791088}
   - {fileID: -1885945648979336}
+  - {fileID: 4184747514871202916}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
 --- !u!114 &277210253734526920
 MonoBehaviour:
@@ -660,7 +665,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 9cf2e842450e49944a7127c181a7728a
-  position: {x: -263.3646, y: 959.8136}
+  position: {x: -281, y: 963.00006}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -685,14 +690,14 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: cbd5510931886e84db5a942d446456bb
-  position: {x: -908.6775, y: 966.0001}
+  position: {x: -1075, y: 964.99994}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   useSlerp: 1
   speed: 10
-  targetHeight: 1
+  targetHeight: 0.6
 --- !u!114 &1531391850754289109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,7 +713,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: ebb382382fb659c4d82a2a8402ef82d4
-  position: {x: -163.36456, y: 1328.8135}
+  position: {x: -118.00001, y: 1334.0002}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -728,7 +733,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: ac18042fe53517247b45119e84f8022b
-  position: {x: 622.16486, y: 846.55096}
+  position: {x: 977.5802, y: 840}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -751,7 +756,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 7d769eccf99186c46a8c82fa3f24f267
-  position: {x: 48.63558, y: 839.8135}
+  position: {x: 49.00011, y: 835}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -762,6 +767,27 @@ MonoBehaviour:
   - {fileID: 6905884029935240822}
   - {fileID: -174518094793863670}
   - {fileID: -879381680793063868}
+--- !u!114 &4184747514871202916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5134d9de14153468b48928d3e7359a, type: 3}
+  m_Name: BTWait
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a31bdbe47eede4244a04e937328a7f4c
+  position: {x: -911.99994, y: 964.99994}
+  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  duration: 1
 --- !u!114 &4313905474739401839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,19 +803,21 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 3e7577160b7a24145a3c19b410076dcf
-  position: {x: 332.63556, y: 1224.8135}
+  position: {x: 271.00006, y: 1225.0001}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   sentence: {fileID: 0}
+  overrideStandardSettings: 0
   gestureSpeed: 3
   holdGestureFor: 1
+  maxGestureDistance: 1
   clearCircle: 1
   startAtCentre: 0
   holdStart: 0
-  endAtCentre: 0
-  returnToIdle: 0
+  endAtCentre: 1
+  returnToIdle: 1
   inputGesture: 0
   fingerPosAtCentre: 1
 --- !u!114 &6281549555744275131
@@ -807,7 +835,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 68f55472e32215946b81e0237b16eb5b
-  position: {x: 623.16486, y: 734.55096}
+  position: {x: 977.5802, y: 734}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -860,7 +888,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 71a93569b6895ad43ba9118e9f354ce0
-  position: {x: -1258, y: 962.645}
+  position: {x: -1424, y: 961.99994}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -880,7 +908,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: c9ff1cb0421e4e44697316ab024a86eb
-  position: {x: 49.63558, y: 963.8136}
+  position: {x: 49.00003, y: 963.0001}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -903,7 +931,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 5b5dec60dcf82c048ab2862e3edfe607
-  position: {x: -502, y: 859}
+  position: {x: -615.99976, y: 859}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -923,7 +951,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 183a08deb3bacad48be456d99b756cb6
-  position: {x: -669, y: 837}
+  position: {x: -912.99994, y: 838}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -932,6 +960,7 @@ MonoBehaviour:
   - {fileID: 6585197175490369331}
   - {fileID: -7979893617094791088}
   - {fileID: 400535169471685989}
+  - {fileID: 4184747514871202916}
   - {fileID: -5539790860132803348}
   - {fileID: -1885945648979336}
   - {fileID: -5481787039804270492}
@@ -950,7 +979,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 2227c92a0b6bba24d8e64459370e3bb3
-  position: {x: 700.16473, y: 974.551}
+  position: {x: 1052.5803, y: 967}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 

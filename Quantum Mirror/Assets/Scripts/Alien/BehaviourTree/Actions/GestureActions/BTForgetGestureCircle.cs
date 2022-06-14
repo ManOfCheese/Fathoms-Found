@@ -6,7 +6,7 @@ using TheKiwiCoder;
 public class BTForgetGestureCircle : BTActionNode
 {
     protected override void OnStart() {
-        context.manager.gestureCircles.Clear();
+        context.manager.gestureCircle = null;
     }
 
     protected override void OnStop() {

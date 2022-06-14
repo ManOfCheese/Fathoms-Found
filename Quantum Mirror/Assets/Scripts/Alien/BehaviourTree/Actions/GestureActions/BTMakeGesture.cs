@@ -7,8 +7,12 @@ public class BTMakeGesture : BTActionNode
 {
 
     public GestureSequence sentence;
+
+	public bool overrideStandardSettings;
     public float gestureSpeed = 1f;
     public float holdGestureFor = 1f;
+    public float maxGestureDistance = 1f;
+
     public bool clearCircle;
     public bool startAtCentre;
 	public bool holdStart;
@@ -20,76 +24,79 @@ public class BTMakeGesture : BTActionNode
 	private bool gestureHandsFound = false;
 
     protected override void OnStart() {
-
-		if ( context.ikManager.FindGestureHands( context.manager.gestureCircles ) )
+		if ( context.ikManager.FindGestureHand( context.manager.gestureCircle, maxGestureDistance ) )
 		{
-			gestureHandsFound = true;
+			HandController hand = context.ikManager.gestureHand;
 
-			for ( int i = 0; i < context.ikManager.allHands.Count; i++ )
+			hand.sentence = sentence;
+			if ( overrideStandardSettings )
 			{
-				if ( context.ikManager.allHands[ i ].stateMachine.CurrentState == context.ikManager.statesByName[ "GesturingState" ] )
+				hand.gestureSpeed = gestureSpeed;
+				hand.holdGestureFor = holdGestureFor;
+			}
+			hand.clearCircle = clearCircle;
+			hand.startAtCentre = startAtCentre;
+			hand.holdStart = holdStart;
+			hand.endAtCentre = endAtCentre;
+			hand.returnToIdle = returnToIdle;
+			hand.inputGesture = inputGesture;
+			hand.fingerPosAtCentre = fingerPosAtCentre;
+
+			if ( sentence == null )
+				context.ikManager.FindGesture( hand );
+
+			//If circles need to be cleared.
+			if ( clearCircle )
+			{
+				for ( int j = 0; j < hand.gestureCircle.subCircles.Length; j++ )
 				{
-					HandController hand = context.ikManager.allHands[ i ];
+					bool foundGestureToClear = false;
 
-					hand.sentence = sentence;
-					hand.gestureSpeed = gestureSpeed;
-					hand.holdGestureFor = holdGestureFor;
-					hand.clearCircle = clearCircle;
-					hand.startAtCentre = startAtCentre;
-					hand.holdStart = holdStart;
-					hand.endAtCentre = endAtCentre;
-					hand.returnToIdle = returnToIdle;
-					hand.inputGesture = inputGesture;
-					hand.fingerPosAtCentre = fingerPosAtCentre;
-
-					if ( sentence == null )
-						context.ikManager.FindGesture( hand );
-
-					//If circles need to be cleared.
-					if ( clearCircle )
+					for ( int k = 0; k < hand.gestureCircle.subCircles[ j ].fingerSprites.Length; k++ )
 					{
-						for ( int j = 0; j < hand.gestureCircle.subCircles.Length; j++ )
+						if ( hand.gestureCircle.subCircles[ j ].fingerSprites[ k ].enabled == true && !foundGestureToClear )
 						{
-							bool foundGestureToClear = false;
-
-							for ( int k = 0; k < hand.gestureCircle.subCircles[ j ].fingerSprites.Length; k++ )
-							{
-								if ( hand.gestureCircle.subCircles[ j ].fingerSprites[ k ].enabled == true && !foundGestureToClear )
-								{
-									hand.gesturesToMake.Add( new Gesture( j, new bool[ 3 ] { false, false, false } ) );
-									foundGestureToClear = true;
-								}
-							}
-
+							hand.gesturesToMake.Add( new Gesture( j, new bool[ 3 ] { false, false, false } ) );
+							foundGestureToClear = true;
 						}
 					}
 
-					if ( startAtCentre )
-						hand.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { fingerPosAtCentre, fingerPosAtCentre, fingerPosAtCentre } ) );
-
-					if ( sentence != null )
-					{
-						for ( int j = 0; j < sentence.words.Count; j++ )
-							hand.gesturesToMake.Add( sentence.words[ j ] );
-					}
-					else if ( hand.gesturesToMake.Count == 0 && !endAtCentre )
-						endAtCentre = true;
-
-					if ( endAtCentre )
-						hand.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { fingerPosAtCentre, fingerPosAtCentre, fingerPosAtCentre } ) );
 				}
 			}
+
+			if ( startAtCentre )
+				hand.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { fingerPosAtCentre, fingerPosAtCentre, fingerPosAtCentre } ) );
+
+			if ( sentence != null )
+			{
+				for ( int j = 0; j < sentence.words.Count; j++ )
+					hand.gesturesToMake.Add( sentence.words[ j ] );
+			}
+			else if ( hand.gesturesToMake.Count == 0 && !endAtCentre )
+				endAtCentre = true;
+
+			if ( endAtCentre )
+				hand.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { fingerPosAtCentre, fingerPosAtCentre, fingerPosAtCentre } ) );
 		}
 	}
 
     protected override void OnStop() {
-		gestureHandsFound = false;
+		context.ikManager.gestureHand = null;
 	}
 
     protected override State OnUpdate() {
-		if ( gestureHandsFound )
-			return State.Success;
+		if ( context.ikManager.gestureHand == null ) { return State.Failure; }
+
+		int gesturingHands = 0;
+		for ( int i = 0; i < context.ikManager.allHands.Count; i++ )
+		{
+			if ( context.ikManager.allHands[ i ].stateMachine.CurrentState.stateName == "GesturingState" )
+				gesturingHands++;
+		}
+
+		if ( gesturingHands > 0 )
+			return State.Running;
 		else
-			return State.Failure;
+			return State.Success;
     }
 }

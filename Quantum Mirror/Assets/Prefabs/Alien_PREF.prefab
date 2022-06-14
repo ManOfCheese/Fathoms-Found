@@ -452,7 +452,7 @@ MonoBehaviour:
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 4
+  stepDistance: 3
   stepLength: 3
   stepHeight: 3
   heightOffset: 0.25
@@ -978,7 +978,7 @@ MonoBehaviour:
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 4
+  stepDistance: 3
   stepLength: 3
   stepHeight: 3
   heightOffset: 0.25
@@ -1326,7 +1326,7 @@ MonoBehaviour:
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 4
+  stepDistance: 3
   stepLength: 3
   stepHeight: 3
   heightOffset: 0.25
@@ -2349,7 +2349,7 @@ MonoBehaviour:
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 4
+  stepDistance: 3
   stepLength: 3
   stepHeight: 3
   heightOffset: 0.25
@@ -2811,10 +2811,7 @@ MonoBehaviour:
   gestureSignal:
     gestureCircle: {fileID: 0}
     timeStamp: 0
-  gestureCircles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  gestureCircle: {fileID: 0}
   mc: {fileID: 0}
   ikManager: {fileID: 0}
 --- !u!114 &5638743939463127235
@@ -2844,7 +2841,7 @@ MonoBehaviour:
   - {fileID: 2773963284532688445}
   maxHandsUseSimultaneously: 3
   defaultFingerPos: 1
-  gestureDistance: 0.5
+  gestureDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
   pointSpeed: 10
@@ -2858,7 +2855,7 @@ MonoBehaviour:
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
   randomOffsetRange: {x: 1, y: 1}
-  stepDistance: 4
+  stepDistance: 3
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
@@ -2867,6 +2864,7 @@ MonoBehaviour:
   handsAvailable: 0
   alienManager: {fileID: 0}
   agent: {fileID: 0}
+  gestureHand: {fileID: 0}
 --- !u!114 &6278649203793106860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4019,7 +4017,7 @@ MonoBehaviour:
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 4
+  stepDistance: 3
   stepLength: 3
   stepHeight: 3
   heightOffset: 0.25
@@ -4147,7 +4145,7 @@ MonoBehaviour:
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 4
+  stepDistance: 3
   stepLength: 3
   stepHeight: 3
   heightOffset: 0.25

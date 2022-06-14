@@ -36,44 +36,11 @@ public class GesturingState : State<HandController>
 	public override void EnterState( HandController _o )
 	{
 		_o.ikManager.handsAvailable--;
-
-		//If circles need to be cleared.
-		if ( _o.clearCircle )
-		{
-			for ( int i = 0; i < _o.gestureCircle.subCircles.Length; i++ )
-			{
-				bool foundGestureToClear = false;
-
-				for ( int j = 0; j < _o.gestureCircle.subCircles[ i ].fingerSprites.Length; j++ )
-				{
-					if ( _o.gestureCircle.subCircles[ i ].fingerSprites[ j ].enabled == true && !foundGestureToClear )
-					{
-						_o.gesturesToMake.Add( new Gesture( i, new bool[ 3 ] { false, false, false } ) );
-						foundGestureToClear = true;
-					}
-				}
-
-			}
-		}
-
-		if ( _o.startAtCentre )
-			_o.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { _o.fingerPosAtCentre, _o.fingerPosAtCentre, _o.fingerPosAtCentre } ) );
-
-		if ( _o.sentence != null )
-		{
-			for ( int i = 0; i < _o.sentence.words.Count; i++ )
-				_o.gesturesToMake.Add( _o.sentence.words[ i ] );
-		}
-		else if ( _o.gesturesToMake.Count == 0 && !_o.endAtCentre )
-			_o.endAtCentre = true;
-
-		if ( _o.endAtCentre )
-			_o.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { _o.fingerPosAtCentre, _o.fingerPosAtCentre, _o.fingerPosAtCentre } ) );
 	}
 
 	public override void UpdateState( HandController _o )
 	{
-		Debug.DrawLine( _o.handTransform.transform.position, _o.handTransform.transform.position + _o.gestureCircle.transform.up * 5f );
+		Debug.DrawLine( _o.transform.position, _o.transform.position + _o.gestureCircle.transform.up * 5f );
 
 		//Hold Gesture
 		if ( _o.moveState == MoveState.Holding )
@@ -103,12 +70,12 @@ public class GesturingState : State<HandController>
 			{
 				float speed = _o.gestureSpeed * Time.deltaTime;
 				//Debug.Log( speed + " > " + Vector3.Distance( hand.transform.position, _owner.gc.handTarget ) + " | " + _owner.gc.waiting );
-				if ( speed > Vector3.Distance( _o.handTransform.position, _o.handTarget ) )
+				if ( speed > Vector3.Distance( _o.transform.position, _o.handTarget ) )
 				{
 					//Set new hand target.
 					if ( _o.moveState == MoveState.Moving )
 					{
-						_o.handTransform.position = _o.handTarget;
+						_o.transform.position = _o.handTarget;
 						if ( _o.holdStart || _o.wordIndex >= 0 && !_o.holdStart )
 						{
 							//Manipulate hand to make the gesture.
@@ -148,7 +115,7 @@ public class GesturingState : State<HandController>
 				}
 				//Move towards hand target.
 				else
-					_o.handTransform.position = Vector3.MoveTowards( _o.handTransform.position, _o.handTarget, speed );
+					_o.transform.position = Vector3.MoveTowards( _o.transform.position, _o.handTarget, speed );
 			}
 		}
 	}
@@ -158,5 +125,10 @@ public class GesturingState : State<HandController>
 		_o.ikManager.handsAvailable++;
 		_o.gesturesToMake.Clear();
 		_o.gestureCircle = null;
+		_o.holdTimeStamp = 0f;
+		_o.wordIndex = 0;
+		_o.preGestureHandPos = Vector3.zero;
+		_o.handTarget = Vector3.zero;
+
 	}
 }

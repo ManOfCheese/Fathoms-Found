@@ -20,7 +20,6 @@ public class BTAnimateHeight : BTActionNode
     }
 
     protected override State OnUpdate() {
-        context.ikManager.ChangeAlienHeight( useSlerp, speed, targetHeight );
-        return State.Success;
+        return context.ikManager.ChangeAlienHeight( useSlerp, speed, targetHeight );
     }
 }
