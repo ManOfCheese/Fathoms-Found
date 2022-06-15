@@ -98,6 +98,15 @@ public class AlienManager : MonoBehaviour
             gestureCircle = _gestureCircle;
         }
     }
+
+	private void OnDrawGizmos()
+	{
+        if ( lastHeardTremor != null )
+		{
+            Gizmos.color = Color.white;
+            Gizmos.DrawSphere( lastHeardTremor.position, 1f );
+        }
+	}
 }
 
 [System.Serializable]

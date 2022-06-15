@@ -18,8 +18,6 @@ public class BTCheckTremors : BTActionNode
             return State.Success;
         }
 		else
-		{
             return State.Failure;
-        }
     }
 }

@@ -21,9 +21,6 @@ public class BTCheckGestureSignals : BTActionNode
             return State.Success;
         }
         else
-        {
-            blackboard.AddData( "gestureSignalDetected", false );
             return State.Failure;
-        }
     }
 }
