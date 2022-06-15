@@ -85,6 +85,7 @@ public class AlienIKManager : GestureSender
 		{
 			allHands[ i ].ikManager = this;
 			allHands[ i ].handIndex = i;
+			allHands[ i ].transform.position += new Vector3( 0f, 1f, 0f ) * allHands[ i ].heightOffset;
 			allHands[ i ].SyncSettingsWithManager();
 			allHands[ i ].stateMachine = new StateMachine<HandController>( allHands[ i ] );
 			allHands[ i ].stateMachine.ChangeState( statesByName[ "WalkingState" ] );
@@ -163,7 +164,7 @@ public class AlienIKManager : GestureSender
 	public bool FindPointHands( Vector3[] _objectsToPointAt, float _maxDist )
 	{
 		int pointingHandCount = 0;
-		for ( int i = 0; i < Mathf.Min( _objectsToPointAt.Length, handsAvailable ); i++ )
+		for ( int i = 0; i < _objectsToPointAt.Length; i++ )
 		{
 			HandController closestHand = FindClosestHand( _objectsToPointAt[ i ], _maxDist );
 			if ( closestHand != null )
@@ -175,8 +176,6 @@ public class AlienIKManager : GestureSender
 				pointingHandCount++;
 			}
 		}
-
-		Debug.Log( pointingHandCount );
 
 		if ( pointingHandCount > 0 )
 			return true;
@@ -229,6 +228,7 @@ public class AlienIKManager : GestureSender
 				}
 			}
 		}
+
 		return closestHand;
 	}
 

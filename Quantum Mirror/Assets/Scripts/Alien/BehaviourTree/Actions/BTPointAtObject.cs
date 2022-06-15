@@ -12,12 +12,13 @@ public class BTPointAtObject : BTActionNode
     public float pointSpeed;
     public float holdPointFor;
     [Space( 10 )]
-    public float cutOffDistance;
+    public float maxDistance;
 
     protected override void OnStart() {
         //Find hand and set point targets.
-        Vector3[] objectsToPointAt = context.ikManager.FindClosestObjectsInList( blackboard.GetData( "objectTargets", new List<Vector3>() ), maxObjects );
-        if ( context.ikManager.FindPointHands( objectsToPointAt, cutOffDistance ) )
+        Vector3[] objectsToPointAt = context.ikManager.FindClosestObjectsInList( blackboard.GetData( "objectTargets", new List<Vector3>() ), 
+            Mathf.Min( context.ikManager.handsAvailable, maxObjects ) );
+        if ( context.ikManager.FindPointHands( objectsToPointAt, maxDistance ) )
 		{
             for ( int i = 0; i < context.ikManager.allHands.Count; i++ )
             {
