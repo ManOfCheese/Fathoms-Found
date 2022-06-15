@@ -293,7 +293,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11ef169ff0e971f41803c125393d0c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startOpen: 0
   isOpen: 0
+  wire: {fileID: 0}
+  solution: {fileID: 0}
+  panel: {fileID: 0}
 --- !u!1 &1794269095494650157
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +839,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
