@@ -448,14 +448,14 @@ MonoBehaviour:
   idleHandTarget: {fileID: 5526503346728689788}
   defaultFingerPos: 1
   ikManager: {fileID: 5638743939463127235}
-  walkSpeed: 4
+  walkSpeed: 3
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 3
+  stepDistance: 4
   stepLength: 3
   stepHeight: 3
-  heightOffset: 0.25
+  heightOffset: 0.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -478,12 +478,12 @@ MonoBehaviour:
   returnToIdle: 0
   inputGesture: 0
   fingerPosAtCentre: 0
-  maxGestureDistance: 0.1
-  handToPanelDistance: 0.1
+  maxGestureDistance: 8
+  handToPanelDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
-  pointSpeed: 10
-  holdPointFor: 3
+  pointSpeed: 5
+  holdPointFor: 1
   currentState: 
   gesturesToMake: []
   gestureCircle: {fileID: 0}
@@ -977,14 +977,14 @@ MonoBehaviour:
   idleHandTarget: {fileID: 3964272598288802831}
   defaultFingerPos: 1
   ikManager: {fileID: 5638743939463127235}
-  walkSpeed: 4
+  walkSpeed: 3
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 3
+  stepDistance: 4
   stepLength: 3
   stepHeight: 3
-  heightOffset: 0.25
+  heightOffset: 0.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1007,12 +1007,12 @@ MonoBehaviour:
   returnToIdle: 0
   inputGesture: 0
   fingerPosAtCentre: 0
-  maxGestureDistance: 0.1
-  handToPanelDistance: 0.1
+  maxGestureDistance: 8
+  handToPanelDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
-  pointSpeed: 10
-  holdPointFor: 3
+  pointSpeed: 5
+  holdPointFor: 1
   currentState: 
   gesturesToMake: []
   gestureCircle: {fileID: 0}
@@ -1328,14 +1328,14 @@ MonoBehaviour:
   idleHandTarget: {fileID: 4663398601983397297}
   defaultFingerPos: 1
   ikManager: {fileID: 5638743939463127235}
-  walkSpeed: 4
+  walkSpeed: 3
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 3
+  stepDistance: 4
   stepLength: 3
   stepHeight: 3
-  heightOffset: 0.25
+  heightOffset: 0.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1358,12 +1358,12 @@ MonoBehaviour:
   returnToIdle: 0
   inputGesture: 0
   fingerPosAtCentre: 0
-  maxGestureDistance: 0.1
-  handToPanelDistance: 0.1
+  maxGestureDistance: 8
+  handToPanelDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
-  pointSpeed: 10
-  holdPointFor: 3
+  pointSpeed: 5
+  holdPointFor: 1
   currentState: 
   gesturesToMake: []
   gestureCircle: {fileID: 0}
@@ -2374,14 +2374,14 @@ MonoBehaviour:
   idleHandTarget: {fileID: 4419709333017376715}
   defaultFingerPos: 1
   ikManager: {fileID: 5638743939463127235}
-  walkSpeed: 4
+  walkSpeed: 3
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 3
+  stepDistance: 4
   stepLength: 3
   stepHeight: 3
-  heightOffset: 0.25
+  heightOffset: 0.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2404,12 +2404,12 @@ MonoBehaviour:
   returnToIdle: 0
   inputGesture: 0
   fingerPosAtCentre: 0
-  maxGestureDistance: 0.1
-  handToPanelDistance: 0.1
+  maxGestureDistance: 8
+  handToPanelDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
-  pointSpeed: 10
-  holdPointFor: 3
+  pointSpeed: 5
+  holdPointFor: 1
   currentState: 
   gesturesToMake: []
   gestureCircle: {fileID: 0}
@@ -2835,7 +2835,7 @@ MonoBehaviour:
   allDoorPanels: {fileID: 11400000, guid: 33c154f9e55971a46b5c3fda83012ed3, type: 2}
   tremorInterestDuration: 3
   gestureInterestDuration: 3
-  interactDistance: 10
+  interactDistance: 15
   lastHeardTremor:
     intensity: 0
     timeStamp: 0
@@ -2873,23 +2873,23 @@ MonoBehaviour:
   - {fileID: 2773963284532688445}
   maxHandsUseSimultaneously: 3
   defaultFingerPos: 1
-  handToPanelDistance: 0.1
-  maxGestureDistance: 0.1
+  handToPanelDistance: 0.25
+  maxGestureDistance: 8
   gestureSpeed: 3
   holdGestureFor: 1
-  pointRadius: 2
-  pointSpeed: 10
-  holdPointFor: 3
+  pointRadius: 10
+  pointSpeed: 5
+  holdPointFor: 1
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
-  heightOffset: 0.25
-  walkSpeed: 4
+  heightOffset: 0.5
+  walkSpeed: 3
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  randomOffsetRange: {x: 1, y: 1}
-  stepDistance: 3
+  randomOffsetRange: {x: 0.9, y: 1.1}
+  stepDistance: 4
   stepDistRandomization: {x: 0.9, y: 1.1}
   stepLength: 3
   stepLengthRandomization: {x: 0.9, y: 1.1}
@@ -4047,14 +4047,14 @@ MonoBehaviour:
   idleHandTarget: {fileID: 5562524808917088814}
   defaultFingerPos: 1
   ikManager: {fileID: 5638743939463127235}
-  walkSpeed: 4
+  walkSpeed: 3
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 3
+  stepDistance: 4
   stepLength: 3
   stepHeight: 3
-  heightOffset: 0.25
+  heightOffset: 0.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -4077,12 +4077,12 @@ MonoBehaviour:
   returnToIdle: 0
   inputGesture: 0
   fingerPosAtCentre: 0
-  maxGestureDistance: 0.1
-  handToPanelDistance: 0.1
+  maxGestureDistance: 8
+  handToPanelDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
-  pointSpeed: 10
-  holdPointFor: 3
+  pointSpeed: 5
+  holdPointFor: 1
   currentState: 
   gesturesToMake: []
   gestureCircle: {fileID: 0}
@@ -4178,14 +4178,14 @@ MonoBehaviour:
   idleHandTarget: {fileID: 7143136651404266858}
   defaultFingerPos: 1
   ikManager: {fileID: 5638743939463127235}
-  walkSpeed: 4
+  walkSpeed: 3
   openHandSpeed: 5
   closeFingerTreshold: 0.2
   openFingerTreshold: 0.8
-  stepDistance: 3
+  stepDistance: 4
   stepLength: 3
   stepHeight: 3
-  heightOffset: 0.25
+  heightOffset: 0.5
   terrainLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -4208,12 +4208,12 @@ MonoBehaviour:
   returnToIdle: 0
   inputGesture: 0
   fingerPosAtCentre: 0
-  maxGestureDistance: 0.1
-  handToPanelDistance: 0.1
+  maxGestureDistance: 8
+  handToPanelDistance: 0.25
   gestureSpeed: 3
   holdGestureFor: 1
-  pointSpeed: 10
-  holdPointFor: 3
+  pointSpeed: 5
+  holdPointFor: 1
   currentState: 
   gesturesToMake: []
   gestureCircle: {fileID: 0}
@@ -5037,21 +5037,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
---- !u!95 &301432851744068534 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1854074549311574180}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8113729749024336470 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1854074549311574180}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &2755495029372139576 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+--- !u!1 &1410701407617619351 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 1854074549311574180}
   m_PrefabAsset: {fileID: 0}
@@ -5061,6 +5049,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1854074549311574180}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &2755495029372139576 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1854074549311574180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8113729749024336470 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1854074549311574180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &301432851744068534 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1854074549311574180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1556071092567004296
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410701407617619351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.002
+  m_Height: 0.01
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.01}
 --- !u!1001 &3279150334226878984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5186,6 +5206,18 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 3279150334226878984}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4945758434350868730 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3279150334226878984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2857760827955238715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3279150334226878984}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4509939728750821986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
@@ -5198,12 +5230,20 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 3279150334226878984}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &4945758434350868730 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7575965850756348658, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 3279150334226878984}
+--- !u!136 &5405224656084666037
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857760827955238715}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.002
+  m_Height: 0.01
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.01}
 --- !u!1001 &7564894902139051160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5338,21 +5378,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
---- !u!4 &8929653200026750194 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7564894902139051160}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &6304024692603941892 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7564894902139051160}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &8462262305779933066 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7564894902139051160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8929653200026750194 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 7564894902139051160}
   m_PrefabAsset: {fileID: 0}
@@ -5362,6 +5396,32 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 7564894902139051160}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7120974254846728619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7564894902139051160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6304024692603941892 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7564894902139051160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1841451179328614739
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7120974254846728619}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.002
+  m_Height: 0.01
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.01}
 --- !u!1001 &7628315114491093315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5481,21 +5541,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
+--- !u!1 &7202407680403711088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7628315114491093315}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8847989683541717289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7628315114491093315}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &6222491400574306783 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7628315114491093315}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8379265141684150865 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 7628315114491093315}
   m_PrefabAsset: {fileID: 0}
@@ -5505,6 +5559,32 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 7628315114491093315}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &8379265141684150865 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7628315114491093315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6222491400574306783 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7628315114491093315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &65168933091869644
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7202407680403711088}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.002
+  m_Height: 0.01
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.01}
 --- !u!1001 &7910361771671490886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5639,12 +5719,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
---- !u!95 &5926951261547313626 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 7910361771671490886}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9137847133756457260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
@@ -5657,12 +5731,38 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 7910361771671490886}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7489045898298725493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7910361771671490886}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &8093911295106388564 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
     type: 3}
   m_PrefabInstance: {fileID: 7910361771671490886}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &5926951261547313626 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7910361771671490886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &2331164330446644875
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489045898298725493}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.002
+  m_Height: 0.01
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.01}
 --- !u!1001 &8161969884947712658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5782,6 +5882,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e53db886197ffc4ca830cb05bb9b6cb, type: 3}
+--- !u!95 &7841115718076008832 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8161969884947712658}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5675281575959667214 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8161969884947712658}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8893496368308457377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 732168701624583475, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
+    type: 3}
+  m_PrefabInstance: {fileID: 8161969884947712658}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7084799719566842616 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1375682092615012458, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
@@ -5794,15 +5912,17 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 8161969884947712658}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &5675281575959667214 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4577771427462883484, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 8161969884947712658}
+--- !u!136 &8786849689723018925
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &7841115718076008832 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2131356485250810642, guid: 5e53db886197ffc4ca830cb05bb9b6cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 8161969884947712658}
-  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8893496368308457377}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.002
+  m_Height: 0.01
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.01}

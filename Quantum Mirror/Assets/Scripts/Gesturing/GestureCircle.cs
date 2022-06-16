@@ -115,22 +115,16 @@ public class GestureCircle : MonoBehaviour
 				isUsingGestureCircle.Value = true;
 				for ( int i = 0; i < subCircles.Length; i++ )
 				{
-					if ( !subCircles[ i ].isCentreCircle )
-					{
-						for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
-							subCircles[ i ].fingerSprites[ j ].sprite = playerClawSprite[ j ];
-					}
+					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
+						subCircles[ i ].fingerSprites[ j ].sprite = playerClawSprite[ j ];
 				}
 			}
 			else if ( other.gameObject.tag == alienClawTag )
 			{
 				for ( int i = 0; i < subCircles.Length; i++ )
 				{
-					if ( !subCircles[ i ].isCentreCircle )
-					{
-						for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; i++ )
-							subCircles[ i ].fingerSprites[ j ].sprite = playerClawSprite[ j ];
-					}
+					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
+						subCircles[ i ].fingerSprites[ j ].sprite = alienClawSprite[ j ];
 				}
 			}
 		}
