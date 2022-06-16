@@ -34,11 +34,18 @@ public class DoorResponse : MonoBehaviour
     }
     IEnumerator CorrectInput()
     {
-        panel.SetBool( "Active", true );
+        if (panel != null)
+        panel.SetBool ( "Active", true );
+
+        if (wire != null)
         wire.SetBool("Active", true);
         yield return new WaitForSeconds(3);
+
+        if(solution != null)
         solution.SetBool("Active", true);
         yield return new WaitForSeconds(1);
+
+        if(animator != null)
         animator.SetBool( "Open", true );
         
         isOpen = true;
@@ -54,8 +61,16 @@ public class DoorResponse : MonoBehaviour
         if ( isOpen == true )
         {
             animator.SetBool( "Open", false );
+            
+            if (wire != null)
             wire.SetBool("Active", false );
+
+            if (solution != null)
+            solution.SetBool("Active", false);
+
+            if (panel != null)
             panel.SetBool("Active", false );
+
             isOpen = false;
         }
     }
