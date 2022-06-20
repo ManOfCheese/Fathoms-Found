@@ -150,7 +150,6 @@ public class GestureCircle : MonoBehaviour
 		
 		for ( int i = 0; i < passwordActions.Count; i++ )
 		{
-			Debug.Log( Sam.Gesturing.GestureListToGCode( words ) + " == " + Sam.Gesturing.GestureSequenceToGCode( passwordActions[ i ].sentence ) );
 			if ( Sam.Gesturing.GestureListToGCode( words ) == Sam.Gesturing.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
 			{
 				passwordActions[ i ].onInput?.Invoke();
