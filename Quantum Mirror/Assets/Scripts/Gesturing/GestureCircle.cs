@@ -17,6 +17,7 @@ public class GestureCircle : MonoBehaviour
 
 	[Header( "Settings" )]
 	public bool twoWayCircle;
+	public bool usePasswordActionsForConfirmation;
 	public GestureCircle otherCircle;
 	public GestureSequence presetSentence;
 	public string playerClawTag;
@@ -24,6 +25,7 @@ public class GestureCircle : MonoBehaviour
 	public Color standardColor;
 	public Color confirmationColor;
 	[Space( 10 )]
+	public List<GestureSequence> sentencesToConfirm;
 	public List<PasswordAction> passwordActions;
 	public Sprite[] playerClawSprite;
 	public Sprite[] alienClawSprite;
@@ -38,7 +40,7 @@ public class GestureCircle : MonoBehaviour
 	public delegate void OnSentence( int senderID, GestureCircle gestureCircle );
 	public OnSentence onSentence;
 
-	private GameObject lastClawInCircle;
+	[HideInInspector] public bool usePlayerSprites;
 	private PasswordAction activePassword;
 
 	private void Awake()
@@ -93,40 +95,17 @@ public class GestureCircle : MonoBehaviour
 
 	private void OnTriggerEnter( Collider other )
 	{
-		if ( other.gameObject.tag == playerClawTag || other.gameObject.tag == alienClawTag )
+		if ( other.gameObject.tag == playerClawTag )
 		{
-			if ( lastClawInCircle != other.gameObject && lastClawInCircle != null )
-			{
-				for ( int i = 0; i < subCircles.Length; i++ )
-				{
-					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length - 1; j++ )
-						subCircles[ i ].fingerSprites[ j + 1 ].enabled = false;
-					subCircles[ i ].fingerSprites[ 0 ].enabled = false;
-
-					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
-						subCircles[ i ].fingerSprites[ j ].color = standardColor;
-				}
-			}
-			lastClawInCircle = other.gameObject;
-
-			if ( other.gameObject.tag == playerClawTag )
-			{
-				clawInCircle = true;
-				isUsingGestureCircle.Value = true;
-				for ( int i = 0; i < subCircles.Length; i++ )
-				{
-					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
-						subCircles[ i ].fingerSprites[ j ].sprite = playerClawSprite[ j ];
-				}
-			}
-			else if ( other.gameObject.tag == alienClawTag )
-			{
-				for ( int i = 0; i < subCircles.Length; i++ )
-				{
-					for ( int j = 0; j < subCircles[ i ].fingerSprites.Length; j++ )
-						subCircles[ i ].fingerSprites[ j ].sprite = alienClawSprite[ j ];
-				}
-			}
+			clawInCircle = true;
+			isUsingGestureCircle.Value = true;
+			for ( int i = 0; i < subCircles.Length; i++ )
+				usePlayerSprites = true;
+		}
+		else if ( other.gameObject.tag == alienClawTag )
+		{
+			for ( int i = 0; i < subCircles.Length; i++ )
+				usePlayerSprites = false;
 		}
 	}
 
@@ -151,17 +130,11 @@ public class GestureCircle : MonoBehaviour
 		}
 
 		if ( gestureCircle != this )
-		{
 			subCircles[ word.circle ].ShowGestureSprites( word );
-		}
 		if ( usePartialConfirmation && confirmOnWord.Value )
-		{
 			PartialConfirmation( word );
-		}
 		else
-		{
 			Deconfirm( word );
-		}
 	}
 
 	public void ConfirmSentence( int senderID, GestureCircle gestureCircle )
@@ -203,25 +176,53 @@ public class GestureCircle : MonoBehaviour
 	public void PartialConfirmation( Gesture word )
 	{
 		List<int> circlesConfirmed = new List<int>();
-		for ( int i = 0; i < passwordActions.Count; i++ )
+		if ( usePasswordActionsForConfirmation )
 		{
-			for ( int j = 0; j < passwordActions[ i ].sentence.words.Count; j++ )
+			for ( int i = 0; i < passwordActions.Count; i++ )
 			{
-				if ( passwordActions[ i ].useForPartialConfirmation &&
-					passwordActions[ i ].sentence.words[ j ].circle == word.circle )
+				for ( int j = 0; j < passwordActions[ i ].sentence.words.Count; j++ )
 				{
-					if ( passwordActions[ i ].sentence.words[ j ].fingers[ 0 ] == word.fingers[ 0 ] &&
-						passwordActions[ i ].sentence.words[ j ].fingers[ 1 ] == word.fingers[ 1 ] &&
-						passwordActions[ i ].sentence.words[ j ].fingers[ 2 ] == word.fingers[ 2 ] )
+					if ( passwordActions[ i ].useForPartialConfirmation &&
+						passwordActions[ i ].sentence.words[ j ].circle == word.circle )
 					{
-						for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
-							subCircles[ word.circle ].fingerSprites[ k ].color = confirmationColor;
-						circlesConfirmed.Add( word.circle );
+						if ( passwordActions[ i ].sentence.words[ j ].fingers[ 0 ] == word.fingers[ 0 ] &&
+							passwordActions[ i ].sentence.words[ j ].fingers[ 1 ] == word.fingers[ 1 ] &&
+							passwordActions[ i ].sentence.words[ j ].fingers[ 2 ] == word.fingers[ 2 ] )
+						{
+							for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+								subCircles[ word.circle ].fingerSprites[ k ].color = confirmationColor;
+							circlesConfirmed.Add( word.circle );
+						}
+						else if ( !circlesConfirmed.Contains( word.circle ) )
+						{
+							for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+								subCircles[ word.circle ].fingerSprites[ k ].color = standardColor; ;
+						}
 					}
-					else if ( !circlesConfirmed.Contains( word.circle ) )
+				}
+			}
+		}
+		else
+		{
+			for ( int i = 0; i < sentencesToConfirm.Count; i++ )
+			{
+				for ( int j = 0; j < sentencesToConfirm[ i ].words.Count; j++ )
+				{
+					if ( sentencesToConfirm[ i ].words[ j ].circle == word.circle )
 					{
-						for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
-							subCircles[ word.circle ].fingerSprites[ k ].color = standardColor;;
+						if ( sentencesToConfirm[ i ].words[ j ].fingers[ 0 ] == word.fingers[ 0 ] &&
+							sentencesToConfirm[ i ].words[ j ].fingers[ 1 ] == word.fingers[ 1 ] &&
+							sentencesToConfirm[ i ].words[ j ].fingers[ 2 ] == word.fingers[ 2 ] )
+						{
+							for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+								subCircles[ word.circle ].fingerSprites[ k ].color = confirmationColor;
+							circlesConfirmed.Add( word.circle );
+						}
+						else if ( !circlesConfirmed.Contains( word.circle ) )
+						{
+							for ( int k = 0; k < subCircles[ word.circle ].fingerSprites.Length; k++ )
+								subCircles[ word.circle ].fingerSprites[ k ].color = standardColor; ;
+						}
 					}
 				}
 			}

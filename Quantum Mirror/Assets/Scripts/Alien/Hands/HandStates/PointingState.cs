@@ -36,13 +36,13 @@ public class PointingState : State<HandController>
 	public override void EnterState( HandController _o )
 	{
 		_o.ikManager.handsAvailable--;
-		_o.handTransform.LookAt( _o.handTransform.transform.parent.transform.up * 5f );
 		for ( int j = 0; j < _o.fingerAnimators.Length; j++ )
 			_o.fingerAnimators[ j ].SetBool( "FingerOpen", false );
 	}
 
 	public override void UpdateState( HandController _o )
 	{
+		_o.handTransform.LookAt( _o.handTransform.transform.parent.transform.up * -5f );
 		float speed = _o.pointSpeed * Time.deltaTime;
 
 		if ( _o.pointState == PointState.Holding )
