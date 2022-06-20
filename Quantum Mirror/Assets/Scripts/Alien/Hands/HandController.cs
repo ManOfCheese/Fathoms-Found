@@ -8,7 +8,8 @@ public enum GestureState
 {
     Moving,
     Holding,
-    Starting
+    Starting,
+    Ending
 }
 
 public enum PointState
@@ -82,8 +83,6 @@ public class HandController : MonoBehaviour
     [ReadOnly] public int wordIndex = 0;
     [ReadOnly] public Vector3 preGestureHandPos;
     [ReadOnly] public Vector3 handTarget;
-    [ReadOnly] public Vector3 oldLookAtTarget;
-    [ReadOnly] public Vector3 newLookAtTarget;
 
 	private void Awake()
 	{

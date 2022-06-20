@@ -174,7 +174,6 @@ public class AlienIKManager : GestureSender
 					closestHand.handTarget = body.transform.position + pointVector.normalized * pointRadius;
 				else
 					closestHand.handTarget = pointVector;
-				closestHand.oldLookAtTarget = closestHand.handTransform.position - closestHand.handTransform.forward;
 				closestHand.pointState = PointState.Starting;
 				closestHand.stateMachine.ChangeState( statesByName[ "PointingState" ] );
 				pointingHandCount++;

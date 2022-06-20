@@ -36,15 +36,13 @@ public class PointingState : State<HandController>
 	public override void EnterState( HandController _o )
 	{
 		_o.ikManager.handsAvailable--;
-		_o.newLookAtTarget = _o.oldLookAtTarget;
+		_o.handTransform.LookAt( _o.handTransform.transform.parent.transform.up * 5f );
 		for ( int j = 0; j < _o.fingerAnimators.Length; j++ )
 			_o.fingerAnimators[ j ].SetBool( "FingerOpen", false );
 	}
 
 	public override void UpdateState( HandController _o )
 	{
-		_o.handTransform.LookAt( new Vector3( _o.oldLookAtTarget.x, _o.oldLookAtTarget.y, -_o.oldLookAtTarget.z ) );
-
 		float speed = _o.pointSpeed * Time.deltaTime;
 
 		if ( _o.pointState == PointState.Holding )
@@ -68,8 +66,6 @@ public class PointingState : State<HandController>
 			}
 			else
 				_o.transform.position = Vector3.MoveTowards( _o.transform.position, _o.handTarget, speed );
-
-			_o.newLookAtTarget = _o.handTarget;
 		}
 		else if ( _o.pointState == PointState.Ending )
 		{
@@ -81,17 +77,6 @@ public class PointingState : State<HandController>
 			}
 			else
 				_o.transform.position = Vector3.MoveTowards( _o.transform.position, _o.handTarget, speed );
-
-			_o.newLookAtTarget = _o.handTransform.position - ( _o.handTransform.forward * 2f );
-		}
-
-		//Move hand
-		if ( _o.oldLookAtTarget != _o.newLookAtTarget )
-		{
-			if ( speed > Vector3.Distance( _o.oldLookAtTarget, _o.newLookAtTarget ) )
-				_o.oldLookAtTarget = _o.newLookAtTarget;
-			else
-				_o.oldLookAtTarget = Vector3.MoveTowards( _o.oldLookAtTarget, _o.newLookAtTarget, speed );
 		}
 	}
 
