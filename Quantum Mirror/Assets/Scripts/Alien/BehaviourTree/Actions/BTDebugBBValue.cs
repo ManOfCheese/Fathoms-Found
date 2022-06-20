@@ -51,6 +51,10 @@ public class BTDebugBBValue : BTBBActionNode
 					Vector2 vector2 = blackboard.GetData( key, new Vector2() );
 					Debug.LogError( $"{ key } is currently {vector2}" );
 					break;
+				case Blackboard.BlackboardValueType.PositionList:
+					List<Vector3> positionList = blackboard.GetData( key, new List<Vector3>() );
+					Debug.LogError( $"{ key } is currently {positionList}" );
+					break;
 				default:
 					break;
 			}

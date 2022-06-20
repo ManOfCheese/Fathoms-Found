@@ -20,7 +20,8 @@ MonoBehaviour:
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
-  overrideAgentSettings: 0
+  overrideAgentSettings: 1
+  tolerance: 1
   speed: 5
   interruptable: 0
 --- !u!114 &-9136413065693643908
@@ -45,7 +46,6 @@ MonoBehaviour:
   drawGizmos: 0
   children:
   - {fileID: -4421934726836987399}
-  - {fileID: -1386119319684327885}
   - {fileID: -7975126367475998292}
 --- !u!114 &-8270239573945635441
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: 4787177620933134676}
-  checkMode: 0
+  checkMode: 2
   wordsToMatch: []
   gCode: 14100
 --- !u!114 &-5539790860132803348
@@ -299,6 +299,30 @@ MonoBehaviour:
   floatValue: 0
   vector3Value: {x: 0, y: 0, z: 0}
   vector2Value: {x: 0, y: 0}
+--- !u!114 &-4180708927186181846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9382536f487090f4f9b4db2f8bc20771, type: 3}
+  m_Name: BTSetBBPositionList
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 6da4e51d2055b8440910532b934e15e8
+  position: {x: -885, y: 1391}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  valueType: 0
+  key: objectTargets
+  positionListValue: []
+  objectTargets: {fileID: 11400000, guid: 47bac69ea8fd5154cb92fa658d00517f, type: 2}
 --- !u!114 &-4028497304400694852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +435,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 687ea39e2c950eb43b797f78c2ff1ddc
-  position: {x: -895.85156, y: 1292.0227}
+  position: {x: -1045.9996, y: 1289}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -452,6 +476,30 @@ MonoBehaviour:
   returnToIdle: 1
   inputGesture: 1
   fingerPosAtCentre: 1
+--- !u!114 &-3690997984218164598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38054742cdf25a498cbfdff3a7a5f23, type: 3}
+  m_Name: BTCheckGesture
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b5b25fd7d9cc5e94d9bbae3f558575e0
+  position: {x: -884.9998, y: 1292}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: -4180708927186181846}
+  checkMode: 2
+  wordsToMatch: []
+  gCode: 14001
 --- !u!114 &-3358196791699081054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,7 +594,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 9a8e5f2aecf5de3469ea1bb46c71003e
-  position: {x: -1061.8516, y: 1292.0227}
+  position: {x: -1211.9996, y: 1289}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -570,7 +618,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 4c8c827b2e9fd2642b486e034af50ea4
-  position: {x: -1061.8516, y: 1391.0225}
+  position: {x: -1211.9996, y: 1388}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -703,12 +751,13 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: f20c21e89537e294cb7b46c95e845c49
-  position: {x: 359.14835, y: 1524.0225}
+  position: {x: 357.00006, y: 1524.0002}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   overrideAgentSettings: 1
+  tolerance: 1
   speed: 10
   objects: {fileID: 11400000, guid: 0b5d9800ffedd36468b106d22dff2d11, type: 2}
 --- !u!114 &-879381680793063868
@@ -726,7 +775,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: becad137523bf594eb16b6e9ad28957f
-  position: {x: 282, y: 1090}
+  position: {x: 452.0001, y: 1088}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -761,7 +810,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: -2775225987445651019}
-  checkMode: 0
+  checkMode: 2
   wordsToMatch: []
   gCode: 14010
 --- !u!114 &-223875683470960826
@@ -779,13 +828,14 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: e1ba0b7cbe04f794f8138358cca562b9
-  position: {x: 443.94498, y: 1091.0325}
+  position: {x: 614, y: 1089}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   overrideAgentSettings: 1
-  speed: 15
+  tolerance: 1
+  speed: 10
   followTremors: 1
   moveForwards: 0
 --- !u!114 &-174518094793863670
@@ -929,7 +979,10 @@ MonoBehaviour:
   - {fileID: -1386119319684327885}
   - {fileID: -9136413065693643908}
   - {fileID: -3358196791699081054}
-  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
+  - {fileID: 3829958094692484693}
+  - {fileID: -3690997984218164598}
+  - {fileID: -4180708927186181846}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
 --- !u!114 &277210253734526920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,12 +998,13 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 9cf2e842450e49944a7127c181a7728a
-  position: {x: -401.09024, y: 1088.0225}
+  position: {x: -398.99985, y: 1088}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   overrideAgentSettings: 1
+  tolerance: 1
   speed: 10
   followTremors: 0
   moveForwards: 0
@@ -1083,7 +1137,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: ac18042fe53517247b45119e84f8022b
-  position: {x: 525.79254, y: 965.355}
+  position: {x: 696.00006, y: 962.99994}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -1161,8 +1215,33 @@ MonoBehaviour:
   - {fileID: -4977544268527291696}
   - {fileID: 6905884029935240822}
   - {fileID: -174518094793863670}
+  - {fileID: 3829958094692484693}
   - {fileID: 5168775154592068029}
   - {fileID: -879381680793063868}
+--- !u!114 &3829958094692484693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5741d3974e4b6ad40906eda9a4df5f05, type: 3}
+  m_Name: BTMoveToObject
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 36c21291f2c52784cab4a89aab1e1631
+  position: {x: 122.000046, y: 1090.0002}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  overrideAgentSettings: 1
+  tolerance: 10
+  speed: 10
+  objects: {fileID: 0}
 --- !u!114 &4184747514871202916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1214,7 +1293,7 @@ MonoBehaviour:
   holdStart: 0
   endAtCentre: 1
   returnToIdle: 1
-  inputGesture: 0
+  inputGesture: 1
   fingerPosAtCentre: 1
 --- !u!114 &4375137379217140919
 MonoBehaviour:
@@ -1322,7 +1401,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 43aa9f918ca8c8e41b7a927ef9b715ec
-  position: {x: 121.90973, y: 1089.0227}
+  position: {x: 291, y: 1090.0002}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1354,12 +1433,12 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 564d0a69b12e1e54d9ca053f8082effd
-  position: {x: 120.90982, y: 1184.0226}
+  position: {x: 290, y: 1185.0002}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
-  maxObjects: 3
+  maxObjects: 1
   overrideStandardSettings: 0
   pointSpeed: 0
   holdPointFor: 0
@@ -1379,7 +1458,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 5dd4213ee6212d44997ecd406e36ae0a
-  position: {x: -895.85156, y: 1391.0225}
+  position: {x: -1045.9996, y: 1388}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1403,7 +1482,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 68f55472e32215946b81e0237b16eb5b
-  position: {x: 525.79254, y: 859.355}
+  position: {x: 696.00006, y: 856.99994}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -1486,6 +1565,7 @@ MonoBehaviour:
   children:
   - {fileID: -2566320680527660701}
   - {fileID: -3832548918254427399}
+  - {fileID: -3690997984218164598}
   - {fileID: -6155049631387910774}
   - {fileID: -768191012094575836}
   - {fileID: 2087271407316323745}
@@ -1578,7 +1658,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 2227c92a0b6bba24d8e64459370e3bb3
-  position: {x: 607.2001, y: 1089.71}
+  position: {x: 777.00006, y: 1088}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 

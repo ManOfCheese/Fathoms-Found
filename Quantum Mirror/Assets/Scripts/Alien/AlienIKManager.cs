@@ -169,7 +169,11 @@ public class AlienIKManager : GestureSender
 			HandController closestHand = FindClosestHand( _objectsToPointAt[ i ], _maxDist );
 			if ( closestHand != null )
 			{
-				closestHand.handTarget = body.transform.position + ( _objectsToPointAt[ i ] - body.transform.position ).normalized * pointRadius;
+				Vector3 pointVector = _objectsToPointAt[ i ] - body.transform.position;
+				if ( Vector3.Distance( closestHand.transform.position, pointVector ) > pointRadius )
+					closestHand.handTarget = body.transform.position + pointVector.normalized * pointRadius;
+				else
+					closestHand.handTarget = pointVector;
 				closestHand.oldLookAtTarget = closestHand.handTransform.position - closestHand.handTransform.forward;
 				closestHand.pointState = PointState.Starting;
 				closestHand.stateMachine.ChangeState( statesByName[ "PointingState" ] );
@@ -249,6 +253,7 @@ public class AlienIKManager : GestureSender
 					{
 						closestByDistance.Add( i, dist );
 						closestByDistance.Remove( item.Key );
+						break;
 					}
 				}
 			}

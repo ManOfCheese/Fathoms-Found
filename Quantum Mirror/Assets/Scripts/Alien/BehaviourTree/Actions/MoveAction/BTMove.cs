@@ -7,6 +7,7 @@ public class BTMove : BTActionNode
 {
 
     public bool overrideAgentSettings;
+    public float tolerance;
     public float speed = 5;
 
     protected override void OnStart() {
@@ -25,11 +26,10 @@ public class BTMove : BTActionNode
         {
             return State.Running;
         }
-        else if ( context.mc.agent.remainingDistance < context.mc.tolerance )
+        else if ( context.mc.agent.remainingDistance < tolerance )
         {
             blackboard.AddData( "moveToPosition", Vector3.zero );
-            AlienBlackboard alienBlackboard = blackboard as AlienBlackboard;
-            alienBlackboard.moveToPosition = blackboard.GetData( "moveToPosition", new Vector3() );
+            context.mc.agent.destination = context.manager.transform.position;
             return State.Success;
         }
         else if ( context.mc.agent.pathStatus == UnityEngine.AI.NavMeshPathStatus.PathInvalid )

@@ -8999,7 +8999,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656352851}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 61.988037, y: 1.056427, z: 207.03656}
+  m_LocalPosition: {x: -12.7, y: 1.056427, z: 158}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5105184027845832376}
@@ -28395,6 +28395,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &803430788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 803430789}
+  m_Layer: 0
+  m_Name: WanderCircleCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &803430789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803430788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.3, y: -94.5, z: -4.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3244580587439769503}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &946289335
 GameObject:
   m_ObjectHideFlags: 0
@@ -111439,6 +111469,7 @@ Transform:
   - {fileID: 6754177441718157765}
   - {fileID: 1096395260271878013}
   - {fileID: 8905196597115267181}
+  - {fileID: 803430789}
   m_Father: {fileID: 4031161765315901455}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -112907,7 +112938,12 @@ PrefabInstance:
     - target: {fileID: 1241479347, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
       propertyPath: tree
       value: 
-      objectReference: {fileID: 11400000, guid: c34022da5a1092e488b91bd89946d481,
+      objectReference: {fileID: 11400000, guid: b04bffeb8bf31e74e953d675e5592b2d,
+        type: 2}
+    - target: {fileID: 1241479347, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
+      propertyPath: blackBoard
+      value: 
+      objectReference: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88,
         type: 2}
     - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
@@ -113169,6 +113205,11 @@ PrefabInstance:
       propertyPath: circleCenter
       value: 
       objectReference: {fileID: 656352852}
+    - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: circleRadius
+      value: 17.9
+      objectReference: {fileID: 0}
     - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
       propertyPath: walkSpeed
@@ -114383,6 +114424,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8789403517270921760, guid: 1fed01fbd13c4ac459cdfc6a805cf633,
+        type: 3}
+      propertyPath: m_Radius
+      value: 45.98
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fed01fbd13c4ac459cdfc6a805cf633, type: 3}
 --- !u!4 &9098571570623219273 stripped
@@ -114401,7 +114447,12 @@ PrefabInstance:
     - target: {fileID: 1241479347, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
       propertyPath: tree
       value: 
-      objectReference: {fileID: 11400000, guid: c34022da5a1092e488b91bd89946d481,
+      objectReference: {fileID: 11400000, guid: b04bffeb8bf31e74e953d675e5592b2d,
+        type: 2}
+    - target: {fileID: 1241479347, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
+      propertyPath: blackBoard
+      value: 
+      objectReference: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce,
         type: 2}
     - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
@@ -114662,7 +114713,12 @@ PrefabInstance:
         type: 3}
       propertyPath: circleCenter
       value: 
-      objectReference: {fileID: 656352852}
+      objectReference: {fileID: 803430789}
+    - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: circleRadius
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
         type: 3}
       propertyPath: walkSpeed
@@ -114871,9 +114927,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75a3af34bb13f0242befcac83a39f450, type: 3}
---- !u!1 &6754177441718157764 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6946272530978588506, guid: 75a3af34bb13f0242befcac83a39f450,
+--- !u!4 &6754177441718157765 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6946272530978588507, guid: 75a3af34bb13f0242befcac83a39f450,
     type: 3}
   m_PrefabInstance: {fileID: 4457919907733505694}
   m_PrefabAsset: {fileID: 0}
@@ -114883,9 +114939,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4457919907733505694}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6754177441718157765 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6946272530978588507, guid: 75a3af34bb13f0242befcac83a39f450,
+--- !u!1 &6754177441718157764 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6946272530978588506, guid: 75a3af34bb13f0242befcac83a39f450,
     type: 3}
   m_PrefabInstance: {fileID: 4457919907733505694}
   m_PrefabAsset: {fileID: 0}
@@ -115227,6 +115283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789403517270921760, guid: 1fed01fbd13c4ac459cdfc6a805cf633,
+        type: 3}
+      propertyPath: m_Radius
+      value: 46.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fed01fbd13c4ac459cdfc6a805cf633, type: 3}

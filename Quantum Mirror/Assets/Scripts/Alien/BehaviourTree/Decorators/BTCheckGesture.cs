@@ -20,9 +20,7 @@ public class BTCheckGesture : BTDecoratorNode
 
     protected override void OnStart() {
         if ( context.manager.gestureCircle != null )
-		{
             playerSentence = context.manager.gestureCircle.words;
-		}
     }
 
     protected override void OnStop() {
@@ -61,6 +59,7 @@ public class BTCheckGesture : BTDecoratorNode
                 else
                     return State.Failure;
             case CheckMode.PerfectMatch:
+                Debug.Log( gCode + " |  " + Sam.Gesturing.GestureListToGCode( playerSentence ) );
                 if ( gCode == Sam.Gesturing.GestureListToGCode( playerSentence ) ) 
                     return child.Update();
                 else
