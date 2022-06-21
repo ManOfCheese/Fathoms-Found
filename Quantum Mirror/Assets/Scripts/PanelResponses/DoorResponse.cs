@@ -34,6 +34,7 @@ public class DoorResponse : MonoBehaviour
     }
     IEnumerator CorrectInput()
     {
+        isOpen = true;
         if (panel != null)
         panel.SetBool ( "Active", true );
 
@@ -41,14 +42,12 @@ public class DoorResponse : MonoBehaviour
         wire.SetBool("Active", true);
         yield return new WaitForSeconds(3);
 
-        if(solution != null)
+        if(solution != null && isOpen == true)
         solution.SetBool("Active", true);
         yield return new WaitForSeconds(1);
 
-        if(animator != null)
+        if(animator != null && isOpen == true)
         animator.SetBool( "Open", true );
-        
-        isOpen = true;
     }
 
     public void Close()
