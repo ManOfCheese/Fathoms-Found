@@ -17,6 +17,10 @@ namespace TheKiwiCoder
 		public bool gestureSignalDetected = false;
 		public bool checkForTermors = true;
 		public bool checkForSignals = true;
+		public bool overrideWanderSettings = false;
+		public float wanderRadius = 10f;
+		public float wanderTorusInnerRadius = 5f;
+		public Vector3 wanderCentre = Vector3.zero;
 		public Vector3 moveToPosition = Vector3.zero;
 		public List<Vector3> objectTargets = new List<Vector3>();
 
@@ -27,6 +31,10 @@ namespace TheKiwiCoder
 			AddData( "gestureSignalDetected", gestureSignalDetected );
 			AddData( "checkForTremors", checkForTermors );
 			AddData( "checkForSignals", checkForSignals );
+			AddData( "overrideWanderSettings", overrideWanderSettings );
+			AddData( "wanderRadius", wanderRadius );
+			AddData( "wanderTorusInnerRadius", wanderTorusInnerRadius );
+			AddData( "wanderCentre", wanderCentre );
 			AddData( "moveToPosition", moveToPosition );
 			AddData( "objectTargets", objectTargets );
 		}
@@ -38,6 +46,10 @@ namespace TheKiwiCoder
 			RemoveData( "gestureSignalDetected" );
 			RemoveData( "checkForTremors" );
 			RemoveData( "checkForSignals" );
+			RemoveData( "overrideWanderSettings" );
+			RemoveData( "wanderRadius" );
+			RemoveData( "wanderTorusInnerRadius" );
+			RemoveData( "wanderCentre" );
 			RemoveData( "moveToPosition" );
 			RemoveData( "objectTargets" );
 		}
