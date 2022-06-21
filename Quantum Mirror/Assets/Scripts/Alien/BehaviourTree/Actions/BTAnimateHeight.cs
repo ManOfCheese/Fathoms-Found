@@ -6,7 +6,6 @@ using TheKiwiCoder;
 public class BTAnimateHeight : BTActionNode
 {
 
-    public bool useSlerp;
     public float speed;
     public float targetHeight;
 
@@ -20,6 +19,6 @@ public class BTAnimateHeight : BTActionNode
     }
 
     protected override State OnUpdate() {
-        return context.ikManager.ChangeAlienHeight( useSlerp, speed, targetHeight );
+        return context.ikManager.ChangeAlienHeight( speed, targetHeight );
     }
 }

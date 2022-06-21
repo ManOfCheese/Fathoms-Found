@@ -15,6 +15,7 @@ public class AlienIKManager : GestureSender
 	public List<HandController> allHands;
 
 	[Header( "Settings" )]
+	public float currentHeight;
 	public int maxHandsUseSimultaneously;
 	public bool defaultFingerPos = true;
 
@@ -63,7 +64,8 @@ public class AlienIKManager : GestureSender
 	private float p = 0f;
 	private float changeHeightSpeed;
 	private float startHeight;
-	private float targetHeight;
+	private float lerpStartHeight;
+	private float lerpTargetHeight = 1f;
 
 	protected override void Awake()
 	{
@@ -71,6 +73,7 @@ public class AlienIKManager : GestureSender
 		alienManager = GetComponent<AlienManager>();
 		agent = GetComponentInParent<NavMeshAgent>();
 		handsAvailable = maxHandsUseSimultaneously;
+		startHeight = currentHeight;
 
 		states.Add( GesturingState.Instance );
 		states[ states.Count - 1 ].stateName = "GesturingState";
@@ -96,6 +99,14 @@ public class AlienIKManager : GestureSender
 	{
 		for ( int i = 0; i < allHands.Count; i++ )
 			allHands[ i ].stateMachine.Update();
+
+		Ray ray = new Ray( body.position, Vector3.down );
+		Debug.DrawRay( ray.origin, ray.direction * 10f, Color.white );
+
+		if ( Physics.Raycast( ray, out RaycastHit info, 10, terrainLayer.value ) )
+		{
+			body.transform.position = info.point + new Vector3( 0f, currentHeight, 0f );
+		}
 	}
 
 	private void OnValidate()
@@ -108,16 +119,15 @@ public class AlienIKManager : GestureSender
 		}
 	}
 
-	public BTNode.State ChangeAlienHeight( bool _useSlerp, float _speed, float _targetHeight )
+	public BTNode.State ChangeAlienHeight( float _speed, float _targetHeight )
 	{
 		if ( !changingHeight )
 		{
 			changingHeight = true;
 			p = 0f;
-			useSlerp = _useSlerp;
 			changeHeightSpeed = _speed;
-			startHeight = body.transform.localPosition.y;
-			targetHeight = _targetHeight;
+			lerpStartHeight = currentHeight;
+			lerpTargetHeight = startHeight + _targetHeight;
 			return BTNode.State.Running;
 		}
 		else
@@ -125,20 +135,13 @@ public class AlienIKManager : GestureSender
 			p += changeHeightSpeed * Time.deltaTime;
 			if ( p < 1 )
 			{
-				if ( useSlerp )
-				{
-					body.transform.localPosition = Vector3.Slerp( new Vector3( body.localPosition.x, startHeight, body.localPosition.z ),
-						new Vector3( body.localPosition.x, targetHeight, body.localPosition.z ), p );
-				}
-				else
-				{
-					body.transform.localPosition = Vector3.Lerp( new Vector3( body.localPosition.x, startHeight, body.localPosition.z ),
-						new Vector3( body.localPosition.x, targetHeight, body.localPosition.z ), p );
-				}
+				currentHeight = Mathf.Lerp( startHeight, lerpTargetHeight, p );
 				return BTNode.State.Running;
 			}
 			else if ( p >= 1 )
 			{
+				p = 1f;
+				currentHeight = Mathf.Lerp( startHeight, lerpTargetHeight, p );
 				changingHeight = false;
 				return BTNode.State.Success;
 			}
