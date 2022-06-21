@@ -103,9 +103,10 @@ public class AlienIKManager : GestureSender
 		Ray ray = new Ray( body.position, Vector3.down );
 		Debug.DrawRay( ray.origin, ray.direction * 10f, Color.white );
 
-		if ( Physics.Raycast( ray, out RaycastHit info, 10, terrainLayer.value ) )
+		if ( Physics.Raycast( ray, out RaycastHit info, 100, terrainLayer ) )
 		{
 			body.transform.position = info.point + new Vector3( 0f, currentHeight, 0f );
+			this.transform.position = info.point + new Vector3( 0f, currentHeight, 0f );
 		}
 	}
 

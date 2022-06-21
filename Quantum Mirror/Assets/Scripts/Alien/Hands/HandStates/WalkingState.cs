@@ -45,7 +45,7 @@ public class WalkingState : State<HandController>
         Ray ray = new Ray( _o.ikManager.body.position + _o.footSpacing * 2f, Vector3.down );
         Debug.DrawRay( ray.origin, ray.direction * 10f, Color.white );
 
-        if ( Physics.Raycast( ray, out RaycastHit info, 10, _o.terrainLayer.value ) )
+        if ( Physics.Raycast( ray, out RaycastHit info, 20, _o.terrainLayer.value ) )
         {
             if ( Vector3.Distance( _o.newPosition, info.point ) > _o.stepDistance * Random.Range( _o.stepDistRandomization.x, _o.stepDistRandomization.y ) && 
                 _o.lerp >= 1 )
