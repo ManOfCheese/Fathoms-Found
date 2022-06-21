@@ -96,6 +96,9 @@ MonoBehaviour:
   - {fileID: -1030223442372303146}
   - {fileID: 1531391850754289109}
   - {fileID: -3769722819470853077}
+  - {fileID: -1031414311156951631}
+  - {fileID: 137007212970412474}
+  - {fileID: -1220376824646281805}
 --- !u!114 &-7979893617094791088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,6 +715,35 @@ MonoBehaviour:
   key: objectTargets
   positionListValue: []
   objectTargets: {fileID: 11400000, guid: 33c154f9e55971a46b5c3fda83012ed3, type: 2}
+--- !u!114 &-1220376824646281805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
+  m_Name: BTSetBBValue
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a944af2cb5e1b0a4bb28b463b7ec70b9
+  position: {x: 1138.3926, y: 1544}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  valueType: 2
+  key: overrideWanderSettings
+  gameObjectValue: {fileID: 0}
+  boolValue: 1
+  intValue: 0
+  stringValue: 
+  floatValue: 0
+  vector3Value: {x: 0, y: 0, z: 0}
+  vector2Value: {x: 0, y: 0}
 --- !u!114 &-1213948719588816532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,6 +792,35 @@ MonoBehaviour:
   - {fileID: 2278995322618159207}
   - {fileID: -3917505833799675339}
   - {fileID: 4313905474739401839}
+--- !u!114 &-1031414311156951631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
+  m_Name: BTSetBBValue
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 51cbca399e264c042b0149962dd0f020
+  position: {x: 805.90265, y: 1544.0002}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  valueType: 6
+  key: wanderCentre
+  gameObjectValue: {fileID: 0}
+  boolValue: 0
+  intValue: 0
+  stringValue: 
+  floatValue: 0
+  vector3Value: {x: 386, y: 338, z: 38}
+  vector2Value: {x: 0, y: 0}
 --- !u!114 &-1030223442372303146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1009,7 +1070,39 @@ MonoBehaviour:
   - {fileID: -1193602056429620683}
   - {fileID: 2278995322618159207}
   - {fileID: 4462568183063164227}
+  - {fileID: -1031414311156951631}
+  - {fileID: 137007212970412474}
+  - {fileID: -1220376824646281805}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+--- !u!114 &137007212970412474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
+  m_Name: BTSetBBValue
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 588f36f178fd20c4c963984cf7ada8fd
+  position: {x: 969.6526, y: 1544.0002}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  valueType: 5
+  key: wanderRadius
+  gameObjectValue: {fileID: 0}
+  boolValue: 0
+  intValue: 0
+  stringValue: 
+  floatValue: 30
+  vector3Value: {x: 0, y: 0, z: 0}
+  vector2Value: {x: 0, y: 0}
 --- !u!114 &277210253734526920
 MonoBehaviour:
   m_ObjectHideFlags: 0

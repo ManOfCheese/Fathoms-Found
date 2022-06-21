@@ -43,16 +43,13 @@ public class AlienMovementController : MonoBehaviour
     public float maxDistance;
 
     [Header( "Torus Settings" )]
-    [SerializeField] private Transform torusCenter;
     [Tooltip( "What is the inner radius in units of the torus." )]
-    [SerializeField] private float torusInnerRadius;
-    [Tooltip( "What is the outer radius in units of the torus." )]
-    [SerializeField] private float torusOuterRadius;
+    public float torusInnerRadius;
 
     [Header( "Circle Settings" )]
-    [SerializeField] private Transform circleCenter;
+    public Transform wanderCentre;
     [Tooltip( "What is the radius in units of the circle." )]
-    [SerializeField] private float circleRadius;
+    public float wanderRadius;
 
     [HideInInspector] public NavMeshAgent agent;
     private float idleDestinationTimestamp;
@@ -82,12 +79,12 @@ public class AlienMovementController : MonoBehaviour
         switch ( movementShape )
         {
             case MovementShape.Torus:
-                return GetRandomPos( torusCenter.transform.position, torusInnerRadius, torusOuterRadius );
+                return GetRandomPos( wanderCentre.transform.position, torusInnerRadius, wanderRadius );
             case MovementShape.Circle:
-                if ( circleCenter != null )
-                    return GetRandomPos( circleCenter.transform.position, 0f, circleRadius );
+                if ( wanderCentre != null )
+                    return GetRandomPos( wanderCentre.transform.position, 0f, wanderRadius );
                 else
-                    return GetRandomPos( Vector3.zero, 0f, circleRadius );
+                    return GetRandomPos( Vector3.zero, 0f, wanderRadius );
             case MovementShape.None:
                 return GetRandomPos( transform.position, minDistance, maxDistance );
             default:
@@ -158,11 +155,11 @@ public class AlienMovementController : MonoBehaviour
 	{
         if ( agent != null )
             Gizmos.DrawSphere( agent.destination, 2 );
-        if ( circleCenter )
-            Gizmos.DrawWireSphere( circleCenter.transform.position, circleRadius );
-        if ( torusCenter ) {
-            Gizmos.DrawWireSphere( torusCenter.transform.position, torusInnerRadius );
-            Gizmos.DrawWireSphere( torusCenter.transform.position, torusOuterRadius );
+        if ( movementShape == MovementShape.Circle )
+            Gizmos.DrawWireSphere( wanderCentre.transform.position, wanderRadius );
+        if ( movementShape == MovementShape.Torus ) {
+            Gizmos.DrawWireSphere( wanderCentre.transform.position, torusInnerRadius );
+            Gizmos.DrawWireSphere( wanderCentre.transform.position, wanderRadius );
         }
 	}
 }
