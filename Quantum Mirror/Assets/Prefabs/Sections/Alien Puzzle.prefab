@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1052767593304224186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7212926979742401989}
+  m_Layer: 0
+  m_Name: WanderCircleCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7212926979742401989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052767593304224186}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -18.974396, y: -90.66287, z: 118.269424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4031161765315901455}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4031161765315901454
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,6 +60,8 @@ Transform:
   - {fileID: 5105184027845832376}
   - {fileID: 3244580587439769503}
   - {fileID: 3930624961596538504}
+  - {fileID: 4225645895292969978}
+  - {fileID: 7212926979742401989}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -128,6 +160,331 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &1942287871386777641
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4031161765315901455}
+    m_Modifications:
+    - target: {fileID: 1241479347, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
+      propertyPath: tree
+      value: 
+      objectReference: {fileID: 11400000, guid: b04bffeb8bf31e74e953d675e5592b2d,
+        type: 2}
+    - target: {fileID: 1241479347, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
+      propertyPath: blackBoard
+      value: 
+      objectReference: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88,
+        type: 2}
+    - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: pointSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: heightOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: holdPointFor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456975041399090979, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: maxGestureDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646605481852006723, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646605481852006723, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: pointSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646605481852006723, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646605481852006723, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: heightOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646605481852006723, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: holdPointFor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646605481852006723, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646605481852006723, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: maxGestureDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -92.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 120.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773963284532688445, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773963284532688445, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: pointSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773963284532688445, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773963284532688445, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: heightOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773963284532688445, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: holdPointFor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773963284532688445, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2773963284532688445, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: maxGestureDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106136456687042921, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: m_Name
+      value: Alien_PREF
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706078692101808655, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706078692101808655, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: pointSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706078692101808655, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706078692101808655, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: heightOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706078692101808655, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: holdPointFor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706078692101808655, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706078692101808655, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: maxGestureDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638743939463127235, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: gestureDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638743939463127235, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: maxGestureDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638743939463127235, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistRandomization.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5638743939463127235, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistRandomization.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856848472542703901, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856848472542703901, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: pointSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856848472542703901, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856848472542703901, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: heightOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856848472542703901, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: holdPointFor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856848472542703901, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856848472542703901, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: maxGestureDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: circleCenter
+      value: 
+      objectReference: {fileID: 7212926979742401989}
+    - target: {fileID: 6278649203793106860, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: circleRadius
+      value: 17.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: pointSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: heightOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: holdPointFor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: stepDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999794143471415841, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+        type: 3}
+      propertyPath: maxGestureDistance
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56, type: 3}
+--- !u!4 &4225645895292969978 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2328613941833931731, guid: 4df18a42c99cd9a4aac7e7ef53fa0e56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942287871386777641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4192306875687889637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15615,6 +15972,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5430913824853568634, guid: d149377c721bff942b6ff2a2658c232f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6916392897436210727, guid: d149377c721bff942b6ff2a2658c232f,
         type: 3}
       propertyPath: m_Name
@@ -15688,24 +16050,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4192306875687889637}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &8324818836830142624 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5307952050224507461, guid: d149377c721bff942b6ff2a2658c232f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4192306875687889637}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &741325927 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4192306876427425410, guid: d149377c721bff942b6ff2a2658c232f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4192306875687889637}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &864507218586150015 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3589729922519355034, guid: d149377c721bff942b6ff2a2658c232f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4192306875687889637}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6283432213027132802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15718,36 +16062,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlienPuzzle2_Materials
       objectReference: {fileID: 0}
-    - target: {fileID: 3140056311960529156, guid: e82f9988fa1465743b2aad04f56d9635,
-        type: 3}
-      propertyPath: wire
-      value: 
-      objectReference: {fileID: 741325927}
-    - target: {fileID: 3140056311960529156, guid: e82f9988fa1465743b2aad04f56d9635,
-        type: 3}
-      propertyPath: panel
-      value: 
-      objectReference: {fileID: 8324818836830142624}
-    - target: {fileID: 3140056311960529156, guid: e82f9988fa1465743b2aad04f56d9635,
-        type: 3}
-      propertyPath: solution
-      value: 
-      objectReference: {fileID: 864507218586150015}
-    - target: {fileID: 3140056312912213827, guid: e82f9988fa1465743b2aad04f56d9635,
-        type: 3}
-      propertyPath: wire
-      value: 
-      objectReference: {fileID: 741325927}
-    - target: {fileID: 3140056312912213827, guid: e82f9988fa1465743b2aad04f56d9635,
-        type: 3}
-      propertyPath: panel
-      value: 
-      objectReference: {fileID: 8324818836830142624}
-    - target: {fileID: 3140056312912213827, guid: e82f9988fa1465743b2aad04f56d9635,
-        type: 3}
-      propertyPath: solution
-      value: 
-      objectReference: {fileID: 864507218586150015}
     - target: {fileID: 4994128388143428537, guid: e82f9988fa1465743b2aad04f56d9635,
         type: 3}
       propertyPath: m_Mesh

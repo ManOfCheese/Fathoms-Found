@@ -12,6 +12,9 @@ public class DoorResponse : MonoBehaviour
     public Animator solution;
     public Animator panel;
 
+    private bool correctInput;
+    private bool closeWhenDone;
+
     void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -21,57 +24,72 @@ public class DoorResponse : MonoBehaviour
 
     public void Open() 
     {
-
-        if ( isOpen == true )
-        {
+        if ( isOpen == true && !animator.GetCurrentAnimatorStateInfo( 0 ).IsName( "CloseDoor" ) )
             animator.SetTrigger( "Error" );
-        }
-
-        if ( isOpen == false )
-        {
-            StartCoroutine(CorrectInput());
-        }
+        else
+            StartCoroutine( CorrectInput() );
     }
+
     IEnumerator CorrectInput()
     {
-        if (panel != null)
-        panel.SetBool ( "Active", true );
+        correctInput = true;
 
-        if (wire != null)
-        wire.SetBool("Active", true);
-        yield return new WaitForSeconds(3);
+        if ( panel != null )
+            panel.SetBool( "Active", true );
 
-        if(solution != null)
-        solution.SetBool("Active", true);
-        yield return new WaitForSeconds(1);
+        if ( wire != null )
+            wire.SetBool( "Active", true );
+        yield return new WaitForSeconds( 3 );
 
-        if(animator != null)
-        animator.SetBool( "Open", true );
-        
-        isOpen = true;
+        if ( solution != null )
+            solution.SetBool( "Active", true );
+        yield return new WaitForSeconds( 1 );
+
+        if ( animator != null )
+            animator.SetTrigger( "Open" );
+
+        correctInput = false;
     }
 
     public void Close()
     {
-        if ( isOpen == false )
+        if ( correctInput )
         {
+            StopCoroutine( CorrectInput() );
+            if ( panel != null )
+                panel.SetBool( "Active", false );
+
+            if ( wire != null )
+                wire.SetBool( "Active", false );
+
+            if ( solution != null )
+                solution.SetBool( "Active", false );
+            correctInput = false;
+            CloseDoor();
+        }
+        else if ( isOpen == false && !animator.GetCurrentAnimatorStateInfo( 0 ).IsName( "OpenDoor" ) )
             animator.SetTrigger( "Error" );
-        }
+        else
+            CloseDoor();
+    }
 
-        if ( isOpen == true )
-        {
-            animator.SetBool( "Open", false );
-            
-            if (wire != null)
-            wire.SetBool("Active", false );
+    private void CloseDoor()
+	{
+        animator.SetTrigger( "Close" );
 
-            if (solution != null)
-            solution.SetBool("Active", false);
+        if ( wire != null )
+            wire.SetBool( "Active", false );
 
-            if (panel != null)
-            panel.SetBool("Active", false );
+        if ( solution != null )
+            solution.SetBool( "Active", false );
 
-            isOpen = false;
-        }
+        if ( panel != null )
+            panel.SetBool( "Active", false );
+    }
+
+    public void AnimationCompleted()
+	{
+        isOpen = !isOpen;
+        animator.SetBool( "IsOpen", isOpen );
     }
 }

@@ -59,7 +59,6 @@ public class BTCheckGesture : BTDecoratorNode
                 else
                     return State.Failure;
             case CheckMode.PerfectMatch:
-                Debug.Log( gCode + " |  " + Sam.Gesturing.GestureListToGCode( playerSentence ) );
                 if ( gCode == Sam.Gesturing.GestureListToGCode( playerSentence ) ) 
                     return child.Update();
                 else
