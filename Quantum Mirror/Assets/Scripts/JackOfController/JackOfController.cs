@@ -77,19 +77,12 @@ public class JackOfController : MonoBehaviour {
     public LayerMask groundMask;
 
     [Header( "Audio References" )]
-    public AudioInfo tracksStartSource;
+    public float walkPitch;
+    public float sprintPitch;
     public AudioInfo tracksGoingSource;
-    public AudioInfo tracksSprintSource;
-    public AudioInfo tracksStopSource;
-    public AudioInfo cameraMoveSource;
+    public AudioInfo tracksGoingSource2;
+    public AudioInfo collisionSource;
     public Fader tracksFader;
-
-    [Header( "Audio Settings" )]
-    public bool cameraSounds;
-    public float crossFadeDuration;
-    public float cameraStopTime;
-    public AudioClip[] tracksStart;
-    public AudioClip[] tracksStop;
     #endregion
 
     #region Non-public Variables
@@ -162,12 +155,6 @@ public class JackOfController : MonoBehaviour {
 		{
             Vector2 mouseLook = value.ReadValue<Vector2>();
             lookVector = new Vector2( mouseLook.y, mouseLook.x );
-            cameraStillTimer = 0f;
-            if ( !looking && cameraSounds )
-			{
-                looking = true;
-                cameraMoveSource.source.Play();
-            }
         }
     }
 
@@ -182,24 +169,14 @@ public class JackOfController : MonoBehaviour {
         if ( value.performed && !moving )
 		{
             moving = true;
-            tracksStartSource.clip = tracksStart[ Random.Range( 0, tracksStart.Length - 1 ) ];
-            tracksStartSource.source.Play();
-            if ( sprinting ) {
-                tracksSprintSource.source.volume = tracksGoingSource.startVolume;
-                tracksSprintSource.source.Play();
-            }
-			else {
-                tracksGoingSource.source.volume = tracksGoingSource.startVolume;
-                tracksGoingSource.source.Play();
-            }
+            tracksFader.Fade( tracksGoingSource.source, 0f, tracksGoingSource.startVolume, 0.5f, false );
+            tracksFader.Fade( tracksGoingSource2.source, 0f, tracksGoingSource2.startVolume, 0.5f, false );
         }
         else if ( value.canceled && moving )
 		{
             moving = false;
-            tracksStopSource.clip = tracksStop[ Random.Range( 0, tracksStart.Length - 1 ) ];
-            tracksStopSource.source.Play();
-            tracksSprintSource.source.Stop();
-            tracksGoingSource.source.Stop();
+            tracksFader.Fade( tracksGoingSource.source, tracksGoingSource.startVolume, 0f, 0.5f, false );
+            tracksFader.Fade( tracksGoingSource2.source, tracksGoingSource2.startVolume, 0f, 0.5f, false );
         }
     }
 
@@ -210,21 +187,17 @@ public class JackOfController : MonoBehaviour {
         if ( value.started )
         {
             sprinting = true;
+            tracksFader.Fade( tracksGoingSource.source, walkPitch, sprintPitch, 0.5f, true );
+            tracksFader.Fade( tracksGoingSource2.source, walkPitch, sprintPitch, 0.5f, true );
             tremorSource.SetTremorIntesity( runTremorIntesity );
-            if ( moving )
-			{
-                tracksFader.Crossfade( tracksGoingSource.source, tracksSprintSource.source, tracksGoingSource.source.volume, 0f, crossFadeDuration );
-            }
         }
         if ( value.canceled ) 
         {
             sprinting = false;
             currentSpeed = speed;
+            tracksFader.Fade( tracksGoingSource.source, sprintPitch, walkPitch, 0.5f, true );
+            tracksFader.Fade( tracksGoingSource2.source, sprintPitch, walkPitch, 0.5f, true );
             tremorSource.SetTremorIntesity( walkTremorIntesity );
-            if ( moving )
-            {
-                tracksFader.Crossfade( tracksSprintSource.source, tracksGoingSource.source, tracksSprintSource.source.volume, 0f, crossFadeDuration );
-            }
         }
     }
 

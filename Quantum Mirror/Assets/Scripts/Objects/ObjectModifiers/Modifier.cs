@@ -116,14 +116,14 @@ public class Modifier : MonoBehaviour
 
 	public virtual void OnThresholdCross()
 	{
-		fader.Crossfade( passiveSource.source, changeSource.source, passiveSource.startVolume, 0f, crossFadeDuration );
+		fader.Crossfade( passiveSource.source, changeSource.source, passiveSource.startVolume, 0f, crossFadeDuration, false );
 
 		if ( thresholdSource != null ) { if ( thresholdSource.clip != null ) thresholdSource.source.Play(); }
 	}
 
 	public virtual void OnThresholdUncross()
 	{
-		fader.Crossfade( changeSource.source, passiveSource.source, changeSource.startVolume, 0f, crossFadeDuration );
+		fader.Crossfade( changeSource.source, passiveSource.source, changeSource.startVolume, 0f, crossFadeDuration, false );
 
 		if ( thresholdSource.source != null ) { if ( thresholdSource.clip != null ) thresholdSource.source.Stop(); }
 	}
@@ -148,5 +148,5 @@ public class AudioInfo
 	public float startVolume;
 	public bool loop;
 
-	[HideInInspector] public AudioSource source;
+	[ReadOnly] public AudioSource source;
 }

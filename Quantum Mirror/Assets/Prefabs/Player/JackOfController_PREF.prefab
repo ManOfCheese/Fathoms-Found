@@ -259,7 +259,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 3f668876ba6b927418ecf61d1b717a29, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -908,43 +908,24 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 128
-  tracksStartSource:
-    clip: {fileID: 8300000, guid: bb407b14648e0554daa57b8b2669c252, type: 3}
-    startVolume: 0
-    loop: 0
-    source: {fileID: 0}
+  walkPitch: 1
+  sprintPitch: 1.25
   tracksGoingSource:
-    clip: {fileID: 8300000, guid: 83e9fd3483d0ef641902b527b067ff6b, type: 3}
-    startVolume: 0
-    loop: 0
+    clip: {fileID: 8300000, guid: ba64cce298faabb41b6627ab9b6cbdce, type: 3}
+    startVolume: 0.15
+    loop: 1
     source: {fileID: 0}
-  tracksSprintSource:
-    clip: {fileID: 8300000, guid: 3f668876ba6b927418ecf61d1b717a29, type: 3}
-    startVolume: 0
-    loop: 0
+  tracksGoingSource2:
+    clip: {fileID: 8300000, guid: c5ece659732e2a34a96639d1eba8af21, type: 3}
+    startVolume: 1
+    loop: 1
     source: {fileID: 0}
-  tracksStopSource:
-    clip: {fileID: 8300000, guid: a40f7b9397da91044b208cb447d65f93, type: 3}
-    startVolume: 0
-    loop: 0
-    source: {fileID: 0}
-  cameraMoveSource:
-    clip: {fileID: 8300000, guid: 0bc10382dfb9f5a428f48c68bf124c2c, type: 3}
+  collisionSource:
+    clip: {fileID: 0}
     startVolume: 0
     loop: 0
     source: {fileID: 0}
   tracksFader: {fileID: 478673923}
-  cameraSounds: 0
-  crossFadeDuration: 2
-  cameraStopTime: 0
-  tracksStart:
-  - {fileID: 8300000, guid: bb407b14648e0554daa57b8b2669c252, type: 3}
-  - {fileID: 8300000, guid: fa374d403a884ea4aabab8aadce585a6, type: 3}
-  - {fileID: 8300000, guid: a40f7b9397da91044b208cb447d65f93, type: 3}
-  tracksStop:
-  - {fileID: 8300000, guid: bb407b14648e0554daa57b8b2669c252, type: 3}
-  - {fileID: 8300000, guid: fa374d403a884ea4aabab8aadce585a6, type: 3}
-  - {fileID: 8300000, guid: a40f7b9397da91044b208cb447d65f93, type: 3}
   playerStartHeight: 0
   camStartHeight: 0
   startSensitivity: 0

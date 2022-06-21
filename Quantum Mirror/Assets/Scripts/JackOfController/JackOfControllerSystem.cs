@@ -9,14 +9,14 @@ public class JackOfControllerSystem : ComponentSystem {
     public JackOfController joc;
 
 	public override void Init() {
-        joc.audioInfos = new AudioInfo[ 5 ] { joc.tracksStartSource, joc.tracksGoingSource, joc.tracksSprintSource, joc.tracksStopSource, joc.cameraMoveSource };
+        joc.audioInfos = new AudioInfo[ 3 ] { joc.tracksGoingSource, joc.tracksGoingSource2, joc.collisionSource };
         joc.audioSources = joc.GetComponentsInChildren<AudioSource>();
         for ( int i = 0; i < Mathf.Min( joc.audioSources.Length, joc.audioInfos.Length ); i++ )
         {
             joc.audioInfos[ i ].source = joc.audioSources[ i ];
-            joc.audioSources[ i ].clip = joc.audioSources[ i ].clip;
-            joc.audioSources[ i ].volume = joc.audioSources[ i ].volume;
-            joc.audioSources[ i ].loop = joc.audioSources[ i ].loop;
+            joc.audioSources[ i ].clip = joc.audioInfos[ i ].clip;
+            joc.audioSources[ i ].volume = joc.audioInfos[ i ].startVolume;
+            joc.audioSources[ i ].loop = joc.audioInfos[ i ].loop;
         }
 
         joc.cam = joc.jom.cam;
@@ -43,16 +43,7 @@ public class JackOfControllerSystem : ComponentSystem {
 
 	public override void OnUpdate()
 	{
-        if ( joc.cameraSounds )
-        {
-            joc.cameraStillTimer += Time.deltaTime;
 
-            if ( joc.cameraStillTimer > joc.cameraStopTime )
-            {
-                joc.looking = false;
-                joc.cameraMoveSource.source.Stop();
-            }
-        }
     }
 
 }
