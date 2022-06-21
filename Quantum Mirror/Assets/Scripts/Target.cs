@@ -6,10 +6,14 @@ public class Target : MonoBehaviour
 {
      
     public RunTimeSet<Transform> set;
+	public Transform actualTarget;
 
 	private void Start()
 	{
-		set.Add( transform );
+		if ( actualTarget == null )
+			set.Add( transform );
+		else
+			set.Add( actualTarget );
 	}
 
 	private void OnApplicationQuit()

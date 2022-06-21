@@ -142,26 +142,6 @@ MonoBehaviour:
   children:
   - {fileID: -3326618293911435667}
   - {fileID: 6281549555744275131}
---- !u!114 &-6496003812777159347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8402ef6c653a299418074b3533b09465, type: 3}
-  m_Name: BTLockMovement
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: f2aa6a7f60919d54c903577c4eb08132
-  position: {x: -1127.0001, y: 966.6775}
-  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
-  parentTree: {fileID: 0}
-  description: 
-  drawGizmos: 0
 --- !u!114 &-6155049631387910774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,11 +396,9 @@ MonoBehaviour:
   drawGizmos: 0
   children:
   - {fileID: 7673325235479938080}
-  - {fileID: -6496003812777159347}
   - {fileID: 2449820143037072217}
   - {fileID: 3032271847864551794}
   - {fileID: 4506308946011594463}
-  - {fileID: 7135033083108556847}
   - {fileID: -1636087335895725234}
 --- !u!114 &-3832548918254427399
 MonoBehaviour:
@@ -1055,11 +1033,9 @@ MonoBehaviour:
   - {fileID: 5454444953718486743}
   - {fileID: 9009580020719353447}
   - {fileID: 4375137379217140919}
-  - {fileID: -6496003812777159347}
   - {fileID: 2449820143037072217}
   - {fileID: 3032271847864551794}
   - {fileID: 4506308946011594463}
-  - {fileID: 7135033083108556847}
   - {fileID: -1386119319684327885}
   - {fileID: -9136413065693643908}
   - {fileID: -3358196791699081054}
@@ -1379,7 +1355,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   overrideAgentSettings: 1
-  tolerance: 10
+  tolerance: 12
   speed: 10
   objects: {fileID: 0}
 --- !u!114 &4184747514871202916
@@ -1604,7 +1580,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 564d0a69b12e1e54d9ca053f8082effd
-  position: {x: 295.00003, y: 1184}
+  position: {x: 295.0001, y: 1184.0001}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1744,26 +1720,6 @@ MonoBehaviour:
   - {fileID: -3988787855403744452}
   - {fileID: -1213948719588816532}
   - {fileID: 9009580020719353447}
---- !u!114 &7135033083108556847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60f53eda781f66b4aa498e2a0d4f1e2e, type: 3}
-  m_Name: BTUnlockMovement
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 76e8e659cd31b134e9fa814352c23a1e
-  position: {x: -484.4737, y: 967.5059}
-  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
-  parentTree: {fileID: 0}
-  description: 
-  drawGizmos: 0
 --- !u!114 &7673325235479938080
 MonoBehaviour:
   m_ObjectHideFlags: 0
