@@ -6,7 +6,7 @@ using TheKiwiCoder;
 public class BTUnlockMovement : BTActionNode
 {
     protected override void OnStart() {
-        context.moveController.agent.isStopped = false;
+        context.mc.agent.isStopped = false;
     }
 
     protected override void OnStop() {

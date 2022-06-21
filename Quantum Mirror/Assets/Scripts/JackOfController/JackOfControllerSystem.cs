@@ -21,6 +21,8 @@ public class JackOfControllerSystem : ComponentSystem {
 
         joc.cam = joc.jom.cam;
         joc.cc = joc.jom.cc;
+        joc.xCamRotation = joc.head.transform.eulerAngles.x;
+        joc.yCamRotation = joc.cc.transform.eulerAngles.y;
 
         joc.playerInput = joc.GetComponent<PlayerInput>();
         joc.playerInput.ActivateInput();

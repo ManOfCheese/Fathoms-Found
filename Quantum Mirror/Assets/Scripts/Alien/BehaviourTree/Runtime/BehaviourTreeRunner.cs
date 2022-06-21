@@ -7,6 +7,7 @@ namespace TheKiwiCoder {
 
         // The main behaviour tree asset
         public BehaviourTree tree;
+        public Blackboard blackBoard;
         public BoolValue paused;
 
         // Storage container object to hold game object subsystems
@@ -16,6 +17,7 @@ namespace TheKiwiCoder {
         void Start() {
             context = CreateBehaviourTreeContext();
             tree = tree.Clone();
+            tree.blackboard = blackBoard;
             tree.BindBlackboard();
             tree.BindContext( context );
         }

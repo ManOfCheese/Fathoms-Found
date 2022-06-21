@@ -14,11 +14,9 @@ public class AlienMovementControllerEditor : Editor
          tolerance_Prop,
          minDistance_Prop,
          maxDistance_Prop,
-         torusCenter_Prop,
-         torusInnerRadius_Prop,
-         torusOuterRadius_Prop,
-         circleCenter_Prop,
-         circleRadius_Prop;
+         wanderCentre_Prop,
+         wanderRadius_Prop,
+         torusInnerRadius_Prop;
 
     void OnEnable() {
         // Setup the SerializedProperties
@@ -30,11 +28,9 @@ public class AlienMovementControllerEditor : Editor
         tolerance_Prop = serializedObject.FindProperty( "tolerance" );
         minDistance_Prop = serializedObject.FindProperty( "minDistance" );
         maxDistance_Prop = serializedObject.FindProperty( "maxDistance" );
-        torusCenter_Prop = serializedObject.FindProperty( "torusCenter" );
+        wanderCentre_Prop = serializedObject.FindProperty( "wanderCentre" );
+        wanderRadius_Prop = serializedObject.FindProperty( "wanderRadius" );
         torusInnerRadius_Prop = serializedObject.FindProperty( "torusInnerRadius" );
-        torusOuterRadius_Prop = serializedObject.FindProperty( "torusOuterRadius" );
-        circleCenter_Prop = serializedObject.FindProperty( "circleCenter" );
-        circleRadius_Prop = serializedObject.FindProperty( "circleRadius" );
     }
 
     public override void OnInspectorGUI() {
@@ -78,14 +74,14 @@ public class AlienMovementControllerEditor : Editor
                 break;
 
             case MovementShape.Torus:
-                EditorGUILayout.PropertyField( torusCenter_Prop, new GUIContent( "torusCenter" ) );
+                EditorGUILayout.PropertyField( wanderCentre_Prop, new GUIContent( "wanderCentre" ) );
+                EditorGUILayout.PropertyField( wanderRadius_Prop, new GUIContent( "wanderRadius" ) );
                 EditorGUILayout.PropertyField( torusInnerRadius_Prop, new GUIContent( "torusInnerRadius" ) );
-                EditorGUILayout.PropertyField( torusOuterRadius_Prop, new GUIContent( "torusOuterRadius" ) );
                 break;
 
             case MovementShape.Circle:
-                EditorGUILayout.PropertyField( circleCenter_Prop, new GUIContent( "circleCenter" ) );
-                EditorGUILayout.PropertyField( circleRadius_Prop, new GUIContent( "circleRadius" ) );
+                EditorGUILayout.PropertyField( wanderCentre_Prop, new GUIContent( "wanderCentre" ) );
+                EditorGUILayout.PropertyField( wanderRadius_Prop, new GUIContent( "wanderRadius" ) );
                 break;
 
         }
