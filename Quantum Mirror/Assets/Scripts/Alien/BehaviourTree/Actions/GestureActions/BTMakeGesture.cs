@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
+public enum GestureMode
+{
+	Preset,
+	Blackboard,
+	Library
+}
+
 public class BTMakeGesture : BTActionNode
 {
 
+	public GestureMode gestureMode;
     public GestureSequence sentence;
 
 	public bool overrideStandardSettings;
@@ -76,12 +84,24 @@ public class BTMakeGesture : BTActionNode
 				if ( startAtCentre )
 					hand.gesturesToMake.Add( new Gesture( 0, new bool[ 3 ] { fingerPosAtCentre, fingerPosAtCentre, fingerPosAtCentre } ) );
 
-				if ( sentence != null )
+				switch ( gestureMode )
 				{
-					for ( int j = 0; j < sentence.words.Count; j++ )
-						hand.gesturesToMake.Add( sentence.words[ j ] );
+					case GestureMode.Preset:
+						for ( int j = 0; j < sentence.words.Count; j++ )
+							hand.gesturesToMake.Add( sentence.words[ j ] );
+						break;
+					case GestureMode.Blackboard:
+						GestureSequence bbSentence = context.ikManager.gestureLibrary.Items[ blackboard.GetData( "gestureToInput", new int() ) ];
+						for ( int j = 0; j < bbSentence.words.Count; j++ )
+							hand.gesturesToMake.Add( bbSentence.words[ j ] );
+						break;
+					case GestureMode.Library:
+						break;
+					default:
+						break;
 				}
-				else if ( hand.gesturesToMake.Count == 0 && !endAtCentre )
+				
+				if ( hand.gesturesToMake.Count == 0 && !endAtCentre )
 					endAtCentre = true;
 
 				if ( endAtCentre )
