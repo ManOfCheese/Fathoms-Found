@@ -14,7 +14,8 @@ public class JackOfControllerSystem : ComponentSystem {
         for ( int i = 0; i < Mathf.Min( joc.audioSources.Length, joc.audioInfos.Length ); i++ )
         {
             joc.audioInfos[ i ].source = joc.audioSources[ i ];
-            joc.audioSources[ i ].clip = joc.audioInfos[ i ].clip;
+            if ( joc.audioInfos[ i ].clips.Length > 0 )
+                joc.audioSources[ i ].clip = joc.audioInfos[ i ].clips[ 0 ];
             joc.audioSources[ i ].volume = joc.audioInfos[ i ].startVolume;
             joc.audioSources[ i ].loop = joc.audioInfos[ i ].loop;
         }

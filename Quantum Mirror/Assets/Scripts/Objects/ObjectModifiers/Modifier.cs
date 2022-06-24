@@ -63,7 +63,8 @@ public class Modifier : MonoBehaviour
 		for ( int i = 0; i < Mathf.Min( audioInfos.Length, audioSources.Length ); i++ )
 		{
 			audioInfos[ i ].source = audioSources[ i ];
-			audioSources[ i ].clip = audioInfos[ i ].clip;
+			if ( audioInfos[ i ].clips.Length > 0 )
+				audioSources[ i ].clip = audioInfos[ i ].clips[ 0 ];
 			audioSources[ i ].volume = audioInfos[ i ].startVolume;
 			audioSources[ i ].loop = audioInfos[ i ].loop;
 		}
@@ -118,14 +119,14 @@ public class Modifier : MonoBehaviour
 	{
 		fader.Crossfade( passiveSource.source, changeSource.source, passiveSource.startVolume, 0f, crossFadeDuration, false );
 
-		if ( thresholdSource != null ) { if ( thresholdSource.clip != null ) thresholdSource.source.Play(); }
+		if ( thresholdSource != null ) { if ( thresholdSource.clips != null ) thresholdSource.source.Play(); }
 	}
 
 	public virtual void OnThresholdUncross()
 	{
 		fader.Crossfade( changeSource.source, passiveSource.source, changeSource.startVolume, 0f, crossFadeDuration, false );
 
-		if ( thresholdSource.source != null ) { if ( thresholdSource.clip != null ) thresholdSource.source.Stop(); }
+		if ( thresholdSource.source != null ) { if ( thresholdSource.clips != null ) thresholdSource.source.Stop(); }
 	}
 
     public virtual void ModifyObjectPerc( float t )
@@ -143,7 +144,7 @@ public class Modifier : MonoBehaviour
 [System.Serializable]
 public class AudioInfo
 {
-	public AudioClip clip;
+	public AudioClip[] clips;
 	[Range( 0f, 1f )]
 	public float startVolume;
 	public bool loop;

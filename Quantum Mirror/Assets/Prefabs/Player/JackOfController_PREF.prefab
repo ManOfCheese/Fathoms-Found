@@ -258,7 +258,8 @@ AudioSource:
   m_GameObject: {fileID: 1556831474}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4f96d92bb003cb9469e5305b9c781aa1,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 3f668876ba6b927418ecf61d1b717a29, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -354,7 +355,8 @@ AudioSource:
   m_GameObject: {fileID: 1556831474}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4f96d92bb003cb9469e5305b9c781aa1,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -450,7 +452,8 @@ AudioSource:
   m_GameObject: {fileID: 1556831474}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4f96d92bb003cb9469e5305b9c781aa1,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -546,7 +549,8 @@ AudioSource:
   m_GameObject: {fileID: 1556831474}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4f96d92bb003cb9469e5305b9c781aa1,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -642,7 +646,8 @@ AudioSource:
   m_GameObject: {fileID: 1556831474}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 4f96d92bb003cb9469e5305b9c781aa1,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -910,18 +915,21 @@ MonoBehaviour:
     m_Bits: 128
   walkPitch: 1
   sprintPitch: 1.25
+  walkSoundFadeInDuration: 1
+  walkSoundFadeOutDuration: 0.25
+  walkPitchFadeDuration: 0.1
   tracksGoingSource:
-    clip: {fileID: 8300000, guid: ba64cce298faabb41b6627ab9b6cbdce, type: 3}
-    startVolume: 1
+    clips: []
+    startVolume: 0.5
     loop: 1
     source: {fileID: 0}
   tracksGoingSource2:
-    clip: {fileID: 8300000, guid: c5ece659732e2a34a96639d1eba8af21, type: 3}
-    startVolume: 0.12
+    clips: []
+    startVolume: 0.1
     loop: 1
     source: {fileID: 0}
   collisionSource:
-    clip: {fileID: 0}
+    clips: []
     startVolume: 0
     loop: 0
     source: {fileID: 0}

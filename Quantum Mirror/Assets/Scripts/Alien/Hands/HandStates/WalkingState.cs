@@ -86,6 +86,13 @@ public class WalkingState : State<HandController>
 
             _o.currentPosition = tempPosition;
             _o.lerp += Time.deltaTime * _o.walkSpeed;
+
+            if ( _o.lerp >= 1f )
+			{
+                _o.handStepSource.source.clip = _o.handStepSource.clips[ Random.Range( 0, _o.handStepSource.clips.Length - 1 ) ];
+                _o.handStepSource.source.pitch = Random.Range( _o.pitchRandomizationRange.x, _o.pitchRandomizationRange.y );
+                _o.handStepSource.source.Play();
+            }
         }
         else
         {
