@@ -29,6 +29,11 @@ public class HandController : MonoBehaviour
     public Transform handTransform;
     public Transform idleHandTarget;
 
+    [Header( "Sound Settings" )]
+    public float fadeDuration;
+    public Vector2 pitchRandomizationRange;
+    public AudioInfo handStepSource;
+
     [HideInInspector] public bool defaultFingerPos = true;
     [HideInInspector] public AlienIKManager ikManager;
     [HideInInspector] public StateMachine<HandController> stateMachine;
@@ -89,6 +94,11 @@ public class HandController : MonoBehaviour
         footSpacing = transform.localPosition;
         currentPosition = newPosition = oldPosition = transform.position;
         lerp = 1f;
+
+        handStepSource.source = GetComponent<AudioSource>();
+        if ( handStepSource.clips.Length > 0 )
+            handStepSource.source.clip = handStepSource.clips[ 0 ];
+        handStepSource.source.volume = handStepSource.startVolume;
     }
 
 	public void SyncSettingsWithManager()

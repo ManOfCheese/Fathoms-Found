@@ -77,19 +77,15 @@ public class JackOfController : MonoBehaviour {
     public LayerMask groundMask;
 
     [Header( "Audio References" )]
-    public AudioInfo tracksStartSource;
+    public float walkPitch;
+    public float sprintPitch;
+    public float walkSoundFadeInDuration = 0.25f;
+    public float walkSoundFadeOutDuration = 0.25f;
+    public float walkPitchFadeDuration = 0.1f;
     public AudioInfo tracksGoingSource;
-    public AudioInfo tracksSprintSource;
-    public AudioInfo tracksStopSource;
-    public AudioInfo cameraMoveSource;
+    public AudioInfo tracksGoingSource2;
+    public AudioInfo collisionSource;
     public Fader tracksFader;
-
-    [Header( "Audio Settings" )]
-    public bool cameraSounds;
-    public float crossFadeDuration;
-    public float cameraStopTime;
-    public AudioClip[] tracksStart;
-    public AudioClip[] tracksStop;
     #endregion
 
     #region Non-public Variables
@@ -162,12 +158,6 @@ public class JackOfController : MonoBehaviour {
 		{
             Vector2 mouseLook = value.ReadValue<Vector2>();
             lookVector = new Vector2( mouseLook.y, mouseLook.x );
-            cameraStillTimer = 0f;
-            if ( !looking && cameraSounds )
-			{
-                looking = true;
-                cameraMoveSource.source.Play();
-            }
         }
     }
 
@@ -182,24 +172,16 @@ public class JackOfController : MonoBehaviour {
         if ( value.performed && !moving )
 		{
             moving = true;
-            tracksStartSource.clip = tracksStart[ Random.Range( 0, tracksStart.Length - 1 ) ];
-            tracksStartSource.source.Play();
-            if ( sprinting ) {
-                tracksSprintSource.source.volume = tracksGoingSource.startVolume;
-                tracksSprintSource.source.Play();
-            }
-			else {
-                tracksGoingSource.source.volume = tracksGoingSource.startVolume;
-                tracksGoingSource.source.Play();
-            }
+            tracksFader.StopAllCoroutines();
+            tracksFader.Fade( tracksGoingSource.source, 0f, tracksGoingSource.startVolume, walkSoundFadeInDuration, false );
+            tracksFader.Fade( tracksGoingSource2.source, 0f, tracksGoingSource2.startVolume, walkSoundFadeInDuration, false );
         }
         else if ( value.canceled && moving )
 		{
             moving = false;
-            tracksStopSource.clip = tracksStop[ Random.Range( 0, tracksStart.Length - 1 ) ];
-            tracksStopSource.source.Play();
-            tracksSprintSource.source.Stop();
-            tracksGoingSource.source.Stop();
+            tracksFader.StopAllCoroutines();
+            tracksFader.Fade( tracksGoingSource.source, tracksGoingSource.startVolume, 0f, walkSoundFadeOutDuration, false );
+            tracksFader.Fade( tracksGoingSource2.source, tracksGoingSource2.startVolume, 0f, walkSoundFadeOutDuration, false );
         }
     }
 
@@ -210,28 +192,28 @@ public class JackOfController : MonoBehaviour {
         if ( value.started )
         {
             sprinting = true;
+            tracksFader.Fade( tracksGoingSource.source, walkPitch, sprintPitch, walkPitchFadeDuration, true );
+            tracksFader.Fade( tracksGoingSource2.source, walkPitch, sprintPitch, walkPitchFadeDuration, true );
             tremorSource.SetTremorIntesity( runTremorIntesity );
-            if ( moving )
-			{
-                tracksFader.Crossfade( tracksGoingSource.source, tracksSprintSource.source, tracksGoingSource.source.volume, 0f, crossFadeDuration );
-            }
         }
         if ( value.canceled ) 
         {
             sprinting = false;
             currentSpeed = speed;
+            tracksFader.Fade( tracksGoingSource.source, sprintPitch, walkPitch, walkPitchFadeDuration, true );
+            tracksFader.Fade( tracksGoingSource2.source, sprintPitch, walkPitch, walkPitchFadeDuration, true );
             tremorSource.SetTremorIntesity( walkTremorIntesity );
-            if ( moving )
-            {
-                tracksFader.Crossfade( tracksSprintSource.source, tracksGoingSource.source, tracksSprintSource.source.volume, 0f, crossFadeDuration );
-            }
         }
     }
 
     public void OnJump( InputAction.CallbackContext value ) 
     {
         if ( paused.Value ) { return; }
-        if ( value.performed && ( grounded || jumpCount < jumps ) ) jump = true;
+        if ( value.performed && ( grounded || jumpCount < jumps ) )
+        {
+            tracksFader.Fade( tracksGoingSource2.source, tracksGoingSource2.startVolume, 0f, walkSoundFadeOutDuration, false );
+            jump = true;
+        }
     }
 	#endregion
 
@@ -318,6 +300,9 @@ public class JackOfController : MonoBehaviour {
             if ( newGrounded && jom.stateMachine.CurrentState != jom.statesByName[ "GroundedState" ] ) 
             {
                 jom.stateMachine.ChangeState( jom.statesByName[ "GroundedState" ] );
+
+                if ( moving )
+                    tracksFader.Fade( tracksGoingSource2.source, 0f, tracksGoingSource2.startVolume, 0.1f, false );
 
                 float previousTremorIntensity = tremorSource.tremorIntensity;
                 tremorSource.SetTremorIntesity( landTremorIntensity );

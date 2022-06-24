@@ -42,7 +42,9 @@ public class PointingState : State<HandController>
 
 	public override void UpdateState( HandController _o )
 	{
-		_o.handTransform.LookAt( _o.handTransform.transform.parent.transform.up * -5f );
+		_o.handTransform.LookAt( _o.handTransform.transform.parent.transform.up );
+		_o.handTransform.eulerAngles = new Vector3( _o.handTransform.eulerAngles.x + 180, _o.handTransform.eulerAngles.y, _o.handTransform.eulerAngles.z );
+		Debug.DrawLine( _o.handTransform.position, _o.handTransform.transform.parent.transform.up * 10f, Color.yellow );
 		float speed = _o.pointSpeed * Time.deltaTime;
 
 		if ( _o.pointState == PointState.Holding )

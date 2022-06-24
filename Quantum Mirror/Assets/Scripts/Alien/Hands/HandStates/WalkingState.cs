@@ -45,7 +45,7 @@ public class WalkingState : State<HandController>
         Ray ray = new Ray( _o.ikManager.body.position + _o.footSpacing * 2f, Vector3.down );
         Debug.DrawRay( ray.origin, ray.direction * 10f, Color.white );
 
-        if ( Physics.Raycast( ray, out RaycastHit info, 10, _o.terrainLayer.value ) )
+        if ( Physics.Raycast( ray, out RaycastHit info, 20, _o.terrainLayer.value ) )
         {
             if ( Vector3.Distance( _o.newPosition, info.point ) > _o.stepDistance * Random.Range( _o.stepDistRandomization.x, _o.stepDistRandomization.y ) && 
                 _o.lerp >= 1 )
@@ -86,6 +86,13 @@ public class WalkingState : State<HandController>
 
             _o.currentPosition = tempPosition;
             _o.lerp += Time.deltaTime * _o.walkSpeed;
+
+            if ( _o.lerp >= 1f )
+			{
+                _o.handStepSource.source.clip = _o.handStepSource.clips[ Random.Range( 0, _o.handStepSource.clips.Length - 1 ) ];
+                _o.handStepSource.source.pitch = Random.Range( _o.pitchRandomizationRange.x, _o.pitchRandomizationRange.y );
+                _o.handStepSource.source.Play();
+            }
         }
         else
         {
