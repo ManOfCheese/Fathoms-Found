@@ -28,10 +28,13 @@ public class AlienManager : MonoBehaviour
     [HideInInspector] public AlienMovementController mc;
     [HideInInspector] public AlienIKManager ikManager;
 
+    private AudioSource audioSource;
+
     private void Awake()
     {
         mc = GetComponent<AlienMovementController>();
         ikManager = GetComponent<AlienIKManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 	private void Update()
@@ -98,6 +101,12 @@ public class AlienManager : MonoBehaviour
             gestureCircle = _gestureCircle;
         }
     }
+
+    public void PlaySound( AudioClip _clip )
+	{
+        audioSource.clip = _clip;
+        audioSource.Play();
+	}
 
 	private void OnDrawGizmos()
 	{

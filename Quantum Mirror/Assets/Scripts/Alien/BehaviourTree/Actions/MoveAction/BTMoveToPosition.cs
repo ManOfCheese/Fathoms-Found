@@ -26,8 +26,8 @@ public class BTMoveToPosition : BTMove
                 context.mc.agent.destination = context.manager.lastHeardTremor.position;
             }
         }
-        Vector3 toDestinationVector = ( context.mc.agent.destination - context.animator.transform.position ).normalized;
-        context.animator.transform.rotation = Quaternion.Euler( 0f, AngleBetweenVector2( Vector2.left, new Vector2( toDestinationVector.x, toDestinationVector.z ) ), 0f );
+        //Vector3 toDestinationVector = ( context.mc.agent.destination - context.animator.transform.position ).normalized;
+        //context.animator.transform.rotation = Quaternion.Euler( 0f, AngleBetweenVector2( Vector2.left, new Vector2( toDestinationVector.x, toDestinationVector.z ) ), 0f );
 
         return base.OnUpdate();
     }
