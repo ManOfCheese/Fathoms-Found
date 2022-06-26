@@ -8,7 +8,9 @@ public class BTCheckBBValue : BTDecoratorNode
 
     public Blackboard.BlackboardValueType valueType;
     public string key;
+	public bool notNull;
 	[Space( 10 )]
+	public List<Vector3> positionListValue = new List<Vector3>();
 	public GameObject gameObjectValue;
 	public bool boolValue;
     public int intValue;
@@ -26,31 +28,69 @@ public class BTCheckBBValue : BTDecoratorNode
     protected override State OnUpdate() {
 		if ( blackboard != null )
 		{
-			switch ( valueType )
+			if ( notNull )
 			{
-				case Blackboard.BlackboardValueType.GameObject:
-					if ( blackboard.gameObjects[ key ] == gameObjectValue ) return child.Update();
-					break;
-				case Blackboard.BlackboardValueType.Bool:
-					if ( blackboard.bools[ key ] == boolValue ) return child.Update();
-					break;
-				case Blackboard.BlackboardValueType.String:
-					if ( blackboard.strings[ key ] == stringValue ) return child.Update();
-					break;
-				case Blackboard.BlackboardValueType.Int:
-					if ( blackboard.ints[ key ] == intValue ) return child.Update();
-					break;
-				case Blackboard.BlackboardValueType.Float:
-					if ( blackboard.floats[ key ] == floatValue ) return child.Update();
-					break;
-				case Blackboard.BlackboardValueType.Vector3:
-					if ( blackboard.vector3s[ key ] == vector3Value ) return child.Update();
-					break;
-				case Blackboard.BlackboardValueType.Vector2:
-					if ( blackboard.vector2s[ key ] == vector2Value ) return child.Update();
-					break;
-				default:
-					break;
+				switch ( valueType )
+				{
+					case Blackboard.BlackboardValueType.PositionList:
+						if ( blackboard.GetData( key, new List<Vector3>() ) != null ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.GameObject:
+						if ( blackboard.GetData( key, new GameObject() ) != null ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Bool:
+						if ( blackboard.GetData( key, new bool() ) != false ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.String:
+						if ( blackboard.GetData( key, "" ) != "" ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Int:
+						if ( blackboard.GetData( key, new int() ) != 0 ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Float:
+						if ( blackboard.GetData( key, new float() ) != 0f ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Vector3:
+						if ( blackboard.GetData( key, new Vector3() ) != Vector3.zero ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Vector2:
+						if ( blackboard.GetData( key, new Vector2() ) != Vector2.zero ) return child.Update();
+						break;
+					default:
+						break;
+				}
+			}
+			else
+			{
+				switch ( valueType )
+				{
+					case Blackboard.BlackboardValueType.PositionList:
+						if ( blackboard.GetData( key, new List<Vector3>() ) == positionListValue ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.GameObject:
+						if ( blackboard.GetData( key, new GameObject() ) == gameObjectValue ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Bool:
+						if ( blackboard.GetData( key, new bool() ) == boolValue ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.String:
+						if ( blackboard.GetData( key, "" ) == stringValue ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Int:
+						if ( blackboard.GetData( key, new int() ) == intValue ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Float:
+						if ( blackboard.GetData( key, new float() ) == floatValue ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Vector3:
+						if ( blackboard.GetData( key, new Vector3() ) == vector3Value ) return child.Update();
+						break;
+					case Blackboard.BlackboardValueType.Vector2:
+						if ( blackboard.GetData( key, new Vector2() ) == vector2Value ) return child.Update();
+						break;
+					default:
+						break;
+				}
 			}
 		}
 		return State.Failure;

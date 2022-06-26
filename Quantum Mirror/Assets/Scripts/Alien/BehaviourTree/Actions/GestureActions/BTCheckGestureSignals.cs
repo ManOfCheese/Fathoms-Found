@@ -14,13 +14,13 @@ public class BTCheckGestureSignals : BTActionNode
     protected override State OnUpdate() {
         if ( context.manager.gestureSignal.gestureCircle != null )
         {
-            blackboard.AddData( "moveToPosition", blackboard.vector3s, context.manager.gestureSignal.gestureCircle.gesturePosition.position );
+            if ( context.manager.gestureSignal.gestureCircle.twoWayCircle )
+                blackboard.AddData( "moveToPosition", context.manager.gestureSignal.gestureCircle.otherCircle.gesturePosition.position );
+            else
+                blackboard.AddData( "moveToPosition", context.manager.gestureSignal.gestureCircle.gesturePosition.position );
             return State.Success;
         }
         else
-        {
-            blackboard.AddData( "gestureSignalDetected", blackboard.bools, false );
             return State.Failure;
-        }
     }
 }

@@ -112,11 +112,19 @@ public class SubCircle : MonoBehaviour
 		if ( !isCentreCircle )
 		{
 			bool anyFingerOpen = false;
-			for ( int i = 0; i < fingerSprites.Length - 1; i++ )
+			for ( int i = 0; i < fingerSprites.Length; i++ )
 			{
-				fingerSprites[ i + 1 ].enabled = word.fingers[ i ];
-				if ( word.fingers[ i ] )
-					anyFingerOpen = true;
+				if ( gestureCircle.usePlayerSprites )
+					fingerSprites[ i ].sprite = gestureCircle.playerClawSprite[ i ];
+				else
+					fingerSprites[ i ].sprite = gestureCircle.alienClawSprite[ i ];
+
+				if ( i != 0 )
+				{
+					fingerSprites[ i ].enabled = word.fingers[ i - 1 ];
+					if ( word.fingers[ i - 1 ] )
+						anyFingerOpen = true;
+				}
 			}
 			if ( anyFingerOpen )
 				fingerSprites[ 0 ].enabled = true;

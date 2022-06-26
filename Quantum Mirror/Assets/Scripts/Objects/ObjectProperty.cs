@@ -60,7 +60,7 @@ public class ObjectProperty : MonoBehaviour
 			if ( !valueIsOver )
 			{
 				valueIsOver = true;
-				fader.Crossfade( currentSource, highValueChangeSource, 1f, 0f, crossFadeDuration );
+				fader.Crossfade( currentSource, highValueChangeSource, 1f, 0f, crossFadeDuration, false );
 				currentSource = highValueChangeSource;
 			}
 
@@ -93,7 +93,7 @@ public class ObjectProperty : MonoBehaviour
 			if ( valueIsOver )
 			{
 				valueIsOver = false;
-				fader.Crossfade( currentSource, lowValueChangeSource, 1f, 0f, crossFadeDuration );
+				fader.Crossfade( currentSource, lowValueChangeSource, 1f, 0f, crossFadeDuration, false );
 				currentSource = lowValueChangeSource;
 			}
 
@@ -123,7 +123,7 @@ public class ObjectProperty : MonoBehaviour
 		}
 		else
 		{
-			fader.Crossfade( currentSource, passiveSource, 1f, 0f, crossFadeDuration );
+			fader.Crossfade( currentSource, passiveSource, 1f, 0f, crossFadeDuration, false );
 			currentSource = passiveSource;
 		}
 	}

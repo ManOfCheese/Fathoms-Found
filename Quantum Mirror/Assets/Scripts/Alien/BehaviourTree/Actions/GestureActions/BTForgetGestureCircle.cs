@@ -7,6 +7,11 @@ public class BTForgetGestureCircle : BTActionNode
 {
     protected override void OnStart() {
         context.manager.gestureCircle = null;
+        if ( context.ikManager.gestureHand != null )
+        {
+            context.ikManager.gestureHand.stateMachine.ChangeState( context.ikManager.statesByName[ "WalkingState" ] );
+            context.ikManager.gestureHand = null;
+        }
     }
 
     protected override void OnStop() {

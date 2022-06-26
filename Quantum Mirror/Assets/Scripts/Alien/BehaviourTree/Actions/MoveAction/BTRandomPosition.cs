@@ -15,7 +15,7 @@ public class BTRandomPosition : BTBBActionNode
     }
 
     protected override State OnUpdate() {
-        blackboard.AddData( "moveToPosition", blackboard.vector3s, new Vector3( Random.Range(min.x, max.x), 0f, Random.Range( min.y, max.y ) ) );
+        blackboard.AddData( "moveToPosition", new Vector3( Random.Range(min.x, max.x), 0f, Random.Range( min.y, max.y ) ) );
         return State.Success;
     }
 }

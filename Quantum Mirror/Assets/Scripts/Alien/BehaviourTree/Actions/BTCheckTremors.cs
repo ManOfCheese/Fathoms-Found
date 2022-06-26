@@ -14,12 +14,10 @@ public class BTCheckTremors : BTActionNode
     protected override State OnUpdate() {
         if ( context.manager.lastHeardTremor.position != Vector3.zero )
 		{
-            blackboard.AddData( "moveToPosition", blackboard.vector3s, context.manager.lastHeardTremor.position );
+            blackboard.AddData( "moveToPosition", context.manager.lastHeardTremor.position );
             return State.Success;
         }
 		else
-		{
             return State.Failure;
-        }
     }
 }

@@ -15,6 +15,7 @@ namespace TheKiwiCoder {
 
         public enum BlackboardValueType
         {
+            PositionList,
             GameObject,
             Bool,
             String,
@@ -26,70 +27,56 @@ namespace TheKiwiCoder {
 
         public bool foldoutStatus = true;
 
-        [SerializeField] public Dictionary<string, GameObject> gameObjects = new Dictionary<string, GameObject>();
-        [SerializeField] public Dictionary<string, bool> bools = new Dictionary<string, bool>();
-        [SerializeField] public Dictionary<string, string> strings = new Dictionary<string, string>();
-        [SerializeField] public Dictionary<string, int> ints = new Dictionary<string, int>();
-        [SerializeField] public Dictionary<string, float> floats = new Dictionary<string, float>();
-        [SerializeField] public Dictionary<string, Vector3> vector3s = new Dictionary<string, Vector3>();
-        [SerializeField] public Dictionary<string, Vector2> vector2s = new Dictionary<string, Vector2>();
+        [SerializeField] public Dictionary<string, object> values = new Dictionary<string, object>();
 
-        public bool AddData<T, L>(string key, T dict, L value) where T : Dictionary<string, L>
+        public bool AddData<L>( string key, L value )
 		{
-            if ( dict != null )
+            if ( value != null )
 			{
-                if ( value != null )
-				{
-                    if ( !dict.ContainsKey( key ) )
-                        dict.Add( key, value );
-                    else
-                        dict[ key ] = value;
-                    return true;
-				}
+                if ( !values.ContainsKey( key ) )
+                    values.Add( key, value );
+                else
+                    values[ key ] = value;
+                return true;
 			}
             return false;
 		}
 
-        public bool RemoveData<T, L>( string key, T dict, L value ) where T : Dictionary<string, L>
+        public bool RemoveData( string key )
         {
-            if ( dict != null )
-            {
-                if ( value != null )
-                {
-                    if ( dict.ContainsKey( key ) )
-					{
-                        dict.Remove( key );
-                        return true;
-                    }
-                }
+            if ( values.ContainsKey( key ) )
+			{
+                values.Remove( key );
+                return true;
             }
             return false;
         }
 
-        public K GetData<T, K>( string key, T dict, K dataType ) where T : Dictionary<string, K>
+        public K GetData<K>( string key, K dataType )
 		{
-            if ( dict != null )
+            if ( dataType != null )
 			{
-                if ( dataType != null )
-				{
-                    if ( dict.ContainsKey( key ) )
-                        return ( K )dict[ key ];
-				}
+                if ( values.ContainsKey( key ) )
+                    return ( K )values[ key ];
 			}
             return default( K );
 		}
 
         public bool IncrementInt( string intName )
 		{
-            if ( !ints.ContainsKey( intName ) ) return false;
-            ints[ intName ]++;
+            if ( !values.ContainsKey( intName ) ) return false;
+            int intToIncrement = (int)values[ intName ];
+            intToIncrement++;
+            AddData( intName, intToIncrement );
             return true;
 		}
 
         public bool DecrementInt( string intName )
 		{
-            if ( !ints.ContainsKey( intName ) ) return false;
-            ints[ intName ]--;
+            if ( !values.ContainsKey( intName ) ) return false;
+            int intToIncrement = ( int )values[ intName ];
+            intToIncrement--;
+            AddData( intName, intToIncrement );
             return true;
         }
     }
