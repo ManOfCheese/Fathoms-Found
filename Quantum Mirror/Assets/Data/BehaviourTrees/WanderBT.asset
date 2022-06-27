@@ -97,7 +97,6 @@ MonoBehaviour:
   - {fileID: 6999145153323897145}
   - {fileID: -3158502937003684443}
   - {fileID: 1109534329568035817}
-  - {fileID: 7684626707536049337}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
 --- !u!114 &734924273366472062
 MonoBehaviour:
@@ -143,6 +142,8 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: 5915317904842557044}
+  checkMode: 0
+  wordsToMatch: []
   gCode: 3345110111100
 --- !u!114 &1006355049228297879
 MonoBehaviour:
@@ -188,8 +189,10 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: 5502251445852675238}
-  valueType: 1
+  valueType: 2
   key: tremorDetected
+  notNull: 0
+  positionListValue: []
   gameObjectValue: {fileID: 0}
   boolValue: 1
   intValue: 0
@@ -219,7 +222,7 @@ MonoBehaviour:
   drawGizmos: 0
   children:
   - {fileID: 8414121819175676279}
-  - {fileID: 7684626707536049337}
+  - {fileID: 5823771809123454293}
 --- !u!114 &2358798011550485074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,16 +284,14 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: e5f17621cc2d2724ab6a50f1f97ccbba
-  position: {x: 407, y: 324}
+  position: {x: 163, y: 191}
   blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   overrideAgentSettings: 0
+  tolerance: 0
   speed: 5
-  stoppingDistance: 0.1
-  updateRotation: 1
-  acceleration: 40
   interruptable: 1
 --- !u!114 &5915317904842557044
 MonoBehaviour:
@@ -313,10 +314,8 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   overrideAgentSettings: 0
+  tolerance: 0
   speed: 5
-  stoppingDistance: 0.1
-  updateRotation: 1
-  acceleration: 40
   objects: {fileID: 11400000, guid: 33c154f9e55971a46b5c3fda83012ed3, type: 2}
 --- !u!114 &6019695646697679199
 MonoBehaviour:
@@ -391,32 +390,10 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   overrideAgentSettings: 0
+  tolerance: 0
   speed: 5
-  stoppingDistance: 0.1
-  updateRotation: 1
-  acceleration: 40
---- !u!114 &7684626707536049337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61431bba79d7d7843b82bf1de71703f5, type: 3}
-  m_Name: BTSequencer
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 8ad4e35269865c6438bcc684b8a2ec0b
-  position: {x: 406, y: 191}
-  blackboard: {fileID: 11400000, guid: 0507873031397d04899cb31afc6b1d88, type: 2}
-  parentTree: {fileID: 0}
-  description: 
-  drawGizmos: 0
-  children:
-  - {fileID: 5823771809123454293}
+  followTremors: 0
+  moveForwards: 0
 --- !u!114 &8414121819175676279
 MonoBehaviour:
   m_ObjectHideFlags: 0
