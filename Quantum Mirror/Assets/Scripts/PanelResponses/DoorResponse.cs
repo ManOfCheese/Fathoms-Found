@@ -11,6 +11,7 @@ public class DoorResponse : MonoBehaviour
     public Animator wire;
     public Animator solution;
     public Animator panel;
+    public AudioSource Sound;
 
     private bool correctInput;
     private bool closeWhenDone;
@@ -33,6 +34,8 @@ public class DoorResponse : MonoBehaviour
     IEnumerator CorrectInput()
     {
         correctInput = true;
+        if ( Sound != null )
+            Sound.Play();
 
         if ( panel != null )
             panel.SetBool( "Active", true );
