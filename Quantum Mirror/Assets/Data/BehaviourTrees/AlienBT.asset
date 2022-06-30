@@ -98,6 +98,7 @@ MonoBehaviour:
   - {fileID: 1531391850754289109}
   - {fileID: -4531702231319865835}
   - {fileID: -3769722819470853077}
+  - {fileID: -2992386725337790386}
   - {fileID: -1220376824646281805}
   - {fileID: -7163197033134993513}
 --- !u!114 &-8057730888614740652
@@ -165,7 +166,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 0ef512b1851a69a4da0fb93f3ef948ae
-  position: {x: 2385.0002, y: 1083}
+  position: {x: 2514, y: 1083}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -614,7 +615,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   gestureMode: 1
-  sentence: {fileID: 11400000, guid: e7ff94e125a681a49871057cbcc6cb44, type: 2}
+  sentence: {fileID: 0}
   overrideStandardSettings: 0
   gestureSpeed: 3
   holdGestureFor: 1
@@ -705,6 +706,27 @@ MonoBehaviour:
   floatValue: 0
   vector3Value: {x: 0, y: 0, z: 0}
   vector2Value: {x: 0, y: 0}
+--- !u!114 &-2992386725337790386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5134d9de14153468b48928d3e7359a, type: 3}
+  m_Name: BTWait
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f8c81c2aa3d4518489cea6513142791e
+  position: {x: 2207, y: 1083}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  duration: 3
 --- !u!114 &-2775225987445651019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,7 +982,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: a944af2cb5e1b0a4bb28b463b7ec70b9
-  position: {x: 2228.0002, y: 1083}
+  position: {x: 2357, y: 1083}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1329,6 +1351,7 @@ MonoBehaviour:
   - {fileID: 6433474421444298014}
   - {fileID: 5006259510840142657}
   - {fileID: 8180357169770883283}
+  - {fileID: -2992386725337790386}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
 --- !u!114 &7653787243133360
 MonoBehaviour:
