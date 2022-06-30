@@ -340,7 +340,6 @@ GameObject:
   m_Component:
   - component: {fileID: 993810976}
   - component: {fileID: 993810977}
-  - component: {fileID: 993810978}
   m_Layer: 0
   m_Name: InvisWallchecker
   m_TagString: Player
@@ -375,22 +374,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &993810978
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 993810975}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &269241598616196681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +989,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5095047175357314275}
-  - component: {fileID: 987326664}
   - component: {fileID: 987326663}
   m_Layer: 7
   m_Name: Head_PREF
@@ -1032,22 +1014,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &987326664
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6492768507793100768}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!135 &987326663
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5414,6 +5380,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4edf0ff43ba23f84281cfa5c31155c5e, type: 3}
+--- !u!4 &319642526708445305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7519776565596466995, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7796863309637984074}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &436456592357137759 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7654605526091465237, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
@@ -5423,12 +5395,6 @@ GameObject:
 --- !u!4 &4991102486431336916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2988121424825194142, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7796863309637984074}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &319642526708445305 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7519776565596466995, guid: 4edf0ff43ba23f84281cfa5c31155c5e,
     type: 3}
   m_PrefabInstance: {fileID: 7796863309637984074}
   m_PrefabAsset: {fileID: 0}
