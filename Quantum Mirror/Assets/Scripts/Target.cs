@@ -8,12 +8,20 @@ public class Target : MonoBehaviour
     public RunTimeSet<Transform> set;
 	public Transform actualTarget;
 
-	private void Start()
+	private void OnEnable()
 	{
 		if ( actualTarget == null )
 			set.Add( transform );
 		else
 			set.Add( actualTarget );
+	}
+
+	private void OnDisable()
+	{
+		if ( actualTarget == null )
+			set.Remove( transform );
+		else
+			set.Remove( actualTarget );
 	}
 
 	private void OnApplicationQuit()

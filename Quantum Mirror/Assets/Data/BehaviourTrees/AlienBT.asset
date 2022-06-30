@@ -251,7 +251,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: c0df321da5be826498f35d14b501002d
-  position: {x: 2238.0005, y: 1394.0002}
+  position: {x: 1714.9504, y: 1392.0002}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -259,8 +259,6 @@ MonoBehaviour:
   children:
   - {fileID: 3735530880745916464}
   - {fileID: 7873711133513597179}
-  - {fileID: 5006259510840142657}
-  - {fileID: 8180357169770883283}
 --- !u!114 &-5539790860132803348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,7 +1112,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 2cfc6ac18e431dd4daf8021682186304
-  position: {x: 1558.0001, y: 1290.0002}
+  position: {x: 1399.0001, y: 1290.0002}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1347,11 +1345,9 @@ MonoBehaviour:
   - {fileID: 7873711133513597179}
   - {fileID: -1263002190787294333}
   - {fileID: -7163197033134993513}
-  - {fileID: 6977106700333030532}
-  - {fileID: 6433474421444298014}
-  - {fileID: 5006259510840142657}
-  - {fileID: 8180357169770883283}
   - {fileID: -2992386725337790386}
+  - {fileID: 6280935694416734941}
+  - {fileID: 8287068339070647665}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
 --- !u!114 &7653787243133360
 MonoBehaviour:
@@ -1470,7 +1466,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: ff00254f9ea73f747bc2e0d7897eb1d8
-  position: {x: 1558.0001, y: 1389.0002}
+  position: {x: 1399.0001, y: 1389.0002}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1478,8 +1474,6 @@ MonoBehaviour:
   children:
   - {fileID: 7195202845936508769}
   - {fileID: -1263002190787294333}
-  - {fileID: 6977106700333030532}
-  - {fileID: 6433474421444298014}
 --- !u!114 &1531391850754289109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1562,7 +1556,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 07e8d25148af1454bb9b12af47273ea2
-  position: {x: 2238.0005, y: 1290.0002}
+  position: {x: 1714.9504, y: 1288.0002}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1761,7 +1755,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 3e8a1480c9299354eb815b35fde0aa60
-  position: {x: 1993.0005, y: 1519.0002}
+  position: {x: 1639.9503, y: 1519.0002}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -1864,7 +1858,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 3e7577160b7a24145a3c19b410076dcf
-  position: {x: 2405.0007, y: 1288.0002}
+  position: {x: 1881.9502, y: 1286.0002}
   blackboard: {fileID: 0}
   parentTree: {fileID: 0}
   description: 
@@ -2005,35 +1999,6 @@ MonoBehaviour:
   key: objectTargets
   positionListValue: []
   objectTargets: {fileID: 11400000, guid: 6017bef5106af1648bbc6ecf3cceaa4e, type: 2}
---- !u!114 &5006259510840142657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
-  m_Name: BTSetBBValue
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: f5766d4ece0e8f144917413287699248
-  position: {x: 2313.0002, y: 1521.0002}
-  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
-  parentTree: {fileID: 0}
-  description: 
-  drawGizmos: 0
-  valueType: 6
-  key: wanderCentre
-  gameObjectValue: {fileID: 0}
-  boolValue: 0
-  intValue: 0
-  stringValue: 
-  floatValue: 0
-  vector3Value: {x: 145, y: 315, z: 112}
-  vector2Value: {x: 0, y: 0}
 --- !u!114 &5168775154592068029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2115,6 +2080,30 @@ MonoBehaviour:
   key: objectTargets
   positionListValue: []
   objectTargets: {fileID: 11400000, guid: 5066197ba85ee2d4d8f28eb8389ae658, type: 2}
+--- !u!114 &6280935694416734941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38054742cdf25a498cbfdff3a7a5f23, type: 3}
+  m_Name: BTCheckGesture
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 0a5bd2074ab2a3b4d8bb6bd2fe5f264b
+  position: {x: -1172, y: 1540}
+  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
+  parentTree: {fileID: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: 8287068339070647665}
+  checkMode: 2
+  wordsToMatch: []
+  gCode: 14110
 --- !u!114 &6281549555744275131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2145,35 +2134,6 @@ MonoBehaviour:
   intValue: 0
   stringValue: 
   floatValue: 0
-  vector3Value: {x: 0, y: 0, z: 0}
-  vector2Value: {x: 0, y: 0}
---- !u!114 &6433474421444298014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
-  m_Name: BTSetBBValue
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 443a8063382b68c4a9b19b0abcf5b469
-  position: {x: 1794.4004, y: 1519.0002}
-  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
-  parentTree: {fileID: 0}
-  description: 
-  drawGizmos: 0
-  valueType: 5
-  key: wanderRadius
-  gameObjectValue: {fileID: 0}
-  boolValue: 0
-  intValue: 0
-  stringValue: 
-  floatValue: 30
   vector3Value: {x: 0, y: 0, z: 0}
   vector2Value: {x: 0, y: 0}
 --- !u!114 &6503978363100231383
@@ -2240,6 +2200,7 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   children:
+  - {fileID: 6280935694416734941}
   - {fileID: -2566320680527660701}
   - {fileID: -3832548918254427399}
   - {fileID: -3690997984218164598}
@@ -2250,35 +2211,6 @@ MonoBehaviour:
   - {fileID: -3988787855403744452}
   - {fileID: -1213948719588816532}
   - {fileID: 9009580020719353447}
---- !u!114 &6977106700333030532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
-  m_Name: BTSetBBValue
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: a4d2a93b0b1b0ec47aa9065addf5ec38
-  position: {x: 1633.2002, y: 1519.0002}
-  blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
-  parentTree: {fileID: 0}
-  description: 
-  drawGizmos: 0
-  valueType: 6
-  key: wanderCentre
-  gameObjectValue: {fileID: 0}
-  boolValue: 0
-  intValue: 0
-  stringValue: 
-  floatValue: 0
-  vector3Value: {x: 145, y: 315, z: 112}
-  vector2Value: {x: 0, y: 0}
 --- !u!114 &7195202845936508769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2343,7 +2275,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: d7102a31eebd37246bfeeb9303350294
-  position: {x: 2153.0005, y: 1519.0002}
+  position: {x: 1799.9502, y: 1519.0002}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
@@ -2357,7 +2289,7 @@ MonoBehaviour:
   floatValue: 0
   vector3Value: {x: 0, y: 0, z: 0}
   vector2Value: {x: 0, y: 0}
---- !u!114 &8180357169770883283
+--- !u!114 &8287068339070647665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2366,26 +2298,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f4ff677e940a964a88b6a51c2d8ab96, type: 3}
-  m_Name: BTSetBBValue
+  m_Script: {fileID: 11500000, guid: 9382536f487090f4f9b4db2f8bc20771, type: 3}
+  m_Name: BTSetBBPositionList
   m_EditorClassIdentifier: 
   state: 0
   started: 0
-  guid: 7925605bed4d9ff49ac58335b78d764b
-  position: {x: 2475.0005, y: 1521.0002}
+  guid: 630a96b3e52ba9c44a0310830c90ad83
+  position: {x: -1174, y: 1643.0002}
   blackboard: {fileID: 11400000, guid: 2120a891ae1a70b4eaca82f89295d6ce, type: 2}
   parentTree: {fileID: 0}
   description: 
   drawGizmos: 0
   valueType: 0
-  key: wanderRadius
-  gameObjectValue: {fileID: 0}
-  boolValue: 0
-  intValue: 0
-  stringValue: 
-  floatValue: 30
-  vector3Value: {x: 0, y: 0, z: 0}
-  vector2Value: {x: 0, y: 0}
+  key: objectTargets
+  positionListValue: []
+  objectTargets: {fileID: 11400000, guid: 379368556d9d59f45ad7a61f4fbca860, type: 2}
 --- !u!114 &8518241790179785087
 MonoBehaviour:
   m_ObjectHideFlags: 0

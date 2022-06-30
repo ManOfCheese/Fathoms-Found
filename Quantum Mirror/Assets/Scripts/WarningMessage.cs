@@ -18,7 +18,7 @@ public class WarningMessage : MonoBehaviour
     private void OnCollisionExit( Collision collision )
     {
         if ( collision.gameObject.CompareTag( "Player" ) )
-            Errorpopup.SetBool( "Warning", false ) ;
+            Errorpopup.SetBool( "Warning", false );
     }
 
 }

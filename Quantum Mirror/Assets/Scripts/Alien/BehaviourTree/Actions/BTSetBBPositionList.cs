@@ -19,7 +19,7 @@ public class BTSetBBPositionList : BTBBActionNode
     protected override State OnUpdate() {
 		if ( blackboard != null )
 		{
-			if ( objectTargets != null )
+			if ( objectTargets != null && objectTargets.Items != null )
 			{
 				for ( int i = 0; i < objectTargets.Items.Count; i++ )
 					positionListValue.Add( objectTargets.Items[ i ].position );

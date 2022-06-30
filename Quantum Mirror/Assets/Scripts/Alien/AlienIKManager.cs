@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class AlienIKManager : GestureSender
 {
 	[Header( "References" )]
+	public BoolValue paused;
 	public Transform body;
 	public GestureSequence_Set gestureLibrary;
 	public GestureSequence_Set responses;
@@ -97,6 +98,7 @@ public class AlienIKManager : GestureSender
 
 	private void Update()
 	{
+		if ( paused.Value ) {  return; }
 		for ( int i = 0; i < allHands.Count; i++ )
 			allHands[ i ].stateMachine.Update();
 
