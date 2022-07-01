@@ -98,7 +98,7 @@ public class AlienIKManager : GestureSender
 
 	private void Update()
 	{
-		if ( paused.Value ) {  return; }
+		//if ( paused.Value ) {  return; }
 		for ( int i = 0; i < allHands.Count; i++ )
 			allHands[ i ].stateMachine.Update();
 
