@@ -7,6 +7,7 @@ public class GestureCircle : MonoBehaviour
 {
 
 	[Header( "References" )]
+	public Animator buttonAnimator;
 	public RunTimeSet<GestureCircle> set;
 	[Tooltip( "Where the alien will stand to use the gesture circle" )]
 	public Transform gesturePosition;
@@ -125,6 +126,7 @@ public class GestureCircle : MonoBehaviour
 			if ( Sam.Gesturing.GestureListToGCode( words ) != Sam.Gesturing.GestureSequenceToGCode( activePassword.sentence ) )
 			{
 				activePassword.onRemoved?.Invoke();
+				buttonAnimator.SetTrigger( "TurnOff" );
 				activePassword = null;
 			}
 		}
@@ -139,6 +141,8 @@ public class GestureCircle : MonoBehaviour
 
 	public void ConfirmSentence( int senderID, GestureCircle gestureCircle )
 	{
+		bool correct = false;
+
 		if ( activePassword != null )
 		{
 			if ( Sam.Gesturing.GestureListToGCode( words ) != Sam.Gesturing.GestureSequenceToGCode( activePassword.sentence ) )
@@ -153,14 +157,20 @@ public class GestureCircle : MonoBehaviour
 			if ( Sam.Gesturing.GestureListToGCode( words ) == Sam.Gesturing.GestureSequenceToGCode( passwordActions[ i ].sentence ) )
 			{
 				passwordActions[ i ].onInput?.Invoke();
+				buttonAnimator.SetTrigger( "TurnOn" );
+				correct = true;
 				activePassword = passwordActions[ i ];
 			}
 		}
+
 		if ( usePartialConfirmation && !confirmOnWord.Value )
 		{
 			for ( int i = 0; i < words.Count; i++ )
 				PartialConfirmation( words[ i ] );
 		}
+
+		if ( !correct )
+			buttonAnimator.SetTrigger( "Incorrect" );
 	}
 
 	public void Clear()
