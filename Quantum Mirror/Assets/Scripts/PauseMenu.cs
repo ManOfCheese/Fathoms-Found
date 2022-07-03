@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PauseMenu : MonoBehaviour
 {
 
+	public int menuScene;
 	public int gameScene;
 	public BoolValue paused;
 	public GameObject pauseMenu;
@@ -47,13 +48,16 @@ public class PauseMenu : MonoBehaviour
 
 	public void ExitToDesktop()
 	{
-		Application.Quit();
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		SceneManager.LoadSceneAsync( menuScene, LoadSceneMode.Single );
 	}
 
 	public void Restart()
 	{
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 		SceneManager.LoadSceneAsync( gameScene, LoadSceneMode.Single );
-		OnPause( false );
 	}
 
 }
