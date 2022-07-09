@@ -334,6 +334,10 @@ public class JackOfController : MonoBehaviour {
     }
 	#endregion
 
+	private void OnCollisionEnter( Collision collision )
+	{
+        Debug.Log( collision.other.name );
+	}
 	public void OnDrawGizmos() 
     {
         float radius = playerStartHeight / 4;
